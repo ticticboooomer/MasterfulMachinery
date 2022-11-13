@@ -1,0 +1,116 @@
+package io.ticticboom.mods.mm.setup.model;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import io.ticticboom.mods.mm.Ref;
+import io.ticticboom.mods.mm.setup.MMRegistries;
+import io.ticticboom.mods.mm.structure.IConfiguredStructurePart;
+import io.ticticboom.mods.mm.util.Deferred;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+
+import java.util.*;
+import java.util.function.Consumer;
+
+public record StructureModel(
+        ResourceLocation id,
+        ResourceLocation controllerId,
+        List<List<String>> layout,
+        Map<String, IdentifiedStructurePart> key,
+        List<PlacedStructurePart> flattened
+) {
+    public static StructureModel parse(ResourceLocation id, JsonObject json) {
+        var controllerId = ResourceLocation.tryParse(json.get("controllerId").getAsString());
+        var layout = parseLayout(json.get("layout"));
+        var key = parseKey(json.get("key").getAsJsonObject());
+        var flattened = parseFlattened(key, layout);
+        return new StructureModel(id, controllerId, layout, key, flattened);
+    }
+
+    private static List<List<String>> parseLayout(JsonElement elem) {
+        var result = new ArrayList<List<String>>();
+        for (JsonElement layer : elem.getAsJsonArray()) {
+            var inner = new ArrayList<String>();
+            for (JsonElement row : layer.getAsJsonArray()) {
+                inner.add(row.getAsString());
+            }
+            result.add(inner);
+        }
+        return result;
+    }
+
+    private static Map<String, IdentifiedStructurePart> parseKey(JsonObject json) {
+        var result = new HashMap<String, IdentifiedStructurePart>();
+        for (String s : json.keySet()) {
+            var obj = json.get(s).getAsJsonObject();
+            var partId = ResourceLocation.tryParse(obj.get("id").getAsString());
+            var structurePart = MMRegistries.STRUCTURE_PARTS.getValue(partId);
+            if (structurePart == null) {
+                Ref.LOG.error("structure Part id: {} does not exist in registries", partId);
+            }
+            var config = structurePart.parse(obj);
+            result.put(s, new IdentifiedStructurePart(partId, config));
+        }
+        return result;
+    }
+
+    private static List<PlacedStructurePart> parseFlattened(Map<String, IdentifiedStructurePart> key, List<List<String>> layout) {
+        var controllerPos = findControllerPos(layout);
+        final var result = new ArrayList<PlacedStructurePart>();
+        runWithCoords(layout, x -> result.add(placeStructurePart(key, x, controllerPos)));
+        return result;
+    }
+
+    private static BlockPos findControllerPos(List<List<String>> layout) {
+        final Deferred<BlockPos> controllerPos = new Deferred<>();
+        runWithCoords(layout, x -> {
+            if (x.character == 'C') {
+                controllerPos.set(x.pos);
+            }
+        });
+        return controllerPos.data;
+    }
+
+    private static PlacedStructurePart placeStructurePart(Map<String, IdentifiedStructurePart> key, AnnotatedPos anPos, BlockPos controllerPos) {
+        var relativePos = anPos.pos.subtract(controllerPos);
+        var config = key.get(anPos.character.toString());
+        return new PlacedStructurePart(relativePos, config.id, config.part);
+    }
+
+    private static void runWithCoords(List<List<String>> layout, Consumer<AnnotatedPos> consumer) {
+        int y = 0;
+        int x = 0;
+        int z = 0;
+        Collections.reverse(layout);
+        for (List<String> layer : layout) {
+            for (String row : layer) {
+                for (char c : row.toCharArray()) {
+                    consumer.accept(new AnnotatedPos(new BlockPos(x, y, z), c));
+                    z++;
+                }
+                x++;
+            }
+            y++;
+        }
+    }
+
+    private record AnnotatedPos(
+            BlockPos pos,
+            Character character
+    ) {
+    }
+
+    public record PlacedStructurePart(
+            BlockPos pos,
+            ResourceLocation partId,
+            IConfiguredStructurePart part
+    ) {
+    }
+
+    public record IdentifiedStructurePart(
+            ResourceLocation id,
+            IConfiguredStructurePart part
+    ) {
+    }
+
+}

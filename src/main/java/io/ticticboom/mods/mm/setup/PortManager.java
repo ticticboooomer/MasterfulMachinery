@@ -1,0 +1,44 @@
+package io.ticticboom.mods.mm.setup;
+
+import io.ticticboom.mods.mm.ModRoot;
+import io.ticticboom.mods.mm.block.ControllerBlock;
+import io.ticticboom.mods.mm.block.PortBlock;
+import io.ticticboom.mods.mm.block.entity.ControllerBlockEntity;
+import io.ticticboom.mods.mm.block.entity.PortBlockEntity;
+import io.ticticboom.mods.mm.setup.model.ControllerModel;
+import io.ticticboom.mods.mm.setup.model.PortModel;
+import io.ticticboom.mods.mm.util.Deferred;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraftforge.registries.RegistryObject;
+
+import javax.sound.sampled.Port;
+import java.util.HashMap;
+import java.util.Map;
+
+public class PortManager extends BaseJsonManager {
+    public static Map<ResourceLocation, PortModel> REGISTRY = new HashMap<>();
+
+    public static void load() {
+        var path = getConfigDirectory("ports");
+        var files = loadFiles(path);
+
+        if (files == null) {
+            return;
+        }
+
+        for (var json : files) {
+            var res = PortModel.parse(json);
+            if (res == null) {
+                continue;
+            }
+            REGISTRY.put(res.id(), res);
+            Deferred<RegistryObject<BlockEntityType<?>>> blockEntityType = new Deferred<>();
+            final var block = MMRegistries.BLOCKS.register(res.blockId().getPath(), () -> new PortBlock(res));
+            MMRegistries.ITEMS.register(res.blockId().getPath(), () -> new BlockItem(block.get(), new Item.Properties().tab(ModRoot.MM_GROUP)));
+            blockEntityType.set(MMRegistries.BLOCK_ENTITIES.register(res.blockId().getPath(), () -> BlockEntityType.Builder.of((a, b) -> new PortBlockEntity(blockEntityType.data.get(), a, b)).build(null)));
+        }
+    }
+}

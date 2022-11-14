@@ -38,7 +38,7 @@ public class ControllerManager extends BaseJsonManager {
             final Deferred<RegistryObject<MenuType<?>>> menuType = new Deferred<>();
             final var block = MMRegistries.BLOCKS.register(res.blockId().getPath(), () -> new ControllerBlock(res, blockEntityType.data, menuType.data));
             MMRegistries.ITEMS.register(res.blockId().getPath(), () -> new BlockItem(block.get(), new Item.Properties().tab(ModRoot.MM_GROUP)));
-            blockEntityType.set(MMRegistries.BLOCK_ENTITIES.register(res.blockId().getPath(), () -> BlockEntityType.Builder.of((a, b) -> new ControllerBlockEntity(blockEntityType.data.get(), a, b)).build(null)));
+            blockEntityType.set(MMRegistries.BLOCK_ENTITIES.register(res.blockId().getPath(), () -> BlockEntityType.Builder.of((a, b) -> new ControllerBlockEntity(blockEntityType.data.get(), a, b), block.get()).build(null)));
             menuType.set(MMRegistries.MENU_TYPES.register(res.blockId().getPath(), () -> IForgeMenuType.create((a, b, c) -> new ControllerContainer(a, b, c, menuType.data.get()))));
         }
     }

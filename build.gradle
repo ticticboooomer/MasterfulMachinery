@@ -64,8 +64,11 @@ minecraft {
             property 'forge.enabledGameTestNamespaces', 'examplemod'
 
             mods {
-                examplemod {
+                mm {
                     source sourceSets.main
+                }
+                mmtest {
+                    source sourceSets.test
                 }
             }
         }
@@ -81,8 +84,11 @@ minecraft {
             property 'forge.enabledGameTestNamespaces', 'examplemod'
 
             mods {
-                examplemod {
+                mm {
                     source sourceSets.main
+                }
+                mmtest {
+                    source sourceSets.test
                 }
             }
         }
@@ -109,8 +115,11 @@ minecraft {
             property 'forge.enabledGameTestNamespaces', 'examplemod'
 
             mods {
-                examplemod {
+                mm {
                     source sourceSets.main
+                }
+                mmtest {
+                    source sourceSets.test
                 }
             }
         }
@@ -126,8 +135,11 @@ minecraft {
             args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                examplemod {
+                mm {
                     source sourceSets.main
+                }
+                mmtest {
+                    source sourceSets.test
                 }
             }
         }

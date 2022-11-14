@@ -18,12 +18,12 @@ public class ControllerContainer extends AbstractContainerMenu {
         super(p_38851_, p_38852_);
         this.be = be;
         for (var i = 0; i < 9; i++) {
-            this.addSlot(new Slot(inv, i, i * 18 + 8, 169));
+            this.addSlot(new Slot(inv, i, i * 18 + 7, 198));
         }
 
         for (var x = 0; x < 9; x++) {
             for (var y = 0; y < 3; y++) {
-                this.addSlot(new Slot(inv, x + y * 9 + 9, x * 18 + 8, y * 18 + 111));
+                this.addSlot(new Slot(inv, x + y * 9 + 9, x * 18 + 7, y * 18 + 140));
             }
         }
     }
@@ -31,6 +31,10 @@ public class ControllerContainer extends AbstractContainerMenu {
     @Override
     public boolean stillValid(Player player) {
         return true;
+    }
+
+    public ControllerBlockEntity.DisplayInfo getDisplayInfo() {
+        return this.be.displayInfo;
     }
 
     public ControllerContainer(int windowId, Inventory inv, FriendlyByteBuf data, MenuType<?> type) {

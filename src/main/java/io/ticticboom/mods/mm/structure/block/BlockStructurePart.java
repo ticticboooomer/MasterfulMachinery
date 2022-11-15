@@ -21,6 +21,6 @@ public class BlockStructurePart extends MMStructurePart {
     public boolean validatePlacement(Level level, BlockPos expectedPos, IConfiguredStructurePart config) {
         var currentConfig = (BlockConfiguredStructurePart)config;
         var state = level.getBlockState(expectedPos);
-        return Objects.equals(state.getBlock().getRegistryName(), currentConfig.block());
+        return state.getBlock().getRegistryName().equals(currentConfig.block());
     }
 }

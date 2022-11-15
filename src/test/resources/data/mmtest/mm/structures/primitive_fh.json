@@ -1,0 +1,17 @@
+{
+  "name": {
+    "text": "Primitive Forge Hammer"
+  },
+  "controllerId": "mm:forge_hammer",
+  "layout": [
+    [
+      "CA"
+    ]
+  ],
+  "key": {
+    "A": {
+      "type": "mm:block",
+      "block": "minecraft:glass"
+    }
+  }
+}

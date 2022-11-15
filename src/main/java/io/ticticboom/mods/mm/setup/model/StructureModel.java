@@ -6,7 +6,9 @@ import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.setup.MMRegistries;
 import io.ticticboom.mods.mm.structure.IConfiguredStructurePart;
 import io.ticticboom.mods.mm.util.Deferred;
+import io.ticticboom.mods.mm.util.ParseHelper;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.*;
@@ -14,6 +16,7 @@ import java.util.function.Consumer;
 
 public record StructureModel(
         ResourceLocation id,
+        Component name,
         ResourceLocation controllerId,
         List<List<String>> layout,
         Map<String, IdentifiedStructurePart> key,
@@ -21,10 +24,11 @@ public record StructureModel(
 ) {
     public static StructureModel parse(ResourceLocation id, JsonObject json) {
         var controllerId = ResourceLocation.tryParse(json.get("controllerId").getAsString());
+        var name = ParseHelper.parseName(json.get("name").getAsJsonObject(), "");
         var layout = parseLayout(json.get("layout"));
         var key = parseKey(json.get("key").getAsJsonObject());
         var flattened = parseFlattened(key, layout);
-        return new StructureModel(id, controllerId, layout, key, flattened);
+        return new StructureModel(id, name, controllerId, layout, key, flattened);
     }
 
     private static List<List<String>> parseLayout(JsonElement elem) {
@@ -42,9 +46,12 @@ public record StructureModel(
     private static Map<String, IdentifiedStructurePart> parseKey(JsonObject json) {
         var result = new HashMap<String, IdentifiedStructurePart>();
         for (String s : json.keySet()) {
+            if (s.equals("C")) {
+                continue;
+            }
             var obj = json.get(s).getAsJsonObject();
-            var partId = ResourceLocation.tryParse(obj.get("id").getAsString());
-            var structurePart = MMRegistries.STRUCTURE_PARTS.getValue(partId);
+            var partId = ResourceLocation.tryParse(obj.get("type").getAsString());
+            var structurePart = MMRegistries.STRUCTURE_PARTS.get().getValue(partId);
             if (structurePart == null) {
                 Ref.LOG.error("structure Part id: {} does not exist in registries", partId);
             }
@@ -57,7 +64,12 @@ public record StructureModel(
     private static List<PlacedStructurePart> parseFlattened(Map<String, IdentifiedStructurePart> key, List<List<String>> layout) {
         var controllerPos = findControllerPos(layout);
         final var result = new ArrayList<PlacedStructurePart>();
-        runWithCoords(layout, x -> result.add(placeStructurePart(key, x, controllerPos)));
+        runWithCoords(layout, x -> {
+            if (x.character == 'C') {
+                return;
+            }
+            result.add(placeStructurePart(key, x, controllerPos));
+        });
         return result;
     }
 

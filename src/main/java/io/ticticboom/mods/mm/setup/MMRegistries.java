@@ -22,6 +22,7 @@ import net.minecraftforge.registries.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MMRegistries {
@@ -33,11 +34,11 @@ public class MMRegistries {
     public static DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(ForgeRegistries.CONTAINERS, Ref.ID);
 
     public static Map<ResourceLocation, MMPortTypeEntry> PORTS = new HashMap<>();
-    public static IForgeRegistry<MMStructurePart> STRUCTURE_PARTS;
+    public static Supplier<IForgeRegistry<MMStructurePart>> STRUCTURE_PARTS;
 
     @SubscribeEvent
     public static void on(NewRegistryEvent event) {
-        STRUCTURE_PARTS = event.create(new RegistryBuilder<MMStructurePart>().setType(MMStructurePart.class).setName(Ref.STRUCTURE_PART_REGISTRY)).get();
+        STRUCTURE_PARTS = event.create(new RegistryBuilder<MMStructurePart>().setType(MMStructurePart.class).setName(Ref.STRUCTURE_PART_REGISTRY));
     }
 
     @SubscribeEvent

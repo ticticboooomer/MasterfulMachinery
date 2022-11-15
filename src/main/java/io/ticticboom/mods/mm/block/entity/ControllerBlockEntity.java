@@ -11,6 +11,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -25,6 +26,7 @@ import java.util.Map;
 public class ControllerBlockEntity extends BlockEntity {
 
     public final DisplayInfo displayInfo = new DisplayInfo();
+
     public ControllerBlockEntity(BlockEntityType<?> p_155228_, BlockPos p_155229_, BlockState p_155230_) {
         super(p_155228_, p_155229_, p_155230_);
     }
@@ -58,8 +60,8 @@ public class ControllerBlockEntity extends BlockEntity {
             return;
         }
         var be = ((ControllerBlockEntity) t);
-        var block = (ControllerBlock)blockState.getBlock();
-
+        var block = (ControllerBlock) blockState.getBlock();
+        var foundAny = false;
         for (Map.Entry<ResourceLocation, StructureModel> entry : StructureManager.REGISTRY.entrySet()) {
             var model = entry.getValue();
             if (!model.controllerId().equals(block.model().id())) {
@@ -67,7 +69,7 @@ public class ControllerBlockEntity extends BlockEntity {
             }
             boolean found = true;
             for (StructureModel.PlacedStructurePart placed : model.flattened()) {
-                var part = MMRegistries.STRUCTURE_PARTS.getValue(placed.partId());
+                var part = MMRegistries.STRUCTURE_PARTS.get().getValue(placed.partId());
                 assert part != null;
                 if (!part.validatePlacement(level, blockPos.offset(placed.pos()), placed.part())) {
                     found = false;
@@ -75,12 +77,15 @@ public class ControllerBlockEntity extends BlockEntity {
                 }
             }
             if (found) {
-                // structure found
+                be.displayInfo.structureName = model.name().getContents();
+                foundAny = true;
+                break;
             }
         }
-        be.displayInfo.structureName = String.valueOf(level.getGameTime());
-        be.setChanged();
-        level.sendBlockUpdated(blockPos, blockState, blockState, 3);
+        if (!foundAny) {
+            be.displayInfo.structureName = "";
+            be.forceUpdate();
+        }
     }
 
     public static class DisplayInfo {
@@ -89,7 +94,7 @@ public class ControllerBlockEntity extends BlockEntity {
 
         public CompoundTag serialize() {
             CompoundTag tag = new CompoundTag();
-            if (!StringUtil.isNullOrEmpty(this.structureName)) {
+            if (this.structureName != null) {
                 tag.putString("Structure", this.structureName);
             }
 

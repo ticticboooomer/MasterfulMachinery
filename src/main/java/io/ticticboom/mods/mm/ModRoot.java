@@ -3,7 +3,9 @@ package io.ticticboom.mods.mm;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import io.ticticboom.mods.mm.client.container.ControllerContainer;
+import io.ticticboom.mods.mm.client.container.PortContainer;
 import io.ticticboom.mods.mm.client.screen.ControllerScreen;
+import io.ticticboom.mods.mm.client.screen.PortScreen;
 import io.ticticboom.mods.mm.datagen.DataGenFactory;
 import io.ticticboom.mods.mm.datagen.GeneratedRepoSource;
 import io.ticticboom.mods.mm.datagen.gen.MMBlockStateProvider;
@@ -20,6 +22,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.server.packs.repository.PackRepository;
 import net.minecraft.server.packs.repository.RepositorySource;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -114,6 +117,8 @@ public class ModRoot {
         for (RegistryObject<MenuType<?>> entry : MMRegistries.MENU_TYPES.getEntries()) {
             if (entry.getId().getPath().endsWith("controller")) {
                 MenuScreens.register((MenuType<ControllerContainer>) entry.get(), ControllerScreen::new);
+            } else if (entry.getId().getPath().endsWith("port")) {
+                MenuScreens.register((MenuType<PortContainer>)entry.get(), PortScreen::new);
             }
         }
     }

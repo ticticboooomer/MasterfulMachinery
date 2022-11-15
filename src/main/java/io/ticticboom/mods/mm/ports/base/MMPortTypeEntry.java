@@ -1,6 +1,5 @@
 package io.ticticboom.mods.mm.ports.base;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.block.PortBlock;
@@ -12,6 +11,7 @@ public abstract class MMPortTypeEntry {
     public abstract ResourceLocation id();
     public abstract IConfiguredPort parse(JsonObject element);
     public abstract ResourceLocation overlay(boolean input);
+    public abstract PortStorage createStorage(IConfiguredPort config);
 
     public void generateBlockStates(MMBlockStateProvider provider, PortBlock port) {
         var input = port.model().input();
@@ -23,4 +23,5 @@ public abstract class MMPortTypeEntry {
             provider.simpleBlock(port, new ModelFile.UncheckedModelFile(new ResourceLocation(Ref.ID, "block/" + port.getRegistryName().getPath())));
         }
     }
+
 }

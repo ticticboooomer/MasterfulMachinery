@@ -13,7 +13,8 @@ public class Ref {
     }
 
     public static final ResourceLocation STRUCTURE_PART_REGISTRY = res("structure_parts");
-
+    public static final ResourceLocation PORT_GUI = res("textures/gui/port_gui.png");
+    public static final ResourceLocation SLOT_PARTS = res("textures/gui/slot_parts.png");
     public static final class Ports {
         public static final ResourceLocation ITEM = res("item");
     }

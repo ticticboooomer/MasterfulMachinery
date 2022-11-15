@@ -4,9 +4,8 @@ import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.ports.base.IConfiguredPort;
 import io.ticticboom.mods.mm.ports.base.MMPortTypeEntry;
-import net.minecraft.core.BlockPos;
+import io.ticticboom.mods.mm.ports.base.PortStorage;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.state.BlockState;
 
 public class ItemPortTypeEntry extends MMPortTypeEntry {
     @Override
@@ -24,5 +23,10 @@ public class ItemPortTypeEntry extends MMPortTypeEntry {
     @Override
     public ResourceLocation overlay(boolean input) {
         return input ? Ref.res("block/base_ports/item_input_cutout") : Ref.res("block/base_ports/item_output_cutout");
+    }
+
+    @Override
+    public PortStorage createStorage(IConfiguredPort config) {
+        return new ItemPortStorage(((ItemConfiguredPort) config));
     }
 }

@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.block.entity.ControllerBlockEntity;
 import io.ticticboom.mods.mm.client.container.ControllerContainer;
+import io.ticticboom.mods.mm.util.RenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
@@ -35,9 +36,7 @@ public class ControllerScreen extends AbstractContainerScreen<ControllerContaine
     @Override
     protected void renderBg(PoseStack ms, float pt, int x, int y) {
         this.renderBackground(ms);
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-        RenderSystem.setShaderTexture(0, CGUI);
+        RenderHelper.useTexture(CGUI);
         blit(ms, leftPos, topPos, 0, 0, 189, 254);
     }
 

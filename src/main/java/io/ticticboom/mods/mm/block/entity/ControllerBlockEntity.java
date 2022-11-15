@@ -78,6 +78,7 @@ public class ControllerBlockEntity extends BlockEntity {
             }
             if (found) {
                 be.displayInfo.structureName = model.name().getContents();
+                be.forceUpdate();
                 foundAny = true;
                 break;
             }

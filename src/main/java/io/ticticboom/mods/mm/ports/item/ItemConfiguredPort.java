@@ -6,5 +6,4 @@ public record ItemConfiguredPort(
         int slotRows,
         int slotCols
 ) implements IConfiguredPort {
-
 }

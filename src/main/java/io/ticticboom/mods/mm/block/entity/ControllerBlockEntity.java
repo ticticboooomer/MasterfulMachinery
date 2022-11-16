@@ -1,8 +1,12 @@
 package io.ticticboom.mods.mm.block.entity;
 
 import io.ticticboom.mods.mm.block.ControllerBlock;
+import io.ticticboom.mods.mm.ports.base.PortStorage;
+import io.ticticboom.mods.mm.recipe.RecipeContext;
 import io.ticticboom.mods.mm.setup.MMRegistries;
+import io.ticticboom.mods.mm.setup.model.RecipeModel;
 import io.ticticboom.mods.mm.setup.model.StructureModel;
+import io.ticticboom.mods.mm.setup.reload.RecipeManager;
 import io.ticticboom.mods.mm.setup.reload.StructureManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -21,6 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class ControllerBlockEntity extends BlockEntity {
@@ -63,6 +68,8 @@ public class ControllerBlockEntity extends BlockEntity {
         var block = (ControllerBlock) blockState.getBlock();
         var foundAny = false;
         for (Map.Entry<ResourceLocation, StructureModel> entry : StructureManager.REGISTRY.entrySet()) {
+            var inputPorts = new ArrayList<PortStorage>();
+            var outputPorts = new ArrayList<PortStorage>();
             var model = entry.getValue();
             if (!model.controllerId().equals(block.model().id())) {
                 continue;
@@ -71,21 +78,47 @@ public class ControllerBlockEntity extends BlockEntity {
             for (StructureModel.PlacedStructurePart placed : model.flattened()) {
                 var part = MMRegistries.STRUCTURE_PARTS.get().getValue(placed.partId());
                 assert part != null;
-                if (!part.validatePlacement(level, blockPos.offset(placed.pos()), placed.part())) {
+                BlockPos expectedPos = blockPos.offset(placed.pos());
+                if (!part.validatePlacement(level, expectedPos, placed.part())) {
                     found = false;
                     break;
+                }
+                var port = part.getPortIfPresent(level, expectedPos, placed.part());
+                if (port.isPresent()) {
+                    if (port.get().input()) {
+                        inputPorts.add(port.get().port());
+                    } else {
+                        outputPorts.add(port.get().port());
+                    }
                 }
             }
             if (found) {
                 be.displayInfo.structureName = model.name().getContents();
                 be.forceUpdate();
                 foundAny = true;
+                be.chooseRecipe(model, new RecipeContext(model, inputPorts, outputPorts));
                 break;
             }
         }
         if (!foundAny) {
             be.displayInfo.structureName = "";
             be.forceUpdate();
+        }
+    }
+
+    protected void chooseRecipe(StructureModel model, RecipeContext ctx) {
+        for (Map.Entry<ResourceLocation, RecipeModel> recipe : RecipeManager.REGISTRY.entrySet()) {
+            var found = true;
+            for (RecipeModel.RecipeEntry input : recipe.getValue().inputs()) {
+                var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
+                if (!entry.checkInput(input.config(), ctx)) {
+                    found = false;
+                    break;
+                }
+            }
+            if (found) {
+                
+            }
         }
     }
 
@@ -107,6 +140,5 @@ public class ControllerBlockEntity extends BlockEntity {
                 this.structureName = tag.getString("Structure");
             }
         }
-
     }
 }

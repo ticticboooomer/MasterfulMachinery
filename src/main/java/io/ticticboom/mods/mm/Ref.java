@@ -13,8 +13,10 @@ public class Ref {
     }
 
     public static final ResourceLocation STRUCTURE_PART_REGISTRY = res("structure_parts");
+    public static final ResourceLocation RECIPE_ENTRIES_REGISTRY = res("recipe_entries");
     public static final ResourceLocation PORT_GUI = res("textures/gui/port_gui.png");
     public static final ResourceLocation SLOT_PARTS = res("textures/gui/slot_parts.png");
+
     public static final class Ports {
         public static final ResourceLocation ITEM = res("item");
     }
@@ -22,5 +24,9 @@ public class Ref {
     public static final class StructureParts {
         public static final ResourceLocation BLOCK = res("block");
         public static final ResourceLocation TAG = res("tag");
+    }
+
+    public static final class RecipeEntries {
+        public static final ResourceLocation SIMPLE = res("simple");
     }
 }

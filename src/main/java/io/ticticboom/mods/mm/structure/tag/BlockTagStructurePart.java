@@ -2,14 +2,14 @@ package io.ticticboom.mods.mm.structure.tag;
 
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.Ref;
+import io.ticticboom.mods.mm.ports.base.IOPortStorage;
 import io.ticticboom.mods.mm.structure.IConfiguredStructurePart;
 import io.ticticboom.mods.mm.structure.MMStructurePart;
-import io.ticticboom.mods.mm.structure.block.BlockConfiguredStructurePart;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
+
+import java.util.Optional;
 
 public class BlockTagStructurePart extends MMStructurePart {
     @Override
@@ -23,5 +23,10 @@ public class BlockTagStructurePart extends MMStructurePart {
         var currentConfig = ((BlockTagConfiguredStructurePart) config);
         var state = level.getBlockState(expectedPos);
         return state.getTags().anyMatch(x -> x.toString().equals(currentConfig.tag().toString()));
+    }
+
+    @Override
+    public Optional<IOPortStorage> getPortIfPresent(Level level, BlockPos expectedPos, IConfiguredStructurePart config) {
+        return Optional.empty();
     }
 }

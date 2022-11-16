@@ -4,11 +4,12 @@ import com.google.gson.Gson;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.ports.base.MMPortTypeEntry;
 import io.ticticboom.mods.mm.ports.item.ItemPortTypeEntry;
+import io.ticticboom.mods.mm.recipe.MMRecipeEntry;
+import io.ticticboom.mods.mm.recipe.simple.SimpleRecipeEntry;
 import io.ticticboom.mods.mm.structure.MMStructurePart;
 import io.ticticboom.mods.mm.structure.block.BlockStructurePart;
 import io.ticticboom.mods.mm.structure.tag.BlockTagStructurePart;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -35,17 +36,26 @@ public class MMRegistries {
 
     public static Map<ResourceLocation, MMPortTypeEntry> PORTS = new HashMap<>();
     public static Supplier<IForgeRegistry<MMStructurePart>> STRUCTURE_PARTS;
+    public static Supplier<IForgeRegistry<MMRecipeEntry>> RECIPE_ENTRIES;
 
     @SubscribeEvent
     public static void on(NewRegistryEvent event) {
         STRUCTURE_PARTS = event.create(new RegistryBuilder<MMStructurePart>().setType(MMStructurePart.class).setName(Ref.STRUCTURE_PART_REGISTRY));
+        RECIPE_ENTRIES = event.create(new RegistryBuilder<MMRecipeEntry>().setType(MMRecipeEntry.class).setName(Ref.RECIPE_ENTRIES_REGISTRY));
     }
 
     @SubscribeEvent
-    public static void on(RegistryEvent.Register<MMStructurePart> event) {
+    public static void registerStructureParts(RegistryEvent.Register<MMStructurePart> event) {
         event.getRegistry().registerAll(
                 new BlockStructurePart().setRegistryName(Ref.StructureParts.BLOCK),
                 new BlockTagStructurePart().setRegistryName(Ref.StructureParts.TAG)
+        );
+    }
+
+    @SubscribeEvent
+    public static void registerRecipeEntries(RegistryEvent.Register<MMRecipeEntry> event) {
+        event.getRegistry().registerAll(
+                new SimpleRecipeEntry().setRegistryName(Ref.RecipeEntries.SIMPLE)
         );
     }
 

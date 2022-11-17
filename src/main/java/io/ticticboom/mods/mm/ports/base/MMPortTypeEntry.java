@@ -7,6 +7,8 @@ import io.ticticboom.mods.mm.datagen.gen.MMBlockStateProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.ModelFile;
 
+import java.util.List;
+
 public abstract class MMPortTypeEntry {
     public abstract ResourceLocation id();
     public abstract Class<? extends PortStorage> storageClass();
@@ -14,9 +16,6 @@ public abstract class MMPortTypeEntry {
     public abstract IConfiguredIngredient parseIngredient(JsonObject json);
     public abstract ResourceLocation overlay(boolean input);
     public abstract PortStorage createStorage(IConfiguredPort config);
-    public abstract void calculateIngredients(IConfiguredIngredient ingredient, PortStorage storage, IIngredientContext context);
-    public abstract IIngredientContext createIngredientContext(IConfiguredIngredient ingredient);
-    public abstract boolean validateIngredientContext(IConfiguredIngredient ingredient, IIngredientContext context);
 
     public void generateBlockStates(MMBlockStateProvider provider, PortBlock port) {
         var input = port.model().input();
@@ -29,4 +28,6 @@ public abstract class MMPortTypeEntry {
         }
     }
 
+    public abstract boolean processInputs(IConfiguredIngredient ingredient, List<PortStorage> storage);
+    public abstract boolean processOutputs(IConfiguredIngredient ingredient, List<PortStorage> storage);
 }

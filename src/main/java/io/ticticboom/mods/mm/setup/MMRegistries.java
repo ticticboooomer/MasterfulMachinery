@@ -8,6 +8,7 @@ import io.ticticboom.mods.mm.recipe.MMRecipeEntry;
 import io.ticticboom.mods.mm.recipe.simple.SimpleRecipeEntry;
 import io.ticticboom.mods.mm.structure.MMStructurePart;
 import io.ticticboom.mods.mm.structure.block.BlockStructurePart;
+import io.ticticboom.mods.mm.structure.port.PortStructurePart;
 import io.ticticboom.mods.mm.structure.tag.BlockTagStructurePart;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
@@ -48,7 +49,8 @@ public class MMRegistries {
     public static void registerStructureParts(RegistryEvent.Register<MMStructurePart> event) {
         event.getRegistry().registerAll(
                 new BlockStructurePart().setRegistryName(Ref.StructureParts.BLOCK),
-                new BlockTagStructurePart().setRegistryName(Ref.StructureParts.TAG)
+                new BlockTagStructurePart().setRegistryName(Ref.StructureParts.TAG),
+                new PortStructurePart().setRegistryName(Ref.StructureParts.PORT)
         );
     }
 

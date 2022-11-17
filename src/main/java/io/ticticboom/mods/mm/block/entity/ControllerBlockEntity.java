@@ -16,27 +16,28 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.StringUtil;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Map;
 
 public class ControllerBlockEntity extends BlockEntity {
 
+    private int ticks = 0;
     public final DisplayInfo displayInfo = new DisplayInfo();
+
+    private final DecimalFormat format = new DecimalFormat("###.00");
 
     public ControllerBlockEntity(BlockEntityType<?> p_155228_, BlockPos p_155229_, BlockState p_155230_) {
         super(p_155228_, p_155229_, p_155230_);
     }
 
-    // TODO Probably move this update tags into a generic modded block entity
+
     @Nullable
     @Override
     public Packet<ClientGamePacketListener> getUpdatePacket() {
@@ -106,30 +107,80 @@ public class ControllerBlockEntity extends BlockEntity {
         }
     }
 
+    protected RecipeContext clonePorts(RecipeContext original) {
+        var inputs = new ArrayList<PortStorage>();
+        for (PortStorage port : original.inputPorts()) {
+            inputs.add(port.deepClone());
+        }
+        var outputs = new ArrayList<PortStorage>();
+        for (PortStorage port : original.outputPorts()) {
+            outputs.add(port.deepClone());
+        }
+        return new RecipeContext(original.structure(), inputs, outputs);
+    }
+
+    protected void resetRecipe() {
+        ticks = 0;
+        displayInfo.processStatus = "Idle";
+    }
+
     protected void chooseRecipe(StructureModel model, RecipeContext ctx) {
         for (Map.Entry<ResourceLocation, RecipeModel> recipe : RecipeManager.REGISTRY.entrySet()) {
             var found = true;
+            var cloned = clonePorts(ctx);
             for (RecipeModel.RecipeEntry input : recipe.getValue().inputs()) {
                 var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
-                if (!entry.checkInput(input.config(), ctx)) {
+                if (!entry.processInputs(input.config(), cloned)) {
                     found = false;
                     break;
                 }
             }
             if (found) {
-                
+                ticks++;
+                var percentage = (float)ticks / recipe.getValue().duration();
+                this.displayInfo.processStatus = format.format(100f * percentage) + "% Processing";
+                if (ticks >= recipe.getValue().duration()) {
+                    var canOutput = true;
+                    for (RecipeModel.RecipeEntry input : recipe.getValue().outputs()) {
+                        var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
+                        if (!entry.processOutputs(input.config(), cloned)) {
+                            canOutput = false;
+                            break;
+                        }
+                    }
+                    if (canOutput) {
+                        for (RecipeModel.RecipeEntry input : recipe.getValue().inputs()) {
+                            var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
+                            entry.processInputs(input.config(), ctx);
+                        }
+                        for (RecipeModel.RecipeEntry output : recipe.getValue().outputs()) {
+                            var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(output.type());
+                            entry.processOutputs(output.config(), ctx);
+                        }
+                        resetRecipe();
+                    } else {
+                        this.displayInfo.processStatus = "Cannot Output";
+                    }
+                }
+            } else {
+                resetRecipe();
             }
         }
+        this.forceUpdate();
     }
 
     public static class DisplayInfo {
 
         public String structureName;
+        public String processStatus;
 
         public CompoundTag serialize() {
             CompoundTag tag = new CompoundTag();
             if (this.structureName != null) {
                 tag.putString("Structure", this.structureName);
+            }
+            if (this.processStatus != null) {
+                tag.putString("status", this.processStatus);
             }
 
             return tag;
@@ -138,6 +189,9 @@ public class ControllerBlockEntity extends BlockEntity {
         public void deserialize(CompoundTag tag) {
             if (tag.contains("Structure")) {
                 this.structureName = tag.getString("Structure");
+            }
+            if (tag.contains("status")) {
+                this.processStatus = tag.getString("status");
             }
         }
     }

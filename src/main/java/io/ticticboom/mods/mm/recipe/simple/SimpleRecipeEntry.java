@@ -2,7 +2,6 @@ package io.ticticboom.mods.mm.recipe.simple;
 
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.ports.base.MMPortTypeEntry;
-import io.ticticboom.mods.mm.ports.base.PortStorage;
 import io.ticticboom.mods.mm.recipe.IConfiguredRecipeEntry;
 import io.ticticboom.mods.mm.recipe.MMRecipeEntry;
 import io.ticticboom.mods.mm.recipe.RecipeContext;
@@ -11,8 +10,11 @@ import io.ticticboom.mods.mm.util.RecipeHelper;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.Optional;
+import java.util.Random;
 
 public class SimpleRecipeEntry extends MMRecipeEntry {
+    private final Random rand = new Random();
+
     @Override
     public IConfiguredRecipeEntry parse(JsonObject json) {
         var ingredient = RecipeHelper.parseIngredient(json.get("ingredient").getAsJsonObject());
@@ -24,21 +26,32 @@ public class SimpleRecipeEntry extends MMRecipeEntry {
     }
 
     @Override
-    public boolean checkInput(IConfiguredRecipeEntry config, RecipeContext ctx) {
+    public boolean processInputs(IConfiguredRecipeEntry config, RecipeContext ctx) {
         var conf = (SimpleConfiguredRecipeEntry) config;
+        if (!roll(conf.chance())) {
+            return true;
+        }
         ResourceLocation type = conf.ingredient().type();
         MMPortTypeEntry port = MMRegistries.PORTS.get(type);
-        var ingredientPortClass = port.storageClass();
-        var ingredientCtx = port.createIngredientContext(conf.ingredient().config());
-        for (PortStorage inputPort : ctx.inputPorts()) {
-            if (inputPort.getClass() == ingredientPortClass) {
-                port.calculateIngredients(conf.ingredient().config(), inputPort, ingredientCtx);
-            }
-        }
-        return port.validateIngredientContext(conf.ingredient().config(), ingredientCtx);
+        return port.processInputs(conf.ingredient().config(), ctx.inputPorts());
     }
 
     @Override
-    public void process(IConfiguredRecipeEntry config, RecipeContext ctx) {
+    public boolean processOutputs(IConfiguredRecipeEntry config, RecipeContext ctx) {
+        var conf = (SimpleConfiguredRecipeEntry) config;
+        if (!roll(conf.chance())) {
+            return true;
+        }
+        ResourceLocation type = conf.ingredient().type();
+        MMPortTypeEntry port = MMRegistries.PORTS.get(type);
+        return port.processOutputs(conf.ingredient().config(), ctx.outputPorts());
+    }
+
+    protected boolean roll(Optional<Float> chance) {
+        if (chance.isPresent()) {
+            var random = rand.nextFloat();
+            return random <= chance.get();
+        }
+        return true;
     }
 }

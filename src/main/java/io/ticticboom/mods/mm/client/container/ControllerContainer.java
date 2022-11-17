@@ -17,7 +17,15 @@ public class ControllerContainer extends AbstractContainerMenu {
     protected ControllerContainer(@Nullable MenuType<?> p_38851_, int p_38852_, Inventory inv, ControllerBlockEntity be) {
         super(p_38851_, p_38852_);
         this.be = be;
+        for (var i = 0; i < 9; i++) {
+            addSlot(new Slot(inv, i, i * 18 + 7, 198));
+        }
 
+        for (var x = 0; x < 9; x++) {
+            for (var y = 0; y < 3; y++) {
+                addSlot(new Slot(inv, x + y * 9 + 9, x * 18 + 7, y * 18 + 140));
+            }
+        }
     }
 
     @Override

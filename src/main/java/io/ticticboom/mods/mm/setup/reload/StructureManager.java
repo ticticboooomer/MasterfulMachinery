@@ -29,6 +29,7 @@ public class StructureManager extends SimpleJsonResourceReloadListener {
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> records, ResourceManager resManager, ProfilerFiller profiler) {
+        REGISTRY.clear();
         for (Map.Entry<ResourceLocation, JsonElement> entry : records.entrySet()) {
             REGISTRY.put(entry.getKey(), StructureModel.parse(entry.getKey(), entry.getValue().getAsJsonObject()));
         }

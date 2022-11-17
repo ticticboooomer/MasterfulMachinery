@@ -4,8 +4,14 @@ import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.ports.base.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.List;
 
 public class ItemPortTypeEntry extends MMPortTypeEntry {
+
     @Override
     public ResourceLocation id() {
         return Ref.res("item");
@@ -40,31 +46,62 @@ public class ItemPortTypeEntry extends MMPortTypeEntry {
         return new ItemPortStorage(((ItemConfiguredPort) config));
     }
 
+
     @Override
-    public void calculateIngredients(IConfiguredIngredient ingredient, PortStorage storage, IIngredientContext context) {
-        var itemStorage = (ItemPortStorage) storage;
-        var item = (ItemConfiguredIngredient) ingredient;
-        var ctx = (ItemIngredientContext) context;
+    public boolean processInputs(IConfiguredIngredient ingredient, List<PortStorage> storage) {
+        var conf = (ItemConfiguredIngredient) ingredient;
         var itemCounter = 0;
-        for (int i = 0; i < itemStorage.items.getSlots(); i++) {
-            var slot = itemStorage.items.getStackInSlot(i);
-            if (slot.getItem().getRegistryName().equals(item.item())) {
-                itemCounter += slot.getCount();
+        for (PortStorage portStorage : storage) {
+            if (portStorage instanceof ItemPortStorage itemPortStorage) {
+                for (int i = 0; i < itemPortStorage.items.getSlots(); i++) {
+                    var slot = itemPortStorage.items.getStackInSlot(i);
+                    var requiredAmount = conf.count() - itemCounter;
+                    if (slot.getItem().getRegistryName().equals(conf.item())) {
+                        if (slot.getCount() >= requiredAmount) {
+                            var remains = slot.getCount() - requiredAmount;
+                            itemCounter += requiredAmount;
+                            slot.setCount(remains);
+                        } else {
+                            itemCounter += slot.getCount();
+                            slot.setCount(0);
+                        }
+                    }
+                }
+                if (itemCounter >= conf.count()) {
+                    return true;
+                }
             }
         }
-        ctx.counter += itemCounter;
+        return false;
     }
 
     @Override
-    public IIngredientContext createIngredientContext(IConfiguredIngredient ingredient) {
-        var ing = (ItemConfiguredIngredient) ingredient;
-        return new ItemIngredientContext(ing.item());
-    }
-
-    @Override
-    public boolean validateIngredientContext(IConfiguredIngredient ingredient, IIngredientContext context) {
-        var item = (ItemConfiguredIngredient) ingredient;
-        var ctx = (ItemIngredientContext) context;
-        return ctx.item.equals(item.item()) && ctx.counter >= item.count();
+    public boolean processOutputs(IConfiguredIngredient ingredient, List<PortStorage> storage) {
+        var conf = (ItemConfiguredIngredient) ingredient;
+        var itemCounter = 0;
+        Item item = ForgeRegistries.ITEMS.getValue(conf.item());
+        var maxStack = item.getMaxStackSize();
+        for (PortStorage portStorage : storage) {
+            if (portStorage instanceof ItemPortStorage itemPortStorage) {
+                for (int i = 0; i < itemPortStorage.items.getSlots(); i++) {
+                    var slot = itemPortStorage.items.getStackInSlot(i);
+                    var requiredAmount = conf.count() - itemCounter;
+                    if (slot.getItem().getRegistryName().toString().equals(conf.item().toString())) {
+                        var availableSpace = maxStack - slot.getCount();
+                        int remains = Math.min(availableSpace, requiredAmount);
+                        itemCounter += remains;
+                        slot.setCount(slot.getCount() + remains);
+                    } else if (slot.isEmpty()) {
+                        itemCounter += maxStack;
+                        int remains = Math.min(maxStack, requiredAmount);
+                        itemPortStorage.items.setStackInSlot(i, new ItemStack(item, remains));
+                    }
+                }
+                if (itemCounter >= conf.count()) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

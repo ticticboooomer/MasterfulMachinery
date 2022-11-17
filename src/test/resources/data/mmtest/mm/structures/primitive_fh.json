@@ -5,13 +5,19 @@
   "controllerId": "mm:forge_hammer",
   "layout": [
     [
-      "CA"
+      "ACB"
     ]
   ],
   "key": {
     "A": {
-      "type": "mm:block",
-      "block": "minecraft:glass"
+      "type": "mm:port",
+      "port": "mm:item",
+      "input": true
+    },
+    "B": {
+      "type": "mm:port",
+      "port": "mm:item",
+      "input": false
     }
   }
 }

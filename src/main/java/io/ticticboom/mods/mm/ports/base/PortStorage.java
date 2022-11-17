@@ -31,4 +31,6 @@ public abstract class PortStorage {
     public abstract void renderScreen(PortScreen screen, PoseStack ms);
 
     public abstract void onDestroy(Level level, BlockPos pos);
+
+    public abstract PortStorage deepClone();
 }

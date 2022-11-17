@@ -88,4 +88,14 @@ public class ItemPortStorage extends PortStorage {
     public void onDestroy(Level level, BlockPos pos) {
         Containers.dropContents(level, pos, inv);
     }
+
+    @Override
+    public PortStorage deepClone() {
+        var copy = new ItemPortStorage(config);
+        for (int i = 0; i < copy.items.getSlots(); i++) {
+            var itemClone = this.items.getStackInSlot(i).copy();
+            copy.items.setStackInSlot(i, itemClone);
+        }
+        return copy;
+    }
 }

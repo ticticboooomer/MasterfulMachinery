@@ -24,6 +24,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class ControllerBlockEntity extends BlockEntity {
@@ -75,30 +76,32 @@ public class ControllerBlockEntity extends BlockEntity {
             if (!model.controllerId().equals(block.model().id())) {
                 continue;
             }
-            boolean found = true;
-            for (StructureModel.PlacedStructurePart placed : model.flattened()) {
-                var part = MMRegistries.STRUCTURE_PARTS.get().getValue(placed.partId());
-                assert part != null;
-                BlockPos expectedPos = blockPos.offset(placed.pos());
-                if (!part.validatePlacement(level, expectedPos, placed.part())) {
-                    found = false;
-                    break;
-                }
-                var port = part.getPortIfPresent(level, expectedPos, placed.part());
-                if (port.isPresent()) {
-                    if (port.get().input()) {
-                        inputPorts.add(port.get().port());
-                    } else {
-                        outputPorts.add(port.get().port());
+            for (List<StructureModel.PlacedStructurePart> flattened : model.transformed()) {
+                boolean found = true;
+                for (StructureModel.PlacedStructurePart placed : flattened) {
+                    var part = MMRegistries.STRUCTURE_PARTS.get().getValue(placed.partId());
+                    assert part != null;
+                    BlockPos expectedPos = blockPos.offset(placed.pos());
+                    if (!part.validatePlacement(level, expectedPos, placed.part())) {
+                        found = false;
+                        break;
+                    }
+                    var port = part.getPortIfPresent(level, expectedPos, placed.part());
+                    if (port.isPresent()) {
+                        if (port.get().input()) {
+                            inputPorts.add(port.get().port());
+                        } else {
+                            outputPorts.add(port.get().port());
+                        }
                     }
                 }
-            }
-            if (found) {
-                be.displayInfo.structureName = model.name().getContents();
-                be.forceUpdate();
-                foundAny = true;
-                be.chooseRecipe(model, new RecipeContext(model, inputPorts, outputPorts));
-                break;
+                if (found) {
+                    be.displayInfo.structureName = model.name().getContents();
+                    be.forceUpdate();
+                    foundAny = true;
+                    be.chooseRecipe(model, new RecipeContext(model, inputPorts, outputPorts));
+                    break;
+                }
             }
         }
         if (!foundAny) {
@@ -137,7 +140,7 @@ public class ControllerBlockEntity extends BlockEntity {
             }
             if (found) {
                 ticks++;
-                var percentage = (float)ticks / recipe.getValue().duration();
+                var percentage = (float) ticks / recipe.getValue().duration();
                 this.displayInfo.processStatus = format.format(100f * percentage) + "% Processing";
                 if (ticks >= recipe.getValue().duration()) {
                     var canOutput = true;

@@ -12,10 +12,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 
 public abstract class PortStorage {
     public abstract void read(CompoundTag tag);
     public abstract CompoundTag write();
+    public <T> LazyOptional<T> getCapability(Capability<T> cap) {
+        return LazyOptional.empty();
+    }
     public void setupContainer(PortContainer container, Inventory pinv, PortBlockEntity be) {
         for (var i = 0; i < 9; i++) {
             container.addSlot(new Slot(pinv, i, i * 18 + 8, 199));

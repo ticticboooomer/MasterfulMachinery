@@ -6,6 +6,8 @@ import io.ticticboom.mods.mm.block.PortBlock;
 import io.ticticboom.mods.mm.datagen.gen.MMBlockStateProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 
 import java.util.List;
 

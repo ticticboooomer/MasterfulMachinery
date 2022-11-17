@@ -10,10 +10,13 @@ import io.ticticboom.mods.mm.structure.MMStructurePart;
 import io.ticticboom.mods.mm.structure.block.BlockStructurePart;
 import io.ticticboom.mods.mm.structure.port.PortStructurePart;
 import io.ticticboom.mods.mm.structure.tag.BlockTagStructurePart;
+import io.ticticboom.mods.mm.structure.transformers.MMStructureTransform;
+import io.ticticboom.mods.mm.structure.transformers.RotationStructureTransform;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -38,11 +41,13 @@ public class MMRegistries {
     public static Map<ResourceLocation, MMPortTypeEntry> PORTS = new HashMap<>();
     public static Supplier<IForgeRegistry<MMStructurePart>> STRUCTURE_PARTS;
     public static Supplier<IForgeRegistry<MMRecipeEntry>> RECIPE_ENTRIES;
+    public static Supplier<IForgeRegistry<MMStructureTransform>> STRUCTURE_TRANSFORMS;
 
     @SubscribeEvent
     public static void on(NewRegistryEvent event) {
         STRUCTURE_PARTS = event.create(new RegistryBuilder<MMStructurePart>().setType(MMStructurePart.class).setName(Ref.STRUCTURE_PART_REGISTRY));
         RECIPE_ENTRIES = event.create(new RegistryBuilder<MMRecipeEntry>().setType(MMRecipeEntry.class).setName(Ref.RECIPE_ENTRIES_REGISTRY));
+        STRUCTURE_TRANSFORMS = event.create(new RegistryBuilder<MMStructureTransform>().setType(MMStructureTransform.class).setName(Ref.STRUCTURE_TRANSFORMS_REGISTRY));
     }
 
     @SubscribeEvent
@@ -58,6 +63,15 @@ public class MMRegistries {
     public static void registerRecipeEntries(RegistryEvent.Register<MMRecipeEntry> event) {
         event.getRegistry().registerAll(
                 new SimpleRecipeEntry().setRegistryName(Ref.RecipeEntries.SIMPLE)
+        );
+    }
+
+    @SubscribeEvent
+    public static void registerStructureTransforms(RegistryEvent.Register<MMStructureTransform> event) {
+        event.getRegistry().registerAll(
+                new RotationStructureTransform(Rotation.CLOCKWISE_90).setRegistryName(Ref.StructureTransforms.ROT_90),
+                new RotationStructureTransform(Rotation.CLOCKWISE_180).setRegistryName(Ref.StructureTransforms.ROT_180),
+                new RotationStructureTransform(Rotation.COUNTERCLOCKWISE_90).setRegistryName(Ref.StructureTransforms.ROT_270)
         );
     }
 

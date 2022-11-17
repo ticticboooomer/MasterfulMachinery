@@ -6,18 +6,16 @@ import io.ticticboom.mods.mm.block.entity.PortBlockEntity;
 import io.ticticboom.mods.mm.client.container.PortContainer;
 import io.ticticboom.mods.mm.client.screen.PortScreen;
 import io.ticticboom.mods.mm.ports.base.PortStorage;
-import io.ticticboom.mods.mm.util.ParseHelper;
+import io.ticticboom.mods.mm.setup.MMCapabilities;
 import io.ticticboom.mods.mm.util.RenderHelper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec2;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -68,7 +66,7 @@ public class ItemPortStorage extends PortStorage {
         Vec2 start = getSlotStart();
         for (var x = 0; x < config.slotCols(); x++) {
             for (var y = 0; y < config.slotRows(); y++) {
-                container.addSlot(new Slot(inv, x + y * config.slotCols(), (int)start.x + (x * 18), (int)start.y + (y * 18)));
+                container.addSlot(new Slot(inv, x + y * config.slotCols(), (int) start.x + (x * 18), (int) start.y + (y * 18)));
             }
         }
     }
@@ -79,7 +77,7 @@ public class ItemPortStorage extends PortStorage {
         Vec2 start = getSlotStart();
         for (var x = 0; x < config.slotCols(); x++) {
             for (var y = 0; y < config.slotRows(); y++) {
-                screen.blit(ms, screen.getGuiLeft() + (int)start.x + (x * 18) - 1, screen.getGuiTop() + (int)start.y + (y * 18) - 1, 0, 26, 18, 18);
+                screen.blit(ms, screen.getGuiLeft() + (int) start.x + (x * 18) - 1, screen.getGuiTop() + (int) start.y + (y * 18) - 1, 0, 26, 18, 18);
             }
         }
     }
@@ -97,5 +95,13 @@ public class ItemPortStorage extends PortStorage {
             copy.items.setStackInSlot(i, itemClone);
         }
         return copy;
+    }
+
+    @Override
+    public <T> LazyOptional<T> getCapability(Capability<T> cap) {
+        if (cap == MMCapabilities.ITEMS) {
+            return handlerLO.cast();
+        }
+        return LazyOptional.empty();
     }
 }

@@ -5,10 +5,12 @@ import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.setup.MMRegistries;
 import io.ticticboom.mods.mm.structure.IConfiguredStructurePart;
+import io.ticticboom.mods.mm.structure.transformers.MMStructureTransform;
 import io.ticticboom.mods.mm.util.Deferred;
 import io.ticticboom.mods.mm.util.ParseHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.*;
@@ -20,7 +22,8 @@ public record StructureModel(
         ResourceLocation controllerId,
         List<List<String>> layout,
         Map<String, IdentifiedStructurePart> key,
-        List<PlacedStructurePart> flattened
+        List<PlacedStructurePart> flattened,
+        List<List<PlacedStructurePart>> transformed
 ) {
     public static StructureModel parse(ResourceLocation id, JsonObject json) {
         var controllerId = ResourceLocation.tryParse(json.get("controllerId").getAsString());
@@ -28,7 +31,8 @@ public record StructureModel(
         var layout = parseLayout(json.get("layout"));
         var key = parseKey(json.get("key").getAsJsonObject());
         var flattened = parseFlattened(key, layout);
-        return new StructureModel(id, name, controllerId, layout, key, flattened);
+        var transformed = applyTransforms(flattened);
+        return new StructureModel(id, name, controllerId, layout, key, flattened, transformed);
     }
 
     private static List<List<String>> parseLayout(JsonElement elem) {
@@ -104,6 +108,16 @@ public record StructureModel(
             }
             y++;
         }
+    }
+
+    private static List<List<PlacedStructurePart>> applyTransforms(List<PlacedStructurePart> flattened) {
+        var result = new ArrayList<List<PlacedStructurePart>>();
+        result.add(flattened);
+        for (Map.Entry<ResourceKey<MMStructureTransform>, MMStructureTransform> entry : MMRegistries.STRUCTURE_TRANSFORMS.get().getEntries()) {
+            var transformed = entry.getValue().transform(flattened);
+            result.add(transformed);
+        }
+        return result;
     }
 
     private record AnnotatedPos(

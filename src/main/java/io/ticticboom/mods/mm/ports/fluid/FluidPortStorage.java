@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.client.screen.PortScreen;
 import io.ticticboom.mods.mm.ports.base.PortStorage;
+import io.ticticboom.mods.mm.setup.MMCapabilities;
 import io.ticticboom.mods.mm.util.FluidRenderer;
 import io.ticticboom.mods.mm.util.RenderHelper;
 import net.minecraft.client.Minecraft;
@@ -16,6 +17,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
@@ -83,5 +85,13 @@ public class FluidPortStorage extends PortStorage {
         var result = new FluidPortStorage(config);
         result.handler.fluid = handler.fluid.copy();
         return result;
+    }
+
+    @Override
+    public <T> LazyOptional<T> getCapability(Capability<T> cap) {
+        if (cap == MMCapabilities.FLUIDS) {
+            return handlerLO.cast();
+        }
+        return LazyOptional.empty();
     }
 }

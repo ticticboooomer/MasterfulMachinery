@@ -3,6 +3,7 @@ package io.ticticboom.mods.mm.setup;
 import com.google.gson.Gson;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.ports.base.MMPortTypeEntry;
+import io.ticticboom.mods.mm.ports.energy.EnergyPortTypeEntry;
 import io.ticticboom.mods.mm.ports.fluid.FluidPortTypeEntry;
 import io.ticticboom.mods.mm.ports.item.ItemPortTypeEntry;
 import io.ticticboom.mods.mm.recipe.MMRecipeEntry;
@@ -79,6 +80,7 @@ public class MMRegistries {
     public static void registerPorts() {
         PORTS.put(Ref.Ports.ITEM, new ItemPortTypeEntry());
         PORTS.put(Ref.Ports.FLUID, new FluidPortTypeEntry());
+        PORTS.put(Ref.Ports.ENERGY, new EnergyPortTypeEntry());
     }
 
     @SubscribeEvent

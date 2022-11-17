@@ -1,0 +1,22 @@
+{
+  "duration": 20,
+  "structureId": "mm:zappy_fh",
+  "inputs": [
+    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:energy",
+        "amount": 100000
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:energy",
+        "amount": 50000
+      }
+    }
+  ]
+}

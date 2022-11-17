@@ -1,6 +1,7 @@
 package io.ticticboom.mods.mm.block;
 
 import io.ticticboom.mods.mm.Ref;
+import io.ticticboom.mods.mm.block.entity.ControllerBlockEntity;
 import io.ticticboom.mods.mm.block.entity.PortBlockEntity;
 import io.ticticboom.mods.mm.client.container.PortMenuProvider;
 import io.ticticboom.mods.mm.setup.model.PortModel;
@@ -17,6 +18,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
@@ -52,6 +54,11 @@ public class PortBlock extends Block implements EntityBlock {
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+        PortBlockEntity be = (PortBlockEntity)level.getBlockEntity(pos);
+        var ires = be.storage.playerInteractWithItem(player, level, pos, hand);
+        if (!ires.equals(InteractionResult.PASS)) {
+            return ires;
+        }
         if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
             NetworkHooks.openGui(serverPlayer, this.getMenuProvider(state, level, pos), pos);
         }
@@ -70,5 +77,11 @@ public class PortBlock extends Block implements EntityBlock {
         var port = ((PortBlockEntity) level.getBlockEntity(pos));
         port.storage.onDestroy(level, pos);
         super.onRemove(p_60515_, level, pos, p_60518_, p_60519_);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return type == blockEntityType.get() ? PortBlockEntity::tick : null;
     }
 }

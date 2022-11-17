@@ -128,6 +128,7 @@ public class ControllerBlockEntity extends BlockEntity {
     }
 
     protected void chooseRecipe(StructureModel model, RecipeContext ctx) {
+        var foundAny = false;
         for (Map.Entry<ResourceLocation, RecipeModel> recipe : RecipeManager.REGISTRY.entrySet()) {
             var found = true;
             var cloned = clonePorts(ctx);
@@ -166,8 +167,11 @@ public class ControllerBlockEntity extends BlockEntity {
                     }
                 }
             } else {
-                resetRecipe();
+                foundAny = true;
             }
+        }
+        if (!foundAny) {
+            resetRecipe();
         }
         this.forceUpdate();
     }

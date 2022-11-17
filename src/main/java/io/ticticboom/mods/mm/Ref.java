@@ -20,6 +20,8 @@ public class Ref {
 
     public static final class Ports {
         public static final ResourceLocation ITEM = res("item");
+        public static final ResourceLocation FLUID = res("fluid");
+        public static final ResourceLocation ENERGY = res("energy");
     }
 
     public static final class StructureParts {

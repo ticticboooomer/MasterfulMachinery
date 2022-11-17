@@ -7,6 +7,8 @@ import io.ticticboom.mods.mm.client.screen.PortScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
@@ -16,6 +18,10 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 
 public abstract class PortStorage {
+    public InteractionResult playerInteractWithItem(Player player, Level level, BlockPos pos, InteractionHand hand) {
+        return InteractionResult.PASS;
+    }
+
     public abstract void read(CompoundTag tag);
     public abstract CompoundTag write();
     public <T> LazyOptional<T> getCapability(Capability<T> cap) {
@@ -33,7 +39,7 @@ public abstract class PortStorage {
         }
     };
 
-    public abstract void renderScreen(PortScreen screen, PoseStack ms);
+    public abstract void renderScreen(PortScreen screen, PoseStack ms, int x, int y);
 
     public abstract void onDestroy(Level level, BlockPos pos);
 

@@ -30,11 +30,11 @@ public class PortScreen extends AbstractContainerScreen<PortContainer> {
     }
 
     @Override
-    protected void renderBg(PoseStack ms, float p_97788_, int p_97789_, int p_97790_) {
+    protected void renderBg(PoseStack ms, float p_97788_, int x, int y) {
         this.renderBackground(ms);
         RenderHelper.useTexture(Ref.PORT_GUI);
         blit(ms, leftPos, topPos, 0, 0, 175, 254);
-        container.be.storage.renderScreen(this, ms);
+        container.be.storage.renderScreen(this, ms, x, y);
     }
 
     @Override

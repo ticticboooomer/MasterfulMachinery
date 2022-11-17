@@ -1,0 +1,24 @@
+{
+  "duration": 20,
+  "structureId": "mm:wet_fh",
+  "inputs": [
+    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:fluid",
+        "fluid": "minecraft:lava",
+        "amount": 1000
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:fluid",
+        "fluid": "minecraft:water",
+        "amount": 5
+      }
+    }
+  ]
+}

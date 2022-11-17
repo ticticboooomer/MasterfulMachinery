@@ -10,6 +10,7 @@ import io.ticticboom.mods.mm.setup.MMCapabilities;
 import io.ticticboom.mods.mm.util.RenderHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
@@ -22,25 +23,27 @@ import net.minecraftforge.items.ItemStackHandler;
 public class ItemPortStorage extends PortStorage {
 
     private ItemConfiguredPort config;
-    public final ItemStackHandler items;
+    public final ItemHandler items;
     public final LazyOptional<ItemStackHandler> handlerLO;
     public final ItemContainer inv;
 
     public ItemPortStorage(ItemConfiguredPort config) {
         this.config = config;
-        items = new ItemStackHandler(config.slotCols() * config.slotRows());
+        items = new ItemHandler(config.slotCols() * config.slotRows());
         handlerLO = LazyOptional.of(() -> items);
         inv = new ItemContainer(items);
     }
 
     @Override
     public void read(CompoundTag tag) {
-
+        ContainerHelper.loadAllItems(tag, items.getStacks());
     }
 
     @Override
     public CompoundTag write() {
-        return new CompoundTag();
+        var result = new CompoundTag();
+        ContainerHelper.saveAllItems(result, items.getStacks());
+        return result;
     }
 
     private Vec2 getSlotStart() {
@@ -72,7 +75,7 @@ public class ItemPortStorage extends PortStorage {
     }
 
     @Override
-    public void renderScreen(PortScreen screen, PoseStack ms) {
+    public void renderScreen(PortScreen screen, PoseStack ms, int mx, int my) {
         RenderHelper.useTexture(Ref.SLOT_PARTS);
         Vec2 start = getSlotStart();
         for (var x = 0; x < config.slotCols(); x++) {

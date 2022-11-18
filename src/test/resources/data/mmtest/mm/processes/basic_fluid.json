@@ -1,6 +1,6 @@
 {
   "duration": 20,
-  "structureId": "mm:wet_fh",
+  "structureId": "mmtest:wet_fh",
   "inputs": [
     {
       "type": "mm:simple",

@@ -50,7 +50,7 @@ public record StructureModel(
     private static Map<String, IdentifiedStructurePart> parseKey(JsonObject json) {
         var result = new HashMap<String, IdentifiedStructurePart>();
         for (String s : json.keySet()) {
-            if (s.equals("C")) {
+            if (s.equals("C") || s.equals(" ")) {
                 continue;
             }
             var obj = json.get(s).getAsJsonObject();
@@ -69,7 +69,7 @@ public record StructureModel(
         var controllerPos = findControllerPos(layout);
         final var result = new ArrayList<PlacedStructurePart>();
         runWithCoords(layout, x -> {
-            if (x.character == 'C') {
+            if (x.character == 'C' || x.character == ' ') {
                 return;
             }
             result.add(placeStructurePart(key, x, controllerPos));

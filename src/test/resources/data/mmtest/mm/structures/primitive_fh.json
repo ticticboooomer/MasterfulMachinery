@@ -5,7 +5,7 @@
   "controllerId": "mm:forge_hammer",
   "layout": [
     [
-      "ACB"
+      "ACBE"
     ]
   ],
   "key": {
@@ -18,6 +18,10 @@
       "type": "mm:port",
       "port": "mm:item",
       "input": false
+    },
+    "E": {
+      "type": "mm:tag",
+      "tag": "forge:stone"
     }
   }
 }

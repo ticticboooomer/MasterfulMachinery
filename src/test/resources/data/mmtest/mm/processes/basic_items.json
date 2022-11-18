@@ -1,6 +1,6 @@
 {
   "duration": 20,
-  "structureId": "mm:primitive_fh",
+  "structureId": "mmtest:primitive_fh",
   "inputs": [
     {
       "type": "mm:simple",

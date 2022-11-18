@@ -21,13 +21,14 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class FluidPortStorage extends PortStorage {
 
     public FluidConfiguredPort config;
-    public final FluidHandler handler;
-    public final LazyOptional<FluidHandler> handlerLO;
+    public final MMFluidTank handler;
+    public final LazyOptional<MMFluidTank> handlerLO;
 
     @Override
     public InteractionResult playerInteractWithItem(Player player, Level level, BlockPos pos, InteractionHand hand) {
@@ -39,7 +40,7 @@ public class FluidPortStorage extends PortStorage {
 
     public FluidPortStorage(FluidConfiguredPort config) {
         this.config = config;
-        handler = new FluidHandler(config.capacity());
+        handler = new MMFluidTank(config.capacity());
         handlerLO = LazyOptional.of(() -> handler);
     }
 
@@ -49,15 +50,15 @@ public class FluidPortStorage extends PortStorage {
             var amount = tag.getInt("Amount");
             String fluidId = tag.getString("Fluid");
             var fluid = ForgeRegistries.FLUIDS.getValue(ResourceLocation.tryParse(fluidId));
-            handler.fluid = new FluidStack(fluid, amount);
+            handler.setStack(new FluidStack(fluid, amount));
         }
     }
 
     @Override
     public CompoundTag write() {
         var result = new CompoundTag();
-        result.putString("Fluid", handler.fluid.getFluid().getRegistryName().toString());
-        result.putInt("Amount", handler.fluid.getAmount());
+        result.putString("Fluid", handler.stack().getFluid().getRegistryName().toString());
+        result.putInt("Amount", handler.stack().getAmount());
         return result;
     }
 
@@ -67,9 +68,9 @@ public class FluidPortStorage extends PortStorage {
         var startX = 175 / 2 - (18 / 2);
         var startY = 252 / 4 - (18 / 2);
         screen.blit(ms, screen.getGuiLeft() + startX, screen.getGuiTop() + startY, 0, 26, 18, 18);
-        if (!handler.fluid.isEmpty()) {
-            FluidRenderer.INSTANCE.render(ms, screen.getGuiLeft() + startX + 1, screen.getGuiTop() + startY + 1, handler.fluid, 16);
-            Gui.drawCenteredString(ms, Minecraft.getInstance().font, handler.fluid.getAmount() + " " + handler.fluid.getDisplayName().getString(), screen.getGuiLeft() + startX + 9, screen.getGuiTop() + startY + 30, 0xfefefe);
+        if (!handler.stack().isEmpty()) {
+            FluidRenderer.INSTANCE.render(ms, screen.getGuiLeft() + startX + 1, screen.getGuiTop() + startY + 1, handler.stack(), 16);
+            Gui.drawCenteredString(ms, Minecraft.getInstance().font, handler.stack().getAmount() + " " + handler.stack().getDisplayName().getString(), screen.getGuiLeft() + startX + 9, screen.getGuiTop() + startY + 30, 0xfefefe);
         }
 
 
@@ -83,7 +84,7 @@ public class FluidPortStorage extends PortStorage {
     @Override
     public PortStorage deepClone() {
         var result = new FluidPortStorage(config);
-        result.handler.fluid = handler.fluid.copy();
+        result.handler.setStack(handler.stack().copy());
         return result;
     }
 

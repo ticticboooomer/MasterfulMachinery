@@ -1,6 +1,6 @@
 {
   "duration": 20,
-  "structureId": "mm:zappy_fh",
+  "structureId": "mmtest:zappy_fh",
   "inputs": [
     {
       "type": "mm:simple",

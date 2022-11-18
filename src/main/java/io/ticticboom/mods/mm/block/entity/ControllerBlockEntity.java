@@ -82,7 +82,7 @@ public class ControllerBlockEntity extends BlockEntity {
                     var part = MMRegistries.STRUCTURE_PARTS.get().getValue(placed.partId());
                     assert part != null;
                     BlockPos expectedPos = blockPos.offset(placed.pos());
-                    if (!part.validatePlacement(level, expectedPos, placed.part())) {
+                   if (!part.validatePlacement(level, expectedPos, placed.part())) {
                         found = false;
                         break;
                     }
@@ -130,6 +130,9 @@ public class ControllerBlockEntity extends BlockEntity {
     protected void chooseRecipe(StructureModel model, RecipeContext ctx) {
         var foundAny = false;
         for (Map.Entry<ResourceLocation, RecipeModel> recipe : RecipeManager.REGISTRY.entrySet()) {
+            if (!recipe.getValue().structureId().toString().equals(model.id().toString())) {
+                continue;
+            }
             var found = true;
             var cloned = clonePorts(ctx);
             for (RecipeModel.RecipeEntry input : recipe.getValue().inputs()) {
@@ -166,8 +169,8 @@ public class ControllerBlockEntity extends BlockEntity {
                         this.displayInfo.processStatus = "Cannot Output";
                     }
                 }
-            } else {
                 foundAny = true;
+                break;
             }
         }
         if (!foundAny) {

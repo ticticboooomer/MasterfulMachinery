@@ -12,5 +12,4 @@ public abstract class MMStructurePart extends ForgeRegistryEntry<MMStructurePart
     public abstract IConfiguredStructurePart parse(JsonObject json);
     public abstract boolean validatePlacement(Level level, BlockPos expectedPos, IConfiguredStructurePart config);
     public abstract Optional<IOPortStorage> getPortIfPresent(Level level, BlockPos expectedPos, IConfiguredStructurePart config);
-
 }

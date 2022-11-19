@@ -15,7 +15,4 @@ public abstract class MMRecipeEntry extends ForgeRegistryEntry<MMRecipeEntry> {
     public abstract boolean processInputs(IConfiguredRecipeEntry config, RecipeContext ctx);
 
     public abstract boolean processOutputs(IConfiguredRecipeEntry config, RecipeContext ctx);
-
-    public abstract void setRecipe(IConfiguredRecipeEntry entry, IRecipeLayoutBuilder builder, RecipeModel recipe, IFocusGroup focuses, IJeiHelpers helpers, boolean input, int startX, int startY);
-    public abstract void renderJei(RecipeModel recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY, IConfiguredRecipeEntry entry, IJeiHelpers helpers, boolean input, int x, int y);
 }

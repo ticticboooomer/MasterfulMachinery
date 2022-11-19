@@ -93,20 +93,5 @@ public class EnergyPortTypeEntry extends MMPortTypeEntry {
         return false;
     }
 
-    public static EnergyIngredientType ENERGY_STACK = new EnergyIngredientType();
-    @Override
-    public void registerJeiIngredient(IModIngredientRegistration reg, Deferred<IJeiHelpers> helpers) {
-        reg.register(ENERGY_STACK, ImmutableList.of(), new EnergyIngredientHelper(), new EnergyIngredientRenderer(helpers));
-    }
 
-    @Override
-    public void renderJei(RecipeModel recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY, IConfiguredIngredient ing, IJeiHelpers helpers, boolean input, int x, int y) {
-        helpers.getGuiHelper().getSlotDrawable().draw(stack, x - 1, y - 1);
-    }
-
-    @Override
-    public void setupRecipeJei(IConfiguredIngredient ingredient, IRecipeLayoutBuilder builder, RecipeModel recipe, IFocusGroup focuses, IRecipeSlotBuilder slot, boolean input, int x, int y) {
-        var conf = (EnergyConfiguredIngredient) ingredient;
-        slot.addIngredient(ENERGY_STACK, new EnergyStack(conf.amount()));
-    }
 }

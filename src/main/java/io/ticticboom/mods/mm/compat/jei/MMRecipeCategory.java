@@ -2,13 +2,12 @@ package io.ticticboom.mods.mm.compat.jei;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.ticticboom.mods.mm.Ref;
-import io.ticticboom.mods.mm.setup.MMRegistries;
+import io.ticticboom.mods.mm.compat.MMCompatRegistries;
 import io.ticticboom.mods.mm.setup.model.RecipeModel;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IJeiHelpers;
-import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
@@ -54,13 +53,13 @@ public class MMRecipeCategory implements IRecipeCategory<RecipeModel> {
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeModel recipe, IFocusGroup focuses) {
         int iy = 0;
         for (RecipeModel.RecipeEntry input : recipe.inputs()) {
-            var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
+            var entry = MMCompatRegistries.JEI_RECIPE_ENTRIES.get().getValue(input.type());
             entry.setRecipe(input.config(), builder, recipe, focuses, helpers, true, 10, iy);
             iy += 20;
         }
         int oy = 0;
         for (RecipeModel.RecipeEntry output : recipe.outputs()) {
-            var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(output.type());
+            var entry = MMCompatRegistries.JEI_RECIPE_ENTRIES.get().getValue(output.type());
             entry.setRecipe(output.config(), builder, recipe, focuses, helpers, false, 100, oy);
             oy += 20;
         }
@@ -70,13 +69,13 @@ public class MMRecipeCategory implements IRecipeCategory<RecipeModel> {
     public void draw(RecipeModel recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
         int iy = 0;
         for (RecipeModel.RecipeEntry input : recipe.inputs()) {
-            var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
+            var entry = MMCompatRegistries.JEI_RECIPE_ENTRIES.get().getValue(input.type());
             entry.renderJei(recipe, recipeSlotsView, stack, mouseX, mouseY, input.config(), helpers, true, 10, iy);
             iy += 20;
         }
         int oy = 0;
         for (RecipeModel.RecipeEntry output : recipe.outputs()) {
-            var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(output.type());
+            var entry = MMCompatRegistries.JEI_RECIPE_ENTRIES.get().getValue(output.type());
             entry.renderJei(recipe, recipeSlotsView, stack, mouseX, mouseY, output.config(), helpers, false, 100, oy);
             oy += 20;
         }

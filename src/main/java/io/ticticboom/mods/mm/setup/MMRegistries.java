@@ -41,10 +41,9 @@ public class MMRegistries {
     public static DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(ForgeRegistries.CONTAINERS, Ref.ID);
 
     public static Map<ResourceLocation, MMPortTypeEntry> PORTS = new HashMap<>();
-    public static Supplier<IForgeRegistry<MMStructurePart>> STRUCTURE_PARTS;
     public static Supplier<IForgeRegistry<MMRecipeEntry>> RECIPE_ENTRIES;
+    public static Supplier<IForgeRegistry<MMStructurePart>> STRUCTURE_PARTS;
     public static Supplier<IForgeRegistry<MMStructureTransform>> STRUCTURE_TRANSFORMS;
-
     @SubscribeEvent
     public static void on(NewRegistryEvent event) {
         STRUCTURE_PARTS = event.create(new RegistryBuilder<MMStructurePart>().setType(MMStructurePart.class).setName(Ref.STRUCTURE_PART_REGISTRY));

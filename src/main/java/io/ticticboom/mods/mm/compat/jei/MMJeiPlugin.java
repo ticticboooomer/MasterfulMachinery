@@ -2,6 +2,8 @@ package io.ticticboom.mods.mm.compat.jei;
 
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.block.ControllerBlock;
+import io.ticticboom.mods.mm.compat.MMCompatRegistries;
+import io.ticticboom.mods.mm.compat.jei.base.JeiPortTypeEntry;
 import io.ticticboom.mods.mm.ports.base.MMPortTypeEntry;
 import io.ticticboom.mods.mm.setup.MMRegistries;
 import io.ticticboom.mods.mm.setup.model.RecipeModel;
@@ -35,7 +37,7 @@ public class MMJeiPlugin implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         var recipes =  new ArrayList<RecipeModel>();
-        for (Map.Entry<ResourceLocation, RecipeModel> entry : RecipeManager.REGISTRY.entrySet()) {
+        for (var entry : RecipeManager.REGISTRY.entrySet()) {
             recipes.add(entry.getValue());
         }
         registration.addRecipes(MMRecipeCategory.RECIPE_TYPE, recipes);
@@ -43,7 +45,7 @@ public class MMJeiPlugin implements IModPlugin {
 
     @Override
     public void registerIngredients(IModIngredientRegistration registration) {
-        for (Map.Entry<ResourceLocation, MMPortTypeEntry> entry : MMRegistries.PORTS.entrySet()) {
+        for (var entry : MMCompatRegistries.JEI_PORTS.get().getEntries()) {
             entry.getValue().registerJeiIngredient(registration, this.helpers);
         }
     }

@@ -18,6 +18,10 @@ public class Ref {
     public static final ResourceLocation PORT_GUI = res("textures/gui/port_gui.png");
     public static final ResourceLocation SLOT_PARTS = res("textures/gui/slot_parts.png");
 
+    public static final class CompatRegistries {
+        public static final ResourceLocation JEI_RECIPE_ENTRIES = res("jei/recipe_entries");
+        public static final ResourceLocation JEI_PORT_TYPES = res("jei/port_types");
+    }
     public static final class Ports {
         public static final ResourceLocation ITEM = res("item");
         public static final ResourceLocation FLUID = res("fluid");

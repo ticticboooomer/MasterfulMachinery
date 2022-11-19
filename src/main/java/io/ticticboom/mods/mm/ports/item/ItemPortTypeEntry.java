@@ -116,20 +116,5 @@ public class ItemPortTypeEntry extends MMPortTypeEntry {
         return false;
     }
 
-    @Override
-    public void registerJeiIngredient(IModIngredientRegistration registration, Deferred<IJeiHelpers> helpers) {
 
-    }
-
-    @Override
-    public void renderJei(RecipeModel recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY, IConfiguredIngredient ing, IJeiHelpers helpers, boolean input, int x, int y) {
-        helpers.getGuiHelper().getSlotDrawable().draw(stack, x - 1, y - 1);
-    }
-
-    @Override
-    public void setupRecipeJei(IConfiguredIngredient ingredient, IRecipeLayoutBuilder builder, RecipeModel recipe, IFocusGroup focuses, IRecipeSlotBuilder slot, boolean input, int x, int y) {
-        var conf = (ItemConfiguredIngredient) ingredient;
-        var item = ForgeRegistries.ITEMS.getValue(conf.item());
-        slot.addIngredient(VanillaTypes.ITEM_STACK, new ItemStack(item, conf.count()));
-    }
 }

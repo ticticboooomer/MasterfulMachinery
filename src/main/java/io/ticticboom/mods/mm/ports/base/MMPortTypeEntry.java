@@ -47,9 +47,5 @@ public abstract class MMPortTypeEntry {
 
     public abstract boolean processInputs(IConfiguredIngredient ingredient, List<PortStorage> storage);
     public abstract boolean processOutputs(IConfiguredIngredient ingredient, List<PortStorage> storage);
-    public abstract void registerJeiIngredient(IModIngredientRegistration registration, Deferred<IJeiHelpers> helpers);
-
-    public abstract void renderJei(RecipeModel recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY, IConfiguredIngredient ing, IJeiHelpers helpers, boolean input, int x, int y);
-    public abstract void setupRecipeJei(IConfiguredIngredient ingredient, IRecipeLayoutBuilder builder, RecipeModel recipe, IFocusGroup focuses, IRecipeSlotBuilder slot, boolean input, int x, int y);
 
 }

@@ -53,5 +53,8 @@ public class ControllerScreen extends AbstractContainerScreen<ControllerContaine
         if (!StringUtil.isNullOrEmpty(info.processStatus)) {
             drawCenteredString(ms, this.font, info.processStatus, imageWidth / 2, 30, 0xffffff);
         }
+        if (!StringUtil.isNullOrEmpty(info.recipe)) {
+            drawCenteredString(ms, this.font, info.recipe, imageWidth / 2, 60, 0xffffff);
+        }
     }
 }

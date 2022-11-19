@@ -82,7 +82,7 @@ public class ControllerBlockEntity extends BlockEntity {
                     var part = MMRegistries.STRUCTURE_PARTS.get().getValue(placed.partId());
                     assert part != null;
                     BlockPos expectedPos = blockPos.offset(placed.pos());
-                   if (!part.validatePlacement(level, expectedPos, placed.part())) {
+                    if (!part.validatePlacement(level, expectedPos, placed.part())) {
                         found = false;
                         break;
                     }
@@ -125,6 +125,7 @@ public class ControllerBlockEntity extends BlockEntity {
     protected void resetRecipe() {
         ticks = 0;
         displayInfo.processStatus = "Idle";
+        this.displayInfo.recipe = "";
     }
 
     protected void chooseRecipe(StructureModel model, RecipeContext ctx) {
@@ -146,6 +147,7 @@ public class ControllerBlockEntity extends BlockEntity {
                 ticks++;
                 var percentage = (float) ticks / recipe.getValue().duration();
                 this.displayInfo.processStatus = format.format(100f * percentage) + "% Processing";
+                this.displayInfo.recipe = recipe.getValue().name().getString();
                 if (ticks >= recipe.getValue().duration()) {
                     var canOutput = true;
                     for (RecipeModel.RecipeEntry input : recipe.getValue().outputs()) {
@@ -183,6 +185,7 @@ public class ControllerBlockEntity extends BlockEntity {
 
         public String structureName;
         public String processStatus;
+        public String recipe;
 
         public CompoundTag serialize() {
             CompoundTag tag = new CompoundTag();
@@ -190,7 +193,10 @@ public class ControllerBlockEntity extends BlockEntity {
                 tag.putString("Structure", this.structureName);
             }
             if (this.processStatus != null) {
-                tag.putString("status", this.processStatus);
+                tag.putString("Status", this.processStatus);
+            }
+            if (this.recipe != null) {
+                tag.putString("Recipe", this.recipe);
             }
 
             return tag;
@@ -200,8 +206,11 @@ public class ControllerBlockEntity extends BlockEntity {
             if (tag.contains("Structure")) {
                 this.structureName = tag.getString("Structure");
             }
-            if (tag.contains("status")) {
-                this.processStatus = tag.getString("status");
+            if (tag.contains("Status")) {
+                this.processStatus = tag.getString("Status");
+            }
+            if (tag.contains("Recipe")) {
+                this.recipe = tag.getString("Recipe");
             }
         }
     }

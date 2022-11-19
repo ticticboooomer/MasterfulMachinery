@@ -1,12 +1,31 @@
 {
   "duration": 20,
   "structureId": "mmtest:zappy_fh",
+  "name": {
+    "text": "Static Generator"
+  },
   "inputs": [
     {
       "type": "mm:simple",
       "ingredient": {
         "type": "mm:energy",
         "amount": 100000
+      }
+    },
+    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:fluid",
+        "amount": 200,
+        "fluid": "minecraft:lava"
+      }
+    },
+    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "count":  10,
+        "item": "minecraft:bucket"
       }
     }
   ],
@@ -16,6 +35,22 @@
       "ingredient": {
         "type": "mm:energy",
         "amount": 50000
+      }
+    },
+    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "count":  10,
+        "item": "minecraft:bucket"
+      }
+    },
+    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:fluid",
+        "amount": 200,
+        "fluid": "minecraft:lava"
       }
     }
   ]

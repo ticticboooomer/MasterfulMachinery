@@ -1,6 +1,9 @@
 {
   "duration": 20,
   "structureId": "mmtest:wet_fh",
+  "name": {
+    "text": "Soggy Supplier"
+  },
   "inputs": [
     {
       "type": "mm:simple",

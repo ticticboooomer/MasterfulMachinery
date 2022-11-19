@@ -1,6 +1,9 @@
 {
   "duration": 20,
   "structureId": "mmtest:primitive_fh",
+  "name": {
+    "text": "Soulful Sender"
+  },
   "inputs": [
     {
       "type": "mm:simple",

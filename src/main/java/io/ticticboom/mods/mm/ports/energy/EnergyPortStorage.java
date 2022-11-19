@@ -56,7 +56,6 @@ public class EnergyPortStorage extends PortStorage {
         var height = 50;
         screen.blit(ms, screen.getGuiLeft() + startX, screen.getGuiTop() + startY -10, 50, 14, 18, height);
         var percentage = (float)handler.getEnergyStored() / handler.getMaxEnergyStored();
-        var barHeight = height * percentage;
         GuiHelper.renderVerticallyFilledBar(ms, screen, screen.getGuiLeft() + startX, screen.getGuiTop() + startY -10, 72, 14, 18, 50, percentage);
         Gui.drawCenteredString(ms, Minecraft.getInstance().font, percentage * 100 + "%", screen.getGuiLeft() + startX + 9, screen.getGuiTop() + startY + 60, 0xfefefe);
     }

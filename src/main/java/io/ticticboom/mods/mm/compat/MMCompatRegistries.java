@@ -6,6 +6,8 @@ import io.ticticboom.mods.mm.compat.jei.base.JeiRecipeEntry;
 import io.ticticboom.mods.mm.compat.jei.port.EnergyJeiPortTypeEntry;
 import io.ticticboom.mods.mm.compat.jei.port.FluidJeiPortTypeEntry;
 import io.ticticboom.mods.mm.compat.jei.port.ItemJeiPortTypeEntry;
+import io.ticticboom.mods.mm.compat.jei.port.RotationJeiPortTypeEntry;
+import io.ticticboom.mods.mm.compat.jei.recipe.PerTickJeiRecipeEntry;
 import io.ticticboom.mods.mm.compat.jei.recipe.SimpleJeiRecipeEntry;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -30,7 +32,8 @@ public class MMCompatRegistries {
     @SubscribeEvent
     public static void registerJeiRecipeEntries(RegistryEvent.Register<JeiRecipeEntry> event) {
         event.getRegistry().registerAll(
-                new SimpleJeiRecipeEntry().setRegistryName(Ref.RecipeEntries.SIMPLE)
+                new SimpleJeiRecipeEntry().setRegistryName(Ref.RecipeEntries.SIMPLE),
+                new PerTickJeiRecipeEntry().setRegistryName(Ref.RecipeEntries.PER_TICK)
         );
     }
 
@@ -39,7 +42,8 @@ public class MMCompatRegistries {
         event.getRegistry().registerAll(
                 new EnergyJeiPortTypeEntry().setRegistryName(Ref.Ports.ENERGY),
                 new FluidJeiPortTypeEntry().setRegistryName(Ref.Ports.FLUID),
-                new ItemJeiPortTypeEntry().setRegistryName(Ref.Ports.ITEM)
+                new ItemJeiPortTypeEntry().setRegistryName(Ref.Ports.ITEM),
+                new RotationJeiPortTypeEntry().setRegistryName(Ref.Ports.CREATE_ROT)
         );
     }
 }

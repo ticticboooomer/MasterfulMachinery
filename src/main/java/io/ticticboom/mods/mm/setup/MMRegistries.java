@@ -3,10 +3,12 @@ package io.ticticboom.mods.mm.setup;
 import com.google.gson.Gson;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.ports.base.MMPortTypeEntry;
+import io.ticticboom.mods.mm.ports.createrotation.RotationPortTypeEntry;
 import io.ticticboom.mods.mm.ports.energy.EnergyPortTypeEntry;
 import io.ticticboom.mods.mm.ports.fluid.FluidPortTypeEntry;
 import io.ticticboom.mods.mm.ports.item.ItemPortTypeEntry;
 import io.ticticboom.mods.mm.recipe.MMRecipeEntry;
+import io.ticticboom.mods.mm.recipe.pertick.PerTickRecipeEntry;
 import io.ticticboom.mods.mm.recipe.simple.SimpleRecipeEntry;
 import io.ticticboom.mods.mm.structure.MMStructurePart;
 import io.ticticboom.mods.mm.structure.block.BlockStructurePart;
@@ -22,6 +24,7 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLConstructModEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -63,7 +66,8 @@ public class MMRegistries {
     @SubscribeEvent
     public static void registerRecipeEntries(RegistryEvent.Register<MMRecipeEntry> event) {
         event.getRegistry().registerAll(
-                new SimpleRecipeEntry().setRegistryName(Ref.RecipeEntries.SIMPLE)
+                new SimpleRecipeEntry().setRegistryName(Ref.RecipeEntries.SIMPLE),
+                new PerTickRecipeEntry().setRegistryName(Ref.RecipeEntries.PER_TICK)
         );
     }
 
@@ -80,6 +84,9 @@ public class MMRegistries {
         PORTS.put(Ref.Ports.ITEM, new ItemPortTypeEntry());
         PORTS.put(Ref.Ports.FLUID, new FluidPortTypeEntry());
         PORTS.put(Ref.Ports.ENERGY, new EnergyPortTypeEntry());
+        if (ModList.get().isLoaded("create")) {
+            PORTS.put(Ref.Ports.CREATE_ROT, new RotationPortTypeEntry());
+        }
     }
 
     @SubscribeEvent

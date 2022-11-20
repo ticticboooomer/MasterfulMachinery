@@ -3,6 +3,7 @@ package io.ticticboom.mods.mm.datagen.gen;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.block.ControllerBlock;
 import io.ticticboom.mods.mm.block.PortBlock;
+import io.ticticboom.mods.mm.ports.base.IPortBlock;
 import io.ticticboom.mods.mm.setup.MMRegistries;
 import io.ticticboom.mods.mm.setup.model.PortModel;
 import net.minecraft.client.renderer.RenderType;
@@ -30,7 +31,7 @@ public class MMBlockStateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         var controllers = MMRegistries.BLOCKS.getEntries().stream().filter(x -> x.get() instanceof ControllerBlock).collect(Collectors.toList());
-        var ports = MMRegistries.BLOCKS.getEntries().stream().filter(x -> x.get() instanceof PortBlock).collect(Collectors.toList());
+        var ports = MMRegistries.BLOCKS.getEntries().stream().filter(x -> x.get() instanceof IPortBlock).collect(Collectors.toList());
 
         for (var controller : controllers) {
             if (!controller.isPresent()){
@@ -46,8 +47,8 @@ public class MMBlockStateProvider extends BlockStateProvider {
         }
 
         for (var port : ports) {
-            var portType = MMRegistries.PORTS.get(((PortBlock) port.get()).model().port());
-            portType.generateBlockStates(this, ((PortBlock) port.get()));
+            var portType = MMRegistries.PORTS.get(((IPortBlock) port.get()).model().port());
+            portType.generateBlockStates(this, (port.get()));
         }
     }
 

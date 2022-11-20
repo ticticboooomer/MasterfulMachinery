@@ -138,7 +138,8 @@ public class ControllerBlockEntity extends BlockEntity {
             var cloned = clonePorts(ctx);
             for (RecipeModel.RecipeEntry input : recipe.getValue().inputs()) {
                 var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
-                if (!entry.processInputs(input.config(), cloned)) {
+                var bypass = entry.shouldBypassCloned(input.config(), ctx);
+                if (!entry.processInputs(input.config(), bypass ? ctx: cloned)) {
                     found = false;
                     break;
                 }
@@ -152,7 +153,8 @@ public class ControllerBlockEntity extends BlockEntity {
                     var canOutput = true;
                     for (RecipeModel.RecipeEntry input : recipe.getValue().outputs()) {
                         var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
-                        if (!entry.processOutputs(input.config(), cloned)) {
+                        var bypass = entry.shouldBypassCloned(input.config(), ctx);
+                        if (!entry.processOutputs(input.config(), bypass ? ctx: cloned)) {
                             canOutput = false;
                             break;
                         }
@@ -160,11 +162,15 @@ public class ControllerBlockEntity extends BlockEntity {
                     if (canOutput) {
                         for (RecipeModel.RecipeEntry input : recipe.getValue().inputs()) {
                             var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
-                            entry.processInputs(input.config(), ctx);
+                            if (!entry.shouldBypassCloned(input.config(), ctx)) {
+                                entry.processInputs(input.config(), ctx);
+                            }
                         }
                         for (RecipeModel.RecipeEntry output : recipe.getValue().outputs()) {
                             var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(output.type());
-                            entry.processOutputs(output.config(), ctx);
+                            if (!entry.shouldBypassCloned(output.config(), ctx)) {
+                                entry.processOutputs(output.config(), ctx);
+                            }
                         }
                         resetRecipe();
                     } else {

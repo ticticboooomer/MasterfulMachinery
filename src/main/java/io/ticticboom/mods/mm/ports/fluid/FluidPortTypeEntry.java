@@ -27,11 +27,6 @@ import java.util.function.Supplier;
 
 public class FluidPortTypeEntry extends MMPortTypeEntry {
     @Override
-    public ResourceLocation id() {
-        return Ref.Ports.FLUID;
-    }
-
-    @Override
     public Class<? extends PortStorage> storageClass() {
         return FluidPortStorage.class;
     }

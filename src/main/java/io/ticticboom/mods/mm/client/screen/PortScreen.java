@@ -34,7 +34,7 @@ public class PortScreen extends AbstractContainerScreen<PortContainer> {
         this.renderBackground(ms);
         RenderHelper.useTexture(Ref.PORT_GUI);
         blit(ms, leftPos, topPos, 0, 0, 175, 254);
-        container.be.storage.renderScreen(this, ms, x, y);
+        container.be.storage().renderScreen(this, ms, x, y);
     }
 
     @Override

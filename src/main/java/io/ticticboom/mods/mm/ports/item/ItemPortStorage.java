@@ -15,6 +15,7 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -64,7 +65,7 @@ public class ItemPortStorage extends PortStorage {
     }
 
     @Override
-    public void setupContainer(PortContainer container, Inventory pinv, PortBlockEntity be) {
+    public void setupContainer(PortContainer container, Inventory pinv, BlockEntity be) {
         super.setupContainer(container, pinv, be);
         Vec2 start = getSlotStart();
         for (var x = 0; x < config.slotCols(); x++) {

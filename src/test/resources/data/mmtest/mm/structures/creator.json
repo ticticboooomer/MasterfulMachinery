@@ -1,0 +1,23 @@
+{
+  "name": {
+    "text": "The Creator"
+  },
+  "controllerId": "mm:forge_hammer",
+  "layout": [
+    [
+      "ACB"
+    ]
+  ],
+  "key": {
+    "A": {
+      "type": "mm:port",
+      "port": "mm:create_rotation",
+      "input": true
+    },
+    "B": {
+      "type": "mm:port",
+      "port": "mm:create_rotation",
+      "input": false
+    }
+  }
+}

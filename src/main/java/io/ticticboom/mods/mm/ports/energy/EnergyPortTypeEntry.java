@@ -30,10 +30,6 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class EnergyPortTypeEntry extends MMPortTypeEntry {
-    @Override
-    public ResourceLocation id() {
-        return Ref.Ports.ENERGY;
-    }
 
     @Override
     public Class<? extends PortStorage> storageClass() {

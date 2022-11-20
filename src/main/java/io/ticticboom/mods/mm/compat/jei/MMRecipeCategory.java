@@ -54,12 +54,18 @@ public class MMRecipeCategory implements IRecipeCategory<RecipeModel> {
         int iy = 0;
         for (RecipeModel.RecipeEntry input : recipe.inputs()) {
             var entry = MMCompatRegistries.JEI_RECIPE_ENTRIES.get().getValue(input.type());
+            if (entry == null) {
+                continue;
+            }
             entry.setRecipe(input.config(), builder, recipe, focuses, helpers, true, 10, iy);
             iy += 20;
         }
         int oy = 0;
         for (RecipeModel.RecipeEntry output : recipe.outputs()) {
             var entry = MMCompatRegistries.JEI_RECIPE_ENTRIES.get().getValue(output.type());
+            if (entry == null) {
+                continue;
+            }
             entry.setRecipe(output.config(), builder, recipe, focuses, helpers, false, 100, oy);
             oy += 20;
         }
@@ -70,12 +76,18 @@ public class MMRecipeCategory implements IRecipeCategory<RecipeModel> {
         int iy = 0;
         for (RecipeModel.RecipeEntry input : recipe.inputs()) {
             var entry = MMCompatRegistries.JEI_RECIPE_ENTRIES.get().getValue(input.type());
+            if (entry == null) {
+                continue;
+            }
             entry.renderJei(recipe, recipeSlotsView, stack, mouseX, mouseY, input.config(), helpers, true, 10, iy);
             iy += 20;
         }
         int oy = 0;
         for (RecipeModel.RecipeEntry output : recipe.outputs()) {
             var entry = MMCompatRegistries.JEI_RECIPE_ENTRIES.get().getValue(output.type());
+            if (entry == null) {
+                continue;
+            }
             entry.renderJei(recipe, recipeSlotsView, stack, mouseX, mouseY, output.config(), helpers, false, 100, oy);
             oy += 20;
         }

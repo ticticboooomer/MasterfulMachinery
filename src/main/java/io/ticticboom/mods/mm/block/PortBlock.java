@@ -4,6 +4,7 @@ import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.block.entity.ControllerBlockEntity;
 import io.ticticboom.mods.mm.block.entity.PortBlockEntity;
 import io.ticticboom.mods.mm.client.container.PortMenuProvider;
+import io.ticticboom.mods.mm.ports.base.IPortBlock;
 import io.ticticboom.mods.mm.setup.model.PortModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -28,7 +29,7 @@ import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 
-public class PortBlock extends Block implements EntityBlock {
+public class PortBlock extends Block implements EntityBlock, IPortBlock {
 
     private final PortModel model;
     private RegistryObject<MenuType<?>> menuType;

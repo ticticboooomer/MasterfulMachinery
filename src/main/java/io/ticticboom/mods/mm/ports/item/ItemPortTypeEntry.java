@@ -24,11 +24,6 @@ import java.util.function.Supplier;
 public class ItemPortTypeEntry extends MMPortTypeEntry {
 
     @Override
-    public ResourceLocation id() {
-        return Ref.res("item");
-    }
-
-    @Override
     public Class<? extends PortStorage> storageClass() {
         return ItemPortStorage.class;
     }

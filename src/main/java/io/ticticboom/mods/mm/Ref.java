@@ -26,6 +26,7 @@ public class Ref {
         public static final ResourceLocation ITEM = res("item");
         public static final ResourceLocation FLUID = res("fluid");
         public static final ResourceLocation ENERGY = res("energy");
+        public static final ResourceLocation CREATE_ROT = res("create_rotation");
     }
 
     public static final class StructureParts {
@@ -36,6 +37,7 @@ public class Ref {
 
     public static final class RecipeEntries {
         public static final ResourceLocation SIMPLE = res("simple");
+        public static final ResourceLocation PER_TICK = res("per_tick");
     }
     public static final class StructureTransforms  {
         public static final ResourceLocation ROT_90 = res("rotated_90");

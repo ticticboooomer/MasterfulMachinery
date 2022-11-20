@@ -14,6 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 
@@ -27,7 +28,7 @@ public abstract class PortStorage {
     public <T> LazyOptional<T> getCapability(Capability<T> cap) {
         return LazyOptional.empty();
     }
-    public void setupContainer(PortContainer container, Inventory pinv, PortBlockEntity be) {
+    public void setupContainer(PortContainer container, Inventory pinv, BlockEntity be) {
         for (var i = 0; i < 9; i++) {
             container.addSlot(new Slot(pinv, i, i * 18 + 8, 199));
         }

@@ -15,4 +15,5 @@ public abstract class MMRecipeEntry extends ForgeRegistryEntry<MMRecipeEntry> {
     public abstract boolean processInputs(IConfiguredRecipeEntry config, RecipeContext ctx);
 
     public abstract boolean processOutputs(IConfiguredRecipeEntry config, RecipeContext ctx);
+    public abstract boolean shouldBypassCloned(IConfiguredRecipeEntry config, RecipeContext ctx);
 }

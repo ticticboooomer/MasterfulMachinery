@@ -3,6 +3,7 @@ package io.ticticboom.mods.mm.datagen.gen;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.block.ControllerBlock;
 import io.ticticboom.mods.mm.block.PortBlock;
+import io.ticticboom.mods.mm.ports.base.IPortBlock;
 import io.ticticboom.mods.mm.setup.MMRegistries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.level.block.Block;
@@ -19,7 +20,7 @@ public class MMLangProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         var controllers = MMRegistries.BLOCKS.getEntries().stream().filter(x -> x.get() instanceof ControllerBlock).collect(Collectors.toList());
-        var ports = MMRegistries.BLOCKS.getEntries().stream().filter(x -> x.get() instanceof PortBlock).collect(Collectors.toList());
+        var ports = MMRegistries.BLOCKS.getEntries().stream().filter(x -> x.get() instanceof IPortBlock).collect(Collectors.toList());
 
         for (RegistryObject<Block> controller : controllers) {
             var controllerBlock = ((ControllerBlock) controller.get());
@@ -28,7 +29,7 @@ public class MMLangProvider extends LanguageProvider {
         }
 
         for (RegistryObject<Block> port : ports) {
-            var portBlock = ((PortBlock) port.get());
+            var portBlock = ((IPortBlock) port.get());
             this.add(port.get(), portBlock.model().name().getString() + " " + (portBlock.model().input() ? "Input" : "Output") + " Port");
         }
     }

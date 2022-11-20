@@ -1,5 +1,6 @@
 package io.ticticboom.mods.mm.block.entity;
 
+import io.ticticboom.mods.mm.ports.base.IPortBE;
 import io.ticticboom.mods.mm.ports.base.PortStorage;
 import io.ticticboom.mods.mm.setup.MMRegistries;
 import io.ticticboom.mods.mm.setup.model.PortModel;
@@ -20,7 +21,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class PortBlockEntity extends BlockEntity {
+public class PortBlockEntity extends BlockEntity implements IPortBE {
     public final PortStorage storage;
     private final PortModel model;
 
@@ -86,5 +87,15 @@ public class PortBlockEntity extends BlockEntity {
         }
         var be = ((PortBlockEntity) t);
         be.forceUpdate();
+    }
+
+    @Override
+    public PortModel model() {
+        return model;
+    }
+
+    @Override
+    public PortStorage storage() {
+        return storage;
     }
 }

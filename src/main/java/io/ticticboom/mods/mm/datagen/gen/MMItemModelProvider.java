@@ -3,6 +3,7 @@ package io.ticticboom.mods.mm.datagen.gen;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.block.ControllerBlock;
 import io.ticticboom.mods.mm.block.PortBlock;
+import io.ticticboom.mods.mm.ports.base.IPortBlock;
 import io.ticticboom.mods.mm.setup.MMRegistries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -22,7 +23,7 @@ public class MMItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         var controllers = MMRegistries.BLOCKS.getEntries().stream().filter(x -> x.get() instanceof ControllerBlock).collect(Collectors.toList());
-        var ports = MMRegistries.BLOCKS.getEntries().stream().filter(x -> x.get() instanceof PortBlock).collect(Collectors.toList());
+        var ports = MMRegistries.BLOCKS.getEntries().stream().filter(x -> x.get() instanceof IPortBlock).collect(Collectors.toList());
 
         for (RegistryObject<Block> controller : controllers) {
             if (!controller.isPresent()) {

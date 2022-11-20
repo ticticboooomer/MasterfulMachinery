@@ -1,0 +1,30 @@
+{
+  "name": {
+    "text": "Fap Hammer"
+  },
+  "controllerId": "mm:forge_hammer",
+  "layout": [
+    [
+      "CD",
+      "AB"
+    ],
+    [
+      "DD",
+      "D "
+    ]
+  ],
+  "key": {
+    "A": {
+      "type": "mm:block",
+      "block": "minecraft:deepslate"
+    },
+    "B": {
+      "type": "mm:block",
+      "block": "minecraft:stone"
+    },
+    "D": {
+      "type": "mm:block",
+      "block": "minecraft:glass"
+    }
+  }
+}

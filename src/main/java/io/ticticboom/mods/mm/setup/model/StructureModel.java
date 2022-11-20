@@ -15,6 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public record StructureModel(
         ResourceLocation id,
@@ -29,6 +30,7 @@ public record StructureModel(
         var controllerId = ResourceLocation.tryParse(json.get("controllerId").getAsString());
         var name = ParseHelper.parseName(json.get("name").getAsJsonObject(), "");
         var layout = parseLayout(json.get("layout"));
+        Collections.reverse(layout);
         var key = parseKey(json.get("key").getAsJsonObject());
         var flattened = parseFlattened(key, layout);
         var transformed = applyTransforms(flattened);
@@ -95,12 +97,13 @@ public record StructureModel(
 
     private static void runWithCoords(List<List<String>> layout, Consumer<AnnotatedPos> consumer) {
         int y = 0;
-        int x = 0;
-        int z = 0;
-        Collections.reverse(layout);
         for (List<String> layer : layout) {
+            int x = 0;
             for (String row : layer) {
-                for (char c : row.toCharArray()) {
+                int z = 0;
+                var chars = new ArrayList<>(row.chars().mapToObj(e -> (char) e).toList());
+                Collections.reverse(chars);
+                for (char c : chars) {
                     consumer.accept(new AnnotatedPos(new BlockPos(x, y, z), c));
                     z++;
                 }

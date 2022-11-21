@@ -1,8 +1,8 @@
-package io.ticticboom.mods.mm.ports.mekanism.gas;
+package io.ticticboom.mods.mm.ports.mekanism;
 
 import io.ticticboom.mods.mm.ports.base.IConfiguredPort;
 
-public record MekGasConfiguredPort(
+public record MekChemicalConfiguredPort(
         long capacity
 ) implements IConfiguredPort {
 }

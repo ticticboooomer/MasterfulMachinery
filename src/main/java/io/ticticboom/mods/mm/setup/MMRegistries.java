@@ -8,6 +8,9 @@ import io.ticticboom.mods.mm.ports.energy.EnergyPortTypeEntry;
 import io.ticticboom.mods.mm.ports.fluid.FluidPortTypeEntry;
 import io.ticticboom.mods.mm.ports.item.ItemPortTypeEntry;
 import io.ticticboom.mods.mm.ports.mekanism.gas.MekGasPortTypeEntry;
+import io.ticticboom.mods.mm.ports.mekanism.infuse.MekInfusePortTypeEntry;
+import io.ticticboom.mods.mm.ports.mekanism.pigment.MekPigmentPortTypeEntry;
+import io.ticticboom.mods.mm.ports.mekanism.slurry.MekSlurryPortTypeEntry;
 import io.ticticboom.mods.mm.recipe.MMRecipeEntry;
 import io.ticticboom.mods.mm.recipe.pertick.PerTickRecipeEntry;
 import io.ticticboom.mods.mm.recipe.simple.SimpleRecipeEntry;
@@ -90,6 +93,9 @@ public class MMRegistries {
         }
         if (ModList.get().isLoaded("mekanism")) {
             PORTS.put(Ref.Ports.MEK_GAS, new MekGasPortTypeEntry());
+            PORTS.put(Ref.Ports.MEK_INFUSE, new MekInfusePortTypeEntry());
+            PORTS.put(Ref.Ports.MEK_PIGMENT, new MekPigmentPortTypeEntry());
+            PORTS.put(Ref.Ports.MEK_SLURRY, new MekSlurryPortTypeEntry());
         }
     }
 

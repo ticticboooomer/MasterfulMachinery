@@ -1,4 +1,4 @@
-package io.ticticboom.mods.mm.datagen;
+package io.ticticboom.mods.mm.ports.datagen;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.fml.loading.FMLPaths;

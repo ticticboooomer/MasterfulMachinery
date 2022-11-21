@@ -3,8 +3,6 @@ package io.ticticboom.mods.mm.compat.jei;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.block.ControllerBlock;
 import io.ticticboom.mods.mm.compat.MMCompatRegistries;
-import io.ticticboom.mods.mm.compat.jei.base.JeiPortTypeEntry;
-import io.ticticboom.mods.mm.ports.base.MMPortTypeEntry;
 import io.ticticboom.mods.mm.setup.MMRegistries;
 import io.ticticboom.mods.mm.setup.model.RecipeModel;
 import io.ticticboom.mods.mm.setup.reload.RecipeManager;
@@ -23,8 +21,6 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Supplier;
 
 @JeiPlugin
 public class MMJeiPlugin implements IModPlugin {

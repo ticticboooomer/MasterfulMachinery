@@ -9,8 +9,6 @@ import io.ticticboom.mods.mm.ports.createrotation.jei.RotationIngredientHelper;
 import io.ticticboom.mods.mm.ports.createrotation.jei.RotationIngredientRenderer;
 import io.ticticboom.mods.mm.ports.createrotation.jei.RotationIngredientType;
 import io.ticticboom.mods.mm.ports.createrotation.jei.RotationStack;
-import io.ticticboom.mods.mm.ports.energy.EnergyConfiguredIngredient;
-import io.ticticboom.mods.mm.ports.energy.jei.EnergyStack;
 import io.ticticboom.mods.mm.setup.model.RecipeModel;
 import io.ticticboom.mods.mm.util.Deferred;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;

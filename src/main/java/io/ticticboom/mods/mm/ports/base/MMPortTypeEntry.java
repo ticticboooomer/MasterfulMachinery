@@ -1,33 +1,17 @@
 package io.ticticboom.mods.mm.ports.base;
 
 import com.google.gson.JsonObject;
-import com.mojang.blaze3d.vertex.PoseStack;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.block.PortBlock;
 import io.ticticboom.mods.mm.block.entity.PortBlockEntity;
-import io.ticticboom.mods.mm.datagen.gen.MMBlockStateProvider;
+import io.ticticboom.mods.mm.ports.datagen.gen.MMBlockStateProvider;
 import io.ticticboom.mods.mm.setup.model.PortModel;
-import io.ticticboom.mods.mm.setup.model.RecipeModel;
 import io.ticticboom.mods.mm.util.Deferred;
-import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
-import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
-import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
-import mezz.jei.api.helpers.IJeiHelpers;
-import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.registration.IModIngredientRegistration;
-import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;

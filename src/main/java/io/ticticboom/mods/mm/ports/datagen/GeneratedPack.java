@@ -1,4 +1,4 @@
-package io.ticticboom.mods.mm.datagen;
+package io.ticticboom.mods.mm.ports.datagen;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;

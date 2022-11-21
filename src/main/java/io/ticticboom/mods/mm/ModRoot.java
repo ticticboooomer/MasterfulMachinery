@@ -6,30 +6,25 @@ import io.ticticboom.mods.mm.client.container.ControllerContainer;
 import io.ticticboom.mods.mm.client.container.PortContainer;
 import io.ticticboom.mods.mm.client.screen.ControllerScreen;
 import io.ticticboom.mods.mm.client.screen.PortScreen;
-import io.ticticboom.mods.mm.datagen.DataGenFactory;
-import io.ticticboom.mods.mm.datagen.GeneratedRepoSource;
-import io.ticticboom.mods.mm.datagen.gen.MMBlockStateProvider;
-import io.ticticboom.mods.mm.datagen.gen.MMItemModelProvider;
-import io.ticticboom.mods.mm.datagen.gen.MMLangProvider;
-import io.ticticboom.mods.mm.datagen.gen.MMLootTableProvider;
-import io.ticticboom.mods.mm.setup.ControllerManager;
+import io.ticticboom.mods.mm.ports.datagen.DataGenFactory;
+import io.ticticboom.mods.mm.ports.datagen.GeneratedRepoSource;
+import io.ticticboom.mods.mm.ports.datagen.gen.MMBlockStateProvider;
+import io.ticticboom.mods.mm.ports.datagen.gen.MMItemModelProvider;
+import io.ticticboom.mods.mm.ports.datagen.gen.MMLangProvider;
+import io.ticticboom.mods.mm.ports.datagen.gen.MMLootTableProvider;
 import io.ticticboom.mods.mm.setup.MMRegistries;
-import io.ticticboom.mods.mm.setup.PortManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.server.packs.repository.PackRepository;
-import net.minecraft.server.packs.repository.RepositorySource;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.ForgeRenderTypes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -38,7 +33,6 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.RegistryObject;
@@ -79,10 +73,10 @@ public class ModRoot {
 
     private void registerDataGen() {
         gen = DataGenFactory.create();
-        ExistingFileHelper efh = new ExistingFileHelper(ImmutableList.of(), ImmutableSet.of(), false, null, null);
         gen.addProvider(new MMLootTableProvider(gen));
 
         if (FMLEnvironment.dist != Dist.DEDICATED_SERVER) {
+            ExistingFileHelper efh = new ExistingFileHelper(ImmutableList.of(), ImmutableSet.of(), false, null, null);
             gen.addProvider(new MMBlockStateProvider(gen, efh));
             gen.addProvider(new MMItemModelProvider(gen, efh));
             gen.addProvider(new MMLangProvider(gen));
@@ -118,7 +112,7 @@ public class ModRoot {
             if (entry.getId().getPath().endsWith("controller")) {
                 MenuScreens.register((MenuType<ControllerContainer>) entry.get(), ControllerScreen::new);
             } else if (entry.getId().getPath().endsWith("port")) {
-                MenuScreens.register((MenuType<PortContainer>)entry.get(), PortScreen::new);
+                MenuScreens.register((MenuType<PortContainer>) entry.get(), PortScreen::new);
             }
         }
     }

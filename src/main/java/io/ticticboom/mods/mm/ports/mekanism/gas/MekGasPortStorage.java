@@ -69,6 +69,7 @@ public class MekGasPortStorage extends PortStorage {
         var percentage = (float)tank.getStack().getAmount() / config.capacity();
         GuiHelper.renderVerticallyFilledBar(ms, screen, screen.getGuiLeft() + startX, screen.getGuiTop() + startY -10, 72, 14, 18, 50, percentage);
         Gui.drawCenteredString(ms, Minecraft.getInstance().font, percentage * 100 + "%", screen.getGuiLeft() + startX + 9, screen.getGuiTop() + startY + 60, 0xfefefe);
+        Gui.drawCenteredString(ms, Minecraft.getInstance().font, tank.getStack().getAmount() + " mb", screen.getGuiLeft() + startX + 9, screen.getGuiTop() + 17, 0xfefefe);
     }
 
     @Override

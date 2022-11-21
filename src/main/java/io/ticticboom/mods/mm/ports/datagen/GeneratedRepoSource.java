@@ -1,7 +1,6 @@
-package io.ticticboom.mods.mm.datagen;
+package io.ticticboom.mods.mm.ports.datagen;
 
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;

@@ -1,4 +1,4 @@
-package io.ticticboom.mods.mm.datagen.gen;
+package io.ticticboom.mods.mm.ports.datagen.gen;
 
 import com.google.gson.Gson;
 import io.ticticboom.mods.mm.ModRoot;

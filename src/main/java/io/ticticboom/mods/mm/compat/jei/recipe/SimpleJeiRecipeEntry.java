@@ -5,7 +5,6 @@ import io.ticticboom.mods.mm.compat.MMCompatRegistries;
 import io.ticticboom.mods.mm.compat.jei.base.JeiRecipeEntry;
 import io.ticticboom.mods.mm.recipe.IConfiguredRecipeEntry;
 import io.ticticboom.mods.mm.recipe.simple.SimpleConfiguredRecipeEntry;
-import io.ticticboom.mods.mm.setup.MMRegistries;
 import io.ticticboom.mods.mm.setup.model.RecipeModel;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;

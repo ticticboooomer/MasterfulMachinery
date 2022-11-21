@@ -1,0 +1,23 @@
+{
+  "name": {
+    "text": "Gassy Bish"
+  },
+  "controllerId": "mm:forge_hammer",
+  "layout": [
+    [
+      "ACB"
+    ]
+  ],
+  "key": {
+    "A": {
+      "type": "mm:port",
+      "port": "mm:mekanism_gas",
+      "input": true
+    },
+    "B": {
+      "type": "mm:port",
+      "port": "mm:mekanism_gas",
+      "input": false
+    }
+  }
+}

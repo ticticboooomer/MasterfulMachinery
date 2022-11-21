@@ -27,6 +27,7 @@ public class Ref {
         public static final ResourceLocation FLUID = res("fluid");
         public static final ResourceLocation ENERGY = res("energy");
         public static final ResourceLocation CREATE_ROT = res("create_rotation");
+        public static final ResourceLocation MEK_GAS = res("mekanism_gas");
     }
 
     public static final class StructureParts {

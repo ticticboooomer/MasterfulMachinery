@@ -3,10 +3,7 @@ package io.ticticboom.mods.mm.compat;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.compat.jei.base.JeiPortTypeEntry;
 import io.ticticboom.mods.mm.compat.jei.base.JeiRecipeEntry;
-import io.ticticboom.mods.mm.compat.jei.port.EnergyJeiPortTypeEntry;
-import io.ticticboom.mods.mm.compat.jei.port.FluidJeiPortTypeEntry;
-import io.ticticboom.mods.mm.compat.jei.port.ItemJeiPortTypeEntry;
-import io.ticticboom.mods.mm.compat.jei.port.RotationJeiPortTypeEntry;
+import io.ticticboom.mods.mm.compat.jei.port.*;
 import io.ticticboom.mods.mm.compat.jei.recipe.PerTickJeiRecipeEntry;
 import io.ticticboom.mods.mm.compat.jei.recipe.SimpleJeiRecipeEntry;
 import net.minecraftforge.event.RegistryEvent;
@@ -43,7 +40,8 @@ public class MMCompatRegistries {
                 new EnergyJeiPortTypeEntry().setRegistryName(Ref.Ports.ENERGY),
                 new FluidJeiPortTypeEntry().setRegistryName(Ref.Ports.FLUID),
                 new ItemJeiPortTypeEntry().setRegistryName(Ref.Ports.ITEM),
-                new RotationJeiPortTypeEntry().setRegistryName(Ref.Ports.CREATE_ROT)
+                new RotationJeiPortTypeEntry().setRegistryName(Ref.Ports.CREATE_ROT),
+                new MekGasJeiPortTypeEntry().setRegistryName(Ref.Ports.MEK_GAS)
         );
     }
 }

@@ -7,6 +7,7 @@ import io.ticticboom.mods.mm.ports.createrotation.RotationPortTypeEntry;
 import io.ticticboom.mods.mm.ports.energy.EnergyPortTypeEntry;
 import io.ticticboom.mods.mm.ports.fluid.FluidPortTypeEntry;
 import io.ticticboom.mods.mm.ports.item.ItemPortTypeEntry;
+import io.ticticboom.mods.mm.ports.mekanism.gas.MekGasPortTypeEntry;
 import io.ticticboom.mods.mm.recipe.MMRecipeEntry;
 import io.ticticboom.mods.mm.recipe.pertick.PerTickRecipeEntry;
 import io.ticticboom.mods.mm.recipe.simple.SimpleRecipeEntry;
@@ -86,6 +87,9 @@ public class MMRegistries {
         PORTS.put(Ref.Ports.ENERGY, new EnergyPortTypeEntry());
         if (ModList.get().isLoaded("create")) {
             PORTS.put(Ref.Ports.CREATE_ROT, new RotationPortTypeEntry());
+        }
+        if (ModList.get().isLoaded("mekanism")) {
+            PORTS.put(Ref.Ports.MEK_GAS, new MekGasPortTypeEntry());
         }
     }
 

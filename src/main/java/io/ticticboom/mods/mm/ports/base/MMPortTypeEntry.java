@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.block.PortBlock;
 import io.ticticboom.mods.mm.block.entity.PortBlockEntity;
-import io.ticticboom.mods.mm.ports.datagen.gen.MMBlockStateProvider;
+import io.ticticboom.mods.mm.datagen.gen.MMBlockStateProvider;
 import io.ticticboom.mods.mm.setup.model.PortModel;
 import io.ticticboom.mods.mm.util.Deferred;
 import net.minecraft.resources.ResourceLocation;

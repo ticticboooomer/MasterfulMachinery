@@ -1,4 +1,4 @@
-package io.ticticboom.mods.mm.ports.datagen.gen;
+package io.ticticboom.mods.mm.datagen.gen;
 
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.block.ControllerBlock;

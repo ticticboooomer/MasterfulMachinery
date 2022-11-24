@@ -23,7 +23,7 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class ItemPortStorage extends PortStorage {
 
-    private ItemConfiguredPort config;
+    public ItemConfiguredPort config;
     public final ItemHandler items;
     public final LazyOptional<ItemStackHandler> handlerLO;
     public final ItemContainer inv;
@@ -47,7 +47,7 @@ public class ItemPortStorage extends PortStorage {
         return result;
     }
 
-    private Vec2 getSlotStart() {
+    public Vec2 getSlotStart() {
         final var slot = 18;
 
         var colP = config.slotCols() / 9f;
@@ -71,17 +71,6 @@ public class ItemPortStorage extends PortStorage {
         for (var x = 0; x < config.slotCols(); x++) {
             for (var y = 0; y < config.slotRows(); y++) {
                 container.addSlot(new Slot(inv, x + y * config.slotCols(), (int) start.x + (x * 18), (int) start.y + (y * 18)));
-            }
-        }
-    }
-
-    @Override
-    public void renderScreen(PortScreen screen, PoseStack ms, int mx, int my) {
-        RenderHelper.useTexture(Ref.SLOT_PARTS);
-        Vec2 start = getSlotStart();
-        for (var x = 0; x < config.slotCols(); x++) {
-            for (var y = 0; y < config.slotRows(); y++) {
-                screen.blit(ms, screen.getGuiLeft() + (int) start.x + (x * 18) - 1, screen.getGuiTop() + (int) start.y + (y * 18) - 1, 0, 26, 18, 18);
             }
         }
     }

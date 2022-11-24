@@ -2,6 +2,7 @@ package io.ticticboom.mods.mm;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import io.ticticboom.mods.mm.client.MMClientRegistries;
 import io.ticticboom.mods.mm.client.container.ControllerContainer;
 import io.ticticboom.mods.mm.client.container.PortContainer;
 import io.ticticboom.mods.mm.client.screen.ControllerScreen;

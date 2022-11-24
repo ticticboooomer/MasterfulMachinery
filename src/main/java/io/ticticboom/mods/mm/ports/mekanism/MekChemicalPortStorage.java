@@ -21,7 +21,7 @@ import net.minecraftforge.common.util.LazyOptional;
 public abstract class MekChemicalPortStorage<CHEMICAL extends Chemical<CHEMICAL>, STACK extends ChemicalStack<CHEMICAL>> extends PortStorage {
 
     public IChemicalTank<CHEMICAL, STACK> tank;
-    protected MekChemicalConfiguredPort config;
+    public MekChemicalConfiguredPort config;
     private final LazyOptional<IChemicalTank<CHEMICAL, STACK>> handlerLO;
     protected abstract IChemicalTank<CHEMICAL, STACK> createTank(long capacity);
     protected abstract boolean isCapability(Capability<?> cap);
@@ -56,19 +56,6 @@ public abstract class MekChemicalPortStorage<CHEMICAL extends Chemical<CHEMICAL>
         result.putString("Chemical", stack.getRaw().getRegistryName().toString());
         result.putLong("Amount", stack.getAmount());
         return result;
-    }
-
-    @Override
-    public void renderScreen(PortScreen screen, PoseStack ms, int x, int y) {
-        RenderHelper.useTexture(Ref.SLOT_PARTS);
-        var startX = 175 / 2 - (18 / 2);
-        var startY = 252 / 4 - (18 / 2) - 10;
-        var height = 50;
-        screen.blit(ms, screen.getGuiLeft() + startX, screen.getGuiTop() + startY -10, 50, 14, 18, height);
-        var percentage = (float)tank.getStack().getAmount() / config.capacity();
-        GuiHelper.renderVerticallyFilledBar(ms, screen, screen.getGuiLeft() + startX, screen.getGuiTop() + startY -10, 72, 14, 18, 50, percentage);
-        Gui.drawCenteredString(ms, Minecraft.getInstance().font, percentage * 100 + "%", screen.getGuiLeft() + startX + 9, screen.getGuiTop() + startY + 60, 0xfefefe);
-        Gui.drawCenteredString(ms, Minecraft.getInstance().font, tank.getStack().getAmount() + " mb", screen.getGuiLeft() + startX + 9, screen.getGuiTop() + 17, 0xfefefe);
     }
 
     @Override

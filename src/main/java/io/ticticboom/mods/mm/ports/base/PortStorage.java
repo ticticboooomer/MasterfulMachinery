@@ -38,9 +38,7 @@ public abstract class PortStorage {
                 container.addSlot(new Slot(pinv, x + y * 9 + 9, x * 18 + 8, y * 18 + 141));
             }
         }
-    };
-
-    public abstract void renderScreen(PortScreen screen, PoseStack ms, int x, int y);
+    }
 
     public abstract void onDestroy(Level level, BlockPos pos);
 

@@ -63,20 +63,6 @@ public class FluidPortStorage extends PortStorage {
     }
 
     @Override
-    public void renderScreen(PortScreen screen, PoseStack ms, int x, int y) {
-        RenderHelper.useTexture(Ref.SLOT_PARTS);
-        var startX = 175 / 2 - (18 / 2);
-        var startY = 252 / 4 - (18 / 2);
-        screen.blit(ms, screen.getGuiLeft() + startX, screen.getGuiTop() + startY, 0, 26, 18, 18);
-        if (!handler.stack().isEmpty()) {
-            FluidRenderer.INSTANCE.render(ms, screen.getGuiLeft() + startX + 1, screen.getGuiTop() + startY + 1, handler.stack(), 16);
-            Gui.drawCenteredString(ms, Minecraft.getInstance().font, handler.stack().getAmount() + " " + handler.stack().getDisplayName().getString(), screen.getGuiLeft() + startX + 9, screen.getGuiTop() + startY + 30, 0xfefefe);
-        }
-
-
-    }
-
-    @Override
     public void onDestroy(Level level, BlockPos pos) {
 
     }

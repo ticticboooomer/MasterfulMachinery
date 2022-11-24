@@ -62,6 +62,12 @@ public class ControllerBlockEntity extends BlockEntity {
         this.displayInfo.deserialize(pkt.getTag().getCompound("DisplayInfo"));
     }
 
+    public void forceUpdate() {
+        if (this.level.isClientSide) return;
+        this.setChanged();
+        ((ServerLevel) level).getChunkSource().blockChanged(getBlockPos());
+    }
+
     public static <T extends BlockEntity> void tick(Level level, BlockPos blockPos, BlockState blockState, T t) {
         if (level.isClientSide) {
             return;

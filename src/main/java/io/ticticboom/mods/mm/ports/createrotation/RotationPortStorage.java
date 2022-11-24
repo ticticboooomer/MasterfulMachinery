@@ -30,11 +30,6 @@ public class RotationPortStorage extends PortStorage {
     }
 
     @Override
-    public void renderScreen(PortScreen screen, PoseStack ms, int x, int y) {
-
-    }
-
-    @Override
     public void onDestroy(Level level, BlockPos pos) {
 
     }

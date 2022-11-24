@@ -44,5 +44,4 @@ public abstract class MMPortTypeEntry {
 
     public abstract boolean processInputs(IConfiguredIngredient ingredient, List<PortStorage> storage);
     public abstract boolean processOutputs(IConfiguredIngredient ingredient, List<PortStorage> storage);
-
 }

@@ -51,49 +51,44 @@ public class MMRecipeCategory implements IRecipeCategory<RecipeModel> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeModel recipe, IFocusGroup focuses) {
-        int iy = 0;
+        var inputs = new SlotGrid(20, 20, 3, 5);
         for (RecipeModel.RecipeEntry input : recipe.inputs()) {
             var entry = MMCompatRegistries.JEI_RECIPE_ENTRIES.get().getValue(input.type());
             if (entry == null) {
                 continue;
             }
-            entry.setRecipe(input.config(), builder, recipe, focuses, helpers, true, 10, iy);
-            iy += 20;
+            entry.setRecipe(input.config(), builder, recipe, focuses, helpers, true, 0, 0, inputs);
         }
-        int oy = 0;
+        var outputs = new SlotGrid(20, 20, 3, 5);
         for (RecipeModel.RecipeEntry output : recipe.outputs()) {
             var entry = MMCompatRegistries.JEI_RECIPE_ENTRIES.get().getValue(output.type());
             if (entry == null) {
                 continue;
             }
-            entry.setRecipe(output.config(), builder, recipe, focuses, helpers, false, 100, oy);
-            oy += 20;
+            entry.setRecipe(output.config(), builder, recipe, focuses, helpers, false, 100, 0, outputs);
         }
     }
 
     @Override
     public void draw(RecipeModel recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
-        int iy = 0;
+        var inputs = new SlotGrid(20, 20, 3, 5);
         for (RecipeModel.RecipeEntry input : recipe.inputs()) {
             var entry = MMCompatRegistries.JEI_RECIPE_ENTRIES.get().getValue(input.type());
             if (entry == null) {
                 continue;
             }
-            entry.renderJei(recipe, recipeSlotsView, stack, mouseX, mouseY, input.config(), helpers, true, 10, iy);
-            iy += 20;
+            entry.renderJei(recipe, recipeSlotsView, stack, mouseX, mouseY, input.config(), helpers, true, 0, 0, inputs);
         }
-        int oy = 0;
+        var outputs = new SlotGrid(20, 20, 3, 5);
         for (RecipeModel.RecipeEntry output : recipe.outputs()) {
             var entry = MMCompatRegistries.JEI_RECIPE_ENTRIES.get().getValue(output.type());
             if (entry == null) {
                 continue;
             }
-            entry.renderJei(recipe, recipeSlotsView, stack, mouseX, mouseY, output.config(), helpers, false, 100, oy);
-            oy += 20;
+            entry.renderJei(recipe, recipeSlotsView, stack, mouseX, mouseY, output.config(), helpers, false, 100, 0, outputs);
         }
         helpers.getGuiHelper().createDrawable(Ref.SLOT_PARTS, 26, 0, 24, 17).draw(stack, 70, 5);
         Minecraft.getInstance().font.draw(stack, String.valueOf(recipe.duration()), 75, 25, 0x474747);
         Minecraft.getInstance().font.draw(stack, "Ticks", 70, 35, 0x474747);
     }
-
 }

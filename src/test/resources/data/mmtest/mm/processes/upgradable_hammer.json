@@ -12,6 +12,104 @@
         "item": "minecraft:stone",
         "count": 1
       }
+    },    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:stone",
+        "count": 1
+      }
+    },    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:stone",
+        "count": 1
+      }
+    },    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:stone",
+        "count": 1
+      }
+    },    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:stone",
+        "count": 1
+      }
+    },    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:stone",
+        "count": 1
+      }
+    },    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:stone",
+        "count": 1
+      }
+    },    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:stone",
+        "count": 1
+      }
+    },    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:stone",
+        "count": 1
+      }
+    },    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:stone",
+        "count": 1
+      }
+    },    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:stone",
+        "count": 1
+      }
+    },    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:stone",
+        "count": 1
+      }
+    },    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:stone",
+        "count": 1
+      }
+    },    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:stone",
+        "count": 1
+      }
+    },    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:stone",
+        "count": 1
+      }
     },
     {
       "type": "mm:gate/or",
@@ -39,6 +137,76 @@
   ],
   "outputs": [
     {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:cobblestone",
+        "count": 2
+      }
+    },    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:cobblestone",
+        "count": 2
+      }
+    },    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:cobblestone",
+        "count": 2
+      }
+    },    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:cobblestone",
+        "count": 2
+      }
+    },    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:cobblestone",
+        "count": 2
+      }
+    },    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:cobblestone",
+        "count": 2
+      }
+    },    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:cobblestone",
+        "count": 2
+      }
+    },    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:cobblestone",
+        "count": 2
+      }
+    },    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:cobblestone",
+        "count": 2
+      }
+    },    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:cobblestone",
+        "count": 2
+      }
+    },    {
       "type": "mm:simple",
       "ingredient": {
         "type": "mm:item",

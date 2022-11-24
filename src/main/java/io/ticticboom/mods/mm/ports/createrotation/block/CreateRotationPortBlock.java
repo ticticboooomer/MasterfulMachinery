@@ -56,5 +56,4 @@ public class CreateRotationPortBlock extends KineticBlock implements IPortBlock,
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return type == blockEntityType.get() ? (a, b, c, d) -> ((KineticTileEntity) d).tick() : null;
     }
-
 }

@@ -11,12 +11,12 @@
   "key": {
     "A": {
       "type": "mm:port",
-      "port": "mm:item",
+      "port": "mm:create_rotation",
       "input": true
     },
     "B": {
       "type": "mm:port",
-      "port": "mm:item",
+      "port": "mm:create_rotation",
       "input": false
     }
   }

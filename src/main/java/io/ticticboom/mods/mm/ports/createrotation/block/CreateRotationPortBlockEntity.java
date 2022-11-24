@@ -72,14 +72,12 @@ public class CreateRotationPortBlockEntity extends GearboxTileEntity implements 
     @Override
     public float calculateStressApplied() {
         var storg = (RotationPortStorage) storage;
-//        this.lastStressApplied = storg.stress;
         return storg.stress;
     }
 
     @Override
     public void onSpeedChanged(float previousSpeed) {
         super.onSpeedChanged(previousSpeed);
-
     }
 
     @Override

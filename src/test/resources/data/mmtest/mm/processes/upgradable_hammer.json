@@ -6,56 +6,19 @@
   "duration": 100,
   "inputs": [
     {
-      "type": "mm:simple",
+      "type": "mm:per_tick",
       "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },
-    {
-      "type": "mm:gate/or",
-      "conditions": [
-        {
-          "type": "mm:tick_modifier/ingredient",
-          "newDuration": 4,
-          "ingredient": {
-            "type": "mm:item",
-            "item": "minecraft:podzol",
-            "count": 10
-          }
-        },
-        {
-          "type": "mm:tick_modifier/ingredient",
-          "newDuration": 20,
-          "ingredient": {
-            "type": "mm:item",
-            "item": "minecraft:podzol",
-            "count": 1
-          }
-        }
-      ]
-    },
-    {
-      "type": "mm:structure_part",
-      "relativePos": {
-        "x": 0,
-        "z": 0,
-        "y": 1
-      },
-      "structurePart": {
-        "type": "mm:block",
-        "block": "minecraft:glass"
+        "type": "mm:create_rotation",
+        "speed": 1
       }
     }
   ],
   "outputs": [
     {
-      "type": "mm:simple",
+      "type": "mm:per_tick",
       "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:cobblestone",
-        "count": 2
+        "type": "mm:create_rotation",
+        "speed": 80
       }
     }
   ]

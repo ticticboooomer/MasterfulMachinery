@@ -73,7 +73,6 @@ public class RotationPortTypeEntry extends MMPortTypeEntry {
         }
         return true;
     }
-
     @Override
     public Supplier<Block> blockSupplier(boolean input, PortModel model, Deferred<RegistryObject<MenuType<?>>> menu, Deferred<RegistryObject<BlockEntityType<?>>> beType) {
         return () -> new CreateRotationPortBlock(model, menu.data, beType.data);

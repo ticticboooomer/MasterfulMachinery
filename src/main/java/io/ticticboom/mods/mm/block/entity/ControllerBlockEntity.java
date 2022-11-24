@@ -31,8 +31,9 @@ import java.util.function.Consumer;
 public class ControllerBlockEntity extends BlockEntity {
 
     private int ticks = 0;
+    private int resetTicks = 0;
     public final DisplayInfo displayInfo = new DisplayInfo();
-
+    public RecipeContext recipeContext;
     private final DecimalFormat format = new DecimalFormat("###.00");
 
     public ControllerBlockEntity(BlockEntityType<?> p_155228_, BlockPos p_155229_, BlockState p_155230_) {
@@ -116,10 +117,18 @@ public class ControllerBlockEntity extends BlockEntity {
         }
     }
 
-    protected void resetRecipe() {
+    public void resetRecipe() {
         ticks = 0;
         displayInfo.processStatus = "Idle";
         this.displayInfo.recipe = "";
+        if (recipeContext != null) {
+            for (PortStorage outputPort : recipeContext.outputPorts()) {
+                outputPort.reset();
+            }
+            for (PortStorage input : recipeContext.inputPorts()) {
+                input.reset();
+            }
+        }
     }
 
 
@@ -138,7 +147,16 @@ public class ControllerBlockEntity extends BlockEntity {
                     break;
                 }
             }
-            if (found) {
+            var canOutput = true;
+            for (RecipeModel.RecipeEntry input : recipe.getValue().outputs()) {
+                var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
+                if (!entry.processOutputs(input.config(), ctx, cloned)) {
+                    canOutput = false;
+                    this.displayInfo.processStatus = "Cannot Output";
+                }
+            }
+            if (found && canOutput) {
+                recipeContext = ctx;
                 ticks++;
                 int tickLimit = recipe.getValue().duration();
                 for (RecipeModel.RecipeEntry input : recipe.getValue().inputs()) {
@@ -149,27 +167,15 @@ public class ControllerBlockEntity extends BlockEntity {
                 this.displayInfo.processStatus = format.format(100f * percentage) + "% Processing";
                 this.displayInfo.recipe = recipe.getValue().name().getString();
                 if (ticks >= tickLimit) {
-                    var canOutput = true;
-                    for (RecipeModel.RecipeEntry input : recipe.getValue().outputs()) {
+                    for (RecipeModel.RecipeEntry input : recipe.getValue().inputs()) {
                         var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
-                        if (!entry.processOutputs(input.config(), ctx, cloned)) {
-                            canOutput = false;
-                            break;
-                        }
+                        entry.processInputs(input.config(), ctx, ctx);
                     }
-                    if (canOutput) {
-                        for (RecipeModel.RecipeEntry input : recipe.getValue().inputs()) {
-                            var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
-                            entry.processInputs(input.config(), ctx, ctx);
-                        }
-                        for (RecipeModel.RecipeEntry output : recipe.getValue().outputs()) {
-                            var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(output.type());
-                            entry.processOutputs(output.config(), ctx, ctx);
-                        }
-                        resetRecipe();
-                    } else {
-                        this.displayInfo.processStatus = "Cannot Output";
+                    for (RecipeModel.RecipeEntry output : recipe.getValue().outputs()) {
+                        var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(output.type());
+                        entry.processOutputs(output.config(), ctx, ctx);
                     }
+                    ticks = 0;
                 }
                 foundAny = true;
                 break;

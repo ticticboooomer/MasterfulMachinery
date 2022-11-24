@@ -80,4 +80,11 @@ public class ControllerBlock extends HorizontalDirectionalBlock implements Entit
         }
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
+
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean p_60519_) {
+        var be = (ControllerBlockEntity)level.getBlockEntity(pos);
+        be.resetRecipe();
+        super.onRemove(state, level, pos, newState, p_60519_);
+    }
 }

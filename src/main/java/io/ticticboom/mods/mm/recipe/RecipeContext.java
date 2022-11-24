@@ -2,14 +2,20 @@ package io.ticticboom.mods.mm.recipe;
 
 import io.ticticboom.mods.mm.ports.base.PortStorage;
 import io.ticticboom.mods.mm.setup.model.StructureModel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public record RecipeContext(
         StructureModel structure,
+        ResourceLocation appliedTransformId,
         List<PortStorage> inputPorts,
-        List<PortStorage> outputPorts
+        List<PortStorage> outputPorts,
+        Level level,
+        BlockPos controllerPos
 ) {
 
     public RecipeContext clonePorts() {
@@ -22,6 +28,6 @@ public record RecipeContext(
         for (PortStorage port : original.outputPorts()) {
             outputs.add(port.deepClone());
         }
-        return new RecipeContext(original.structure(), inputs, outputs);
+        return new RecipeContext(structure, appliedTransformId, inputs, outputs, level, controllerPos);
     }
 }

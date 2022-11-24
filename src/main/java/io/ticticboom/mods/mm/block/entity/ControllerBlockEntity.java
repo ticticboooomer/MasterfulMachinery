@@ -39,7 +39,6 @@ public class ControllerBlockEntity extends BlockEntity {
         super(p_155228_, p_155229_, p_155230_);
     }
 
-
     @Nullable
     @Override
     public Packet<ClientGamePacketListener> getUpdatePacket() {
@@ -83,9 +82,9 @@ public class ControllerBlockEntity extends BlockEntity {
             if (!model.controllerId().equals(block.model().id())) {
                 continue;
             }
-            for (List<StructureModel.PlacedStructurePart> flattened : model.transformed()) {
+            for (StructureModel.TypedTransformedParts flattened : model.transformed()) {
                 boolean found = true;
-                for (StructureModel.PlacedStructurePart placed : flattened) {
+                for (StructureModel.PlacedStructurePart placed : flattened.parts()) {
                     var part = MMRegistries.STRUCTURE_PARTS.get().getValue(placed.partId());
                     assert part != null;
                     BlockPos expectedPos = blockPos.offset(placed.pos());
@@ -106,7 +105,7 @@ public class ControllerBlockEntity extends BlockEntity {
                     be.displayInfo.structureName = model.name().getContents();
                     be.forceUpdate();
                     foundAny = true;
-                    be.chooseRecipe(model, new RecipeContext(model, inputPorts, outputPorts));
+                    be.chooseRecipe(model, new RecipeContext(model, flattened.transformId(), inputPorts, outputPorts, be.level, blockPos));
                     break;
                 }
             }

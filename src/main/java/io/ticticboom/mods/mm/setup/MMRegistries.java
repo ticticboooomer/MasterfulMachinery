@@ -16,6 +16,7 @@ import io.ticticboom.mods.mm.recipe.gates.and.AndGateRecipeEntry;
 import io.ticticboom.mods.mm.recipe.gates.or.OrGateRecipeEntry;
 import io.ticticboom.mods.mm.recipe.pertick.PerTickRecipeEntry;
 import io.ticticboom.mods.mm.recipe.simple.SimpleRecipeEntry;
+import io.ticticboom.mods.mm.recipe.structure.StructurePartRecipeEntry;
 import io.ticticboom.mods.mm.recipe.tickmodifier.ingredient.IngredientTickModifierRecipeEntry;
 import io.ticticboom.mods.mm.structure.MMStructurePart;
 import io.ticticboom.mods.mm.structure.block.BlockStructurePart;
@@ -43,7 +44,6 @@ import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MMRegistries {
-
     public static final Gson GSON = new Gson();
     public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Ref.ID);
     public static DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Ref.ID);
@@ -77,7 +77,8 @@ public class MMRegistries {
                 new PerTickRecipeEntry().setRegistryName(Ref.RecipeEntries.PER_TICK),
                 new IngredientTickModifierRecipeEntry().setRegistryName(Ref.RecipeEntries.INGREDIENT_TICK_MODIFIER),
                 new OrGateRecipeEntry().setRegistryName(Ref.RecipeEntries.OR_GATE),
-                new AndGateRecipeEntry().setRegistryName(Ref.RecipeEntries.AND_GATE)
+                new AndGateRecipeEntry().setRegistryName(Ref.RecipeEntries.AND_GATE),
+                new StructurePartRecipeEntry().setRegistryName(Ref.RecipeEntries.STRUCTURE_PART)
         );
     }
 

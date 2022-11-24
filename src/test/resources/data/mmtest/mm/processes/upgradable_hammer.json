@@ -12,104 +12,6 @@
         "item": "minecraft:stone",
         "count": 1
       }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
     },
     {
       "type": "mm:gate/or",
@@ -133,80 +35,22 @@
           }
         }
       ]
+    },
+    {
+      "type": "mm:structure_part",
+      "relativePos": {
+        "x": 0,
+        "z": 0,
+        "y": 1
+      },
+      "structurePart": {
+        "type": "mm:block",
+        "block": "minecraft:glass"
+      }
     }
   ],
   "outputs": [
     {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:cobblestone",
-        "count": 2
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:cobblestone",
-        "count": 2
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:cobblestone",
-        "count": 2
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:cobblestone",
-        "count": 2
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:cobblestone",
-        "count": 2
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:cobblestone",
-        "count": 2
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:cobblestone",
-        "count": 2
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:cobblestone",
-        "count": 2
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:cobblestone",
-        "count": 2
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:cobblestone",
-        "count": 2
-      }
-    },    {
       "type": "mm:simple",
       "ingredient": {
         "type": "mm:item",

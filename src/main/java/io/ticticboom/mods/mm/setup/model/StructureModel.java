@@ -24,7 +24,7 @@ public record StructureModel(
         List<List<String>> layout,
         Map<String, IdentifiedStructurePart> key,
         List<PlacedStructurePart> flattened,
-        List<List<PlacedStructurePart>> transformed
+        List<TypedTransformedParts> transformed
 ) {
     public static StructureModel parse(ResourceLocation id, JsonObject json) {
         var controllerId = ResourceLocation.tryParse(json.get("controllerId").getAsString());
@@ -113,12 +113,12 @@ public record StructureModel(
         }
     }
 
-    private static List<List<PlacedStructurePart>> applyTransforms(List<PlacedStructurePart> flattened) {
-        var result = new ArrayList<List<PlacedStructurePart>>();
-        result.add(flattened);
+    private static List<TypedTransformedParts> applyTransforms(List<PlacedStructurePart> flattened) {
+        var result = new ArrayList<TypedTransformedParts>();
+        result.add(new TypedTransformedParts(flattened, null));
         for (Map.Entry<ResourceKey<MMStructureTransform>, MMStructureTransform> entry : MMRegistries.STRUCTURE_TRANSFORMS.get().getEntries()) {
             var transformed = entry.getValue().transform(flattened);
-            result.add(transformed);
+            result.add(new TypedTransformedParts(transformed, entry.getValue().getRegistryName()));
         }
         return result;
     }
@@ -142,4 +142,9 @@ public record StructureModel(
     ) {
     }
 
+    public record TypedTransformedParts(
+            List<PlacedStructurePart> parts,
+            ResourceLocation transformId
+    ) {
+    }
 }

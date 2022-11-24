@@ -12,6 +12,8 @@ import io.ticticboom.mods.mm.ports.mekanism.infuse.MekInfusePortTypeEntry;
 import io.ticticboom.mods.mm.ports.mekanism.pigment.MekPigmentPortTypeEntry;
 import io.ticticboom.mods.mm.ports.mekanism.slurry.MekSlurryPortTypeEntry;
 import io.ticticboom.mods.mm.recipe.MMRecipeEntry;
+import io.ticticboom.mods.mm.recipe.gates.and.AndGateRecipeEntry;
+import io.ticticboom.mods.mm.recipe.gates.or.OrGateRecipeEntry;
 import io.ticticboom.mods.mm.recipe.pertick.PerTickRecipeEntry;
 import io.ticticboom.mods.mm.recipe.simple.SimpleRecipeEntry;
 import io.ticticboom.mods.mm.recipe.tickmodifier.ingredient.IngredientTickModifierRecipeEntry;
@@ -73,7 +75,9 @@ public class MMRegistries {
         event.getRegistry().registerAll(
                 new SimpleRecipeEntry().setRegistryName(Ref.RecipeEntries.SIMPLE),
                 new PerTickRecipeEntry().setRegistryName(Ref.RecipeEntries.PER_TICK),
-                new IngredientTickModifierRecipeEntry().setRegistryName(Ref.RecipeEntries.INGREDIENT_TICK_MODIFIER)
+                new IngredientTickModifierRecipeEntry().setRegistryName(Ref.RecipeEntries.INGREDIENT_TICK_MODIFIER),
+                new OrGateRecipeEntry().setRegistryName(Ref.RecipeEntries.OR_GATE),
+                new AndGateRecipeEntry().setRegistryName(Ref.RecipeEntries.AND_GATE)
         );
     }
 

@@ -34,7 +34,7 @@ public class SimpleRecipeEntry extends MMRecipeEntry {
     }
 
     @Override
-    public boolean processInputs(IConfiguredRecipeEntry config, RecipeContext ctx) {
+    public boolean processInputs(IConfiguredRecipeEntry config, RecipeContext original, RecipeContext ctx) {
         var conf = (SimpleConfiguredRecipeEntry) config;
         if (!roll(conf.chance())) {
             return true;
@@ -45,7 +45,7 @@ public class SimpleRecipeEntry extends MMRecipeEntry {
     }
 
     @Override
-    public boolean processOutputs(IConfiguredRecipeEntry config, RecipeContext ctx) {
+    public boolean processOutputs(IConfiguredRecipeEntry config, RecipeContext original, RecipeContext ctx) {
         var conf = (SimpleConfiguredRecipeEntry) config;
         if (!roll(conf.chance())) {
             return true;
@@ -54,12 +54,6 @@ public class SimpleRecipeEntry extends MMRecipeEntry {
         MMPortTypeEntry port = MMRegistries.PORTS.get(type);
         return port.processOutputs(conf.ingredient().config(), ctx.outputPorts());
     }
-
-    @Override
-    public boolean shouldBypassCloned(IConfiguredRecipeEntry config, RecipeContext ctx) {
-        return false;
-    }
-
     protected boolean roll(Optional<Float> chance) {
         if (chance.isPresent()) {
             var random = rand.nextFloat();

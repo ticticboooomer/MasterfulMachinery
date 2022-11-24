@@ -14,13 +14,27 @@
       }
     },
     {
-      "type": "mm:tick_modifier/ingredient",
-      "newDuration": 10,
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:podzol",
-        "count": 1
-      }
+      "type": "mm:gate/or",
+      "conditions": [
+        {
+          "type": "mm:tick_modifier/ingredient",
+          "newDuration": 4,
+          "ingredient": {
+            "type": "mm:item",
+            "item": "minecraft:podzol",
+            "count": 10
+          }
+        },
+        {
+          "type": "mm:tick_modifier/ingredient",
+          "newDuration": 20,
+          "ingredient": {
+            "type": "mm:item",
+            "item": "minecraft:podzol",
+            "count": 1
+          }
+        }
+      ]
     }
   ],
   "outputs": [

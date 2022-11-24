@@ -45,6 +45,8 @@ public class Ref {
         public static final ResourceLocation SIMPLE = res("simple");
         public static final ResourceLocation PER_TICK = res("per_tick");
         public static final ResourceLocation INGREDIENT_TICK_MODIFIER = res("tick_modifier/ingredient");
+        public static final ResourceLocation OR_GATE = res("gate/or");
+        public static final ResourceLocation AND_GATE = res("gate/and");
     }
     public static final class StructureTransforms  {
         public static final ResourceLocation ROT_90 = res("rotated_90");

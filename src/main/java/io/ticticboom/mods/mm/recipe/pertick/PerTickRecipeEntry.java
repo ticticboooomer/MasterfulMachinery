@@ -17,23 +17,18 @@ public class PerTickRecipeEntry extends MMRecipeEntry {
     }
 
     @Override
-    public boolean processInputs(IConfiguredRecipeEntry config, RecipeContext ctx) {
+    public boolean processInputs(IConfiguredRecipeEntry config, RecipeContext original, RecipeContext ctx) {
         PerTickConfiguredRecipeEntry conf = (PerTickConfiguredRecipeEntry) config;
         ResourceLocation type = conf.ingredient().type();
         MMPortTypeEntry port = MMRegistries.PORTS.get(type);
-        return port.processInputs(conf.ingredient().config(), ctx.inputPorts());
+        return port.processInputs(conf.ingredient().config(), original.inputPorts());
     }
 
     @Override
-    public boolean processOutputs(IConfiguredRecipeEntry config, RecipeContext ctx) {
+    public boolean processOutputs(IConfiguredRecipeEntry config, RecipeContext original, RecipeContext ctx) {
         PerTickConfiguredRecipeEntry conf = (PerTickConfiguredRecipeEntry) config;
         ResourceLocation type = conf.ingredient().type();
         MMPortTypeEntry port = MMRegistries.PORTS.get(type);
-        return port.processOutputs(conf.ingredient().config(), ctx.outputPorts());
-    }
-
-    @Override
-    public boolean shouldBypassCloned(IConfiguredRecipeEntry config, RecipeContext ctx) {
-        return true;
+        return port.processOutputs(conf.ingredient().config(), original.outputPorts());
     }
 }

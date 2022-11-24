@@ -117,18 +117,6 @@ public class ControllerBlockEntity extends BlockEntity {
         }
     }
 
-    protected RecipeContext clonePorts(RecipeContext original) {
-        var inputs = new ArrayList<PortStorage>();
-        for (PortStorage port : original.inputPorts()) {
-            inputs.add(port.deepClone());
-        }
-        var outputs = new ArrayList<PortStorage>();
-        for (PortStorage port : original.outputPorts()) {
-            outputs.add(port.deepClone());
-        }
-        return new RecipeContext(original.structure(), inputs, outputs);
-    }
-
     protected void resetRecipe() {
         ticks = 0;
         displayInfo.processStatus = "Idle";
@@ -143,11 +131,10 @@ public class ControllerBlockEntity extends BlockEntity {
                 continue;
             }
             var found = true;
-            var cloned = clonePorts(ctx);
+            var cloned = ctx.clonePorts();
             for (RecipeModel.RecipeEntry input : recipe.getValue().inputs()) {
                 var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
-                var bypass = entry.shouldBypassCloned(input.config(), ctx);
-                if (!entry.processInputs(input.config(), bypass ? ctx: cloned)) {
+                if (!entry.processInputs(input.config(), ctx, cloned)) {
                     found = false;
                     break;
                 }
@@ -157,8 +144,7 @@ public class ControllerBlockEntity extends BlockEntity {
                 int tickLimit = recipe.getValue().duration();
                 for (RecipeModel.RecipeEntry input : recipe.getValue().inputs()) {
                     var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
-                    var bypass = entry.shouldBypassCloned(input.config(), ctx);
-                    tickLimit = entry.getNewTickLimit(input.config(), bypass ? ctx: cloned, tickLimit);
+                    tickLimit = entry.getNewTickLimit(input.config(), ctx, cloned, tickLimit);
                 }
                 var percentage = (float) ticks / tickLimit;
                 this.displayInfo.processStatus = format.format(100f * percentage) + "% Processing";
@@ -167,8 +153,7 @@ public class ControllerBlockEntity extends BlockEntity {
                     var canOutput = true;
                     for (RecipeModel.RecipeEntry input : recipe.getValue().outputs()) {
                         var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
-                        var bypass = entry.shouldBypassCloned(input.config(), ctx);
-                        if (!entry.processOutputs(input.config(), bypass ? ctx: cloned)) {
+                        if (!entry.processOutputs(input.config(), ctx, cloned)) {
                             canOutput = false;
                             break;
                         }
@@ -176,15 +161,11 @@ public class ControllerBlockEntity extends BlockEntity {
                     if (canOutput) {
                         for (RecipeModel.RecipeEntry input : recipe.getValue().inputs()) {
                             var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
-                            if (!entry.shouldBypassCloned(input.config(), ctx)) {
-                                entry.processInputs(input.config(), ctx);
-                            }
+                            entry.processInputs(input.config(), ctx, ctx);
                         }
                         for (RecipeModel.RecipeEntry output : recipe.getValue().outputs()) {
                             var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(output.type());
-                            if (!entry.shouldBypassCloned(output.config(), ctx)) {
-                                entry.processOutputs(output.config(), ctx);
-                            }
+                            entry.processOutputs(output.config(), ctx, ctx);
                         }
                         resetRecipe();
                     } else {

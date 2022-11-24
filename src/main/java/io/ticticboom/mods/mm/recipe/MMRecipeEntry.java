@@ -12,12 +12,10 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public abstract class MMRecipeEntry extends ForgeRegistryEntry<MMRecipeEntry> {
     public abstract IConfiguredRecipeEntry parse(JsonObject json);
-    public abstract boolean processInputs(IConfiguredRecipeEntry config, RecipeContext ctx);
+    public abstract boolean processInputs(IConfiguredRecipeEntry config, RecipeContext original, RecipeContext ctx);
 
-    public abstract boolean processOutputs(IConfiguredRecipeEntry config, RecipeContext ctx);
-    public abstract boolean shouldBypassCloned(IConfiguredRecipeEntry config, RecipeContext ctx);
-
-    public int getNewTickLimit(IConfiguredRecipeEntry config, RecipeContext ctx, int currentLimit) {
+    public abstract boolean processOutputs(IConfiguredRecipeEntry config, RecipeContext original, RecipeContext ctx);
+    public int getNewTickLimit(IConfiguredRecipeEntry config, RecipeContext original, RecipeContext ctx, int currentLimit) {
         return currentLimit;
     }
 }

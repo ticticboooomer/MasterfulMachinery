@@ -18,22 +18,17 @@ public class IngredientTickModifierRecipeEntry extends MMRecipeEntry {
     }
 
     @Override
-    public boolean processInputs(IConfiguredRecipeEntry config, RecipeContext ctx) {
+    public boolean processInputs(IConfiguredRecipeEntry config, RecipeContext original, RecipeContext ctx) {
         return true;
     }
 
     @Override
-    public boolean processOutputs(IConfiguredRecipeEntry config, RecipeContext ctx) {
+    public boolean processOutputs(IConfiguredRecipeEntry config, RecipeContext original, RecipeContext ctx) {
         return true;
     }
 
     @Override
-    public boolean shouldBypassCloned(IConfiguredRecipeEntry config, RecipeContext ctx) {
-        return false;
-    }
-
-    @Override
-    public int getNewTickLimit(IConfiguredRecipeEntry config, RecipeContext ctx, int currentLimit) {
+    public int getNewTickLimit(IConfiguredRecipeEntry config, RecipeContext original, RecipeContext ctx, int currentLimit) {
         var conf = ((IngredientTickModifierConfiguredRecipeEntry) config);
         ResourceLocation type = conf.ingredient().type();
         MMPortTypeEntry port = MMRegistries.PORTS.get(type);

@@ -26,6 +26,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class ControllerBlockEntity extends BlockEntity {
 
@@ -134,6 +135,7 @@ public class ControllerBlockEntity extends BlockEntity {
         this.displayInfo.recipe = "";
     }
 
+
     protected void chooseRecipe(StructureModel model, RecipeContext ctx) {
         var foundAny = false;
         for (Map.Entry<ResourceLocation, RecipeModel> recipe : RecipeManager.REGISTRY.entrySet()) {
@@ -152,10 +154,16 @@ public class ControllerBlockEntity extends BlockEntity {
             }
             if (found) {
                 ticks++;
-                var percentage = (float) ticks / recipe.getValue().duration();
+                int tickLimit = recipe.getValue().duration();
+                for (RecipeModel.RecipeEntry input : recipe.getValue().inputs()) {
+                    var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
+                    var bypass = entry.shouldBypassCloned(input.config(), ctx);
+                    tickLimit = entry.getNewTickLimit(input.config(), bypass ? ctx: cloned, tickLimit);
+                }
+                var percentage = (float) ticks / tickLimit;
                 this.displayInfo.processStatus = format.format(100f * percentage) + "% Processing";
                 this.displayInfo.recipe = recipe.getValue().name().getString();
-                if (ticks >= recipe.getValue().duration()) {
+                if (ticks >= tickLimit) {
                     var canOutput = true;
                     for (RecipeModel.RecipeEntry input : recipe.getValue().outputs()) {
                         var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());

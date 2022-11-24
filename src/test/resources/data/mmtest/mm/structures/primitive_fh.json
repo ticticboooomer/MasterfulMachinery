@@ -1,6 +1,6 @@
 {
   "name": {
-    "text": "Gassy Bish"
+    "text": "Primitive Forge Hammer"
   },
   "controllerId": "mm:forge_hammer",
   "layout": [
@@ -11,12 +11,12 @@
   "key": {
     "A": {
       "type": "mm:port",
-      "port": "mm:mekanism_gas",
+      "port": "mm:item",
       "input": true
     },
     "B": {
       "type": "mm:port",
-      "port": "mm:mekanism_gas",
+      "port": "mm:item",
       "input": false
     }
   }

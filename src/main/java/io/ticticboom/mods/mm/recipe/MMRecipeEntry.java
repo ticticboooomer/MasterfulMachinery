@@ -16,4 +16,8 @@ public abstract class MMRecipeEntry extends ForgeRegistryEntry<MMRecipeEntry> {
 
     public abstract boolean processOutputs(IConfiguredRecipeEntry config, RecipeContext ctx);
     public abstract boolean shouldBypassCloned(IConfiguredRecipeEntry config, RecipeContext ctx);
+
+    public int getNewTickLimit(IConfiguredRecipeEntry config, RecipeContext ctx, int currentLimit) {
+        return currentLimit;
+    }
 }

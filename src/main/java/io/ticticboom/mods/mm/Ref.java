@@ -44,7 +44,7 @@ public class Ref {
     public static final class RecipeEntries {
         public static final ResourceLocation SIMPLE = res("simple");
         public static final ResourceLocation PER_TICK = res("per_tick");
-        public static final ResourceLocation QUANTITY_MODIFIER = res("quantity_modifier");
+        public static final ResourceLocation INGREDIENT_TICK_MODIFIER = res("tick_modifier/ingredient");
     }
     public static final class StructureTransforms  {
         public static final ResourceLocation ROT_90 = res("rotated_90");

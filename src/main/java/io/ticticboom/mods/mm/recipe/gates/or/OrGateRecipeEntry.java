@@ -15,7 +15,8 @@ public class OrGateRecipeEntry extends BaseGateRecipeEntry {
         var conf = (GateConfiguredRecipeEntry) config;
         for (ConfiguredRecipeEntry condition : conf.conditions()) {
             MMRecipeEntry entry = MMRegistries.RECIPE_ENTRIES.get().getValue(condition.type());
-            if (entry.processInputs(condition.entry(), original, ctx.clonePorts())) {
+            if (entry.processInputs(condition.entry(), original.clonePorts(), ctx.clonePorts())) {
+                entry.processInputs(condition.entry(), original, ctx);
                 return true;
             }
         }
@@ -27,7 +28,8 @@ public class OrGateRecipeEntry extends BaseGateRecipeEntry {
         var conf = (GateConfiguredRecipeEntry) config;
         for (ConfiguredRecipeEntry condition : conf.conditions()) {
             MMRecipeEntry entry = MMRegistries.RECIPE_ENTRIES.get().getValue(condition.type());
-            if (entry.processOutputs(condition.entry(), original, ctx.clonePorts())) {
+            if (entry.processOutputs(condition.entry(), original.clonePorts(), ctx.clonePorts())) {
+                entry.processOutputs(condition.entry(), original, ctx);
                 return true;
             }
         }
@@ -39,7 +41,7 @@ public class OrGateRecipeEntry extends BaseGateRecipeEntry {
         var conf = (GateConfiguredRecipeEntry) config;
         for (ConfiguredRecipeEntry condition : conf.conditions()) {
             MMRecipeEntry entry = MMRegistries.RECIPE_ENTRIES.get().getValue(condition.type());
-            int newTickLimit = entry.getNewTickLimit(condition.entry(), original, ctx.clonePorts(), currentLimit);
+            int newTickLimit = entry.getNewTickLimit(condition.entry(), original.clonePorts(), ctx.clonePorts(), currentLimit);
             if (newTickLimit != currentLimit) {
                 return newTickLimit;
             }

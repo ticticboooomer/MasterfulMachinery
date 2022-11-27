@@ -147,6 +147,9 @@ public class ControllerBlockEntity extends BlockEntity {
                     break;
                 }
             }
+            if (!found) {
+                continue;
+            }
             var canOutput = true;
             for (RecipeModel.RecipeEntry input : recipe.getValue().outputs()) {
                 var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
@@ -167,6 +170,7 @@ public class ControllerBlockEntity extends BlockEntity {
                 this.displayInfo.processStatus = format.format(100f * percentage) + "% Processing";
                 this.displayInfo.recipe = recipe.getValue().name().getString();
                 if (ticks >= tickLimit) {
+
                     for (RecipeModel.RecipeEntry input : recipe.getValue().inputs()) {
                         var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
                         entry.processInputs(input.config(), ctx, ctx);

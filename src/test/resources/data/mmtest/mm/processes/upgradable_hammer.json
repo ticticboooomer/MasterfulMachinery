@@ -1,24 +1,52 @@
 {
   "structureId": "mmtest:primitive_fh",
   "name": {
-    "text":  "Upgradable Hammer"
+    "text": "Lubed"
   },
-  "duration": 100,
+  "duration": 20,
   "inputs": [
     {
-      "type": "mm:per_tick",
-      "ingredient": {
-        "type": "mm:create_rotation",
-        "speed": 1
-      }
+      "type": "mm:gate/or",
+      "conditions": [
+        {
+          "type": "mm:gate/and",
+          "conditions": [
+            {
+              "type": "mm:simple",
+              "ingredient": {
+                "type": "mm:item",
+                "item": "minecraft:cobblestone",
+                "count": 5
+              }
+            },
+            {
+              "type": "mm:simple",
+              "ingredient": {
+                "type": "mm:fluid",
+                "fluid": "minecraft:water",
+                "amount": 100
+              }
+            }
+          ]
+        },
+        {
+          "type": "mm:simple",
+          "ingredient": {
+            "type": "mm:item",
+            "item": "minecraft:cobblestone",
+            "count": 10
+          }
+        }
+      ]
     }
   ],
   "outputs": [
     {
-      "type": "mm:per_tick",
+      "type": "mm:simple",
       "ingredient": {
-        "type": "mm:create_rotation",
-        "speed": 80
+        "type": "mm:item",
+        "item": "minecraft:deepslate",
+        "count": 5
       }
     }
   ]

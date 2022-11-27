@@ -2,6 +2,8 @@ package io.ticticboom.mods.mm.setup;
 
 import com.google.gson.Gson;
 import io.ticticboom.mods.mm.Ref;
+import io.ticticboom.mods.mm.item.BlueprintItem;
+import io.ticticboom.mods.mm.item.StructureSelectorWand;
 import io.ticticboom.mods.mm.ports.base.MMPortTypeEntry;
 import io.ticticboom.mods.mm.ports.createrotation.RotationPortTypeEntry;
 import io.ticticboom.mods.mm.ports.energy.EnergyPortTypeEntry;
@@ -15,6 +17,7 @@ import io.ticticboom.mods.mm.recipe.MMRecipeEntry;
 import io.ticticboom.mods.mm.recipe.gates.and.AndGateRecipeEntry;
 import io.ticticboom.mods.mm.recipe.gates.or.OrGateRecipeEntry;
 import io.ticticboom.mods.mm.recipe.pertick.PerTickRecipeEntry;
+import io.ticticboom.mods.mm.recipe.preset.PresetRecipeEntry;
 import io.ticticboom.mods.mm.recipe.simple.SimpleRecipeEntry;
 import io.ticticboom.mods.mm.recipe.structure.StructurePartRecipeEntry;
 import io.ticticboom.mods.mm.recipe.tickmodifier.ingredient.IngredientTickModifierRecipeEntry;
@@ -54,6 +57,11 @@ public class MMRegistries {
     public static Supplier<IForgeRegistry<MMRecipeEntry>> RECIPE_ENTRIES;
     public static Supplier<IForgeRegistry<MMStructurePart>> STRUCTURE_PARTS;
     public static Supplier<IForgeRegistry<MMStructureTransform>> STRUCTURE_TRANSFORMS;
+
+    public static final RegistryObject<Item> BLUEPRINT = ITEMS.register("blueprint", BlueprintItem::new);
+    public static final RegistryObject<Item> STRUCTURE_GEN_WAND = ITEMS.register("structure_wand", StructureSelectorWand::new);
+
+
     @SubscribeEvent
     public static void on(NewRegistryEvent event) {
         STRUCTURE_PARTS = event.create(new RegistryBuilder<MMStructurePart>().setType(MMStructurePart.class).setName(Ref.STRUCTURE_PART_REGISTRY));
@@ -78,7 +86,8 @@ public class MMRegistries {
                 new IngredientTickModifierRecipeEntry().setRegistryName(Ref.RecipeEntries.INGREDIENT_TICK_MODIFIER),
                 new OrGateRecipeEntry().setRegistryName(Ref.RecipeEntries.OR_GATE),
                 new AndGateRecipeEntry().setRegistryName(Ref.RecipeEntries.AND_GATE),
-                new StructurePartRecipeEntry().setRegistryName(Ref.RecipeEntries.STRUCTURE_PART)
+                new StructurePartRecipeEntry().setRegistryName(Ref.RecipeEntries.STRUCTURE_PART),
+                new PresetRecipeEntry().setRegistryName(Ref.RecipeEntries.PRESET)
         );
     }
 

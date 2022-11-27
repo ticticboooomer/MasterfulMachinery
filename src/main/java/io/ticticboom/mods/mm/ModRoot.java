@@ -49,7 +49,7 @@ public class ModRoot {
     public static CreativeModeTab MM_GROUP = new CreativeModeTab("mm") {
         @Override
         public ItemStack makeIcon() {
-            return new ItemStack(Items.ACACIA_PLANKS);
+            return new ItemStack(MMRegistries.BLUEPRINT.get());
         }
     };
 

@@ -16,7 +16,6 @@ public class Ref {
     public static final ResourceLocation RECIPE_ENTRIES_REGISTRY = res("recipe_entries");
     public static final ResourceLocation CLIENT_PORTS_REGISTRY = res("client_ports");
     public static final ResourceLocation STRUCTURE_TRANSFORMS_REGISTRY = res("structure_transforms");
-    public static final ResourceLocation STRUCTURE_SHAPE_REGISTRY = res("structure_shapes");
     public static final ResourceLocation PORT_GUI = res("textures/gui/port_gui.png");
     public static final ResourceLocation SLOT_PARTS = res("textures/gui/slot_parts.png");
 
@@ -48,6 +47,7 @@ public class Ref {
         public static final ResourceLocation OR_GATE = res("gate/or");
         public static final ResourceLocation AND_GATE = res("gate/and");
         public static final ResourceLocation STRUCTURE_PART = res("structure_part");
+        public static final ResourceLocation PRESET = res("preset");
     }
 
     public static final class StructureTransforms  {

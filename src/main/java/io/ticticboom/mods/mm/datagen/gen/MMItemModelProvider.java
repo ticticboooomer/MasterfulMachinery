@@ -35,5 +35,10 @@ public class MMItemModelProvider extends ItemModelProvider {
         for (RegistryObject<Block> port : ports) {
             this.getBuilder(port.getId().toString()).parent(new ModelFile.UncheckedModelFile(new ResourceLocation(port.getId().getNamespace(), "block/" + port.getId().getPath())));
         }
+
+        this.getBuilder(MMRegistries.BLUEPRINT.get().getRegistryName().getPath()).parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", Ref.res("item/blueprint"));
+        this.getBuilder(MMRegistries.STRUCTURE_GEN_WAND.get().getRegistryName().getPath()).parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", Ref.res("item/scanning_tool"));
     }
 }

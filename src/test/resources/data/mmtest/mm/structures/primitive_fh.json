@@ -1,23 +1,33 @@
 {
-  "name": {
-    "text": "Primitive Forge Hammer"
-  },
   "controllerId": "mm:forge_hammer",
-  "layout": [
-    [
-      "ACB"
-    ]
-  ],
+  "name": {
+    "text": "Primitive Boing"
+  },
+  "layout": [["D","C","E","F"],["AB","AB","AB","AB"]],
+
   "key": {
     "A": {
-      "type": "mm:port",
-      "port": "mm:create_rotation",
-      "input": true
+      "type": "mm:block",
+      "block": "minecraft:grass_block"
     },
     "B": {
+      "type": "mm:block",
+      "block": "minecraft:dirt"
+    },
+    "D": {
       "type": "mm:port",
-      "port": "mm:create_rotation",
+      "port": "mm:fluid",
+      "input": true
+    },
+    "E": {
+      "type": "mm:port",
+      "port": "mm:item",
       "input": false
+    },
+    "F": {
+      "type": "mm:port",
+      "port": "mm:item",
+      "input": true
     }
   }
 }

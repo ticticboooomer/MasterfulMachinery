@@ -32,5 +32,8 @@ public class MMLangProvider extends LanguageProvider {
             var portBlock = ((IPortBlock) port.get());
             this.add(port.get(), portBlock.model().name().getString() + " " + (portBlock.model().input() ? "Input" : "Output") + " Port");
         }
+
+        this.add(MMRegistries.BLUEPRINT.get(), "Blueprint");
+        this.add(MMRegistries.STRUCTURE_GEN_WAND.get(), "Structure Wand");
     }
 }

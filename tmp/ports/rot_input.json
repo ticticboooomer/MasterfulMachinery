@@ -1,0 +1,11 @@
+{
+  "id": "rot_input",
+  "name": {
+    "text": "Large Rotation"
+  },
+  "port": "mm:create_rotation",
+  "input": true,
+  "config": {
+    "stress": 10
+  }
+}

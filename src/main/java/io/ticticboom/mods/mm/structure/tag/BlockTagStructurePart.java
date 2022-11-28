@@ -28,9 +28,4 @@ public class BlockTagStructurePart extends MMStructurePart {
         var state = level.getBlockState(expectedPos);
         return state.is(BlockTags.create(currentConfig.tag()));
     }
-
-    @Override
-    public Optional<IOPortStorage> getPortIfPresent(Level level, BlockPos expectedPos, IConfiguredStructurePart config) {
-        return Optional.empty();
-    }
 }

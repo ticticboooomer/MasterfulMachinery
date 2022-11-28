@@ -21,7 +21,11 @@ public class PortStructurePart extends MMStructurePart {
     public IConfiguredStructurePart parse(JsonObject json) {
         var port = ResourceLocation.tryParse(json.get("port").getAsString());
         var input = json.get("input").getAsBoolean();
-        return new PortConfiguredStructurePart(port, input);
+        Optional<String> id = Optional.empty();
+        if (json.has("id")) {
+            id = Optional.of(json.get("id").getAsString());
+        }
+        return new PortConfiguredStructurePart(port, input, id);
     }
 
     @Override
@@ -45,7 +49,7 @@ public class PortStructurePart extends MMStructurePart {
         var conf = ((PortConfiguredStructurePart) config);
         var block = level.getBlockEntity(expectedPos);
         if (block instanceof IPortBE be) {
-            return Optional.of(new IOPortStorage(be.storage(), conf.input()));
+            return Optional.of(new IOPortStorage(conf.id().isPresent() ? conf.id().get() : null, be.storage(), conf.input()));
         }
         return Optional.empty();
     }

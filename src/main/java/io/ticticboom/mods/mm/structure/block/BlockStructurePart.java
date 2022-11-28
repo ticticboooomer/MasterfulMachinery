@@ -24,9 +24,4 @@ public class BlockStructurePart extends MMStructurePart {
         var state = level.getBlockState(expectedPos);
         return state.getBlock().getRegistryName().equals(currentConfig.block());
     }
-
-    @Override
-    public Optional<IOPortStorage> getPortIfPresent(Level level, BlockPos expectedPos, IConfiguredStructurePart config) {
-        return Optional.empty();
-    }
 }

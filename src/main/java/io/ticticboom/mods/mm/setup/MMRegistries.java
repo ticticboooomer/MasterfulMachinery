@@ -14,16 +14,19 @@ import io.ticticboom.mods.mm.ports.mekanism.infuse.MekInfusePortTypeEntry;
 import io.ticticboom.mods.mm.ports.mekanism.pigment.MekPigmentPortTypeEntry;
 import io.ticticboom.mods.mm.ports.mekanism.slurry.MekSlurryPortTypeEntry;
 import io.ticticboom.mods.mm.recipe.MMRecipeEntry;
+import io.ticticboom.mods.mm.recipe.designated.DesignatedRecipeEntry;
 import io.ticticboom.mods.mm.recipe.gates.and.AndGateRecipeEntry;
 import io.ticticboom.mods.mm.recipe.gates.or.OrGateRecipeEntry;
 import io.ticticboom.mods.mm.recipe.pertick.PerTickRecipeEntry;
 import io.ticticboom.mods.mm.recipe.preset.PresetRecipeEntry;
 import io.ticticboom.mods.mm.recipe.simple.SimpleRecipeEntry;
 import io.ticticboom.mods.mm.recipe.structure.StructurePartRecipeEntry;
+import io.ticticboom.mods.mm.recipe.tickmodifier.generic.TickModifierRecipeEntry;
 import io.ticticboom.mods.mm.recipe.tickmodifier.ingredient.IngredientTickModifierRecipeEntry;
 import io.ticticboom.mods.mm.structure.MMStructurePart;
 import io.ticticboom.mods.mm.structure.block.BlockStructurePart;
 import io.ticticboom.mods.mm.structure.port.PortStructurePart;
+import io.ticticboom.mods.mm.structure.portblock.PortBlockStructurePart;
 import io.ticticboom.mods.mm.structure.tag.BlockTagStructurePart;
 import io.ticticboom.mods.mm.structure.transformers.MMStructureTransform;
 import io.ticticboom.mods.mm.structure.transformers.RotationStructureTransform;
@@ -74,7 +77,8 @@ public class MMRegistries {
         event.getRegistry().registerAll(
                 new BlockStructurePart().setRegistryName(Ref.StructureParts.BLOCK),
                 new BlockTagStructurePart().setRegistryName(Ref.StructureParts.TAG),
-                new PortStructurePart().setRegistryName(Ref.StructureParts.PORT)
+                new PortStructurePart().setRegistryName(Ref.StructureParts.PORT),
+                new PortBlockStructurePart().setRegistryName(Ref.StructureParts.PORT_BLOCK)
         );
     }
 
@@ -87,7 +91,9 @@ public class MMRegistries {
                 new OrGateRecipeEntry().setRegistryName(Ref.RecipeEntries.OR_GATE),
                 new AndGateRecipeEntry().setRegistryName(Ref.RecipeEntries.AND_GATE),
                 new StructurePartRecipeEntry().setRegistryName(Ref.RecipeEntries.STRUCTURE_PART),
-                new PresetRecipeEntry().setRegistryName(Ref.RecipeEntries.PRESET)
+                new PresetRecipeEntry().setRegistryName(Ref.RecipeEntries.PRESET),
+                new TickModifierRecipeEntry().setRegistryName(Ref.RecipeEntries.TICK_MODIFIER),
+                new DesignatedRecipeEntry().setRegistryName(Ref.RecipeEntries.DESIGNATED)
         );
     }
 

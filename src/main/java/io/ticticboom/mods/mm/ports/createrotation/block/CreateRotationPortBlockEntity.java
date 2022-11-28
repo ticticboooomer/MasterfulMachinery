@@ -16,7 +16,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class CreateRotationPortBlockEntity extends GearboxTileEntity implements IPortBE {
+public class CreateRotationPortBlockEntity extends KineticTileEntity implements IPortBE {
     private final PortStorage storage;
     private PortModel model;
     private float appliedStress = 0;
@@ -50,13 +50,13 @@ public class CreateRotationPortBlockEntity extends GearboxTileEntity implements 
     @Override
     public void handleUpdateTag(CompoundTag tag) {
         storage.read(tag.getCompound("Port"));
-        read(tag, false);
+        read(tag, true);
     }
 
     @Override
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
         storage.read(pkt.getTag().getCompound("Port"));
-        read(pkt.getTag(), false);
+        read(pkt.getTag(), true);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class CreateRotationPortBlockEntity extends GearboxTileEntity implements 
 
     @Override
     public boolean isSource() {
-        return true;
+        return false;
     }
 
     @Override

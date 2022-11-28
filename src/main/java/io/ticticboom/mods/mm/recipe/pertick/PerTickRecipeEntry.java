@@ -1,6 +1,7 @@
 package io.ticticboom.mods.mm.recipe.pertick;
 
 import com.google.gson.JsonObject;
+import io.ticticboom.mods.mm.ports.base.IOPortStorage;
 import io.ticticboom.mods.mm.ports.base.MMPortTypeEntry;
 import io.ticticboom.mods.mm.recipe.IConfiguredRecipeEntry;
 import io.ticticboom.mods.mm.recipe.MMRecipeEntry;
@@ -21,7 +22,7 @@ public class PerTickRecipeEntry extends MMRecipeEntry {
         PerTickConfiguredRecipeEntry conf = (PerTickConfiguredRecipeEntry) config;
         ResourceLocation type = conf.ingredient().type();
         MMPortTypeEntry port = MMRegistries.PORTS.get(type);
-        return port.processInputs(conf.ingredient().config(), original.inputPorts());
+        return port.processInputs(conf.ingredient().config(), original.inputPorts().stream().map(IOPortStorage::port).toList());
     }
 
     @Override
@@ -29,6 +30,6 @@ public class PerTickRecipeEntry extends MMRecipeEntry {
         PerTickConfiguredRecipeEntry conf = (PerTickConfiguredRecipeEntry) config;
         ResourceLocation type = conf.ingredient().type();
         MMPortTypeEntry port = MMRegistries.PORTS.get(type);
-        return port.processOutputs(conf.ingredient().config(), original.outputPorts());
+        return port.processOutputs(conf.ingredient().config(), original.outputPorts().stream().map(IOPortStorage::port).toList());
     }
 }

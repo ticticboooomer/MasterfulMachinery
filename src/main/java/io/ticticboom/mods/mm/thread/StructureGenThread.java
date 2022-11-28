@@ -134,6 +134,8 @@ public class StructureGenThread extends Thread {
                     } else if (!state.isAir()) {
                         var id = setBlock(state.getBlock(), pos);
                         row.append(id);
+                    } else {
+                        row.append(" ");
                     }
                 }
                 layer.add(row.toString());

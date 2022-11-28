@@ -2,6 +2,7 @@ package io.ticticboom.mods.mm.recipe.simple;
 
 import com.google.gson.JsonObject;
 import com.mojang.blaze3d.vertex.PoseStack;
+import io.ticticboom.mods.mm.ports.base.IOPortStorage;
 import io.ticticboom.mods.mm.ports.base.MMPortTypeEntry;
 import io.ticticboom.mods.mm.recipe.IConfiguredRecipeEntry;
 import io.ticticboom.mods.mm.recipe.MMRecipeEntry;
@@ -41,7 +42,7 @@ public class SimpleRecipeEntry extends MMRecipeEntry {
         }
         ResourceLocation type = conf.ingredient().type();
         MMPortTypeEntry port = MMRegistries.PORTS.get(type);
-        return port.processInputs(conf.ingredient().config(), ctx.inputPorts());
+        return port.processInputs(conf.ingredient().config(), ctx.inputPorts().stream().map(IOPortStorage::port).toList());
     }
 
     @Override
@@ -52,7 +53,7 @@ public class SimpleRecipeEntry extends MMRecipeEntry {
         }
         ResourceLocation type = conf.ingredient().type();
         MMPortTypeEntry port = MMRegistries.PORTS.get(type);
-        return port.processOutputs(conf.ingredient().config(), ctx.outputPorts());
+        return port.processOutputs(conf.ingredient().config(), ctx.outputPorts().stream().map(IOPortStorage::port).toList());
     }
     protected boolean roll(Optional<Float> chance) {
         if (chance.isPresent()) {

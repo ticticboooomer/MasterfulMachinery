@@ -1,6 +1,7 @@
 package io.ticticboom.mods.mm.recipe.tickmodifier.ingredient;
 
 import com.google.gson.JsonObject;
+import io.ticticboom.mods.mm.ports.base.IOPortStorage;
 import io.ticticboom.mods.mm.ports.base.MMPortTypeEntry;
 import io.ticticboom.mods.mm.recipe.IConfiguredRecipeEntry;
 import io.ticticboom.mods.mm.recipe.MMRecipeEntry;
@@ -32,7 +33,7 @@ public class IngredientTickModifierRecipeEntry extends MMRecipeEntry {
         var conf = ((IngredientTickModifierConfiguredRecipeEntry) config);
         ResourceLocation type = conf.ingredient().type();
         MMPortTypeEntry port = MMRegistries.PORTS.get(type);
-        if (port.processInputs(conf.ingredient().config(), ctx.inputPorts())) {
+        if (port.processInputs(conf.ingredient().config(), ctx.inputPorts().stream().map(IOPortStorage::port).toList())) {
             return conf.duration();
         }
         return currentLimit;

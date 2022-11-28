@@ -1,6 +1,7 @@
 package io.ticticboom.mods.mm.block.entity;
 
 import io.ticticboom.mods.mm.block.ControllerBlock;
+import io.ticticboom.mods.mm.ports.base.IOPortStorage;
 import io.ticticboom.mods.mm.ports.base.PortStorage;
 import io.ticticboom.mods.mm.recipe.RecipeContext;
 import io.ticticboom.mods.mm.setup.MMRegistries;
@@ -77,8 +78,8 @@ public class ControllerBlockEntity extends BlockEntity {
         var block = (ControllerBlock) blockState.getBlock();
         var foundAny = false;
         for (Map.Entry<ResourceLocation, StructureModel> entry : StructureManager.REGISTRY.entrySet()) {
-            var inputPorts = new ArrayList<PortStorage>();
-            var outputPorts = new ArrayList<PortStorage>();
+            var inputPorts = new ArrayList<IOPortStorage>();
+            var outputPorts = new ArrayList<IOPortStorage>();
             var model = entry.getValue();
             if (!model.controllerId().equals(block.model().id())) {
                 continue;
@@ -96,9 +97,9 @@ public class ControllerBlockEntity extends BlockEntity {
                     var port = part.getPortIfPresent(level, expectedPos, placed.part());
                     if (port.isPresent()) {
                         if (port.get().input()) {
-                            inputPorts.add(port.get().port());
+                            inputPorts.add(port.get());
                         } else {
-                            outputPorts.add(port.get().port());
+                            outputPorts.add(port.get());
                         }
                     }
                 }
@@ -122,11 +123,11 @@ public class ControllerBlockEntity extends BlockEntity {
         displayInfo.processStatus = "Idle";
         this.displayInfo.recipe = "";
         if (recipeContext != null) {
-            for (PortStorage outputPort : recipeContext.outputPorts()) {
-                outputPort.reset();
+            for (IOPortStorage outputPort : recipeContext.outputPorts()) {
+                outputPort.port().reset();
             }
-            for (PortStorage input : recipeContext.inputPorts()) {
-                input.reset();
+            for (IOPortStorage input : recipeContext.inputPorts()) {
+                input.port().reset();
             }
         }
     }

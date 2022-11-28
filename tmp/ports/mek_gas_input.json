@@ -1,0 +1,11 @@
+{
+  "id": "mek_gas_input",
+  "name": {
+    "text": "Large Gas"
+  },
+  "port": "mm:mekanism_gas",
+  "input": true,
+  "config": {
+    "capacity": 20000000
+  }
+}

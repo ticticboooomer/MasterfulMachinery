@@ -24,8 +24,8 @@ public class MMLangProvider extends LanguageProvider {
 
         for (RegistryObject<Block> controller : controllers) {
             var controllerBlock = ((ControllerBlock) controller.get());
-            this.add(controller.get(), controllerBlock.model().name().getString() + " Controller");
-            this.add("container.masterfulmachinery." + controllerBlock.model().blockId() + "_controller.name", controllerBlock.model().name().getString() + " Controller");
+            this.add(controller.get(), controllerBlock.model().name().getString());
+            this.add("container.masterfulmachinery." + controllerBlock.model().blockId() + "_controller.name", controllerBlock.model().name().getString());
         }
 
         for (RegistryObject<Block> port : ports) {

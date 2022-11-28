@@ -41,7 +41,4 @@ public class StructureSelectorWand extends Item {
         return InteractionResult.SUCCESS;
     }
 
-    private void generateStructure(BlockPos start, BlockPos end) {
-
-    }
 }

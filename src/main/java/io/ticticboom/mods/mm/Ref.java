@@ -32,22 +32,26 @@ public class Ref {
         public static final ResourceLocation MEK_INFUSE = res("mekanism_infuse");
         public static final ResourceLocation MEK_PIGMENT = res("mekanism_pigment");
         public static final ResourceLocation MEK_SLURRY = res("mekanism_slurry");
+        public static final ResourceLocation MEK_HEAT = res("mekanism_heat");
     }
 
     public static final class StructureParts {
         public static final ResourceLocation BLOCK = res("block");
         public static final ResourceLocation TAG = res("tag");
         public static final ResourceLocation PORT = res("port");
+        public static final ResourceLocation PORT_BLOCK = res("port_block");
     }
 
     public static final class RecipeEntries {
         public static final ResourceLocation SIMPLE = res("simple");
         public static final ResourceLocation PER_TICK = res("per_tick");
         public static final ResourceLocation INGREDIENT_TICK_MODIFIER = res("tick_modifier/ingredient");
+        public static final ResourceLocation TICK_MODIFIER = res("tick_modifier");
         public static final ResourceLocation OR_GATE = res("gate/or");
         public static final ResourceLocation AND_GATE = res("gate/and");
         public static final ResourceLocation STRUCTURE_PART = res("structure_part");
         public static final ResourceLocation PRESET = res("preset");
+        public static final ResourceLocation DESIGNATED = res("port_designated");
     }
 
     public static final class StructureTransforms  {

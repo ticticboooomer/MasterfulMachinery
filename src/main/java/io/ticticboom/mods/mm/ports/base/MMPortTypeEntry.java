@@ -7,9 +7,11 @@ import io.ticticboom.mods.mm.block.entity.PortBlockEntity;
 import io.ticticboom.mods.mm.datagen.gen.MMBlockStateProvider;
 import io.ticticboom.mods.mm.setup.model.PortModel;
 import io.ticticboom.mods.mm.util.Deferred;
+import mekanism.api.providers.IBlockProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.registries.RegistryObject;
@@ -23,10 +25,10 @@ public abstract class MMPortTypeEntry {
     public abstract IConfiguredIngredient parseIngredient(JsonObject json);
     public abstract ResourceLocation overlay(boolean input);
     public abstract PortStorage createStorage(IConfiguredPort config);
-    public Supplier<Block> blockSupplier(boolean input, PortModel model, Deferred<RegistryObject<MenuType<?>>> menu, Deferred<RegistryObject<BlockEntityType<?>>> beType) {
+    public Supplier<Block> blockSupplier(boolean input, PortModel model, Deferred<RegistryObject<MenuType<?>>> menu, Deferred<RegistryObject<BlockEntityType<BlockEntity>>> beType) {
         return () -> new PortBlock(model, menu.data, beType.data);
     }
-    public BlockEntityType.BlockEntitySupplier<?> beSupplier(boolean input, PortModel model, RegistryObject<BlockEntityType<?>> beType) {
+    public BlockEntityType.BlockEntitySupplier<BlockEntity> beSupplier(boolean input, PortModel model, RegistryObject<BlockEntityType<BlockEntity>> beType, IBlockProvider block) {
         return (a, b) -> new PortBlockEntity(beType.get(), a, b, model);
     }
 
@@ -44,4 +46,5 @@ public abstract class MMPortTypeEntry {
 
     public abstract boolean processInputs(IConfiguredIngredient ingredient, List<PortStorage> storage);
     public abstract boolean processOutputs(IConfiguredIngredient ingredient, List<PortStorage> storage);
+
 }

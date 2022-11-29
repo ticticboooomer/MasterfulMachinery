@@ -33,6 +33,7 @@ public class Ref {
         public static final ResourceLocation MEK_PIGMENT = res("mekanism_pigment");
         public static final ResourceLocation MEK_SLURRY = res("mekanism_slurry");
         public static final ResourceLocation MEK_HEAT = res("mekanism_heat");
+        public static final ResourceLocation MEK_LASER = res("mekanism_laser");
     }
 
     public static final class StructureParts {

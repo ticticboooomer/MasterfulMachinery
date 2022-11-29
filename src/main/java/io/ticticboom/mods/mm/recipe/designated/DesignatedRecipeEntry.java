@@ -1,5 +1,6 @@
 package io.ticticboom.mods.mm.recipe.designated;
 
+import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.ports.base.IOPortStorage;
 import io.ticticboom.mods.mm.recipe.ConfiguredRecipeEntry;
@@ -25,7 +26,9 @@ public class DesignatedRecipeEntry extends MMRecipeEntry {
         for (IOPortStorage inputPort : ctx.inputPorts()) {
             if (inputPort.name().equals(conf.portId().toString())) {
                 var value = MMRegistries.RECIPE_ENTRIES.get().getValue(conf.entry().type());
-                return value.processInputs(conf.entry().entry(), original, ctx);
+                var newOriginal = new RecipeContext(original.structure(), original.appliedTransformId(), ImmutableList.of(inputPort), original.outputPorts(), original.level(), original.controllerPos());
+                var newCtx = new RecipeContext(ctx.structure(), ctx.appliedTransformId(), ImmutableList.of(inputPort), ctx.outputPorts(), ctx.level(), ctx.controllerPos());
+                return value.processInputs(conf.entry().entry(), newOriginal, newCtx);
             }
         }
         return false;
@@ -37,7 +40,9 @@ public class DesignatedRecipeEntry extends MMRecipeEntry {
         for (IOPortStorage inputPort : ctx.inputPorts()) {
             if (inputPort.name().equals(conf.portId().toString())) {
                 var value = MMRegistries.RECIPE_ENTRIES.get().getValue(conf.entry().type());
-                return value.processOutputs(conf.entry().entry(), original, ctx);
+                var newOriginal = new RecipeContext(original.structure(), original.appliedTransformId(), ImmutableList.of(inputPort), original.outputPorts(), original.level(), original.controllerPos());
+                var newCtx = new RecipeContext(ctx.structure(), ctx.appliedTransformId(), ImmutableList.of(inputPort), ctx.outputPorts(), ctx.level(), ctx.controllerPos());
+                return value.processOutputs(conf.entry().entry(), newOriginal, newCtx);
             }
         }
         return false;

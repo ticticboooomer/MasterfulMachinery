@@ -87,6 +87,7 @@ public class PortBlockEntity extends BlockEntity implements IPortBE {
         }
         var be = ((PortBlockEntity) t);
         be.forceUpdate();
+        be.storage.tick();
     }
 
     @Override

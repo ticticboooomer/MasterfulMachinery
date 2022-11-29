@@ -11,9 +11,11 @@ import io.ticticboom.mods.mm.ports.createrotation.block.CreateRotationPortBlock;
 import io.ticticboom.mods.mm.ports.createrotation.block.CreateRotationPortBlockEntity;
 import io.ticticboom.mods.mm.setup.model.PortModel;
 import io.ticticboom.mods.mm.util.Deferred;
+import mekanism.api.providers.IBlockProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -74,12 +76,12 @@ public class RotationPortTypeEntry extends MMPortTypeEntry {
         return true;
     }
     @Override
-    public Supplier<Block> blockSupplier(boolean input, PortModel model, Deferred<RegistryObject<MenuType<?>>> menu, Deferred<RegistryObject<BlockEntityType<?>>> beType) {
+    public Supplier<Block> blockSupplier(boolean input, PortModel model, Deferred<RegistryObject<MenuType<?>>> menu, Deferred<RegistryObject<BlockEntityType<BlockEntity>>> beType) {
         return () -> new CreateRotationPortBlock(model, menu.data, beType.data);
     }
 
     @Override
-    public BlockEntityType.BlockEntitySupplier<?> beSupplier(boolean input, PortModel model, RegistryObject<BlockEntityType<?>> beType) {
+    public BlockEntityType.BlockEntitySupplier<BlockEntity> beSupplier(boolean input, PortModel model, RegistryObject<BlockEntityType<BlockEntity>> beType, IBlockProvider block) {
         if (input) {
             return (a, b) -> new CreateRotationPortBlockEntity(beType.get(), a, b, model);
         } else {

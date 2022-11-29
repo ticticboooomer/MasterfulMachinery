@@ -9,12 +9,14 @@ import io.ticticboom.mods.mm.client.container.ControllerContainer;
 import io.ticticboom.mods.mm.client.container.PortContainer;
 import io.ticticboom.mods.mm.ports.base.MMPortTypeEntry;
 import io.ticticboom.mods.mm.setup.model.ControllerModel;
+import io.ticticboom.mods.mm.setup.model.MMBlockProvider;
 import io.ticticboom.mods.mm.setup.model.PortModel;
 import io.ticticboom.mods.mm.util.Deferred;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.registries.RegistryObject;
@@ -42,10 +44,10 @@ public class PortManager extends BaseJsonManager {
             REGISTRY.put(res.id(), res);
             MMPortTypeEntry entry = MMRegistries.PORTS.get(res.port());
             final Deferred<RegistryObject<MenuType<?>>> menuType = new Deferred<>();
-            Deferred<RegistryObject<BlockEntityType<?>>> blockEntityType = new Deferred<>();
+            Deferred<RegistryObject<BlockEntityType<BlockEntity>>> blockEntityType = new Deferred<>();
             final var block = MMRegistries.BLOCKS.register(res.blockId().getPath(), entry.blockSupplier(res.input(), res, menuType, blockEntityType));
             MMRegistries.ITEMS.register(res.blockId().getPath(), () -> new BlockItem(block.get(), new Item.Properties().tab(ModRoot.MM_GROUP)));
-            blockEntityType.set(MMRegistries.BLOCK_ENTITIES.register(res.blockId().getPath(), () -> BlockEntityType.Builder.of(entry.beSupplier(res.input(), res, blockEntityType.data), block.get()).build(null)));
+            blockEntityType.set(MMRegistries.BLOCK_ENTITIES.register(res.blockId().getPath(), () -> BlockEntityType.Builder.of(entry.beSupplier(res.input(), res, blockEntityType.data, new MMBlockProvider(block)), block.get()).build(null)));
             menuType.set(MMRegistries.MENU_TYPES.register(res.blockId().getPath(), () -> IForgeMenuType.create((a, b, c) -> new PortContainer(a, b, c, menuType.data.get(), res))));
         }
     }

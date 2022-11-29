@@ -4,6 +4,7 @@ import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.block.entity.ControllerBlockEntity;
 import io.ticticboom.mods.mm.block.entity.PortBlockEntity;
 import io.ticticboom.mods.mm.client.container.PortMenuProvider;
+import io.ticticboom.mods.mm.ports.base.IPortBE;
 import io.ticticboom.mods.mm.ports.base.IPortBlock;
 import io.ticticboom.mods.mm.setup.model.PortModel;
 import net.minecraft.core.BlockPos;
@@ -33,9 +34,9 @@ public class PortBlock extends Block implements EntityBlock, IPortBlock {
 
     private final PortModel model;
     private RegistryObject<MenuType<?>> menuType;
-    private RegistryObject<BlockEntityType<?>> blockEntityType;
+    private RegistryObject<BlockEntityType<BlockEntity>> blockEntityType;
 
-    public PortBlock(PortModel model, RegistryObject<MenuType<?>> menuType, RegistryObject<BlockEntityType<?>> blockEntityType) {
+    public PortBlock(PortModel model, RegistryObject<MenuType<?>> menuType, RegistryObject<BlockEntityType<BlockEntity>> blockEntityType) {
         super(Properties.of(Material.METAL));
         this.model = model;
         this.menuType = menuType;
@@ -75,8 +76,11 @@ public class PortBlock extends Block implements EntityBlock, IPortBlock {
 
     @Override
     public void onRemove(BlockState p_60515_, Level level, BlockPos pos, BlockState p_60518_, boolean p_60519_) {
-        var port = ((PortBlockEntity) level.getBlockEntity(pos));
-        port.storage.onDestroy(level, pos);
+        var port = ((IPortBE) level.getBlockEntity(pos));
+        if (port == null) {
+            return;
+        }
+        port.storage().onDestroy(level, pos);
         super.onRemove(p_60515_, level, pos, p_60518_, p_60519_);
     }
 

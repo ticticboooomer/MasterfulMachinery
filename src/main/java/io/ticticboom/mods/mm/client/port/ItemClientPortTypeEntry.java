@@ -1,4 +1,4 @@
-package io.ticticboom.mods.mm.client.port.energy;
+package io.ticticboom.mods.mm.client.port;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.ticticboom.mods.mm.Ref;

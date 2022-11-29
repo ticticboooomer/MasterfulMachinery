@@ -46,4 +46,7 @@ public abstract class PortStorage {
     public void reset() {
 
     }
+    public void tick() {
+
+    }
 }

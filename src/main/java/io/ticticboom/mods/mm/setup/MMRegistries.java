@@ -121,7 +121,7 @@ public class MMRegistries {
             PORTS.put(Ref.Ports.MEK_PIGMENT, new MekPigmentPortTypeEntry());
             PORTS.put(Ref.Ports.MEK_SLURRY, new MekSlurryPortTypeEntry());
             PORTS.put(Ref.Ports.MEK_HEAT, new MekHeatPortTypeEntry());
-//            PORTS.put(Ref.Ports.MEK_LASER, new MekLaserPortTypeEntry());
+            PORTS.put(Ref.Ports.MEK_LASER, new MekLaserPortTypeEntry());
         }
     }
 

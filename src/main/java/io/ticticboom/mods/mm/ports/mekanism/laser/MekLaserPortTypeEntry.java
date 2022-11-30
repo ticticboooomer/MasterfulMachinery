@@ -8,6 +8,7 @@ import io.ticticboom.mods.mm.ports.base.MMPortTypeEntry;
 import io.ticticboom.mods.mm.ports.base.PortStorage;
 import io.ticticboom.mods.mm.ports.mekanism.laser.block.MekLaserInputPortBlockEntity;
 import io.ticticboom.mods.mm.ports.mekanism.laser.block.MekLaserPortBlock;
+import io.ticticboom.mods.mm.setup.model.MMBlockProvider;
 import io.ticticboom.mods.mm.setup.model.PortModel;
 import io.ticticboom.mods.mm.util.Deferred;
 import mekanism.api.math.FloatingLong;
@@ -69,8 +70,8 @@ public class MekLaserPortTypeEntry extends MMPortTypeEntry {
     }
 
     @Override
-    public BlockEntityType.BlockEntitySupplier<BlockEntity> beSupplier(boolean input, PortModel model, RegistryObject<BlockEntityType<BlockEntity>> beType, IBlockProvider block) {
-        return (a, b) -> new MekLaserInputPortBlockEntity(block, a,b, model);
+    public BlockEntityType.BlockEntitySupplier<BlockEntity> beSupplier(boolean input, PortModel model, RegistryObject<BlockEntityType<BlockEntity>> beType, RegistryObject<Block> block) {
+        return (a, b) -> new MekLaserInputPortBlockEntity(new MMBlockProvider(block), a,b, model);
     }
 
     @Override

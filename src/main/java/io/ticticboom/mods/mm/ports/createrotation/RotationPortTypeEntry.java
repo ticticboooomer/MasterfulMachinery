@@ -81,7 +81,7 @@ public class RotationPortTypeEntry extends MMPortTypeEntry {
     }
 
     @Override
-    public BlockEntityType.BlockEntitySupplier<BlockEntity> beSupplier(boolean input, PortModel model, RegistryObject<BlockEntityType<BlockEntity>> beType, IBlockProvider block) {
+    public BlockEntityType.BlockEntitySupplier<BlockEntity> beSupplier(boolean input, PortModel model, RegistryObject<BlockEntityType<BlockEntity>> beType, RegistryObject<Block> block) {
         if (input) {
             return (a, b) -> new CreateRotationPortBlockEntity(beType.get(), a, b, model);
         } else {

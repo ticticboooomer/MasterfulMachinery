@@ -6,38 +6,11 @@
   "duration": 20,
   "inputs": [
     {
-      "type": "mm:gate/or",
-      "conditions": [
-        {
-          "type": "mm:gate/and",
-          "conditions": [
-            {
-              "type": "mm:simple",
-              "ingredient": {
-                "type": "mm:item",
-                "item": "minecraft:cobblestone",
-                "count": 5
-              }
-            },
-            {
-              "type": "mm:simple",
-              "ingredient": {
-                "type": "mm:fluid",
-                "fluid": "minecraft:water",
-                "amount": 100
-              }
-            }
-          ]
-        },
-        {
-          "type": "mm:simple",
-          "ingredient": {
-            "type": "mm:item",
-            "item": "minecraft:cobblestone",
-            "count": 10
-          }
-        }
-      ]
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:mekanism_laser",
+        "energy": 100000
+      }
     }
   ],
   "outputs": [

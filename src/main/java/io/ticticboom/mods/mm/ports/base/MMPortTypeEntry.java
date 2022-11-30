@@ -28,7 +28,7 @@ public abstract class MMPortTypeEntry {
     public Supplier<Block> blockSupplier(boolean input, PortModel model, Deferred<RegistryObject<MenuType<?>>> menu, Deferred<RegistryObject<BlockEntityType<BlockEntity>>> beType) {
         return () -> new PortBlock(model, menu.data, beType.data);
     }
-    public BlockEntityType.BlockEntitySupplier<BlockEntity> beSupplier(boolean input, PortModel model, RegistryObject<BlockEntityType<BlockEntity>> beType, IBlockProvider block) {
+    public BlockEntityType.BlockEntitySupplier<BlockEntity> beSupplier(boolean input, PortModel model, RegistryObject<BlockEntityType<BlockEntity>> beType, RegistryObject<Block> block) {
         return (a, b) -> new PortBlockEntity(beType.get(), a, b, model);
     }
 

@@ -47,7 +47,7 @@ public class PortManager extends BaseJsonManager {
             Deferred<RegistryObject<BlockEntityType<BlockEntity>>> blockEntityType = new Deferred<>();
             final var block = MMRegistries.BLOCKS.register(res.blockId().getPath(), entry.blockSupplier(res.input(), res, menuType, blockEntityType));
             MMRegistries.ITEMS.register(res.blockId().getPath(), () -> new BlockItem(block.get(), new Item.Properties().tab(ModRoot.MM_GROUP)));
-            blockEntityType.set(MMRegistries.BLOCK_ENTITIES.register(res.blockId().getPath(), () -> BlockEntityType.Builder.of(entry.beSupplier(res.input(), res, blockEntityType.data, new MMBlockProvider(block)), block.get()).build(null)));
+            blockEntityType.set(MMRegistries.BLOCK_ENTITIES.register(res.blockId().getPath(), () -> BlockEntityType.Builder.of(entry.beSupplier(res.input(), res, blockEntityType.data, block), block.get()).build(null)));
             menuType.set(MMRegistries.MENU_TYPES.register(res.blockId().getPath(), () -> IForgeMenuType.create((a, b, c) -> new PortContainer(a, b, c, menuType.data.get(), res))));
         }
     }

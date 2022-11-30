@@ -9,7 +9,7 @@ import net.minecraft.world.level.Level;
 public class MekLaserPortStorage extends PortStorage {
 
     private MekLaserConfiguredPort config;
-    public FloatingLong laser;
+    public FloatingLong laser = FloatingLong.ZERO;
 
     public MekLaserPortStorage(MekLaserConfiguredPort config) {
         this.config = config;

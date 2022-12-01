@@ -14,5 +14,4 @@ public class ParseHelper {
         }
         return new TextComponent("[Unnamed " + type + "]");
     }
-
 }

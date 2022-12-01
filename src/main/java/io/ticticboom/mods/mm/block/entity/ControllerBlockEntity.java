@@ -1,6 +1,7 @@
 package io.ticticboom.mods.mm.block.entity;
 
 import io.ticticboom.mods.mm.block.ControllerBlock;
+import io.ticticboom.mods.mm.ports.base.IOPortStorage;
 import io.ticticboom.mods.mm.ports.base.PortStorage;
 import io.ticticboom.mods.mm.recipe.RecipeContext;
 import io.ticticboom.mods.mm.setup.MMRegistries;
@@ -31,14 +32,14 @@ import java.util.function.Consumer;
 public class ControllerBlockEntity extends BlockEntity {
 
     private int ticks = 0;
+    private int resetTicks = 0;
     public final DisplayInfo displayInfo = new DisplayInfo();
-
+    public RecipeContext recipeContext;
     private final DecimalFormat format = new DecimalFormat("###.00");
 
     public ControllerBlockEntity(BlockEntityType<?> p_155228_, BlockPos p_155229_, BlockState p_155230_) {
         super(p_155228_, p_155229_, p_155230_);
     }
-
 
     @Nullable
     @Override
@@ -77,15 +78,15 @@ public class ControllerBlockEntity extends BlockEntity {
         var block = (ControllerBlock) blockState.getBlock();
         var foundAny = false;
         for (Map.Entry<ResourceLocation, StructureModel> entry : StructureManager.REGISTRY.entrySet()) {
-            var inputPorts = new ArrayList<PortStorage>();
-            var outputPorts = new ArrayList<PortStorage>();
+            var inputPorts = new ArrayList<IOPortStorage>();
+            var outputPorts = new ArrayList<IOPortStorage>();
             var model = entry.getValue();
             if (!model.controllerId().equals(block.model().id())) {
                 continue;
             }
-            for (List<StructureModel.PlacedStructurePart> flattened : model.transformed()) {
+            for (StructureModel.TypedTransformedParts flattened : model.transformed()) {
                 boolean found = true;
-                for (StructureModel.PlacedStructurePart placed : flattened) {
+                for (StructureModel.PlacedStructurePart placed : flattened.parts()) {
                     var part = MMRegistries.STRUCTURE_PARTS.get().getValue(placed.partId());
                     assert part != null;
                     BlockPos expectedPos = blockPos.offset(placed.pos());
@@ -96,9 +97,9 @@ public class ControllerBlockEntity extends BlockEntity {
                     var port = part.getPortIfPresent(level, expectedPos, placed.part());
                     if (port.isPresent()) {
                         if (port.get().input()) {
-                            inputPorts.add(port.get().port());
+                            inputPorts.add(port.get());
                         } else {
-                            outputPorts.add(port.get().port());
+                            outputPorts.add(port.get());
                         }
                     }
                 }
@@ -106,7 +107,7 @@ public class ControllerBlockEntity extends BlockEntity {
                     be.displayInfo.structureName = model.name().getContents();
                     be.forceUpdate();
                     foundAny = true;
-                    be.chooseRecipe(model, new RecipeContext(model, inputPorts, outputPorts));
+                    be.chooseRecipe(model, new RecipeContext(model, null, flattened.transformId(), inputPorts, outputPorts, be.level, blockPos, new ArrayList<>()));
                     break;
                 }
             }
@@ -117,10 +118,18 @@ public class ControllerBlockEntity extends BlockEntity {
         }
     }
 
-    protected void resetRecipe() {
+    public void resetRecipe() {
         ticks = 0;
         displayInfo.processStatus = "Idle";
         this.displayInfo.recipe = "";
+        if (recipeContext != null) {
+            for (IOPortStorage outputPort : recipeContext.outputPorts()) {
+                outputPort.port().reset();
+            }
+            for (IOPortStorage input : recipeContext.inputPorts()) {
+                input.port().reset();
+            }
+        }
     }
 
 
@@ -131,46 +140,48 @@ public class ControllerBlockEntity extends BlockEntity {
                 continue;
             }
             var found = true;
-            var cloned = ctx.clonePorts();
+            var nctx = new RecipeContext(ctx.structure(), recipe.getValue(), ctx.appliedTransformId(), ctx.inputPorts(), ctx.outputPorts(), ctx.level(), ctx.controllerPos(), new ArrayList<>());
+            var cloned = nctx.clonePorts();
             for (RecipeModel.RecipeEntry input : recipe.getValue().inputs()) {
                 var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
-                if (!entry.processInputs(input.config(), ctx, cloned)) {
+                if (!entry.processInputs(input.config(), nctx, cloned)) {
                     found = false;
                     break;
                 }
             }
-            if (found) {
+            if (!found) {
+                continue;
+            }
+            var canOutput = true;
+            for (RecipeModel.RecipeEntry input : recipe.getValue().outputs()) {
+                var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
+                if (!entry.processOutputs(input.config(), nctx, cloned)) {
+                    canOutput = false;
+                    this.displayInfo.processStatus = "Cannot Output";
+                }
+            }
+            if (found && canOutput) {
+                recipeContext = nctx;
                 ticks++;
                 int tickLimit = recipe.getValue().duration();
                 for (RecipeModel.RecipeEntry input : recipe.getValue().inputs()) {
                     var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
-                    tickLimit = entry.getNewTickLimit(input.config(), ctx, cloned, tickLimit);
+                    tickLimit = entry.getNewTickLimit(input.config(), nctx, cloned, tickLimit);
                 }
                 var percentage = (float) ticks / tickLimit;
                 this.displayInfo.processStatus = format.format(100f * percentage) + "% Processing";
                 this.displayInfo.recipe = recipe.getValue().name().getString();
                 if (ticks >= tickLimit) {
-                    var canOutput = true;
-                    for (RecipeModel.RecipeEntry input : recipe.getValue().outputs()) {
+
+                    for (RecipeModel.RecipeEntry input : recipe.getValue().inputs()) {
                         var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
-                        if (!entry.processOutputs(input.config(), ctx, cloned)) {
-                            canOutput = false;
-                            break;
-                        }
+                        entry.processInputs(input.config(), nctx, nctx);
                     }
-                    if (canOutput) {
-                        for (RecipeModel.RecipeEntry input : recipe.getValue().inputs()) {
-                            var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
-                            entry.processInputs(input.config(), ctx, ctx);
-                        }
-                        for (RecipeModel.RecipeEntry output : recipe.getValue().outputs()) {
-                            var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(output.type());
-                            entry.processOutputs(output.config(), ctx, ctx);
-                        }
-                        resetRecipe();
-                    } else {
-                        this.displayInfo.processStatus = "Cannot Output";
+                    for (RecipeModel.RecipeEntry output : recipe.getValue().outputs()) {
+                        var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(output.type());
+                        entry.processOutputs(output.config(), nctx, nctx);
                     }
+                    ticks = 0;
                 }
                 foundAny = true;
                 break;

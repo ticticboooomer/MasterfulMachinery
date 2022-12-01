@@ -1,0 +1,9 @@
+{
+  "id": "laser_output",
+  "name": {
+    "text": "Large Laser"
+  },
+  "port": "mm:mekanism_laser",
+  "input": false,
+  "config": {}
+}

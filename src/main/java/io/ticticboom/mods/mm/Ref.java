@@ -16,13 +16,13 @@ public class Ref {
     public static final ResourceLocation RECIPE_ENTRIES_REGISTRY = res("recipe_entries");
     public static final ResourceLocation CLIENT_PORTS_REGISTRY = res("client_ports");
     public static final ResourceLocation STRUCTURE_TRANSFORMS_REGISTRY = res("structure_transforms");
-    public static final ResourceLocation RECIPE_MODIFIER_REGISTRY = res("recipe_modifiers");
     public static final ResourceLocation PORT_GUI = res("textures/gui/port_gui.png");
     public static final ResourceLocation SLOT_PARTS = res("textures/gui/slot_parts.png");
 
     public static final class CompatRegistries {
         public static final ResourceLocation JEI_RECIPE_ENTRIES = res("jei/recipe_entries");
         public static final ResourceLocation JEI_PORT_TYPES = res("jei/port_types");
+        public static final ResourceLocation RECIPE_DISPLAY_ELEMENTS = res("jei/recipe_display_elements");
     }
     public static final class Ports {
         public static final ResourceLocation ITEM = res("item");
@@ -33,27 +33,37 @@ public class Ref {
         public static final ResourceLocation MEK_INFUSE = res("mekanism_infuse");
         public static final ResourceLocation MEK_PIGMENT = res("mekanism_pigment");
         public static final ResourceLocation MEK_SLURRY = res("mekanism_slurry");
+        public static final ResourceLocation MEK_HEAT = res("mekanism_heat");
+        public static final ResourceLocation MEK_LASER = res("mekanism_laser");
     }
 
     public static final class StructureParts {
         public static final ResourceLocation BLOCK = res("block");
         public static final ResourceLocation TAG = res("tag");
         public static final ResourceLocation PORT = res("port");
+        public static final ResourceLocation PORT_BLOCK = res("port_block");
     }
 
     public static final class RecipeEntries {
         public static final ResourceLocation SIMPLE = res("simple");
         public static final ResourceLocation PER_TICK = res("per_tick");
-        public static final ResourceLocation INGREDIENT_TICK_MODIFIER = res("tick_modifier/ingredient");
+        public static final ResourceLocation TICK_MODIFIER = res("tick_modifier");
         public static final ResourceLocation OR_GATE = res("gate/or");
         public static final ResourceLocation AND_GATE = res("gate/and");
+        public static final ResourceLocation STRUCTURE_PART = res("structure_part");
+        public static final ResourceLocation PRESET = res("preset");
+        public static final ResourceLocation DESIGNATED = res("port_designated");
+        public static final ResourceLocation CONNECTED_OUTPUT = res("connected/output");
+        public static final ResourceLocation CONNECTED_INPUT = res("connected/input");
     }
+
+    public static final class RecipeDisplayElements {
+        public static final ResourceLocation IMAGE = res("image");
+    }
+
     public static final class StructureTransforms  {
         public static final ResourceLocation ROT_90 = res("rotated_90");
         public static final ResourceLocation ROT_180 = res("rotated_180");
         public static final ResourceLocation ROT_270 = res("rotated_270");
-    }
-    public static final class RecipeModifiers {
-        public static final ResourceLocation DURATION = res("duration");
     }
 }

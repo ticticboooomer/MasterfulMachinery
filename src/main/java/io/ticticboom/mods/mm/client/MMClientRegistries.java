@@ -1,11 +1,7 @@
 package io.ticticboom.mods.mm.client;
 
 import io.ticticboom.mods.mm.Ref;
-import io.ticticboom.mods.mm.client.port.ClientPortTypeEntry;
-import io.ticticboom.mods.mm.client.port.energy.EnergyClientPortTypeEntry;
-import io.ticticboom.mods.mm.client.port.energy.FluidClientPortTypeEntry;
-import io.ticticboom.mods.mm.client.port.energy.ItemClientPortTypeEntry;
-import io.ticticboom.mods.mm.client.port.energy.MekChemicalClientPortTypeEntry;
+import io.ticticboom.mods.mm.client.port.*;
 import mekanism.api.chemical.gas.Gas;
 import mekanism.api.chemical.gas.GasStack;
 import mekanism.api.chemical.infuse.InfuseType;
@@ -15,9 +11,9 @@ import mekanism.api.chemical.pigment.PigmentStack;
 import mekanism.api.chemical.slurry.Slurry;
 import mekanism.api.chemical.slurry.SlurryStack;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.NewRegistryEvent;
@@ -34,16 +30,21 @@ public class MMClientRegistries {
     public static void createRegistries(NewRegistryEvent event) {
         PORTS = event.create(new RegistryBuilder<ClientPortTypeEntry>().setType(ClientPortTypeEntry.class).setName(Ref.CLIENT_PORTS_REGISTRY));
     }
+
     @SubscribeEvent
     public static void registerPorts(RegistryEvent.Register<ClientPortTypeEntry> event) {
         event.getRegistry().registerAll(
                 new EnergyClientPortTypeEntry().setRegistryName(Ref.Ports.ENERGY),
                 new FluidClientPortTypeEntry().setRegistryName(Ref.Ports.FLUID),
-                new ItemClientPortTypeEntry().setRegistryName(Ref.Ports.ITEM),
-                new MekChemicalClientPortTypeEntry<Gas, GasStack>().setRegistryName(Ref.Ports.MEK_GAS),
-                new MekChemicalClientPortTypeEntry<InfuseType, InfusionStack>().setRegistryName(Ref.Ports.MEK_INFUSE),
-                new MekChemicalClientPortTypeEntry<Pigment, PigmentStack>().setRegistryName(Ref.Ports.MEK_PIGMENT),
-                new MekChemicalClientPortTypeEntry<Slurry, SlurryStack>().setRegistryName(Ref.Ports.MEK_SLURRY)
-        );
+                new ItemClientPortTypeEntry().setRegistryName(Ref.Ports.ITEM)
+                );
+
+        if (ModList.get().isLoaded("mekanism")) {
+            event.getRegistry().registerAll(new MekChemicalClientPortTypeEntry<Gas, GasStack>().setRegistryName(Ref.Ports.MEK_GAS),
+                    new MekChemicalClientPortTypeEntry<InfuseType, InfusionStack>().setRegistryName(Ref.Ports.MEK_INFUSE),
+                    new MekChemicalClientPortTypeEntry<Pigment, PigmentStack>().setRegistryName(Ref.Ports.MEK_PIGMENT),
+                    new MekChemicalClientPortTypeEntry<Slurry, SlurryStack>().setRegistryName(Ref.Ports.MEK_SLURRY),
+                    new MekHeatClientPortTypeEntry().setRegistryName(Ref.Ports.MEK_HEAT));
+        }
     }
 }

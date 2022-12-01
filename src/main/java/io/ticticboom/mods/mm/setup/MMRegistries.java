@@ -2,24 +2,34 @@ package io.ticticboom.mods.mm.setup;
 
 import com.google.gson.Gson;
 import io.ticticboom.mods.mm.Ref;
+import io.ticticboom.mods.mm.item.BlueprintItem;
+import io.ticticboom.mods.mm.item.StructureSelectorWand;
 import io.ticticboom.mods.mm.ports.base.MMPortTypeEntry;
 import io.ticticboom.mods.mm.ports.createrotation.RotationPortTypeEntry;
 import io.ticticboom.mods.mm.ports.energy.EnergyPortTypeEntry;
 import io.ticticboom.mods.mm.ports.fluid.FluidPortTypeEntry;
 import io.ticticboom.mods.mm.ports.item.ItemPortTypeEntry;
 import io.ticticboom.mods.mm.ports.mekanism.gas.MekGasPortTypeEntry;
+import io.ticticboom.mods.mm.ports.mekanism.heat.MekHeatPortTypeEntry;
 import io.ticticboom.mods.mm.ports.mekanism.infuse.MekInfusePortTypeEntry;
+import io.ticticboom.mods.mm.ports.mekanism.laser.MekLaserPortTypeEntry;
 import io.ticticboom.mods.mm.ports.mekanism.pigment.MekPigmentPortTypeEntry;
 import io.ticticboom.mods.mm.ports.mekanism.slurry.MekSlurryPortTypeEntry;
 import io.ticticboom.mods.mm.recipe.MMRecipeEntry;
+import io.ticticboom.mods.mm.recipe.connected.input.InputConnectedRecipeEntry;
+import io.ticticboom.mods.mm.recipe.connected.output.OutputConnectedRecipeEntry;
+import io.ticticboom.mods.mm.recipe.designated.DesignatedRecipeEntry;
 import io.ticticboom.mods.mm.recipe.gates.and.AndGateRecipeEntry;
 import io.ticticboom.mods.mm.recipe.gates.or.OrGateRecipeEntry;
 import io.ticticboom.mods.mm.recipe.pertick.PerTickRecipeEntry;
+import io.ticticboom.mods.mm.recipe.preset.PresetRecipeEntry;
 import io.ticticboom.mods.mm.recipe.simple.SimpleRecipeEntry;
-import io.ticticboom.mods.mm.recipe.tickmodifier.ingredient.IngredientTickModifierRecipeEntry;
+import io.ticticboom.mods.mm.recipe.structure.StructurePartRecipeEntry;
+import io.ticticboom.mods.mm.recipe.tickmodifier.generic.TickModifierRecipeEntry;
 import io.ticticboom.mods.mm.structure.MMStructurePart;
 import io.ticticboom.mods.mm.structure.block.BlockStructurePart;
 import io.ticticboom.mods.mm.structure.port.PortStructurePart;
+import io.ticticboom.mods.mm.structure.portblock.PortBlockStructurePart;
 import io.ticticboom.mods.mm.structure.tag.BlockTagStructurePart;
 import io.ticticboom.mods.mm.structure.transformers.MMStructureTransform;
 import io.ticticboom.mods.mm.structure.transformers.RotationStructureTransform;
@@ -43,7 +53,6 @@ import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MMRegistries {
-
     public static final Gson GSON = new Gson();
     public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Ref.ID);
     public static DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Ref.ID);
@@ -54,6 +63,11 @@ public class MMRegistries {
     public static Supplier<IForgeRegistry<MMRecipeEntry>> RECIPE_ENTRIES;
     public static Supplier<IForgeRegistry<MMStructurePart>> STRUCTURE_PARTS;
     public static Supplier<IForgeRegistry<MMStructureTransform>> STRUCTURE_TRANSFORMS;
+
+    public static final RegistryObject<Item> BLUEPRINT = ITEMS.register("blueprint", BlueprintItem::new);
+    public static final RegistryObject<Item> STRUCTURE_GEN_WAND = ITEMS.register("structure_wand", StructureSelectorWand::new);
+
+
     @SubscribeEvent
     public static void on(NewRegistryEvent event) {
         STRUCTURE_PARTS = event.create(new RegistryBuilder<MMStructurePart>().setType(MMStructurePart.class).setName(Ref.STRUCTURE_PART_REGISTRY));
@@ -66,7 +80,8 @@ public class MMRegistries {
         event.getRegistry().registerAll(
                 new BlockStructurePart().setRegistryName(Ref.StructureParts.BLOCK),
                 new BlockTagStructurePart().setRegistryName(Ref.StructureParts.TAG),
-                new PortStructurePart().setRegistryName(Ref.StructureParts.PORT)
+                new PortStructurePart().setRegistryName(Ref.StructureParts.PORT),
+                new PortBlockStructurePart().setRegistryName(Ref.StructureParts.PORT_BLOCK)
         );
     }
 
@@ -75,9 +90,14 @@ public class MMRegistries {
         event.getRegistry().registerAll(
                 new SimpleRecipeEntry().setRegistryName(Ref.RecipeEntries.SIMPLE),
                 new PerTickRecipeEntry().setRegistryName(Ref.RecipeEntries.PER_TICK),
-                new IngredientTickModifierRecipeEntry().setRegistryName(Ref.RecipeEntries.INGREDIENT_TICK_MODIFIER),
                 new OrGateRecipeEntry().setRegistryName(Ref.RecipeEntries.OR_GATE),
-                new AndGateRecipeEntry().setRegistryName(Ref.RecipeEntries.AND_GATE)
+                new AndGateRecipeEntry().setRegistryName(Ref.RecipeEntries.AND_GATE),
+                new StructurePartRecipeEntry().setRegistryName(Ref.RecipeEntries.STRUCTURE_PART),
+                new PresetRecipeEntry().setRegistryName(Ref.RecipeEntries.PRESET),
+                new TickModifierRecipeEntry().setRegistryName(Ref.RecipeEntries.TICK_MODIFIER),
+                new DesignatedRecipeEntry().setRegistryName(Ref.RecipeEntries.DESIGNATED),
+                new OutputConnectedRecipeEntry().setRegistryName(Ref.RecipeEntries.CONNECTED_OUTPUT),
+                new InputConnectedRecipeEntry().setRegistryName(Ref.RecipeEntries.CONNECTED_INPUT)
         );
     }
 
@@ -102,6 +122,8 @@ public class MMRegistries {
             PORTS.put(Ref.Ports.MEK_INFUSE, new MekInfusePortTypeEntry());
             PORTS.put(Ref.Ports.MEK_PIGMENT, new MekPigmentPortTypeEntry());
             PORTS.put(Ref.Ports.MEK_SLURRY, new MekSlurryPortTypeEntry());
+            PORTS.put(Ref.Ports.MEK_HEAT, new MekHeatPortTypeEntry());
+            PORTS.put(Ref.Ports.MEK_LASER, new MekLaserPortTypeEntry());
         }
     }
 

@@ -1,135 +1,43 @@
 {
   "structureId": "mmtest:primitive_fh",
   "name": {
-    "text":  "Upgradable Hammer"
+    "text": "Lubed"
   },
-  "duration": 100,
+  "duration": 20,
   "inputs": [
-    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:stone",
-        "count": 1
-      }
-    },
     {
       "type": "mm:gate/or",
       "conditions": [
         {
-          "type": "mm:tick_modifier/ingredient",
-          "newDuration": 4,
-          "ingredient": {
-            "type": "mm:item",
-            "item": "minecraft:podzol",
-            "count": 10
-          }
+          "type": "mm:gate/and",
+          "conditions": [
+            {
+              "type": "mm:simple",
+              "ingredient": {
+                "type": "mm:mekanism_laser",
+                "energy": 100000
+              }
+            },
+            {
+              "type": "mm:simple",
+              "ingredient": {
+                "type": "mm:item",
+                "item": "minecraft:glass",
+                "count": 1
+              }
+            },
+            {
+              "type": "mm:connected/input",
+              "id": "connection1",
+              "setFlag": true
+            }
+          ]
         },
         {
-          "type": "mm:tick_modifier/ingredient",
-          "newDuration": 20,
+          "type": "mm:simple",
           "ingredient": {
-            "type": "mm:item",
-            "item": "minecraft:podzol",
-            "count": 1
+            "type": "mm:mekanism_laser",
+            "energy": 100000
           }
         }
       ]
@@ -140,78 +48,20 @@
       "type": "mm:simple",
       "ingredient": {
         "type": "mm:item",
-        "item": "minecraft:cobblestone",
-        "count": 2
+        "item": "minecraft:deepslate",
+        "count": 5
       }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:cobblestone",
-        "count": 2
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:cobblestone",
-        "count": 2
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:cobblestone",
-        "count": 2
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:cobblestone",
-        "count": 2
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:cobblestone",
-        "count": 2
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:cobblestone",
-        "count": 2
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:cobblestone",
-        "count": 2
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:cobblestone",
-        "count": 2
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:cobblestone",
-        "count": 2
-      }
-    },    {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:cobblestone",
-        "count": 2
+    },
+    {
+      "type": "mm:connected/output",
+      "id": "connection1",
+      "entry": {
+        "type": "mm:simple",
+        "ingredient": {
+          "type": "mm:item",
+          "item": "minecraft:cobblestone",
+          "count": 1
+        }
       }
     }
   ]

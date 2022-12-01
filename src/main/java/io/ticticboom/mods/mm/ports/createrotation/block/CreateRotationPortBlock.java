@@ -22,9 +22,9 @@ import org.jetbrains.annotations.Nullable;
 
 public class CreateRotationPortBlock extends KineticBlock implements IPortBlock, EntityBlock {
     private final PortModel model;
-    private RegistryObject<BlockEntityType<?>> blockEntityType;
+    private RegistryObject<BlockEntityType<BlockEntity>> blockEntityType;
 
-    public CreateRotationPortBlock(PortModel model, RegistryObject<MenuType<?>> menuType, RegistryObject<BlockEntityType<?>> blockEntityType) {
+    public CreateRotationPortBlock(PortModel model, RegistryObject<MenuType<?>> menuType, RegistryObject<BlockEntityType<BlockEntity>> blockEntityType) {
         super(Properties.of(Material.METAL));
         this.model = model;
         this.blockEntityType = blockEntityType;
@@ -56,5 +56,4 @@ public class CreateRotationPortBlock extends KineticBlock implements IPortBlock,
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return type == blockEntityType.get() ? (a, b, c, d) -> ((KineticTileEntity) d).tick() : null;
     }
-
 }

@@ -3,7 +3,9 @@ package io.ticticboom.mods.mm.ports.createrotation.block;
 import com.simibubi.create.content.contraptions.base.GeneratingKineticTileEntity;
 import io.ticticboom.mods.mm.ports.base.IPortBE;
 import io.ticticboom.mods.mm.ports.base.PortStorage;
+import io.ticticboom.mods.mm.ports.createrotation.RotationConfiguredPort;
 import io.ticticboom.mods.mm.ports.createrotation.RotationPortStorage;
+import io.ticticboom.mods.mm.ports.energy.EnergyConfiguredPort;
 import io.ticticboom.mods.mm.ports.item.ItemPortStorage;
 import io.ticticboom.mods.mm.setup.MMRegistries;
 import io.ticticboom.mods.mm.setup.model.PortModel;
@@ -32,6 +34,13 @@ public class CreateRotationGenPortBlockEntity extends GeneratingKineticTileEntit
         ((ServerLevel) level).getChunkSource().blockChanged(getBlockPos());
     }
 
+    @Override
+    public CompoundTag getUpdateTag() {
+        CompoundTag res = new CompoundTag();
+        saveAdditional(res);
+        res.put("Port", storage.write());
+        return res;
+    }
 
     @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
@@ -41,12 +50,15 @@ public class CreateRotationGenPortBlockEntity extends GeneratingKineticTileEntit
     @Override
     public void handleUpdateTag(CompoundTag tag) {
         storage.read(tag.getCompound("Port"));
+        read(tag, true);
     }
 
     @Override
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
         storage.read(pkt.getTag().getCompound("Port"));
+        read(pkt.getTag(), true);
     }
+
 
     @Override
     public PortModel model() {
@@ -61,16 +73,23 @@ public class CreateRotationGenPortBlockEntity extends GeneratingKineticTileEntit
     @Override
     public boolean isSource() {
         RotationPortStorage storg = (RotationPortStorage) storage;
-        return storg.speed != 0;
+        return true;
     }
+
 
     @Override
     public void tick() {
         this.reActivateSource = true;
-        RotationPortStorage storg = (RotationPortStorage) storage;
         super.tick();
+        RotationPortStorage storg = (RotationPortStorage) storage;
         storg.isOverStressed = overStressed;
-        updateSpeed = true;
+        storg.stress = ((RotationConfiguredPort) model.configuredPort()).stress();
+        forceUpdate();
+    }
+
+    @Override
+    public float calculateStressApplied() {
+        return 0;
     }
 
     @Override
@@ -82,9 +101,8 @@ public class CreateRotationGenPortBlockEntity extends GeneratingKineticTileEntit
     @Override
     public float calculateAddedStressCapacity() {
         RotationPortStorage storg = (RotationPortStorage) storage;
-        if (storg.speed != 0) {
-            return storg.stress;
-        }
-        return 0;
+        return storg.stress;
     }
+
+
 }

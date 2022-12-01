@@ -1,0 +1,11 @@
+{
+  "id": "fluid_output",
+  "name": {
+    "text": "Large Fluid Output"
+  },
+  "port": "mm:fluid",
+  "input": false,
+  "config": {
+    "capacity": 2000
+  }
+}

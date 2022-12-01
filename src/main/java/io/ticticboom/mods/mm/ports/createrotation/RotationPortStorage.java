@@ -6,27 +6,32 @@ import io.ticticboom.mods.mm.ports.base.PortStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
+import org.checkerframework.checker.units.qual.C;
 
 public class RotationPortStorage extends PortStorage {
 
     public int stress;
     public float speed;
     public boolean isOverStressed;
+    public boolean manualUpdate = false;
 
     public RotationPortStorage(int stress) {
-
         this.stress = stress;
     }
 
 
     @Override
     public void read(CompoundTag tag) {
-
+        speed = tag.getFloat("Speed");
+        stress = tag.getInt("Stress");
     }
 
     @Override
     public CompoundTag write() {
-        return new CompoundTag();
+        var tag = new CompoundTag();
+        tag.putFloat("Speed", speed);
+        tag.putInt("Stress", stress);
+        return tag;
     }
 
     @Override
@@ -40,5 +45,12 @@ public class RotationPortStorage extends PortStorage {
         res.speed = speed;
         res.isOverStressed =isOverStressed;
         return res;
+    }
+
+    @Override
+    public void reset() {
+        this.speed = 0;
+        this.stress = 0;
+        manualUpdate = true;
     }
 }

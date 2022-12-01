@@ -43,4 +43,10 @@ public abstract class PortStorage {
     public abstract void onDestroy(Level level, BlockPos pos);
 
     public abstract PortStorage deepClone();
+    public void reset() {
+
+    }
+    public void tick() {
+
+    }
 }

@@ -1,23 +1,29 @@
 {
-  "name": {
-    "text": "Primitive Forge Hammer"
-  },
   "controllerId": "mm:forge_hammer",
+  "name": {
+    "text": "Primitive Boing"
+  },
   "layout": [
     [
-      "ACB"
+      "ACB",
+      "E  "
     ]
   ],
   "key": {
     "A": {
       "type": "mm:port",
-      "port": "mm:item",
+      "port": "mm:mekanism_laser",
       "input": true
     },
     "B": {
       "type": "mm:port",
       "port": "mm:item",
       "input": false
+    },
+    "E": {
+      "type": "mm:port",
+      "port": "mm:item",
+      "input": true
     }
   }
 }

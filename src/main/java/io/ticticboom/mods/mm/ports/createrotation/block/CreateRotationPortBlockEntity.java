@@ -16,9 +16,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class CreateRotationPortBlockEntity extends GearboxTileEntity implements IPortBE {
+public class CreateRotationPortBlockEntity extends KineticTileEntity implements IPortBE {
     private final PortStorage storage;
     private PortModel model;
+    private float appliedStress = 0;
 
     public CreateRotationPortBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, PortModel model) {
         super(type, pos, state);
@@ -71,15 +72,12 @@ public class CreateRotationPortBlockEntity extends GearboxTileEntity implements 
 
     @Override
     public float calculateStressApplied() {
-        var storg = (RotationPortStorage) storage;
-//        this.lastStressApplied = storg.stress;
-        return storg.stress;
+        return appliedStress;
     }
 
     @Override
     public void onSpeedChanged(float previousSpeed) {
         super.onSpeedChanged(previousSpeed);
-
     }
 
     @Override
@@ -88,11 +86,23 @@ public class CreateRotationPortBlockEntity extends GearboxTileEntity implements 
     }
 
     @Override
+    public boolean isSource() {
+        return false;
+    }
+
+    @Override
     public void tick() {
         super.tick();
-        forceUpdate();
         var storg = (RotationPortStorage) storage;
         storg.speed = speed;
         storg.isOverStressed = overStressed;
+        appliedStress = storg.speed > 0 ? storg.stress : 0;
+        forceUpdate();
+    }
+
+    @Override
+    public float getGeneratedSpeed() {
+        var storg = (RotationPortStorage) storage;
+        return storg.speed;
     }
 }

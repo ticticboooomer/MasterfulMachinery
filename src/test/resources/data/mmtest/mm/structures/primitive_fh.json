@@ -5,7 +5,8 @@
   },
   "layout": [
     [
-      "ACB"
+      "ACB",
+      "E  "
     ]
   ],
   "key": {
@@ -18,6 +19,11 @@
       "type": "mm:port",
       "port": "mm:item",
       "input": false
+    },
+    "E": {
+      "type": "mm:port",
+      "port": "mm:item",
+      "input": true
     }
   }
 }

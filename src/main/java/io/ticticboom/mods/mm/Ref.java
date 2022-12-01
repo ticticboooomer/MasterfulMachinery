@@ -22,6 +22,7 @@ public class Ref {
     public static final class CompatRegistries {
         public static final ResourceLocation JEI_RECIPE_ENTRIES = res("jei/recipe_entries");
         public static final ResourceLocation JEI_PORT_TYPES = res("jei/port_types");
+        public static final ResourceLocation RECIPE_DISPLAY_ELEMENTS = res("jei/recipe_display_elements");
     }
     public static final class Ports {
         public static final ResourceLocation ITEM = res("item");
@@ -46,13 +47,18 @@ public class Ref {
     public static final class RecipeEntries {
         public static final ResourceLocation SIMPLE = res("simple");
         public static final ResourceLocation PER_TICK = res("per_tick");
-        public static final ResourceLocation INGREDIENT_TICK_MODIFIER = res("tick_modifier/ingredient");
         public static final ResourceLocation TICK_MODIFIER = res("tick_modifier");
         public static final ResourceLocation OR_GATE = res("gate/or");
         public static final ResourceLocation AND_GATE = res("gate/and");
         public static final ResourceLocation STRUCTURE_PART = res("structure_part");
         public static final ResourceLocation PRESET = res("preset");
         public static final ResourceLocation DESIGNATED = res("port_designated");
+        public static final ResourceLocation CONNECTED_OUTPUT = res("connected/output");
+        public static final ResourceLocation CONNECTED_INPUT = res("connected/input");
+    }
+
+    public static final class RecipeDisplayElements {
+        public static final ResourceLocation IMAGE = res("image");
     }
 
     public static final class StructureTransforms  {

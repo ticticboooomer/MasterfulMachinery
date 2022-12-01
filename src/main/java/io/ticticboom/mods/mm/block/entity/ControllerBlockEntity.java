@@ -107,7 +107,7 @@ public class ControllerBlockEntity extends BlockEntity {
                     be.displayInfo.structureName = model.name().getContents();
                     be.forceUpdate();
                     foundAny = true;
-                    be.chooseRecipe(model, new RecipeContext(model, flattened.transformId(), inputPorts, outputPorts, be.level, blockPos));
+                    be.chooseRecipe(model, new RecipeContext(model, null, flattened.transformId(), inputPorts, outputPorts, be.level, blockPos, new ArrayList<>()));
                     break;
                 }
             }
@@ -140,10 +140,11 @@ public class ControllerBlockEntity extends BlockEntity {
                 continue;
             }
             var found = true;
-            var cloned = ctx.clonePorts();
+            var nctx = new RecipeContext(ctx.structure(), recipe.getValue(), ctx.appliedTransformId(), ctx.inputPorts(), ctx.outputPorts(), ctx.level(), ctx.controllerPos(), new ArrayList<>());
+            var cloned = nctx.clonePorts();
             for (RecipeModel.RecipeEntry input : recipe.getValue().inputs()) {
                 var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
-                if (!entry.processInputs(input.config(), ctx, cloned)) {
+                if (!entry.processInputs(input.config(), nctx, cloned)) {
                     found = false;
                     break;
                 }
@@ -154,18 +155,18 @@ public class ControllerBlockEntity extends BlockEntity {
             var canOutput = true;
             for (RecipeModel.RecipeEntry input : recipe.getValue().outputs()) {
                 var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
-                if (!entry.processOutputs(input.config(), ctx, cloned)) {
+                if (!entry.processOutputs(input.config(), nctx, cloned)) {
                     canOutput = false;
                     this.displayInfo.processStatus = "Cannot Output";
                 }
             }
             if (found && canOutput) {
-                recipeContext = ctx;
+                recipeContext = nctx;
                 ticks++;
                 int tickLimit = recipe.getValue().duration();
                 for (RecipeModel.RecipeEntry input : recipe.getValue().inputs()) {
                     var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
-                    tickLimit = entry.getNewTickLimit(input.config(), ctx, cloned, tickLimit);
+                    tickLimit = entry.getNewTickLimit(input.config(), nctx, cloned, tickLimit);
                 }
                 var percentage = (float) ticks / tickLimit;
                 this.displayInfo.processStatus = format.format(100f * percentage) + "% Processing";
@@ -174,11 +175,11 @@ public class ControllerBlockEntity extends BlockEntity {
 
                     for (RecipeModel.RecipeEntry input : recipe.getValue().inputs()) {
                         var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
-                        entry.processInputs(input.config(), ctx, ctx);
+                        entry.processInputs(input.config(), nctx, nctx);
                     }
                     for (RecipeModel.RecipeEntry output : recipe.getValue().outputs()) {
                         var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(output.type());
-                        entry.processOutputs(output.config(), ctx, ctx);
+                        entry.processOutputs(output.config(), nctx, nctx);
                     }
                     ticks = 0;
                 }

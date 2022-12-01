@@ -16,6 +16,8 @@ import io.ticticboom.mods.mm.ports.mekanism.laser.MekLaserPortTypeEntry;
 import io.ticticboom.mods.mm.ports.mekanism.pigment.MekPigmentPortTypeEntry;
 import io.ticticboom.mods.mm.ports.mekanism.slurry.MekSlurryPortTypeEntry;
 import io.ticticboom.mods.mm.recipe.MMRecipeEntry;
+import io.ticticboom.mods.mm.recipe.connected.input.InputConnectedRecipeEntry;
+import io.ticticboom.mods.mm.recipe.connected.output.OutputConnectedRecipeEntry;
 import io.ticticboom.mods.mm.recipe.designated.DesignatedRecipeEntry;
 import io.ticticboom.mods.mm.recipe.gates.and.AndGateRecipeEntry;
 import io.ticticboom.mods.mm.recipe.gates.or.OrGateRecipeEntry;
@@ -24,7 +26,6 @@ import io.ticticboom.mods.mm.recipe.preset.PresetRecipeEntry;
 import io.ticticboom.mods.mm.recipe.simple.SimpleRecipeEntry;
 import io.ticticboom.mods.mm.recipe.structure.StructurePartRecipeEntry;
 import io.ticticboom.mods.mm.recipe.tickmodifier.generic.TickModifierRecipeEntry;
-import io.ticticboom.mods.mm.recipe.tickmodifier.ingredient.IngredientTickModifierRecipeEntry;
 import io.ticticboom.mods.mm.structure.MMStructurePart;
 import io.ticticboom.mods.mm.structure.block.BlockStructurePart;
 import io.ticticboom.mods.mm.structure.port.PortStructurePart;
@@ -89,13 +90,14 @@ public class MMRegistries {
         event.getRegistry().registerAll(
                 new SimpleRecipeEntry().setRegistryName(Ref.RecipeEntries.SIMPLE),
                 new PerTickRecipeEntry().setRegistryName(Ref.RecipeEntries.PER_TICK),
-                new IngredientTickModifierRecipeEntry().setRegistryName(Ref.RecipeEntries.INGREDIENT_TICK_MODIFIER),
                 new OrGateRecipeEntry().setRegistryName(Ref.RecipeEntries.OR_GATE),
                 new AndGateRecipeEntry().setRegistryName(Ref.RecipeEntries.AND_GATE),
                 new StructurePartRecipeEntry().setRegistryName(Ref.RecipeEntries.STRUCTURE_PART),
                 new PresetRecipeEntry().setRegistryName(Ref.RecipeEntries.PRESET),
                 new TickModifierRecipeEntry().setRegistryName(Ref.RecipeEntries.TICK_MODIFIER),
-                new DesignatedRecipeEntry().setRegistryName(Ref.RecipeEntries.DESIGNATED)
+                new DesignatedRecipeEntry().setRegistryName(Ref.RecipeEntries.DESIGNATED),
+                new OutputConnectedRecipeEntry().setRegistryName(Ref.RecipeEntries.CONNECTED_OUTPUT),
+                new InputConnectedRecipeEntry().setRegistryName(Ref.RecipeEntries.CONNECTED_INPUT)
         );
     }
 

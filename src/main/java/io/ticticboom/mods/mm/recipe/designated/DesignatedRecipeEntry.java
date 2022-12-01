@@ -26,8 +26,8 @@ public class DesignatedRecipeEntry extends MMRecipeEntry {
         for (IOPortStorage inputPort : ctx.inputPorts()) {
             if (inputPort.name().equals(conf.portId().toString())) {
                 var value = MMRegistries.RECIPE_ENTRIES.get().getValue(conf.entry().type());
-                var newOriginal = new RecipeContext(original.structure(), original.appliedTransformId(), ImmutableList.of(inputPort), original.outputPorts(), original.level(), original.controllerPos());
-                var newCtx = new RecipeContext(ctx.structure(), ctx.appliedTransformId(), ImmutableList.of(inputPort), ctx.outputPorts(), ctx.level(), ctx.controllerPos());
+                var newOriginal = new RecipeContext(original.structure(), original.recipe(), original.appliedTransformId(), ImmutableList.of(inputPort), original.outputPorts(), original.level(), original.controllerPos(), original.contexts());
+                var newCtx = new RecipeContext(ctx.structure(), ctx.recipe(), ctx.appliedTransformId(), ImmutableList.of(inputPort), ctx.outputPorts(), ctx.level(), ctx.controllerPos(), ctx.contexts());
                 return value.processInputs(conf.entry().entry(), newOriginal, newCtx);
             }
         }
@@ -40,8 +40,8 @@ public class DesignatedRecipeEntry extends MMRecipeEntry {
         for (IOPortStorage inputPort : ctx.inputPorts()) {
             if (inputPort.name().equals(conf.portId().toString())) {
                 var value = MMRegistries.RECIPE_ENTRIES.get().getValue(conf.entry().type());
-                var newOriginal = new RecipeContext(original.structure(), original.appliedTransformId(), ImmutableList.of(inputPort), original.outputPorts(), original.level(), original.controllerPos());
-                var newCtx = new RecipeContext(ctx.structure(), ctx.appliedTransformId(), ImmutableList.of(inputPort), ctx.outputPorts(), ctx.level(), ctx.controllerPos());
+                var newOriginal = new RecipeContext(original.structure(), original.recipe(), original.appliedTransformId(), ImmutableList.of(inputPort), original.outputPorts(), original.level(), original.controllerPos(), original.contexts());
+                var newCtx = new RecipeContext(ctx.structure(), ctx.recipe(), ctx.appliedTransformId(), ImmutableList.of(inputPort), ctx.outputPorts(), ctx.level(), ctx.controllerPos(), ctx.contexts());
                 return value.processOutputs(conf.entry().entry(), newOriginal, newCtx);
             }
         }

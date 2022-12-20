@@ -28,6 +28,9 @@ import io.ticticboom.mods.mm.recipe.structure.StructurePartRecipeEntry;
 import io.ticticboom.mods.mm.recipe.tickmodifier.generic.TickModifierRecipeEntry;
 import io.ticticboom.mods.mm.structure.MMStructurePart;
 import io.ticticboom.mods.mm.structure.block.BlockStructurePart;
+import io.ticticboom.mods.mm.structure.blockstate.BlockstateStructurePart;
+import io.ticticboom.mods.mm.structure.gates.and.AndGateStructurePart;
+import io.ticticboom.mods.mm.structure.gates.or.OrGateStructurePart;
 import io.ticticboom.mods.mm.structure.port.PortStructurePart;
 import io.ticticboom.mods.mm.structure.portblock.PortBlockStructurePart;
 import io.ticticboom.mods.mm.structure.tag.BlockTagStructurePart;
@@ -81,7 +84,10 @@ public class MMRegistries {
                 new BlockStructurePart().setRegistryName(Ref.StructureParts.BLOCK),
                 new BlockTagStructurePart().setRegistryName(Ref.StructureParts.TAG),
                 new PortStructurePart().setRegistryName(Ref.StructureParts.PORT),
-                new PortBlockStructurePart().setRegistryName(Ref.StructureParts.PORT_BLOCK)
+                new PortBlockStructurePart().setRegistryName(Ref.StructureParts.PORT_BLOCK),
+                new BlockstateStructurePart().setRegistryName(Ref.StructureParts.BLOCKSTATE),
+                new AndGateStructurePart().setRegistryName(Ref.StructureParts.BLOCKSTATE),
+                new OrGateStructurePart().setRegistryName(Ref.StructureParts.BLOCKSTATE)
         );
     }
 

@@ -39,6 +39,9 @@ public class Ref {
 
     public static final class StructureParts {
         public static final ResourceLocation BLOCK = res("block");
+        public static final ResourceLocation BLOCKSTATE = res("blockstate");
+        public static final ResourceLocation AND = res("and");
+        public static final ResourceLocation OR = res("or");
         public static final ResourceLocation TAG = res("tag");
         public static final ResourceLocation PORT = res("port");
         public static final ResourceLocation PORT_BLOCK = res("port_block");

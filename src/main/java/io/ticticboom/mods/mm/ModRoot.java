@@ -42,7 +42,6 @@ import java.io.IOException;
 
 @Mod(Ref.ID)
 public class ModRoot {
-
     private static DataGenerator gen;
     private static boolean generated = false;
 

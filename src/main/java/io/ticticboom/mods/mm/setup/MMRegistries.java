@@ -86,8 +86,8 @@ public class MMRegistries {
                 new PortStructurePart().setRegistryName(Ref.StructureParts.PORT),
                 new PortBlockStructurePart().setRegistryName(Ref.StructureParts.PORT_BLOCK),
                 new BlockstateStructurePart().setRegistryName(Ref.StructureParts.BLOCKSTATE),
-                new AndGateStructurePart().setRegistryName(Ref.StructureParts.BLOCKSTATE),
-                new OrGateStructurePart().setRegistryName(Ref.StructureParts.BLOCKSTATE)
+                new AndGateStructurePart().setRegistryName(Ref.StructureParts.AND),
+                new OrGateStructurePart().setRegistryName(Ref.StructureParts.OR)
         );
     }
 

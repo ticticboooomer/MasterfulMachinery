@@ -60,3 +60,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magn
     versionRange="[1.18.2,1.19)"
     ordering="NONE"
     side="BOTH"
+[[dependencies.mm]]
+modId="kubejs"
+mandatory=true
+versionRange="[1802,1902)"

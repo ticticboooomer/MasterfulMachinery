@@ -1,7 +1,9 @@
 package io.ticticboom.mods.mm.setup;
 
 import com.google.gson.Gson;
+import dev.latvian.mods.kubejs.script.ScriptType;
 import io.ticticboom.mods.mm.Ref;
+import io.ticticboom.mods.mm.compat.kube.controller.ControllerEventJS;
 import io.ticticboom.mods.mm.item.BlueprintItem;
 import io.ticticboom.mods.mm.item.StructureSelectorWand;
 import io.ticticboom.mods.mm.ports.base.MMPortTypeEntry;

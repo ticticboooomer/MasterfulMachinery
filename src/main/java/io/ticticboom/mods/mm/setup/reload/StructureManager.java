@@ -33,5 +33,6 @@ public class StructureManager extends SimpleJsonResourceReloadListener {
         for (Map.Entry<ResourceLocation, JsonElement> entry : records.entrySet()) {
             REGISTRY.put(entry.getKey(), StructureModel.parse(entry.getKey(), entry.getValue().getAsJsonObject()));
         }
+
     }
 }

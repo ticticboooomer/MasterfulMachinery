@@ -1,9 +1,11 @@
 package io.ticticboom.mods.mm.setup;
 
+import dev.latvian.mods.kubejs.script.ScriptType;
 import io.ticticboom.mods.mm.ModRoot;
 import io.ticticboom.mods.mm.block.ControllerBlock;
 import io.ticticboom.mods.mm.block.entity.ControllerBlockEntity;
 import io.ticticboom.mods.mm.client.container.ControllerContainer;
+import io.ticticboom.mods.mm.compat.kube.controller.ControllerEventJS;
 import io.ticticboom.mods.mm.setup.model.ControllerModel;
 import io.ticticboom.mods.mm.util.Deferred;
 import net.minecraft.core.Holder;
@@ -16,6 +18,7 @@ import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -27,13 +30,16 @@ public class ControllerManager extends BaseJsonManager {
         var path = getConfigDirectory("controllers");
         var files = loadFiles(path);
 
+
         if (files == null) {
             return;
         }
-
         for (var json : files) {
             var res = ControllerModel.parse(json);
             REGISTRY.put(res.id(), res);
+        }
+
+        for (var res : REGISTRY.values()) {
             Deferred<RegistryObject<BlockEntityType<?>>> blockEntityType = new Deferred<>();
             final Deferred<RegistryObject<MenuType<?>>> menuType = new Deferred<>();
             final var block = MMRegistries.BLOCKS.register(res.blockId().getPath(), () -> new ControllerBlock(res, blockEntityType.data, menuType.data));

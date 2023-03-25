@@ -1,6 +1,8 @@
 package io.ticticboom.mods.mm.setup.reload;
 
 import com.google.gson.JsonElement;
+import dev.latvian.mods.kubejs.script.ScriptType;
+import io.ticticboom.mods.mm.compat.kube.recipe.RecipeEventJS;
 import io.ticticboom.mods.mm.setup.MMRegistries;
 import io.ticticboom.mods.mm.setup.model.RecipeModel;
 import net.minecraft.resources.ResourceLocation;
@@ -31,6 +33,7 @@ public class RecipeManager extends SimpleJsonResourceReloadListener {
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> entries, ResourceManager manager, ProfilerFiller profiler) {
         REGISTRY.clear();
+        new RecipeEventJS().post(ScriptType.SERVER, "mm", "recipes");
         for (Map.Entry<ResourceLocation, JsonElement> entry : entries.entrySet()) {
             REGISTRY.put(entry.getKey(), RecipeModel.parse(entry.getKey(), entry.getValue().getAsJsonObject()));
         }

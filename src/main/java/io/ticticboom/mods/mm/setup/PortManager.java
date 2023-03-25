@@ -7,6 +7,7 @@ import io.ticticboom.mods.mm.block.entity.ControllerBlockEntity;
 import io.ticticboom.mods.mm.block.entity.PortBlockEntity;
 import io.ticticboom.mods.mm.client.container.ControllerContainer;
 import io.ticticboom.mods.mm.client.container.PortContainer;
+import io.ticticboom.mods.mm.compat.kube.port.PortEventJS;
 import io.ticticboom.mods.mm.ports.base.MMPortTypeEntry;
 import io.ticticboom.mods.mm.setup.model.ControllerModel;
 import io.ticticboom.mods.mm.setup.model.MMBlockProvider;
@@ -42,6 +43,11 @@ public class PortManager extends BaseJsonManager {
                 continue;
             }
             REGISTRY.put(res.id(), res);
+        }
+
+        new PortEventJS().post("mm", "ports");
+
+        for (var res : REGISTRY.values()) {
             MMPortTypeEntry entry = MMRegistries.PORTS.get(res.port());
             final Deferred<RegistryObject<MenuType<?>>> menuType = new Deferred<>();
             Deferred<RegistryObject<BlockEntityType<BlockEntity>>> blockEntityType = new Deferred<>();

@@ -1,6 +1,8 @@
 package io.ticticboom.mods.mm.setup.reload;
 
 import com.google.gson.JsonElement;
+import dev.latvian.mods.kubejs.script.ScriptType;
+import io.ticticboom.mods.mm.compat.kube.structure.StructureEventJS;
 import io.ticticboom.mods.mm.setup.MMRegistries;
 import io.ticticboom.mods.mm.setup.model.StructureModel;
 import net.minecraft.resources.ResourceLocation;
@@ -30,9 +32,9 @@ public class StructureManager extends SimpleJsonResourceReloadListener {
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> records, ResourceManager resManager, ProfilerFiller profiler) {
         REGISTRY.clear();
+        new StructureEventJS().post(ScriptType.SERVER, "mm", "structures");
         for (Map.Entry<ResourceLocation, JsonElement> entry : records.entrySet()) {
             REGISTRY.put(entry.getKey(), StructureModel.parse(entry.getKey(), entry.getValue().getAsJsonObject()));
         }
-
     }
 }

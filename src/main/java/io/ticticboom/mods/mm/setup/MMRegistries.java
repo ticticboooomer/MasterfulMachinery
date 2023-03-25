@@ -1,7 +1,9 @@
 package io.ticticboom.mods.mm.setup;
 
 import com.google.gson.Gson;
+import dev.latvian.mods.kubejs.KubeJS;
 import dev.latvian.mods.kubejs.script.ScriptType;
+import dev.latvian.mods.kubejs.script.ScriptsLoadedEvent;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.compat.kube.controller.ControllerEventJS;
 import io.ticticboom.mods.mm.item.BlueprintItem;
@@ -137,8 +139,10 @@ public class MMRegistries {
 
     @SubscribeEvent
     public static void on(FMLConstructModEvent event) {
-        ControllerManager.load();
-        PortManager.load();
+        event.enqueueWork(() -> {
+            ControllerManager.load();
+            PortManager.load();
+        });
     }
 
     public static void register() {

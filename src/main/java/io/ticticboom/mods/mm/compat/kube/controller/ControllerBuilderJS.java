@@ -1,5 +1,6 @@
 package io.ticticboom.mods.mm.compat.kube.controller;
 
+import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.setup.ControllerManager;
 import io.ticticboom.mods.mm.setup.model.ControllerModel;
 import lombok.Builder;
@@ -11,7 +12,7 @@ public class ControllerBuilderJS {
     private String name;
 
     public void build() {
-        ResourceLocation key = ResourceLocation.tryParse(id);
+        ResourceLocation key = Ref.res(id);
         ControllerManager.REGISTRY.put(key, new ControllerModel(key, new TextComponent(name), new ResourceLocation(key.getNamespace(), key.getPath() + "_controller")));
     }
 

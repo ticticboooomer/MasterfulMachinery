@@ -8,20 +8,16 @@ import io.ticticboom.mods.mm.client.container.ControllerContainer;
 import io.ticticboom.mods.mm.compat.kube.controller.ControllerEventJS;
 import io.ticticboom.mods.mm.setup.model.ControllerModel;
 import io.ticticboom.mods.mm.util.Deferred;
-import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public class ControllerManager extends BaseJsonManager {
     public static Map<ResourceLocation, ControllerModel> REGISTRY = new HashMap<>();
@@ -39,6 +35,8 @@ public class ControllerManager extends BaseJsonManager {
             REGISTRY.put(res.id(), res);
         }
 
+        new ControllerEventJS().post("mm", "controllers");
+
         for (var res : REGISTRY.values()) {
             Deferred<RegistryObject<BlockEntityType<?>>> blockEntityType = new Deferred<>();
             final Deferred<RegistryObject<MenuType<?>>> menuType = new Deferred<>();
@@ -48,4 +46,6 @@ public class ControllerManager extends BaseJsonManager {
             menuType.set(MMRegistries.MENU_TYPES.register(res.blockId().getPath(), () -> IForgeMenuType.create((a, b, c) -> new ControllerContainer(a, b, c, menuType.data.get()))));
         }
     }
+
+
 }

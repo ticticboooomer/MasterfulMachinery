@@ -205,6 +205,7 @@ dependencies {
     implementation fg.deobf("dev.latvian.mods:rhino-forge:${rhino_version}")
     implementation fg.deobf("dev.architectury:architectury-forge:${architectury_version}")
 
+    runtimeOnly  fg.deobf("curse.maven:probejs-585406:4145246")
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
     implementation fg.deobf("com.simibubi.create:create-${create_minecraft_version}:${create_version}:slim") { transitive = false }
     implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")

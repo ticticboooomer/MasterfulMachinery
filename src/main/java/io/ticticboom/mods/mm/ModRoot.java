@@ -52,6 +52,10 @@ public class ModRoot {
         }
     };
 
+    // generate
+
+
+
     public ModRoot() {
         DataGenFactory.init();
         MMRegistries.register();
@@ -66,6 +70,7 @@ public class ModRoot {
         }
         MinecraftForge.EVENT_BUS.addListener(this::serverStart);
     }
+
 
     public void serverStart(ServerStartingEvent event) {
         event.getServer().getPackRepository().addPackFinder(new GeneratedRepoSource());

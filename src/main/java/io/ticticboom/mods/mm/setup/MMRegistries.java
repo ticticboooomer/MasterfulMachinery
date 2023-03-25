@@ -6,6 +6,8 @@ import dev.latvian.mods.kubejs.script.ScriptType;
 import dev.latvian.mods.kubejs.script.ScriptsLoadedEvent;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.compat.kube.controller.ControllerEventJS;
+import io.ticticboom.mods.mm.compat.kube.porttypes.PortTypeEventJS;
+import io.ticticboom.mods.mm.compat.kube.recipeentry.RecipeEntryEventJS;
 import io.ticticboom.mods.mm.item.BlueprintItem;
 import io.ticticboom.mods.mm.item.StructureSelectorWand;
 import io.ticticboom.mods.mm.ports.base.MMPortTypeEntry;
@@ -13,6 +15,7 @@ import io.ticticboom.mods.mm.ports.createrotation.RotationPortTypeEntry;
 import io.ticticboom.mods.mm.ports.energy.EnergyPortTypeEntry;
 import io.ticticboom.mods.mm.ports.fluid.FluidPortTypeEntry;
 import io.ticticboom.mods.mm.ports.item.ItemPortTypeEntry;
+import io.ticticboom.mods.mm.ports.js.PortTypeEntryJS;
 import io.ticticboom.mods.mm.ports.mekanism.gas.MekGasPortTypeEntry;
 import io.ticticboom.mods.mm.ports.mekanism.heat.MekHeatPortTypeEntry;
 import io.ticticboom.mods.mm.ports.mekanism.infuse.MekInfusePortTypeEntry;
@@ -109,6 +112,7 @@ public class MMRegistries {
                 new OutputConnectedRecipeEntry().setRegistryName(Ref.RecipeEntries.CONNECTED_OUTPUT),
                 new InputConnectedRecipeEntry().setRegistryName(Ref.RecipeEntries.CONNECTED_INPUT)
         );
+        new RecipeEntryEventJS().post("mm", "recipeentries");
     }
 
     @SubscribeEvent
@@ -140,6 +144,7 @@ public class MMRegistries {
     @SubscribeEvent
     public static void on(FMLConstructModEvent event) {
         event.enqueueWork(() -> {
+            new PortTypeEventJS().post("mm", "porttypes");
             ControllerManager.load();
             PortManager.load();
         });

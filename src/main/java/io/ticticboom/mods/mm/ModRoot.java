@@ -52,10 +52,6 @@ public class ModRoot {
         }
     };
 
-    // generate
-
-
-
     public ModRoot() {
         DataGenFactory.init();
         MMRegistries.register();

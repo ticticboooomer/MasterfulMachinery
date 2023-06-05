@@ -58,6 +58,7 @@ public class Ref {
         public static final ResourceLocation DESIGNATED = res("port_designated");
         public static final ResourceLocation CONNECTED_OUTPUT = res("connected/output");
         public static final ResourceLocation CONNECTED_INPUT = res("connected/input");
+        public static final ResourceLocation DIMENSION = res("dimension");
     }
 
     public static final class RecipeDisplayElements {

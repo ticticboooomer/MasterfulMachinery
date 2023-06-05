@@ -40,5 +40,4 @@ public class StructureSelectorWand extends Item {
         }
         return InteractionResult.SUCCESS;
     }
-
 }

@@ -1,0 +1,12 @@
+{
+  "id": "primitive_item_input",
+  "name": {
+    "translation": "block.mm.primitive_item_input_port"
+  },
+  "port": "mm:item",
+  "input": true,
+  "config": {
+    "slotRows": 1,
+    "slotCols": 1
+  }
+}

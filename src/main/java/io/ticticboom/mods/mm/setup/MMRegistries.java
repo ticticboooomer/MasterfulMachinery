@@ -26,6 +26,7 @@ import io.ticticboom.mods.mm.recipe.MMRecipeEntry;
 import io.ticticboom.mods.mm.recipe.connected.input.InputConnectedRecipeEntry;
 import io.ticticboom.mods.mm.recipe.connected.output.OutputConnectedRecipeEntry;
 import io.ticticboom.mods.mm.recipe.designated.DesignatedRecipeEntry;
+import io.ticticboom.mods.mm.recipe.dimension.DimensionRecipeEntry;
 import io.ticticboom.mods.mm.recipe.gates.and.AndGateRecipeEntry;
 import io.ticticboom.mods.mm.recipe.gates.or.OrGateRecipeEntry;
 import io.ticticboom.mods.mm.recipe.pertick.PerTickRecipeEntry;
@@ -110,7 +111,8 @@ public class MMRegistries {
                 new TickModifierRecipeEntry().setRegistryName(Ref.RecipeEntries.TICK_MODIFIER),
                 new DesignatedRecipeEntry().setRegistryName(Ref.RecipeEntries.DESIGNATED),
                 new OutputConnectedRecipeEntry().setRegistryName(Ref.RecipeEntries.CONNECTED_OUTPUT),
-                new InputConnectedRecipeEntry().setRegistryName(Ref.RecipeEntries.CONNECTED_INPUT)
+                new InputConnectedRecipeEntry().setRegistryName(Ref.RecipeEntries.CONNECTED_INPUT),
+                new DimensionRecipeEntry().setRegistryName(Ref.RecipeEntries.DIMENSION)
         );
         new RecipeEntryEventJS().post("mm", "recipeentries");
     }

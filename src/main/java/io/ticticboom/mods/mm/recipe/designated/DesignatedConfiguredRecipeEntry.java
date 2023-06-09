@@ -6,6 +6,6 @@ import net.minecraft.resources.ResourceLocation;
 
 public record DesignatedConfiguredRecipeEntry(
     ConfiguredRecipeEntry entry,
-    ResourceLocation portId
+    String portId
 ) implements IConfiguredRecipeEntry {
 }

@@ -1,7 +1,6 @@
 package io.ticticboom.mods.mm.ports.createrotation.block;
 
-import com.simibubi.create.content.contraptions.base.KineticTileEntity;
-import com.simibubi.create.content.contraptions.relays.gearbox.GearboxTileEntity;
+import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import io.ticticboom.mods.mm.ports.base.IPortBE;
 import io.ticticboom.mods.mm.ports.base.PortStorage;
 import io.ticticboom.mods.mm.ports.createrotation.RotationPortStorage;
@@ -16,7 +15,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class CreateRotationPortBlockEntity extends KineticTileEntity implements IPortBE {
+public class CreateRotationPortBlockEntity extends KineticBlockEntity implements IPortBE {
     private final PortStorage storage;
     private PortModel model;
     private float appliedStress = 0;

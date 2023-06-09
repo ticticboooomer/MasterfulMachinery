@@ -18,7 +18,7 @@ plugins {
 apply plugin: 'net.minecraftforge.gradle'
 
 
-version = '1.18.2-0.3.0'
+version = '1.18.2-0.3.2'
 group = 'io.ticticboom.mods.mm' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'MM'
 
@@ -196,7 +196,7 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.1.84'
+    minecraft 'net.minecraftforge:forge:1.18.2-40.2.9'
     implementation fg.deobf("curse.maven:mekanism-268560:3875976")
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
     compileOnly 'org.projectlombok:lombok:1.18.24'

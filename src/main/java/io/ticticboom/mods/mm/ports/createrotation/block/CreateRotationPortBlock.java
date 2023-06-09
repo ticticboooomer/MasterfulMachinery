@@ -1,9 +1,7 @@
 package io.ticticboom.mods.mm.ports.createrotation.block;
 
-import com.simibubi.create.content.contraptions.base.KineticBlock;
-import com.simibubi.create.content.contraptions.base.KineticTileEntity;
-import com.simibubi.create.content.contraptions.relays.encased.AbstractEncasedShaftBlock;
-import com.simibubi.create.content.contraptions.relays.gearbox.GearboxBlock;
+import com.simibubi.create.content.kinetics.base.KineticBlock;
+import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import io.ticticboom.mods.mm.ports.base.IPortBlock;
 import io.ticticboom.mods.mm.setup.model.PortModel;
 import net.minecraft.core.BlockPos;
@@ -54,6 +52,6 @@ public class CreateRotationPortBlock extends KineticBlock implements IPortBlock,
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return type == blockEntityType.get() ? (a, b, c, d) -> ((KineticTileEntity) d).tick() : null;
+        return type == blockEntityType.get() ? (a, b, c, d) -> ((KineticBlockEntity) d).tick() : null;
     }
 }

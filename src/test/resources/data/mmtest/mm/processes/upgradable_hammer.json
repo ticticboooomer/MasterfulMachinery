@@ -45,22 +45,14 @@
   ],
   "outputs": [
     {
-      "type": "mm:simple",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:deepslate",
-        "count": 5
-      }
-    },
-    {
-      "type": "mm:connected/output",
-      "id": "connection1",
+      "type": "mm:port_designated",
+      "portId": "bing_bong",
       "entry": {
         "type": "mm:simple",
         "ingredient": {
           "type": "mm:item",
-          "item": "minecraft:cobblestone",
-          "count": 1
+          "item": "minecraft:deepslate",
+          "count": 5
         }
       }
     }

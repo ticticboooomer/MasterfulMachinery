@@ -18,7 +18,8 @@
     "B": {
       "type": "mm:port",
       "port": "mm:item",
-      "input": false
+      "input": false,
+      "id": "bing_bong"
     },
     "E": {
       "type": "mm:port",

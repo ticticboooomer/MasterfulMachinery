@@ -17,7 +17,7 @@ public class DesignatedRecipeEntry extends MMRecipeEntry {
         JsonObject obj = json.getAsJsonObject("entry");
         var type = ResourceLocation.tryParse(obj.get("type").getAsString());
         var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(type);
-        return new DesignatedConfiguredRecipeEntry(new ConfiguredRecipeEntry(type, entry.parse(obj)), ResourceLocation.tryParse(portId));
+        return new DesignatedConfiguredRecipeEntry(new ConfiguredRecipeEntry(type, entry.parse(obj)), portId);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class DesignatedRecipeEntry extends MMRecipeEntry {
     @Override
     public boolean processOutputs(IConfiguredRecipeEntry config, RecipeContext original, RecipeContext ctx) {
         var conf = (DesignatedConfiguredRecipeEntry) config;
-        for (IOPortStorage inputPort : ctx.inputPorts()) {
+        for (IOPortStorage inputPort : ctx.outputPorts()) {
             if (inputPort.name().equals(conf.portId().toString())) {
                 var value = MMRegistries.RECIPE_ENTRIES.get().getValue(conf.entry().type());
                 var newOriginal = new RecipeContext(original.structure(), original.recipe(), original.appliedTransformId(), ImmutableList.of(inputPort), original.outputPorts(), original.level(), original.controllerPos(), original.contexts());

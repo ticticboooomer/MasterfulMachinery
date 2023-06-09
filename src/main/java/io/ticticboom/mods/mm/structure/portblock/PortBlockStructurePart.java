@@ -37,7 +37,7 @@ public class PortBlockStructurePart extends MMStructurePart {
         var conf = ((PortBlockConfiguredStructurePart) config);
         var block = level.getBlockEntity(expectedPos);
         if (block instanceof IPortBE be) {
-            return Optional.of(new IOPortStorage(conf.id().isPresent() ? conf.id().get() : null, be.storage(), be.model().input()));
+            return Optional.of(new IOPortStorage(conf.id().isPresent() ? conf.id().get() : "", be.storage(), be.model().input()));
         }
         return Optional.empty();
     }

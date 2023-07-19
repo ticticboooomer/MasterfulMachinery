@@ -13,7 +13,6 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 
 public class MMRecipeCategory implements IRecipeCategory<RecipeModel> {
@@ -25,8 +24,13 @@ public class MMRecipeCategory implements IRecipeCategory<RecipeModel> {
     }
 
     @Override
+    public RecipeType<RecipeModel> getRecipeType() {
+        return RECIPE_TYPE;
+    }
+
+    @Override
     public Component getTitle() {
-        return new TextComponent("MM Recipe");
+        return Component.literal("MM Recipe");
     }
 
     @Override
@@ -37,16 +41,6 @@ public class MMRecipeCategory implements IRecipeCategory<RecipeModel> {
     @Override
     public IDrawable getIcon() {
         return null;
-    }
-
-    @Override
-    public ResourceLocation getUid() {
-        return RECIPE_TYPE.getUid();
-    }
-
-    @Override
-    public Class<? extends RecipeModel> getRecipeClass() {
-        return RecipeModel.class;
     }
 
     @Override

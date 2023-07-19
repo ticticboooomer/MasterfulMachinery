@@ -1,9 +1,8 @@
 package io.ticticboom.mods.mm.recipedisplay;
 
 import com.google.gson.JsonObject;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public abstract class MMRecipeDisplayElement extends ForgeRegistryEntry<MMRecipeDisplayElement> {
+public abstract class MMRecipeDisplayElement {
 
     public abstract IConfiguredRecipeDisplayElement parse(JsonObject json);
 

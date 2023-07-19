@@ -7,19 +7,14 @@ import io.ticticboom.mods.mm.compat.jei.port.*;
 import io.ticticboom.mods.mm.compat.jei.port.mek.*;
 import io.ticticboom.mods.mm.compat.jei.recipe.PerTickJeiRecipeEntry;
 import io.ticticboom.mods.mm.compat.jei.recipe.SimpleJeiRecipeEntry;
-import io.ticticboom.mods.mm.ports.createrotation.RotationPortTypeEntry;
-import io.ticticboom.mods.mm.ports.mekanism.gas.MekGasPortTypeEntry;
-import io.ticticboom.mods.mm.ports.mekanism.infuse.MekInfusePortTypeEntry;
-import io.ticticboom.mods.mm.ports.mekanism.pigment.MekPigmentPortTypeEntry;
-import io.ticticboom.mods.mm.ports.mekanism.slurry.MekSlurryPortTypeEntry;
 import io.ticticboom.mods.mm.recipedisplay.MMRecipeDisplayElement;
 import io.ticticboom.mods.mm.recipedisplay.image.ImageRecipeDisplayElement;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.NewRegistryEvent;
+import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryBuilder;
 
 import java.util.function.Supplier;
@@ -32,42 +27,35 @@ public class MMCompatRegistries {
 
     @SubscribeEvent
     public static void on(NewRegistryEvent event) {
-        JEI_RECIPE_ENTRIES = event.create(new RegistryBuilder<JeiRecipeEntry>().setType(JeiRecipeEntry.class).setName(Ref.CompatRegistries.JEI_RECIPE_ENTRIES));
-        JEI_PORTS = event.create(new RegistryBuilder<JeiPortTypeEntry>().setType(JeiPortTypeEntry.class).setName(Ref.CompatRegistries.JEI_PORT_TYPES));
-        RECIPE_DISPLAY_ELEMENTS = event.create(new RegistryBuilder<MMRecipeDisplayElement>().setType(MMRecipeDisplayElement.class).setName(Ref.CompatRegistries.RECIPE_DISPLAY_ELEMENTS));
+        JEI_RECIPE_ENTRIES = event.create(new RegistryBuilder<JeiRecipeEntry>().setName(Ref.CompatRegistries.JEI_RECIPE_ENTRIES));
+        JEI_PORTS = event.create(new RegistryBuilder<JeiPortTypeEntry>().setName(Ref.CompatRegistries.JEI_PORT_TYPES));
+        RECIPE_DISPLAY_ELEMENTS = event.create(new RegistryBuilder<MMRecipeDisplayElement>().setName(Ref.CompatRegistries.RECIPE_DISPLAY_ELEMENTS));
     }
 
     @SubscribeEvent
-    public static void registerJeiRecipeEntries(RegistryEvent.Register<JeiRecipeEntry> event) {
-        event.getRegistry().registerAll(
-                new SimpleJeiRecipeEntry().setRegistryName(Ref.RecipeEntries.SIMPLE),
-                new PerTickJeiRecipeEntry().setRegistryName(Ref.RecipeEntries.PER_TICK)
-        );
+    public static void registerJeiRecipeEntries(RegisterEvent event) {
+        event.register(JEI_RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.SIMPLE, SimpleJeiRecipeEntry::new);
+        event.register(JEI_RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.PER_TICK, PerTickJeiRecipeEntry::new);
     }
 
     @SubscribeEvent
-    public static void registerJeiPorts(RegistryEvent.Register<JeiPortTypeEntry> event) {
-        event.getRegistry().registerAll(
-                new EnergyJeiPortTypeEntry().setRegistryName(Ref.Ports.ENERGY),
-                new FluidJeiPortTypeEntry().setRegistryName(Ref.Ports.FLUID),
-                new ItemJeiPortTypeEntry().setRegistryName(Ref.Ports.ITEM)
-                );
+    public static void registerJeiPorts(RegisterEvent event) {
+        event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.ENERGY, EnergyJeiPortTypeEntry::new);
+        event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.FLUID, FluidJeiPortTypeEntry::new);
+        event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.ITEM, ItemJeiPortTypeEntry::new);
         if (ModList.get().isLoaded("create")) {
-            event.getRegistry().register(new RotationJeiPortTypeEntry().setRegistryName(Ref.Ports.CREATE_ROT));
+            event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.CREATE_ROT, RotationJeiPortTypeEntry::new);
         }
         if (ModList.get().isLoaded("mekanism")) {
-            event.getRegistry().registerAll(new MekGasJeiPortTypeEntry().setRegistryName(Ref.Ports.MEK_GAS),
-                    new MekInfuseJeiPortTypeEntry().setRegistryName(Ref.Ports.MEK_INFUSE),
-                    new MekPigmentJeiPortTypeEntry().setRegistryName(Ref.Ports.MEK_PIGMENT),
-                    new MekSlurryJeiPortTypeEntry().setRegistryName(Ref.Ports.MEK_SLURRY));
+            event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.MEK_GAS, MekGasJeiPortTypeEntry::new);
+            event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.MEK_INFUSE, MekInfuseJeiPortTypeEntry::new);
+            event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.MEK_PIGMENT, MekPigmentJeiPortTypeEntry::new);
+            event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.MEK_SLURRY, MekSlurryJeiPortTypeEntry::new);
         }
-
     }
 
     @SubscribeEvent
-    public static void registerJeiRecipeDisplayElements(RegistryEvent.Register<MMRecipeDisplayElement> event) {
-        event.getRegistry().registerAll(
-                new ImageRecipeDisplayElement().setRegistryName(Ref.RecipeDisplayElements.IMAGE)
-        );
+    public static void registerJeiRecipeDisplayElements(RegisterEvent event) {
+        event.register(RECIPE_DISPLAY_ELEMENTS.get().getRegistryKey(), Ref.RecipeDisplayElements.IMAGE, ImageRecipeDisplayElement::new);
     }
 }

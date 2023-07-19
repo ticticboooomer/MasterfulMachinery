@@ -11,12 +11,12 @@ import mekanism.api.chemical.pigment.PigmentStack;
 import mekanism.api.chemical.slurry.Slurry;
 import mekanism.api.chemical.slurry.SlurryStack;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.NewRegistryEvent;
+import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryBuilder;
 
 import java.util.function.Supplier;
@@ -28,23 +28,21 @@ public class MMClientRegistries {
 
     @SubscribeEvent
     public static void createRegistries(NewRegistryEvent event) {
-        PORTS = event.create(new RegistryBuilder<ClientPortTypeEntry>().setType(ClientPortTypeEntry.class).setName(Ref.CLIENT_PORTS_REGISTRY));
+        PORTS = event.create(new RegistryBuilder<ClientPortTypeEntry>().setName(Ref.CLIENT_PORTS_REGISTRY));
     }
 
     @SubscribeEvent
-    public static void registerPorts(RegistryEvent.Register<ClientPortTypeEntry> event) {
-        event.getRegistry().registerAll(
-                new EnergyClientPortTypeEntry().setRegistryName(Ref.Ports.ENERGY),
-                new FluidClientPortTypeEntry().setRegistryName(Ref.Ports.FLUID),
-                new ItemClientPortTypeEntry().setRegistryName(Ref.Ports.ITEM)
-                );
+    public static void registerPorts(RegisterEvent event) {
+        event.register(PORTS.get().getRegistryKey(), Ref.Ports.ENERGY, EnergyClientPortTypeEntry::new);
+        event.register(PORTS.get().getRegistryKey(), Ref.Ports.FLUID, FluidClientPortTypeEntry::new);
+        event.register(PORTS.get().getRegistryKey(), Ref.Ports.ITEM, ItemClientPortTypeEntry::new);
 
         if (ModList.get().isLoaded("mekanism")) {
-            event.getRegistry().registerAll(new MekChemicalClientPortTypeEntry<Gas, GasStack>().setRegistryName(Ref.Ports.MEK_GAS),
-                    new MekChemicalClientPortTypeEntry<InfuseType, InfusionStack>().setRegistryName(Ref.Ports.MEK_INFUSE),
-                    new MekChemicalClientPortTypeEntry<Pigment, PigmentStack>().setRegistryName(Ref.Ports.MEK_PIGMENT),
-                    new MekChemicalClientPortTypeEntry<Slurry, SlurryStack>().setRegistryName(Ref.Ports.MEK_SLURRY),
-                    new MekHeatClientPortTypeEntry().setRegistryName(Ref.Ports.MEK_HEAT));
+            event.register(PORTS.get().getRegistryKey(), Ref.Ports.MEK_GAS, () -> new MekChemicalClientPortTypeEntry<Gas, GasStack>());
+            event.register(PORTS.get().getRegistryKey(), Ref.Ports.MEK_INFUSE, () -> new MekChemicalClientPortTypeEntry<InfuseType, InfusionStack>());
+            event.register(PORTS.get().getRegistryKey(), Ref.Ports.MEK_PIGMENT, () -> new MekChemicalClientPortTypeEntry<Pigment, PigmentStack>());
+            event.register(PORTS.get().getRegistryKey(), Ref.Ports.MEK_SLURRY, () -> new MekChemicalClientPortTypeEntry<Slurry, SlurryStack>());
+            event.register(PORTS.get().getRegistryKey(), Ref.Ports.MEK_HEAT, MekHeatClientPortTypeEntry::new);
         }
     }
 }

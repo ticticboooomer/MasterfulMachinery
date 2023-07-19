@@ -62,7 +62,7 @@ public class PortBlock extends Block implements EntityBlock, IPortBlock {
             return ires;
         }
         if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
-            NetworkHooks.openGui(serverPlayer, this.getMenuProvider(state, level, pos), pos);
+            NetworkHooks.openScreen(serverPlayer, this.getMenuProvider(state, level, pos), pos);
         }
         return InteractionResult.sidedSuccess(level.isClientSide);
     }

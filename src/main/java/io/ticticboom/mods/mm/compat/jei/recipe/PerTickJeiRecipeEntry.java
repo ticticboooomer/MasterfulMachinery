@@ -13,8 +13,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.world.phys.Vec2;
+import net.minecraft.network.chat.Component;
 
 public class PerTickJeiRecipeEntry extends JeiRecipeEntry {
     @Override
@@ -28,9 +27,9 @@ public class PerTickJeiRecipeEntry extends JeiRecipeEntry {
         port.setupRecipeJei(sEntry.ingredient().config(), builder, recipe, focuses, slot, input, startX + next.x, startY + next.y);
             slot.addTooltipCallback((a, b) -> {
                 if (input) {
-                    b.add(new TextComponent("Consumed Per Tick"));
+                    b.add(Component.literal("Consumed Per Tick"));
                 } else {
-                    b.add(new TextComponent("Output Per Tick"));
+                    b.add(Component.literal("Output Per Tick"));
                 }
             });
     }

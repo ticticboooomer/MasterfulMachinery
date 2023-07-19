@@ -16,9 +16,8 @@ import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ModelBuilder;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
-import net.minecraftforge.client.model.generators.loaders.MultiLayerModelBuilder;
+import net.minecraftforge.client.model.generators.loaders.CompositeModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.RegistryObject;
 
 import java.util.stream.Collectors;
 
@@ -67,8 +66,8 @@ public class MMBlockStateProvider extends BlockStateProvider {
 //                .scale(0.375F, 0.375F, 0.375F)
 //                .end()
 //                .end()
-                .customLoader(MultiLayerModelBuilder::begin)
-                .submodel(RenderType.solid(), this.models().nested().parent(new ModelFile.UncheckedModelFile(mcLoc("block/block")))
+                .customLoader(CompositeModelBuilder::begin)
+                .child("solid", this.models().nested().parent(new ModelFile.UncheckedModelFile(mcLoc("block/block")))
                         .texture("base", baseTexture)
                         .element()
                         .from(0, 0, 0)
@@ -77,7 +76,7 @@ public class MMBlockStateProvider extends BlockStateProvider {
                         //.allFaces((dir, uv) -> uv.uvs(0F,0.0F, 16F,16F))
                         .end()
                 )
-                .submodel(RenderType.translucent(), this.models().nested().parent(new ModelFile.UncheckedModelFile(mcLoc("block/block")))
+                .child("translucent", this.models().nested().parent(new ModelFile.UncheckedModelFile(mcLoc("block/block")))
                         .texture("overlay", overlayTexture)
                         .element()
                         .from(0, 0, 0)
@@ -93,20 +92,8 @@ public class MMBlockStateProvider extends BlockStateProvider {
     public void dynamicBlock(ResourceLocation loc, ResourceLocation baseTexture, ResourceLocation overlayTexture) {
         models().getBuilder(loc.toString()).parent(new ModelFile.UncheckedModelFile(mcLoc("block/block")))
                 .texture("particle", overlayTexture)
-                .transforms()
-                .transform(ModelBuilder.Perspective.THIRDPERSON_LEFT)
-                .rotation(75F, 45F, 0F)
-                .translation(0F, 2.5F, 0)
-                .scale(0.375F, 0.375F, 0.375F)
-                .end()
-                .transform(ModelBuilder.Perspective.THIRDPERSON_RIGHT)
-                .rotation(75F, 45F, 0F)
-                .translation(0F, 2.5F, 0)
-                .scale(0.375F, 0.375F, 0.375F)
-                .end()
-                .end()
-                .customLoader(MultiLayerModelBuilder::begin)
-                .submodel(RenderType.solid(), this.models().nested().parent(new ModelFile.UncheckedModelFile(mcLoc("block/block")))
+                .customLoader(CompositeModelBuilder::begin)
+                .child("solid", this.models().nested().parent(new ModelFile.UncheckedModelFile(mcLoc("block/block")))
                         .texture("base", baseTexture)
                         .element()
                         .from(0, 0, 0)
@@ -115,7 +102,7 @@ public class MMBlockStateProvider extends BlockStateProvider {
                         //.allFaces((dir, uv) -> uv.uvs(0F,0.0F, 16F,16F))
                         .end()
                 )
-                .submodel(RenderType.translucent(), this.models().nested().parent(new ModelFile.UncheckedModelFile(mcLoc("block/block")))
+                .child("trnaslucent", this.models().nested().parent(new ModelFile.UncheckedModelFile(mcLoc("block/block")))
                         .texture("overlay", overlayTexture)
                         .element()
                         .from(0, 0, 0)

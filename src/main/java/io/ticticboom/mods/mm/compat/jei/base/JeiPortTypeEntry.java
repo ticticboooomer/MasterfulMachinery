@@ -10,9 +10,8 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.registration.IModIngredientRegistration;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public abstract class JeiPortTypeEntry extends ForgeRegistryEntry<JeiPortTypeEntry> {
+public abstract class JeiPortTypeEntry {
     public abstract void registerJeiIngredient(IModIngredientRegistration registration, Deferred<IJeiHelpers> helpers);
 
     public abstract void renderJei(RecipeModel recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY, IConfiguredIngredient ing, IJeiHelpers helpers, boolean input, int x, int y);

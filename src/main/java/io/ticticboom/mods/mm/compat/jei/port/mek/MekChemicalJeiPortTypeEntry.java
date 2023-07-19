@@ -15,7 +15,7 @@ import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.registration.IModIngredientRegistration;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 public abstract class MekChemicalJeiPortTypeEntry<CHEMICAL extends Chemical<CHEMICAL>, STACK extends ChemicalStack<CHEMICAL>> extends JeiPortTypeEntry {
@@ -34,7 +34,7 @@ public abstract class MekChemicalJeiPortTypeEntry<CHEMICAL extends Chemical<CHEM
         MekChemicalConfiguredIngredient gas = (MekChemicalConfiguredIngredient) ingredient;
         slot.addIngredient(getIngredient(), createStack(gas.chemical()));
         slot.addTooltipCallback((a, b) -> {
-            b.add(new TextComponent(gas.amount() + " mb"));
+            b.add(Component.literal(gas.amount() + " mb"));
         });
     }
 

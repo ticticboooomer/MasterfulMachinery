@@ -76,7 +76,7 @@ public class ControllerBlock extends HorizontalDirectionalBlock implements Entit
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
         if (!level.isClientSide && player instanceof ServerPlayer serverPlayer){
-            NetworkHooks.openGui(serverPlayer, this.getMenuProvider(state, level, pos), pos);
+            NetworkHooks.openScreen(serverPlayer, this.getMenuProvider(state, level, pos), pos);
         }
         return InteractionResult.sidedSuccess(level.isClientSide);
     }

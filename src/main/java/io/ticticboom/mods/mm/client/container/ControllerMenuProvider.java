@@ -2,7 +2,6 @@ package io.ticticboom.mods.mm.client.container;
 
 import io.ticticboom.mods.mm.block.entity.ControllerBlockEntity;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -23,7 +22,7 @@ public class ControllerMenuProvider implements MenuProvider {
 
     @Override
     public Component getDisplayName() {
-        return new TextComponent("Controller");
+        return Component.literal("Controller");
     }
 
     @Nullable

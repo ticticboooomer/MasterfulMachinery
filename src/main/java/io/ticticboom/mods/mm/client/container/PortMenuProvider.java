@@ -1,10 +1,8 @@
 package io.ticticboom.mods.mm.client.container;
 
 import io.ticticboom.mods.mm.block.entity.PortBlockEntity;
-import io.ticticboom.mods.mm.client.screen.PortScreen;
 import io.ticticboom.mods.mm.setup.model.PortModel;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -26,7 +24,7 @@ public class PortMenuProvider implements MenuProvider {
 
     @Override
     public Component getDisplayName() {
-        return new TextComponent("Port");
+        return Component.literal("Port");
     }
 
     @Nullable

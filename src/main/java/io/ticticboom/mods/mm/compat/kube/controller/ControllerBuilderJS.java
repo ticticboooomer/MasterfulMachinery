@@ -3,8 +3,7 @@ package io.ticticboom.mods.mm.compat.kube.controller;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.setup.ControllerManager;
 import io.ticticboom.mods.mm.setup.model.ControllerModel;
-import lombok.Builder;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 public class ControllerBuilderJS {
@@ -13,7 +12,7 @@ public class ControllerBuilderJS {
 
     public void build() {
         ResourceLocation key = Ref.res(id);
-        ControllerManager.REGISTRY.put(key, new ControllerModel(key, new TextComponent(name), new ResourceLocation(key.getNamespace(), key.getPath() + "_controller")));
+        ControllerManager.REGISTRY.put(key, new ControllerModel(key, Component.literal(name), new ResourceLocation(key.getNamespace(), key.getPath() + "_controller")));
     }
 
     public ControllerBuilderJS name(String name) {

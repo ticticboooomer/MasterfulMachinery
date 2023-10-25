@@ -1,6 +1,5 @@
 package io.ticticboom.mods.mm.setup.model;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.ports.base.IConfiguredPort;
@@ -9,12 +8,6 @@ import io.ticticboom.mods.mm.setup.MMRegistries;
 import io.ticticboom.mods.mm.util.ParseHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.Resource;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public record PortModel(
         ResourceLocation id,

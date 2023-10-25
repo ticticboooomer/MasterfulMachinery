@@ -1,25 +1,14 @@
 package io.ticticboom.mods.mm.ports.item;
 
 import com.google.gson.JsonObject;
-import com.mojang.blaze3d.vertex.PoseStack;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.ports.base.*;
-import io.ticticboom.mods.mm.setup.model.RecipeModel;
-import io.ticticboom.mods.mm.util.Deferred;
-import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
-import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
-import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
-import mezz.jei.api.helpers.IJeiHelpers;
-import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.registration.IModIngredientRegistration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 public class ItemPortTypeEntry extends MMPortTypeEntry {
 
@@ -62,7 +51,7 @@ public class ItemPortTypeEntry extends MMPortTypeEntry {
                 for (int i = 0; i < itemPortStorage.items.getSlots(); i++) {
                     var slot = itemPortStorage.items.getStackInSlot(i);
                     var requiredAmount = conf.count() - itemCounter;
-                    if (slot.getItem().getRegistryName().equals(conf.item())) {
+                    if (ForgeRegistries.ITEMS.getKey(slot.getItem()).equals(conf.item())) {
                         if (slot.getCount() >= requiredAmount) {
                             var remains = slot.getCount() - requiredAmount;
                             itemCounter += requiredAmount;
@@ -92,7 +81,7 @@ public class ItemPortTypeEntry extends MMPortTypeEntry {
                 for (int i = 0; i < itemPortStorage.items.getSlots(); i++) {
                     var slot = itemPortStorage.items.getStackInSlot(i);
                     var requiredAmount = conf.count() - itemCounter;
-                    if (slot.getItem().getRegistryName().toString().equals(conf.item().toString())) {
+                    if (ForgeRegistries.ITEMS.getKey(slot.getItem()).equals(conf.item())) {
                         var availableSpace = maxStack - slot.getCount();
                         int remains = Math.min(availableSpace, requiredAmount);
                         itemCounter += remains;

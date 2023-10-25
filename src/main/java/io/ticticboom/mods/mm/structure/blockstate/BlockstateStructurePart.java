@@ -5,7 +5,6 @@ import io.ticticboom.mods.mm.structure.IConfiguredStructurePart;
 import io.ticticboom.mods.mm.structure.MMStructurePart;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.properties.Property;
 
 import java.util.HashMap;
 import java.util.Map;

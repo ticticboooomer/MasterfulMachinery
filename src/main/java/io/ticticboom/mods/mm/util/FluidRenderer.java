@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
 
 public class FluidRenderer {
@@ -52,16 +52,13 @@ public class FluidRenderer {
 
     TextureAtlasSprite fluidStillSprite = getStillFluidSprite(stack);
 
-    FluidAttributes attributes = fluid.getAttributes();
-    int fluidColor = attributes.getColor(stack);
-
-    int amount = stack.getAmount();
+    IClientFluidTypeExtensions attributes = IClientFluidTypeExtensions.of(fluid);
+    int fluidColor = attributes.getTintColor(stack);
 
     drawTiledSprite(matrixStack, xPosition, yPosition, width, height, fluidColor, height, fluidStillSprite);
   }
 
   private void drawTiledSprite(PoseStack matrixStack, int xPosition, int yPosition, int width, int height, int color, int scaledAmount, TextureAtlasSprite sprite) {
-    Minecraft minecraft = Minecraft.getInstance();
     RenderHelper.useTexture(InventoryMenu.BLOCK_ATLAS);
     Matrix4f matrix = matrixStack.last().pose();
     setGLColorFromInt(color);
@@ -119,7 +116,7 @@ public class FluidRenderer {
   private TextureAtlasSprite getStillFluidSprite(FluidStack stack) {
     Minecraft minecraft = Minecraft.getInstance();
     Fluid fluid = stack.getFluid();
-    FluidAttributes attributes = fluid.getAttributes();
+    IClientFluidTypeExtensions attributes = IClientFluidTypeExtensions.of(fluid);
     ResourceLocation fluidStill = attributes.getStillTexture(stack);
     return minecraft.getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(fluidStill);
   }

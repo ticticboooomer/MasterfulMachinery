@@ -3,7 +3,6 @@ package io.ticticboom.mods.mm.ports.mekanism.infuse;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.ports.base.IConfiguredPort;
 import io.ticticboom.mods.mm.ports.base.PortStorage;
-import io.ticticboom.mods.mm.ports.energy.EnergyConfiguredPort;
 import io.ticticboom.mods.mm.ports.mekanism.MekChemicalConfiguredPort;
 import io.ticticboom.mods.mm.ports.mekanism.MekChemicalPortTypeEntry;
 import mekanism.api.chemical.infuse.InfuseType;

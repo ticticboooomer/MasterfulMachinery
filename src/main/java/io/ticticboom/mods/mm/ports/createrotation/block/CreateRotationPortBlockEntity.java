@@ -4,7 +4,6 @@ import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import io.ticticboom.mods.mm.ports.base.IPortBE;
 import io.ticticboom.mods.mm.ports.base.PortStorage;
 import io.ticticboom.mods.mm.ports.createrotation.RotationPortStorage;
-import io.ticticboom.mods.mm.ports.item.ItemPortStorage;
 import io.ticticboom.mods.mm.setup.MMRegistries;
 import io.ticticboom.mods.mm.setup.model.PortModel;
 import net.minecraft.core.BlockPos;

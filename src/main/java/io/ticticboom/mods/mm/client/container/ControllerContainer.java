@@ -2,7 +2,6 @@ package io.ticticboom.mods.mm.client.container;
 
 import io.ticticboom.mods.mm.block.entity.ControllerBlockEntity;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;

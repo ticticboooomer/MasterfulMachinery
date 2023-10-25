@@ -1,13 +1,13 @@
 package io.ticticboom.mods.mm.setup;
 
 import com.google.gson.Gson;
-import dev.latvian.mods.kubejs.KubeJS;
+
 import dev.latvian.mods.kubejs.script.ScriptType;
-import dev.latvian.mods.kubejs.script.ScriptsLoadedEvent;
 import io.ticticboom.mods.mm.Ref;
-import io.ticticboom.mods.mm.compat.kube.controller.ControllerEventJS;
-import io.ticticboom.mods.mm.compat.kube.porttypes.PortTypeEventJS;
-import io.ticticboom.mods.mm.compat.kube.recipeentry.RecipeEntryEventJS;
+import io.ticticboom.mods.mm.compat.kube.MMEvents;
+import io.ticticboom.mods.mm.compat.kube.porttypes.PortTypeEventHandler;
+import io.ticticboom.mods.mm.compat.kube.recipe.RecipeEventHandler;
+import io.ticticboom.mods.mm.compat.kube.recipeentry.RecipeEntryEventHandler;
 import io.ticticboom.mods.mm.item.BlueprintItem;
 import io.ticticboom.mods.mm.item.StructureSelectorWand;
 import io.ticticboom.mods.mm.ports.base.MMPortTypeEntry;
@@ -15,7 +15,6 @@ import io.ticticboom.mods.mm.ports.createrotation.RotationPortTypeEntry;
 import io.ticticboom.mods.mm.ports.energy.EnergyPortTypeEntry;
 import io.ticticboom.mods.mm.ports.fluid.FluidPortTypeEntry;
 import io.ticticboom.mods.mm.ports.item.ItemPortTypeEntry;
-import io.ticticboom.mods.mm.ports.js.PortTypeEntryJS;
 import io.ticticboom.mods.mm.ports.mekanism.gas.MekGasPortTypeEntry;
 import io.ticticboom.mods.mm.ports.mekanism.heat.MekHeatPortTypeEntry;
 import io.ticticboom.mods.mm.ports.mekanism.infuse.MekInfusePortTypeEntry;
@@ -44,13 +43,15 @@ import io.ticticboom.mods.mm.structure.portblock.PortBlockStructurePart;
 import io.ticticboom.mods.mm.structure.tag.BlockTagStructurePart;
 import io.ticticboom.mods.mm.structure.transformers.MMStructureTransform;
 import io.ticticboom.mods.mm.structure.transformers.RotationStructureTransform;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
@@ -67,8 +68,8 @@ public class MMRegistries {
     public static final Gson GSON = new Gson();
     public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Ref.ID);
     public static DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Ref.ID);
-    public static DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, Ref.ID);
-    public static DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(ForgeRegistries.CONTAINERS, Ref.ID);
+    public static DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Ref.ID);
+    public static DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(ForgeRegistries.MENU_TYPES, Ref.ID);
 
     public static Map<ResourceLocation, MMPortTypeEntry> PORTS = new HashMap<>();
     public static Supplier<IForgeRegistry<MMRecipeEntry>> RECIPE_ENTRIES;
@@ -81,49 +82,43 @@ public class MMRegistries {
 
     @SubscribeEvent
     public static void on(NewRegistryEvent event) {
-        STRUCTURE_PARTS = event.create(new RegistryBuilder<MMStructurePart>().setType(MMStructurePart.class).setName(Ref.STRUCTURE_PART_REGISTRY));
-        RECIPE_ENTRIES = event.create(new RegistryBuilder<MMRecipeEntry>().setType(MMRecipeEntry.class).setName(Ref.RECIPE_ENTRIES_REGISTRY));
-        STRUCTURE_TRANSFORMS = event.create(new RegistryBuilder<MMStructureTransform>().setType(MMStructureTransform.class).setName(Ref.STRUCTURE_TRANSFORMS_REGISTRY));
+        STRUCTURE_PARTS = event.create(new RegistryBuilder<MMStructurePart>().setName(Ref.STRUCTURE_PART_REGISTRY));
+        RECIPE_ENTRIES = event.create(new RegistryBuilder<MMRecipeEntry>().setName(Ref.RECIPE_ENTRIES_REGISTRY));
+        STRUCTURE_TRANSFORMS = event.create(new RegistryBuilder<MMStructureTransform>().setName(Ref.STRUCTURE_TRANSFORMS_REGISTRY));
     }
 
     @SubscribeEvent
-    public static void registerStructureParts(RegistryEvent.Register<MMStructurePart> event) {
-        event.getRegistry().registerAll(
-                new BlockStructurePart().setRegistryName(Ref.StructureParts.BLOCK),
-                new BlockTagStructurePart().setRegistryName(Ref.StructureParts.TAG),
-                new PortStructurePart().setRegistryName(Ref.StructureParts.PORT),
-                new PortBlockStructurePart().setRegistryName(Ref.StructureParts.PORT_BLOCK),
-                new BlockstateStructurePart().setRegistryName(Ref.StructureParts.BLOCKSTATE),
-                new AndGateStructurePart().setRegistryName(Ref.StructureParts.AND),
-                new OrGateStructurePart().setRegistryName(Ref.StructureParts.OR)
-        );
+    public static void registerStructureParts(RegisterEvent event) {
+        event.register(STRUCTURE_PARTS.get().getRegistryKey(), Ref.StructureParts.BLOCK, BlockStructurePart::new);
+        event.register(STRUCTURE_PARTS.get().getRegistryKey(), Ref.StructureParts.TAG, BlockTagStructurePart::new);
+        event.register(STRUCTURE_PARTS.get().getRegistryKey(), Ref.StructureParts.PORT, PortStructurePart::new);
+        event.register(STRUCTURE_PARTS.get().getRegistryKey(), Ref.StructureParts.PORT_BLOCK, PortBlockStructurePart::new);
+        event.register(STRUCTURE_PARTS.get().getRegistryKey(), Ref.StructureParts.BLOCKSTATE, BlockstateStructurePart::new);
+        event.register(STRUCTURE_PARTS.get().getRegistryKey(), Ref.StructureParts.AND, AndGateStructurePart::new);
+        event.register(STRUCTURE_PARTS.get().getRegistryKey(), Ref.StructureParts.OR, OrGateStructurePart::new);
     }
 
     @SubscribeEvent
-    public static void registerRecipeEntries(RegistryEvent.Register<MMRecipeEntry> event) {
-        event.getRegistry().registerAll(
-                new SimpleRecipeEntry().setRegistryName(Ref.RecipeEntries.SIMPLE),
-                new PerTickRecipeEntry().setRegistryName(Ref.RecipeEntries.PER_TICK),
-                new OrGateRecipeEntry().setRegistryName(Ref.RecipeEntries.OR_GATE),
-                new AndGateRecipeEntry().setRegistryName(Ref.RecipeEntries.AND_GATE),
-                new StructurePartRecipeEntry().setRegistryName(Ref.RecipeEntries.STRUCTURE_PART),
-                new PresetRecipeEntry().setRegistryName(Ref.RecipeEntries.PRESET),
-                new TickModifierRecipeEntry().setRegistryName(Ref.RecipeEntries.TICK_MODIFIER),
-                new DesignatedRecipeEntry().setRegistryName(Ref.RecipeEntries.DESIGNATED),
-                new OutputConnectedRecipeEntry().setRegistryName(Ref.RecipeEntries.CONNECTED_OUTPUT),
-                new InputConnectedRecipeEntry().setRegistryName(Ref.RecipeEntries.CONNECTED_INPUT),
-                new DimensionRecipeEntry().setRegistryName(Ref.RecipeEntries.DIMENSION)
-        );
-        new RecipeEntryEventJS().post("mm", "recipeentries");
+    public static void registerRecipeEntries(RegisterEvent event) {
+
+        event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.SIMPLE, SimpleRecipeEntry::new);
+        event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.PER_TICK, PerTickRecipeEntry::new);
+        event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.OR_GATE, OrGateRecipeEntry::new);
+        event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.AND_GATE, AndGateRecipeEntry::new);
+        event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.STRUCTURE_PART, StructurePartRecipeEntry::new);
+        event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.PRESET, PresetRecipeEntry::new);
+        event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.TICK_MODIFIER, TickModifierRecipeEntry::new);
+        event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.DESIGNATED, DesignatedRecipeEntry::new);
+        event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.CONNECTED_OUTPUT, OutputConnectedRecipeEntry::new);
+        event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.CONNECTED_INPUT, InputConnectedRecipeEntry::new);
+        event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.DIMENSION, DimensionRecipeEntry::new);
     }
 
     @SubscribeEvent
-    public static void registerStructureTransforms(RegistryEvent.Register<MMStructureTransform> event) {
-        event.getRegistry().registerAll(
-                new RotationStructureTransform(Rotation.CLOCKWISE_90).setRegistryName(Ref.StructureTransforms.ROT_90),
-                new RotationStructureTransform(Rotation.CLOCKWISE_180).setRegistryName(Ref.StructureTransforms.ROT_180),
-                new RotationStructureTransform(Rotation.COUNTERCLOCKWISE_90).setRegistryName(Ref.StructureTransforms.ROT_270)
-        );
+    public static void registerStructureTransforms(RegisterEvent event) {
+        event.register(STRUCTURE_TRANSFORMS.get().getRegistryKey(), Ref.StructureTransforms.ROT_90, () -> new RotationStructureTransform(Rotation.CLOCKWISE_90));
+        event.register(STRUCTURE_TRANSFORMS.get().getRegistryKey(), Ref.StructureTransforms.ROT_180, () -> new RotationStructureTransform(Rotation.CLOCKWISE_180));
+        event.register(STRUCTURE_TRANSFORMS.get().getRegistryKey(), Ref.StructureTransforms.ROT_270, () -> new RotationStructureTransform(Rotation.COUNTERCLOCKWISE_90));
     }
 
     public static void registerPorts() {
@@ -146,7 +141,7 @@ public class MMRegistries {
     @SubscribeEvent
     public static void on(FMLConstructModEvent event) {
         event.enqueueWork(() -> {
-            new PortTypeEventJS().post("mm", "porttypes");
+            MMEvents.PORT_TYPE.post(ScriptType.STARTUP,new PortTypeEventHandler());
             ControllerManager.load();
             PortManager.load();
         });

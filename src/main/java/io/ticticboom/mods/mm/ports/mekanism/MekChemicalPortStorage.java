@@ -1,16 +1,9 @@
 package io.ticticboom.mods.mm.ports.mekanism;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import io.ticticboom.mods.mm.Ref;
-import io.ticticboom.mods.mm.client.screen.PortScreen;
 import io.ticticboom.mods.mm.ports.base.PortStorage;
-import io.ticticboom.mods.mm.util.GuiHelper;
-import io.ticticboom.mods.mm.util.RenderHelper;
 import mekanism.api.chemical.Chemical;
 import mekanism.api.chemical.ChemicalStack;
 import mekanism.api.chemical.IChemicalTank;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;

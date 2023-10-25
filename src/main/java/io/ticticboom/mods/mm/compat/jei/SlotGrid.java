@@ -1,9 +1,5 @@
 package io.ticticboom.mods.mm.compat.jei;
 
-import net.minecraft.core.Vec3i;
-import net.minecraft.world.phys.Vec2;
-import net.minecraft.world.phys.Vec3;
-
 import java.util.ArrayList;
 import java.util.List;
 

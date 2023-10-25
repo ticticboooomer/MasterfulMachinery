@@ -5,8 +5,6 @@ import io.ticticboom.mods.mm.ports.mekanism.MekChemicalPortStorage;
 import mekanism.api.MekanismAPI;
 import mekanism.api.chemical.ChemicalTankBuilder;
 import mekanism.api.chemical.IChemicalTank;
-import mekanism.api.chemical.infuse.InfuseType;
-import mekanism.api.chemical.infuse.InfusionStack;
 import mekanism.api.chemical.pigment.Pigment;
 import mekanism.api.chemical.pigment.PigmentStack;
 import mekanism.common.capabilities.Capabilities;
@@ -26,7 +24,7 @@ public class MekPigmentPortStorage extends MekChemicalPortStorage<Pigment, Pigme
 
     @Override
     protected boolean isCapability(Capability<?> cap) {
-        return cap == Capabilities.PIGMENT_HANDLER_CAPABILITY;
+        return cap == Capabilities.PIGMENT_HANDLER;
     }
 
     @Override

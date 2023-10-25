@@ -4,12 +4,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.client.screen.PortScreen;
 import io.ticticboom.mods.mm.ports.base.PortStorage;
-import io.ticticboom.mods.mm.ports.energy.EnergyPortStorage;
 import io.ticticboom.mods.mm.ports.mekanism.heat.MekHeatPortStorage;
-import io.ticticboom.mods.mm.util.GuiHelper;
 import io.ticticboom.mods.mm.util.RenderHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiComponent;
 
 import java.text.NumberFormat;
 
@@ -22,6 +20,6 @@ public class MekHeatClientPortTypeEntry extends ClientPortTypeEntry {
         var startY = 252 / 4 - (18 / 2) - 10;
         var height = 50;
         var temp = storg.handler.getTemperature(0);
-        Gui.drawCenteredString(ms, Minecraft.getInstance().font, "Temp: " + NumberFormat.getInstance().format(temp) + "K", screen.getGuiLeft() + startX + 9, screen.getGuiTop() + startY + 30, 0xfefefe);
+        GuiComponent.drawCenteredString(ms, Minecraft.getInstance().font, "Temp: " + NumberFormat.getInstance().format(temp) + "K", screen.getGuiLeft() + startX + 9, screen.getGuiTop() + startY + 30, 0xfefefe);
     }
 }

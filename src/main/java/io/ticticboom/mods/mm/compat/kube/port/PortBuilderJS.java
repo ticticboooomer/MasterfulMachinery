@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.setup.PortManager;
 import io.ticticboom.mods.mm.setup.model.PortModel;
-import net.minecraft.resources.ResourceLocation;
 
 public class PortBuilderJS {
     private String id;

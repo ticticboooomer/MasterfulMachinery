@@ -2,7 +2,6 @@ package io.ticticboom.mods.mm.block.entity;
 
 import io.ticticboom.mods.mm.block.ControllerBlock;
 import io.ticticboom.mods.mm.ports.base.IOPortStorage;
-import io.ticticboom.mods.mm.ports.base.PortStorage;
 import io.ticticboom.mods.mm.recipe.RecipeContext;
 import io.ticticboom.mods.mm.setup.MMRegistries;
 import io.ticticboom.mods.mm.setup.model.RecipeModel;
@@ -25,9 +24,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
 public class ControllerBlockEntity extends BlockEntity {
 
@@ -104,7 +101,7 @@ public class ControllerBlockEntity extends BlockEntity {
                     }
                 }
                 if (found) {
-                    be.displayInfo.structureName = model.name().getContents();
+                    be.displayInfo.structureName = model.name().getContents().toString();
                     be.forceUpdate();
                     foundAny = true;
                     be.chooseRecipe(model, new RecipeContext(model, null, flattened.transformId(), inputPorts, outputPorts, be.level, blockPos, new ArrayList<>()));

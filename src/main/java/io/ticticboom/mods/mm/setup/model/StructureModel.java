@@ -15,7 +15,6 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.util.*;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public record StructureModel(
         ResourceLocation id,
@@ -118,7 +117,7 @@ public record StructureModel(
         result.add(new TypedTransformedParts(flattened, null));
         for (Map.Entry<ResourceKey<MMStructureTransform>, MMStructureTransform> entry : MMRegistries.STRUCTURE_TRANSFORMS.get().getEntries()) {
             var transformed = entry.getValue().transform(flattened);
-            result.add(new TypedTransformedParts(transformed, entry.getValue().getRegistryName()));
+            result.add(new TypedTransformedParts(transformed, MMRegistries.STRUCTURE_TRANSFORMS.get().getKey(entry.getValue())));
         }
         return result;
     }

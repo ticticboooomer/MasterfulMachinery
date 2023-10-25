@@ -3,7 +3,6 @@ package io.ticticboom.mods.mm.ports.mekanism.heat;
 import io.ticticboom.mods.mm.ports.base.PortStorage;
 import mekanism.api.heat.IHeatHandler;
 import mekanism.common.capabilities.Capabilities;
-import mekanism.common.capabilities.heat.BasicHeatCapacitor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
@@ -37,7 +36,7 @@ public class MekHeatPortStorage extends PortStorage {
 
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> cap) {
-        if (cap == Capabilities.HEAT_HANDLER_CAPABILITY) {
+        if (cap == Capabilities.HEAT_HANDLER) {
             return handlerLO.cast();
         }
         return LazyOptional.empty();

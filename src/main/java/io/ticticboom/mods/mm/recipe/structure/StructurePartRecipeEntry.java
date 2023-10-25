@@ -9,12 +9,8 @@ import io.ticticboom.mods.mm.setup.MMRegistries;
 import io.ticticboom.mods.mm.setup.model.StructureModel;
 import io.ticticboom.mods.mm.structure.ConfiguredStructurePart;
 import io.ticticboom.mods.mm.structure.IConfiguredStructurePart;
-import io.ticticboom.mods.mm.structure.MMStructurePart;
-import io.ticticboom.mods.mm.structure.transformers.MMStructureTransform;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-
-import java.util.ArrayList;
 
 public class StructurePartRecipeEntry extends MMRecipeEntry {
     @Override
@@ -35,7 +31,7 @@ public class StructurePartRecipeEntry extends MMRecipeEntry {
         var conf = (StructurePartConfiguredRecipeEntry) config;
         var part = MMRegistries.STRUCTURE_PARTS.get().getValue(conf.part().type());
         var transformer = MMRegistries.STRUCTURE_TRANSFORMS.get().getValue(ctx.appliedTransformId());
-        var transformedPosList = transformer.transform(ImmutableList.of(new StructureModel.PlacedStructurePart(conf.relativePos(), part.getRegistryName(), conf.part().part())));
+        var transformedPosList = transformer.transform(ImmutableList.of(new StructureModel.PlacedStructurePart(conf.relativePos(), MMRegistries.STRUCTURE_PARTS.get().getKey(part), conf.part().part())));
         var transformedPos = transformedPosList.get(0);
         return part.validatePlacement(ctx.level(), ctx.controllerPos().offset(transformedPos.pos()), conf.part().part());
     }

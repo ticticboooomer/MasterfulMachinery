@@ -1,18 +1,13 @@
 package io.ticticboom.mods.mm.ports.base;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import io.ticticboom.mods.mm.block.entity.PortBlockEntity;
 import io.ticticboom.mods.mm.client.container.PortContainer;
-import io.ticticboom.mods.mm.client.screen.PortScreen;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.Capability;

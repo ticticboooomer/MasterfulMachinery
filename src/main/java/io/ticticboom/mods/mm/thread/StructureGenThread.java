@@ -5,11 +5,12 @@ import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.block.ControllerBlock;
 import io.ticticboom.mods.mm.ports.base.IPortBlock;
-import io.ticticboom.mods.mm.setup.MMRegistries;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -60,16 +61,17 @@ public class StructureGenThread extends Thread {
     }
 
     private String setBlock(Block block, BlockPos pos) {
+        ResourceLocation blockResourceLocation = ForgeRegistries.BLOCKS.getKey(block);
         for (Map.Entry<String, JsonObject> entry : key.entrySet()) {
             if (entry.getValue().get("type").getAsString().equals("mm:block")) {
-                if (entry.getValue().get("block").getAsString().equals(block.getRegistryName().toString())) {
+                if (entry.getValue().get("block").getAsString().equals(blockResourceLocation.toString())) {
                     return entry.getKey();
                 }
             }
         }
         var json = new JsonObject();
         json.addProperty("type", Ref.StructureParts.BLOCK.toString());
-        json.addProperty("block", block.getRegistryName().toString());
+        json.addProperty("block", blockResourceLocation.toString());
         var chara = increment();
         key.put(chara, json);
         return chara;

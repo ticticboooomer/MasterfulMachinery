@@ -7,13 +7,13 @@ import io.ticticboom.mods.mm.block.entity.PortBlockEntity;
 import io.ticticboom.mods.mm.datagen.gen.MMBlockStateProvider;
 import io.ticticboom.mods.mm.setup.model.PortModel;
 import io.ticticboom.mods.mm.util.Deferred;
-import mekanism.api.providers.IBlockProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
@@ -35,13 +35,11 @@ public abstract class MMPortTypeEntry {
     public void generateBlockStates(MMBlockStateProvider provider, Block block) {
         var port = ((IPortBlock) block);
         var input = port.model().input();
-        if (input) {
-            provider.dynamicBlock(block.getRegistryName(), MMBlockStateProvider.BASE_TEXTURE, overlay(input));
-            provider.simpleBlock(block, new ModelFile.UncheckedModelFile(new ResourceLocation(Ref.ID, "block/" + block.getRegistryName().getPath())));
-        } else {
-            provider.dynamicBlock(block.getRegistryName(), MMBlockStateProvider.BASE_TEXTURE, overlay(input));
-            provider.simpleBlock(block, new ModelFile.UncheckedModelFile(new ResourceLocation(Ref.ID, "block/" + block.getRegistryName().getPath())));
-        }
+        ResourceLocation blockResourceLocation = ForgeRegistries.BLOCKS.getKey(block);
+
+        provider.dynamicBlock(blockResourceLocation, MMBlockStateProvider.BASE_TEXTURE, overlay(input));
+        provider.simpleBlock(block, new ModelFile.UncheckedModelFile(new ResourceLocation(Ref.ID, "block/" + blockResourceLocation.getPath())));
+
     }
 
     public abstract boolean processInputs(IConfiguredIngredient ingredient, List<PortStorage> storage);

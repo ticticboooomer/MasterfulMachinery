@@ -4,6 +4,7 @@ import io.ticticboom.mods.mm.compat.jei.port.RotationJeiPortTypeEntry;
 import mezz.jei.api.ingredients.IIngredientHelper;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.ingredients.subtypes.UidContext;
+import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
 
 public class RotationIngredientHelper implements IIngredientHelper<RotationStack> {
@@ -23,13 +24,8 @@ public class RotationIngredientHelper implements IIngredientHelper<RotationStack
     }
 
     @Override
-    public String getModId(RotationStack ingredient) {
-        return "create";
-    }
-
-    @Override
-    public String getResourceId(RotationStack ingredient) {
-        return "rotation";
+    public ResourceLocation getResourceLocation(RotationStack ingredient) {
+        return new ResourceLocation("create");
     }
 
     @Override

@@ -2,7 +2,6 @@ package io.ticticboom.mods.mm.client.port;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.ticticboom.mods.mm.Ref;
-import io.ticticboom.mods.mm.client.port.ClientPortTypeEntry;
 import io.ticticboom.mods.mm.client.screen.PortScreen;
 import io.ticticboom.mods.mm.ports.base.PortStorage;
 import io.ticticboom.mods.mm.ports.mekanism.MekChemicalPortStorage;
@@ -11,7 +10,7 @@ import io.ticticboom.mods.mm.util.RenderHelper;
 import mekanism.api.chemical.Chemical;
 import mekanism.api.chemical.ChemicalStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiComponent;
 
 public class MekChemicalClientPortTypeEntry<CHEMICAL extends Chemical<CHEMICAL>, STACK extends ChemicalStack<CHEMICAL>> extends ClientPortTypeEntry {
     @Override
@@ -24,8 +23,8 @@ public class MekChemicalClientPortTypeEntry<CHEMICAL extends Chemical<CHEMICAL>,
         screen.blit(ms, screen.getGuiLeft() + startX, screen.getGuiTop() + startY -10, 50, 14, 18, height);
         var percentage = (float)storg.tank.getStack().getAmount() / storg.config.capacity();
         GuiHelper.renderVerticallyFilledBar(ms, screen, screen.getGuiLeft() + startX, screen.getGuiTop() + startY -10, 72, 14, 18, 50, percentage);
-        Gui.drawCenteredString(ms, Minecraft.getInstance().font, percentage * 100 + "%", screen.getGuiLeft() + startX + 9, screen.getGuiTop() + startY + 60, 0xfefefe);
-        Gui.drawCenteredString(ms, Minecraft.getInstance().font, storg.tank.getStack().getAmount() + " mb", screen.getGuiLeft() + startX + 9, screen.getGuiTop() + 17, 0xfefefe);
+        GuiComponent.drawCenteredString(ms, Minecraft.getInstance().font, percentage * 100 + "%", screen.getGuiLeft() + startX + 9, screen.getGuiTop() + startY + 60, 0xfefefe);
+        GuiComponent.drawCenteredString(ms, Minecraft.getInstance().font, storg.tank.getStack().getAmount() + " mb", screen.getGuiLeft() + startX + 9, screen.getGuiTop() + 17, 0xfefefe);
 
     }
 }

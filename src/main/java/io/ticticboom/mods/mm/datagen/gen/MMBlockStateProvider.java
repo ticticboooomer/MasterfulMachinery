@@ -2,24 +2,17 @@ package io.ticticboom.mods.mm.datagen.gen;
 
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.block.ControllerBlock;
-import io.ticticboom.mods.mm.block.PortBlock;
 import io.ticticboom.mods.mm.ports.base.IPortBlock;
 import io.ticticboom.mods.mm.setup.MMRegistries;
-import io.ticticboom.mods.mm.setup.model.PortModel;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ModelBuilder;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
 import net.minecraftforge.client.model.generators.loaders.CompositeModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
-
-import java.util.stream.Collectors;
 
 public class MMBlockStateProvider extends BlockStateProvider {
     public MMBlockStateProvider(DataGenerator gen, ExistingFileHelper exFileHelper) {
@@ -29,8 +22,8 @@ public class MMBlockStateProvider extends BlockStateProvider {
     private static final ResourceLocation CONTROLLER_TEXTURE = new ResourceLocation(Ref.ID, "block/controller_cutout");
     @Override
     protected void registerStatesAndModels() {
-        var controllers = MMRegistries.BLOCKS.getEntries().stream().filter(x -> x.get() instanceof ControllerBlock).collect(Collectors.toList());
-        var ports = MMRegistries.BLOCKS.getEntries().stream().filter(x -> x.get() instanceof IPortBlock).collect(Collectors.toList());
+        var controllers = MMRegistries.BLOCKS.getEntries().stream().filter(x -> x.get() instanceof ControllerBlock).toList();
+        var ports = MMRegistries.BLOCKS.getEntries().stream().filter(x -> x.get() instanceof IPortBlock).toList();
 
         for (var controller : controllers) {
             if (!controller.isPresent()){

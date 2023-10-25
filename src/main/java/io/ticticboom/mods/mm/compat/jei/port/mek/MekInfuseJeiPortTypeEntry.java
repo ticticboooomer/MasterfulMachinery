@@ -1,8 +1,6 @@
 package io.ticticboom.mods.mm.compat.jei.port.mek;
 
 import mekanism.api.MekanismAPI;
-import mekanism.api.chemical.gas.Gas;
-import mekanism.api.chemical.gas.GasStack;
 import mekanism.api.chemical.infuse.InfuseType;
 import mekanism.api.chemical.infuse.InfusionStack;
 import mekanism.client.jei.MekanismJEI;

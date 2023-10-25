@@ -1,29 +1,17 @@
 package io.ticticboom.mods.mm.ports.fluid;
 
 import com.google.gson.JsonObject;
-import com.mojang.blaze3d.vertex.PoseStack;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.ports.base.IConfiguredIngredient;
 import io.ticticboom.mods.mm.ports.base.IConfiguredPort;
 import io.ticticboom.mods.mm.ports.base.MMPortTypeEntry;
 import io.ticticboom.mods.mm.ports.base.PortStorage;
-import io.ticticboom.mods.mm.setup.model.RecipeModel;
-import io.ticticboom.mods.mm.util.Deferred;
-import mezz.jei.api.forge.ForgeTypes;
-import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
-import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
-import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
-import mezz.jei.api.helpers.IJeiHelpers;
-import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.registration.IModIngredientRegistration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 public class FluidPortTypeEntry extends MMPortTypeEntry {
     @Override

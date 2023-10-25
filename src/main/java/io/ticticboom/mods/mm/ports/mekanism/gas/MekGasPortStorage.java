@@ -25,7 +25,7 @@ public class MekGasPortStorage extends MekChemicalPortStorage<Gas, GasStack> {
 
     @Override
     protected boolean isCapability(Capability<?> cap) {
-        return cap == Capabilities.GAS_HANDLER_CAPABILITY;
+        return cap == Capabilities.GAS_HANDLER;
     }
 
     @Override

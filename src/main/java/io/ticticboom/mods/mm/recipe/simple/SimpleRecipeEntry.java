@@ -1,21 +1,13 @@
 package io.ticticboom.mods.mm.recipe.simple;
 
 import com.google.gson.JsonObject;
-import com.mojang.blaze3d.vertex.PoseStack;
 import io.ticticboom.mods.mm.ports.base.IOPortStorage;
 import io.ticticboom.mods.mm.ports.base.MMPortTypeEntry;
 import io.ticticboom.mods.mm.recipe.IConfiguredRecipeEntry;
 import io.ticticboom.mods.mm.recipe.MMRecipeEntry;
 import io.ticticboom.mods.mm.recipe.RecipeContext;
 import io.ticticboom.mods.mm.setup.MMRegistries;
-import io.ticticboom.mods.mm.setup.model.RecipeModel;
 import io.ticticboom.mods.mm.util.RecipeHelper;
-import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
-import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
-import mezz.jei.api.helpers.IJeiHelpers;
-import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeIngredientRole;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.Optional;

@@ -5,7 +5,8 @@ import io.ticticboom.mods.mm.ModRoot;
 import io.ticticboom.mods.mm.block.ControllerBlock;
 import io.ticticboom.mods.mm.block.entity.ControllerBlockEntity;
 import io.ticticboom.mods.mm.client.container.ControllerContainer;
-import io.ticticboom.mods.mm.compat.kube.controller.ControllerEventJS;
+import io.ticticboom.mods.mm.compat.kube.MMEvents;
+import io.ticticboom.mods.mm.compat.kube.controller.ControllerEventHandler;
 import io.ticticboom.mods.mm.setup.model.ControllerModel;
 import io.ticticboom.mods.mm.util.Deferred;
 import net.minecraft.resources.ResourceLocation;
@@ -35,7 +36,7 @@ public class ControllerManager extends BaseJsonManager {
             REGISTRY.put(res.id(), res);
         }
 
-        new ControllerEventJS().post("mm", "controllers");
+        MMEvents.CONTROLLER.post(ScriptType.STARTUP, new ControllerEventHandler());
 
         for (var res : REGISTRY.values()) {
             Deferred<RegistryObject<BlockEntityType<?>>> blockEntityType = new Deferred<>();

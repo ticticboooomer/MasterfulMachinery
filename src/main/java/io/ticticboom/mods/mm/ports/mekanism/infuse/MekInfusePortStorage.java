@@ -24,7 +24,7 @@ public class MekInfusePortStorage extends MekChemicalPortStorage<InfuseType, Inf
 
     @Override
     protected boolean isCapability(Capability<?> cap) {
-        return cap == Capabilities.INFUSION_HANDLER_CAPABILITY;
+        return cap == Capabilities.INFUSION_HANDLER;
     }
 
     @Override

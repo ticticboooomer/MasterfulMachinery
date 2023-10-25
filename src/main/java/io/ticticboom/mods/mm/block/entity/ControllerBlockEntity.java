@@ -101,7 +101,7 @@ public class ControllerBlockEntity extends BlockEntity {
                     }
                 }
                 if (found) {
-                    be.displayInfo.structureName = model.name().getContents().toString();
+                    be.displayInfo.structureName = model.name().getString();
                     be.forceUpdate();
                     foundAny = true;
                     be.chooseRecipe(model, new RecipeContext(model, null, flattened.transformId(), inputPorts, outputPorts, be.level, blockPos, new ArrayList<>()));

@@ -54,6 +54,7 @@ public class ModRoot {
 
     public ModRoot() {
         DataGenFactory.init();
+        registerDataGen();
         MMRegistries.register();
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(this::clientSetup);
@@ -71,16 +72,15 @@ public class ModRoot {
         event.getServer().getPackRepository().addPackFinder(new GeneratedRepoSource());
     }
 
-    @SubscribeEvent
-    private void registerDataGen(GatherDataEvent event) {
+    private void registerDataGen() {
         gen = DataGenFactory.create();
-        gen.addProvider(event.includeServer(),new MMLootTableProvider(gen));
+        gen.addProvider(true, new MMLootTableProvider(gen));
 
         if (FMLEnvironment.dist != Dist.DEDICATED_SERVER) {
             ExistingFileHelper efh = new ExistingFileHelper(ImmutableList.of(), ImmutableSet.of(), false, null, null);
-            gen.addProvider(event.includeClient(),new MMBlockStateProvider(gen, efh));
-            gen.addProvider(event.includeClient(),new MMItemModelProvider(gen, efh));
-            gen.addProvider(event.includeClient(),new MMLangProvider(gen));
+            gen.addProvider(true, new MMBlockStateProvider(gen, efh));
+            gen.addProvider(true, new MMItemModelProvider(gen, efh));
+            gen.addProvider(true, new MMLangProvider(gen));
         }
     }
 

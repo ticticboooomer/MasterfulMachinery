@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.recipe.*;
 import io.ticticboom.mods.mm.recipe.connected.input.InputConnectedRecipeEntryContext;
 import io.ticticboom.mods.mm.setup.MMRegistries;
-import io.ticticboom.mods.mm.setup.model.RecipeModel;
 import net.minecraft.resources.ResourceLocation;
 
 public class OutputConnectedRecipeEntry extends MMRecipeEntry {

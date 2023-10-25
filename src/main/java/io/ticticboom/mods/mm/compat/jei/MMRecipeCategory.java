@@ -13,7 +13,6 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 
 public class MMRecipeCategory implements IRecipeCategory<RecipeModel> {
     public static final RecipeType<RecipeModel> RECIPE_TYPE = RecipeType.create("mm", "recipes", RecipeModel.class);

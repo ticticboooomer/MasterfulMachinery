@@ -2,7 +2,6 @@ package io.ticticboom.mods.mm.recipe.simple;
 
 import io.ticticboom.mods.mm.ports.base.ConfiguredIngredient;
 import io.ticticboom.mods.mm.recipe.IConfiguredRecipeEntry;
-import net.minecraft.resources.ResourceLocation;
 
 import java.util.Optional;
 

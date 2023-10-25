@@ -1,16 +1,11 @@
 package io.ticticboom.mods.mm.setup;
 
+import dev.latvian.mods.kubejs.script.ScriptType;
 import io.ticticboom.mods.mm.ModRoot;
-import io.ticticboom.mods.mm.block.ControllerBlock;
-import io.ticticboom.mods.mm.block.PortBlock;
-import io.ticticboom.mods.mm.block.entity.ControllerBlockEntity;
-import io.ticticboom.mods.mm.block.entity.PortBlockEntity;
-import io.ticticboom.mods.mm.client.container.ControllerContainer;
 import io.ticticboom.mods.mm.client.container.PortContainer;
-import io.ticticboom.mods.mm.compat.kube.port.PortEventJS;
+import io.ticticboom.mods.mm.compat.kube.MMEvents;
+import io.ticticboom.mods.mm.compat.kube.port.PortEventHandler;
 import io.ticticboom.mods.mm.ports.base.MMPortTypeEntry;
-import io.ticticboom.mods.mm.setup.model.ControllerModel;
-import io.ticticboom.mods.mm.setup.model.MMBlockProvider;
 import io.ticticboom.mods.mm.setup.model.PortModel;
 import io.ticticboom.mods.mm.util.Deferred;
 import net.minecraft.resources.ResourceLocation;
@@ -22,7 +17,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.registries.RegistryObject;
 
-import javax.sound.sampled.Port;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,7 +39,7 @@ public class PortManager extends BaseJsonManager {
             REGISTRY.put(res.id(), res);
         }
 
-        new PortEventJS().post("mm", "ports");
+        MMEvents.PORT.post(ScriptType.STARTUP, new PortEventHandler());
 
         for (var res : REGISTRY.values()) {
             MMPortTypeEntry entry = MMRegistries.PORTS.get(res.port());

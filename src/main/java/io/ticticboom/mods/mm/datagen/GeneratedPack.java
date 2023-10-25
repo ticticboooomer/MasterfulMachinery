@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -24,51 +23,50 @@ import java.util.stream.Stream;
 
 public class GeneratedPack implements PackResources {
     private final Path path;
-    private final String id;
 
-    public GeneratedPack(Path path, String id) {
-        this.id = id;
+    public GeneratedPack(Path path) {
         ModRoot.generate();
         this.path = path;
     }
 
     private static String getFullPath(PackType type, ResourceLocation location) {
-        return String.format("%s/%s", location.getNamespace(), location.getPath());
+        return String.format("%s/%s/%s", type.getDirectory(), location.getNamespace(), location.getPath());
     }
 
     @Override
-    public Resource.IoSupplier<InputStream> getRootResource(String... fileName) {
-        Path resolved = path.resolve(String.join("/", fileName));
-        return IoSupplier.create(resolved);
+    public InputStream getRootResource(String fileName) throws IOException {
+        Path resolved = path.resolve(fileName);
+        return Files.newInputStream(resolved);
     }
 
     @Override
-    public Resource.IoSupplier<InputStream> getResource(PackType type, ResourceLocation location) {
+    public InputStream getResource(PackType type, ResourceLocation location) throws IOException {
         Path resolved = path.resolve(getFullPath(type, location));
-        return IoSupplier.create(resolved);
+        if (!Files.exists(resolved)){
+            throw new IOException("Resource does not exist");
+        }
+        return Files.newInputStream(resolved);
     }
 
     @Override
-    public void listResources(PackType p_10289_, String p_251379_, String p_251932_, ResourceOutput p_249347_) {
-        var result = new ArrayList<Pair<ResourceLocation, String>>();
-        getChildResourceLocations(result, 100, x -> true, path.resolve(p_251379_).resolve(p_251932_), p_251379_, p_251932_);
-        for (Pair<ResourceLocation, String> row : result) {
-            p_249347_.accept(row.getFirst(), IoSupplier.create(Path.of(row.getSecond())));
-        }
+    public Collection<ResourceLocation> getResources(PackType type, String namespaceIn, String pathIn, Predicate<ResourceLocation> filterIn) {
+        List<ResourceLocation> result = new ArrayList<>();
+        getChildResourceLocations(result, 0, filterIn, path.resolve(type.getDirectory() + "/" + namespaceIn + "/" + pathIn), namespaceIn, pathIn);
+        return result;
     }
 
-    private void getChildResourceLocations(List<Pair<ResourceLocation, String>> result, int depth, Predicate<ResourceLocation> filter, Path current, String currentRLNS, String currentRLPath) {
+    private void getChildResourceLocations(List<ResourceLocation> result, int depth, Predicate<ResourceLocation> filter, Path current, String currentRLNS, String currentRLPath) {
         try {
             if (!Files.exists(current) || !Files.isDirectory(current)){
                 return;
             }
             Stream<Path> list = Files.list(current);
-            for (Path child : list.toList()) {
+            for (Path child : list.collect(Collectors.toList())) {
                 if (!Files.isDirectory(child)) {
-                    result.add(new Pair<>(new ResourceLocation(currentRLNS, currentRLPath + "/" + child.getFileName()), child.toString()));
+                    result.add(new ResourceLocation(currentRLNS, currentRLPath + "/" + child.getFileName()));
                     continue;
                 }
-                getChildResourceLocations(result, depth + 1, filter, child, currentRLNS,  currentRLPath + "/" + child.getFileName());
+                getChildResourceLocations(result, depth + 1, filter, child, currentRLNS, currentRLPath + "/" + child.getFileName());
             }
         } catch (IOException ignored) {
             ignored.printStackTrace();
@@ -77,15 +75,22 @@ public class GeneratedPack implements PackResources {
 
 
     @Override
+    public boolean hasResource(PackType type, ResourceLocation location) {
+        Path finalPath = path.resolve(type.getDirectory() + "/" + location.getNamespace() + "/" + location.getPath());
+        return Files.exists(finalPath);
+    }
+
+    @Override
     public Set<String> getNamespaces(PackType type) {
         Set<String> result = new HashSet<>();
         try {
-            Stream<Path> list = Files.list(path);
+            Stream<Path> list = Files.list(path.resolve(type.getDirectory()));
             for (Path resultingPath : list.toList()) {
                 result.add(resultingPath.getFileName().toString());
             }
 
         } catch (IOException e) {
+            e.printStackTrace();
         }
         return result;
     }
@@ -95,8 +100,8 @@ public class GeneratedPack implements PackResources {
     public <T> T getMetadataSection(MetadataSectionSerializer<T> deserializer) throws IOException {
         JsonObject jsonobject = new JsonObject();
         JsonObject packObject = new JsonObject();
-        packObject.addProperty("pack_format", 12);
-        packObject.addProperty("description", "mconf");
+        packObject.addProperty("pack_format", 9);
+        packObject.addProperty("description", "mm");
         jsonobject.add("pack", packObject);
         if (!jsonobject.has(deserializer.getMetadataSectionName())) {
             return null;
@@ -110,8 +115,8 @@ public class GeneratedPack implements PackResources {
     }
 
     @Override
-    public String packId() {
-        return id;
+    public String getName() {
+        return "MM Generated Pack";
     }
 
     @Override

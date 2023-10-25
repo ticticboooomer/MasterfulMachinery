@@ -1,7 +1,6 @@
 package io.ticticboom.mods.mm.recipe;
 
 import io.ticticboom.mods.mm.ports.base.IOPortStorage;
-import io.ticticboom.mods.mm.ports.base.PortStorage;
 import io.ticticboom.mods.mm.setup.model.RecipeModel;
 import io.ticticboom.mods.mm.setup.model.StructureModel;
 import net.minecraft.core.BlockPos;

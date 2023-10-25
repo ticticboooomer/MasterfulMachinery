@@ -1,5 +1,6 @@
 package io.ticticboom.mods.mm.datagen;
 
+import net.minecraft.DetectedVersion;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.fml.loading.FMLPaths;
 
@@ -15,6 +16,6 @@ public class DataGenFactory {
     }
 
     public static DataGenerator create() {
-        return new DataGenerator(ROOT_PATH, new ArrayList<>());
+        return new DataGenerator(ROOT_PATH, new ArrayList<>(), DetectedVersion.tryDetectVersion(),true);
     }
 }

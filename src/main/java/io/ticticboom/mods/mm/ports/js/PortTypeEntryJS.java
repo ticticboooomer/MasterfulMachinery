@@ -6,13 +6,10 @@ import io.ticticboom.mods.mm.ports.base.IConfiguredIngredient;
 import io.ticticboom.mods.mm.ports.base.IConfiguredPort;
 import io.ticticboom.mods.mm.ports.base.MMPortTypeEntry;
 import io.ticticboom.mods.mm.ports.base.PortStorage;
-import io.ticticboom.mods.mm.ports.item.ItemConfiguredIngredient;
-import io.ticticboom.mods.mm.ports.item.ItemPortStorage;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class PortTypeEntryJS extends MMPortTypeEntry {
 

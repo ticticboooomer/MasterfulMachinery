@@ -2,15 +2,12 @@ package io.ticticboom.mods.mm.datagen.gen;
 
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.block.ControllerBlock;
-import io.ticticboom.mods.mm.block.PortBlock;
 import io.ticticboom.mods.mm.ports.base.IPortBlock;
 import io.ticticboom.mods.mm.setup.MMRegistries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.RegistryObject;
-
-import java.util.stream.Collectors;
 
 public class MMLangProvider extends LanguageProvider {
     public MMLangProvider(DataGenerator gen) {
@@ -19,8 +16,8 @@ public class MMLangProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        var controllers = MMRegistries.BLOCKS.getEntries().stream().filter(x -> x.get() instanceof ControllerBlock).collect(Collectors.toList());
-        var ports = MMRegistries.BLOCKS.getEntries().stream().filter(x -> x.get() instanceof IPortBlock).collect(Collectors.toList());
+        var controllers = MMRegistries.BLOCKS.getEntries().stream().filter(x -> x.get() instanceof ControllerBlock).toList();
+        var ports = MMRegistries.BLOCKS.getEntries().stream().filter(x -> x.get() instanceof IPortBlock).toList();
 
         for (RegistryObject<Block> controller : controllers) {
             var controllerBlock = ((ControllerBlock) controller.get());

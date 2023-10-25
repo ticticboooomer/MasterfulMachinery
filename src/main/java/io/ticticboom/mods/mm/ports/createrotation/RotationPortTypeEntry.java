@@ -11,7 +11,6 @@ import io.ticticboom.mods.mm.ports.createrotation.block.CreateRotationPortBlock;
 import io.ticticboom.mods.mm.ports.createrotation.block.CreateRotationPortBlockEntity;
 import io.ticticboom.mods.mm.setup.model.PortModel;
 import io.ticticboom.mods.mm.util.Deferred;
-import mekanism.api.providers.IBlockProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.Block;

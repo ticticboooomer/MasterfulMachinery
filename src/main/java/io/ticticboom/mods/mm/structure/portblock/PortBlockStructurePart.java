@@ -5,12 +5,10 @@ import io.ticticboom.mods.mm.ports.base.IOPortStorage;
 import io.ticticboom.mods.mm.ports.base.IPortBE;
 import io.ticticboom.mods.mm.structure.IConfiguredStructurePart;
 import io.ticticboom.mods.mm.structure.MMStructurePart;
-import io.ticticboom.mods.mm.structure.block.BlockConfiguredStructurePart;
-import io.ticticboom.mods.mm.structure.port.PortConfiguredStructurePart;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Optional;
 
@@ -29,7 +27,7 @@ public class PortBlockStructurePart extends MMStructurePart {
     @Override
     public boolean validatePlacement(Level level, BlockPos expectedPos, IConfiguredStructurePart config) {
         var state = level.getBlockState(expectedPos);
-        return state.getBlock().getRegistryName().toString().equals(((PortBlockConfiguredStructurePart) config).portId().toString());
+        return ForgeRegistries.BLOCKS.getKey(state.getBlock()).toString().equals(((PortBlockConfiguredStructurePart) config).portId().toString());
     }
 
     @Override

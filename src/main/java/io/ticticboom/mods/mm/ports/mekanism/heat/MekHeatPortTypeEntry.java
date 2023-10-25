@@ -6,8 +6,6 @@ import io.ticticboom.mods.mm.ports.base.IConfiguredIngredient;
 import io.ticticboom.mods.mm.ports.base.IConfiguredPort;
 import io.ticticboom.mods.mm.ports.base.MMPortTypeEntry;
 import io.ticticboom.mods.mm.ports.base.PortStorage;
-import io.ticticboom.mods.mm.ports.energy.EnergyConfiguredIngredient;
-import io.ticticboom.mods.mm.ports.energy.EnergyPortStorage;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;

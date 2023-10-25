@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.recipe.IConfiguredRecipeEntry;
 import io.ticticboom.mods.mm.recipe.MMRecipeEntry;
 import io.ticticboom.mods.mm.recipe.RecipeContext;
-import net.minecraft.client.gui.screens.DemoIntroScreen;
 import net.minecraft.resources.ResourceLocation;
 
 public class DimensionRecipeEntry extends MMRecipeEntry {

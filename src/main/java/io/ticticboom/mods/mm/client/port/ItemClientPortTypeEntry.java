@@ -2,7 +2,6 @@ package io.ticticboom.mods.mm.client.port;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.ticticboom.mods.mm.Ref;
-import io.ticticboom.mods.mm.client.port.ClientPortTypeEntry;
 import io.ticticboom.mods.mm.client.screen.PortScreen;
 import io.ticticboom.mods.mm.ports.base.PortStorage;
 import io.ticticboom.mods.mm.ports.item.ItemPortStorage;

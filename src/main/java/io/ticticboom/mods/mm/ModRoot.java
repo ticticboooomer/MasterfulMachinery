@@ -2,7 +2,6 @@ package io.ticticboom.mods.mm;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import io.ticticboom.mods.mm.client.MMClientRegistries;
 import io.ticticboom.mods.mm.client.container.ControllerContainer;
 import io.ticticboom.mods.mm.client.container.PortContainer;
 import io.ticticboom.mods.mm.client.screen.ControllerScreen;
@@ -23,13 +22,14 @@ import net.minecraft.server.packs.repository.PackRepository;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.common.Mod;
@@ -55,7 +55,6 @@ public class ModRoot {
     public ModRoot() {
         DataGenFactory.init();
         MMRegistries.register();
-        registerDataGen();
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(this::clientSetup);
         try {
@@ -72,15 +71,16 @@ public class ModRoot {
         event.getServer().getPackRepository().addPackFinder(new GeneratedRepoSource());
     }
 
-    private void registerDataGen() {
+    @SubscribeEvent
+    private void registerDataGen(GatherDataEvent event) {
         gen = DataGenFactory.create();
-        gen.addProvider(new MMLootTableProvider(gen));
+        gen.addProvider(event.includeServer(),new MMLootTableProvider(gen));
 
         if (FMLEnvironment.dist != Dist.DEDICATED_SERVER) {
             ExistingFileHelper efh = new ExistingFileHelper(ImmutableList.of(), ImmutableSet.of(), false, null, null);
-            gen.addProvider(new MMBlockStateProvider(gen, efh));
-            gen.addProvider(new MMItemModelProvider(gen, efh));
-            gen.addProvider(new MMLangProvider(gen));
+            gen.addProvider(event.includeClient(),new MMBlockStateProvider(gen, efh));
+            gen.addProvider(event.includeClient(),new MMItemModelProvider(gen, efh));
+            gen.addProvider(event.includeClient(),new MMLangProvider(gen));
         }
     }
 

@@ -5,7 +5,6 @@ import io.ticticboom.mods.mm.recipedisplay.IConfiguredRecipeDisplayElement;
 import io.ticticboom.mods.mm.recipedisplay.MMRecipeDisplayElement;
 import io.ticticboom.mods.mm.recipedisplay.RecipeDisplayContext;
 import io.ticticboom.mods.mm.util.RenderHelper;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.resources.ResourceLocation;
 
 public class ImageRecipeDisplayElement extends MMRecipeDisplayElement {

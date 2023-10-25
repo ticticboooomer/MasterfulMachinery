@@ -2,18 +2,13 @@ package io.ticticboom.mods.mm.client.screen;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.ticticboom.mods.mm.Ref;
-import io.ticticboom.mods.mm.block.entity.ControllerBlockEntity;
-import io.ticticboom.mods.mm.block.entity.PortBlockEntity;
 import io.ticticboom.mods.mm.client.MMClientRegistries;
 import io.ticticboom.mods.mm.client.container.PortContainer;
 import io.ticticboom.mods.mm.client.port.ClientPortTypeEntry;
 import io.ticticboom.mods.mm.util.RenderHelper;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
 
 public class PortScreen extends AbstractContainerScreen<PortContainer> {
 

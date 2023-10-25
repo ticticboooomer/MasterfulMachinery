@@ -1,15 +1,12 @@
 package io.ticticboom.mods.mm.structure.gates;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.setup.MMRegistries;
 import io.ticticboom.mods.mm.structure.ConfiguredStructurePart;
 import io.ticticboom.mods.mm.structure.IConfiguredStructurePart;
 import io.ticticboom.mods.mm.structure.MMStructurePart;
-import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 

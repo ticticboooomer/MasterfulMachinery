@@ -1,6 +1,5 @@
 package io.ticticboom.mods.mm.setup;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.ticticboom.mods.mm.Ref;

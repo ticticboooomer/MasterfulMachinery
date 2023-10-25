@@ -5,8 +5,6 @@ import io.ticticboom.mods.mm.ports.base.IConfiguredPort;
 import io.ticticboom.mods.mm.ports.base.PortStorage;
 import io.ticticboom.mods.mm.ports.mekanism.MekChemicalConfiguredPort;
 import io.ticticboom.mods.mm.ports.mekanism.MekChemicalPortTypeEntry;
-import mekanism.api.chemical.infuse.InfuseType;
-import mekanism.api.chemical.infuse.InfusionStack;
 import mekanism.api.chemical.pigment.Pigment;
 import mekanism.api.chemical.pigment.PigmentStack;
 import net.minecraft.resources.ResourceLocation;

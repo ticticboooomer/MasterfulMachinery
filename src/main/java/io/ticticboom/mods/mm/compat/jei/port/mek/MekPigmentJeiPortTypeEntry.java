@@ -1,7 +1,6 @@
 package io.ticticboom.mods.mm.compat.jei.port.mek;
 
 import mekanism.api.MekanismAPI;
-import mekanism.api.chemical.infuse.InfusionStack;
 import mekanism.api.chemical.pigment.Pigment;
 import mekanism.api.chemical.pigment.PigmentStack;
 import mekanism.client.jei.MekanismJEI;

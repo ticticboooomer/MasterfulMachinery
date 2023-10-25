@@ -3,6 +3,7 @@ package io.ticticboom.mods.mm.ports.energy.jei;
 import mezz.jei.api.ingredients.IIngredientHelper;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.ingredients.subtypes.UidContext;
+import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
 
 public class EnergyIngredientHelper implements IIngredientHelper<EnergyStack> {
@@ -22,13 +23,8 @@ public class EnergyIngredientHelper implements IIngredientHelper<EnergyStack> {
     }
 
     @Override
-    public String getModId(EnergyStack ingredient) {
-        return "forge";
-    }
-
-    @Override
-    public String getResourceId(EnergyStack ingredient) {
-        return "fe_" + ingredient.amount + "_fe";
+    public ResourceLocation getResourceLocation(EnergyStack ingredient) {
+        return new ResourceLocation("forge");
     }
 
     @Override

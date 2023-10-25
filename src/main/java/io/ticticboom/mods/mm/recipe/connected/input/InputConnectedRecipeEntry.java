@@ -1,7 +1,6 @@
 package io.ticticboom.mods.mm.recipe.connected.input;
 
 import com.google.gson.JsonObject;
-import io.ticticboom.mods.mm.ports.base.IOPortStorage;
 import io.ticticboom.mods.mm.recipe.IConfiguredRecipeEntry;
 import io.ticticboom.mods.mm.recipe.IRecipeEntryContext;
 import io.ticticboom.mods.mm.recipe.MMRecipeEntry;

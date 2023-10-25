@@ -48,7 +48,7 @@ public class FluidPortStorage extends PortStorage {
     @Override
     public CompoundTag write() {
         var result = new CompoundTag();
-        result.putString("Fluid", handler.stack().getFluid().getRegistryName().toString());
+        result.putString("Fluid", ForgeRegistries.FLUIDS.getKey(handler.stack().getFluid()).toString());
         result.putInt("Amount", handler.stack().getAmount());
         return result;
     }

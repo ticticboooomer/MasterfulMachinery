@@ -26,6 +26,6 @@ public class RecipeEntryBuilderJS {
     }
 
     public void build() {
-        MMRegistries.RECIPE_ENTRIES.get().register(new RecipeEntryJS(processInputs, processOutputs).setRegistryName(ResourceLocation.tryParse(id)));
+        MMRegistries.RECIPE_ENTRIES.get().register(ResourceLocation.tryParse(id),new RecipeEntryJS(processInputs, processOutputs));
     }
 }

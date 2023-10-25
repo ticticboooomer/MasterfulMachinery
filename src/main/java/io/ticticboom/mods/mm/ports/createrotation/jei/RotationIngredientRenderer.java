@@ -7,7 +7,6 @@ import io.ticticboom.mods.mm.util.Deferred;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.item.TooltipFlag;
 
 import java.text.NumberFormat;
@@ -25,8 +24,8 @@ public class RotationIngredientRenderer implements IIngredientRenderer<RotationS
     @Override
     public List<Component> getTooltip(RotationStack ingredient, TooltipFlag tooltipFlag) {
         return Lists.newArrayList(
-                new TextComponent("Create Rotation"),
-                new TextComponent("Speed: " + NumberFormat.getInstance().format(ingredient.speed) + " RPM"));
+                Component.literal("Create Rotation"),
+                Component.literal("Speed: " + NumberFormat.getInstance().format(ingredient.speed) + " RPM"));
     }
 
     @Override

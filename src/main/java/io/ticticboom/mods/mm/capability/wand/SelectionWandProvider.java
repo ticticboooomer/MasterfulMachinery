@@ -3,7 +3,6 @@ package io.ticticboom.mods.mm.capability.wand;
 import io.ticticboom.mods.mm.capability.MMCapabilities;
 import net.minecraft.core.Direction;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;

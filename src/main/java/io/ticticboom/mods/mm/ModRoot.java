@@ -6,6 +6,7 @@ import io.ticticboom.mods.mm.client.container.ControllerContainer;
 import io.ticticboom.mods.mm.client.container.PortContainer;
 import io.ticticboom.mods.mm.client.screen.ControllerScreen;
 import io.ticticboom.mods.mm.client.screen.PortScreen;
+import io.ticticboom.mods.mm.compat.MMCompatRegistries;
 import io.ticticboom.mods.mm.datagen.DataGenFactory;
 import io.ticticboom.mods.mm.datagen.GeneratedRepoSource;
 import io.ticticboom.mods.mm.datagen.gen.MMBlockStateProvider;
@@ -60,6 +61,7 @@ public class ModRoot {
         bus.addListener(this::clientSetup);
         try {
             if (FMLEnvironment.dist == Dist.CLIENT) {
+                MMCompatRegistries.init();
                 Minecraft.getInstance().getResourcePackRepository().addPackFinder(new GeneratedRepoSource());
             }
         } catch (Exception ignored) {

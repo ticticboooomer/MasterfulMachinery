@@ -12,6 +12,7 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.HashMap;
@@ -33,7 +34,9 @@ public class StructureManager extends SimpleJsonResourceReloadListener {
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> records, ResourceManager resManager, ProfilerFiller profiler) {
         REGISTRY.clear();
-        MMEvents.STRUCTURE.post(ScriptType.SERVER, new StructureEventHandler());
+        if (ModList.get().isLoaded("kubejs")) {
+            MMEvents.STRUCTURE.post(ScriptType.SERVER, new StructureEventHandler());
+        }
         for (Map.Entry<ResourceLocation, JsonElement> entry : records.entrySet()) {
             REGISTRY.put(entry.getKey(), StructureModel.parse(entry.getKey(), entry.getValue().getAsJsonObject()));
         }

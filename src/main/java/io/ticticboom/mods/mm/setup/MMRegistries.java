@@ -112,6 +112,7 @@ public class MMRegistries {
         event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.CONNECTED_OUTPUT, OutputConnectedRecipeEntry::new);
         event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.CONNECTED_INPUT, InputConnectedRecipeEntry::new);
         event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.DIMENSION, DimensionRecipeEntry::new);
+        MMEvents.RECIPE_ENTRY.post(new RecipeEntryEventHandler());
     }
 
     @SubscribeEvent
@@ -141,7 +142,9 @@ public class MMRegistries {
     @SubscribeEvent
     public static void on(FMLConstructModEvent event) {
         event.enqueueWork(() -> {
-            MMEvents.PORT_TYPE.post(ScriptType.STARTUP,new PortTypeEventHandler());
+            if (ModList.get().isLoaded("kubejs")) {
+                MMEvents.PORT_TYPE.post(ScriptType.STARTUP, new PortTypeEventHandler());
+            }
             ControllerManager.load();
             PortManager.load();
         });

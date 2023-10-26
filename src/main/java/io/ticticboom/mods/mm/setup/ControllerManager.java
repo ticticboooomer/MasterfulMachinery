@@ -15,6 +15,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.HashMap;
@@ -36,8 +37,9 @@ public class ControllerManager extends BaseJsonManager {
             REGISTRY.put(res.id(), res);
         }
 
-        MMEvents.CONTROLLER.post(ScriptType.STARTUP, new ControllerEventHandler());
-
+        if (ModList.get().isLoaded("kubejs")) {
+            MMEvents.CONTROLLER.post(ScriptType.STARTUP, new ControllerEventHandler());
+        }
         for (var res : REGISTRY.values()) {
             Deferred<RegistryObject<BlockEntityType<?>>> blockEntityType = new Deferred<>();
             final Deferred<RegistryObject<MenuType<?>>> menuType = new Deferred<>();

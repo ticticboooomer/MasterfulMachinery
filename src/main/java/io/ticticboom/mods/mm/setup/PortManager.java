@@ -15,6 +15,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.HashMap;
@@ -38,9 +39,9 @@ public class PortManager extends BaseJsonManager {
             }
             REGISTRY.put(res.id(), res);
         }
-
-        MMEvents.PORT.post(ScriptType.STARTUP, new PortEventHandler());
-
+        if (ModList.get().isLoaded("kubejs")) {
+            MMEvents.PORT.post(ScriptType.STARTUP, new PortEventHandler());
+        }
         for (var res : REGISTRY.values()) {
             MMPortTypeEntry entry = MMRegistries.PORTS.get(res.port());
             final Deferred<RegistryObject<MenuType<?>>> menuType = new Deferred<>();

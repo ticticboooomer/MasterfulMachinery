@@ -1,6 +1,8 @@
 package io.ticticboom.mods.mm.block.entity;
 
 import io.ticticboom.mods.mm.block.ControllerBlock;
+import io.ticticboom.mods.mm.compat.kube.MMEvents;
+import io.ticticboom.mods.mm.compat.kube.machine.MachineRecipeCompleteHandler;
 import io.ticticboom.mods.mm.ports.base.IOPortStorage;
 import io.ticticboom.mods.mm.recipe.RecipeContext;
 import io.ticticboom.mods.mm.setup.MMRegistries;
@@ -169,7 +171,7 @@ public class ControllerBlockEntity extends BlockEntity {
                 this.displayInfo.processStatus = format.format(100f * percentage) + "% Processing";
                 this.displayInfo.recipe = recipe.getValue().name().getString();
                 if (ticks >= tickLimit) {
-
+                    MMEvents.RECIPE_COMPLETE.post(new MachineRecipeCompleteHandler(this.getBlockPos(), this, model));
                     for (RecipeModel.RecipeEntry input : recipe.getValue().inputs()) {
                         var entry = MMRegistries.RECIPE_ENTRIES.get().getValue(input.type());
                         entry.processInputs(input.config(), nctx, nctx);

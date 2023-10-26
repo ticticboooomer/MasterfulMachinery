@@ -12,6 +12,7 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.HashMap;
@@ -34,7 +35,9 @@ public class RecipeManager extends SimpleJsonResourceReloadListener {
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> entries, ResourceManager manager, ProfilerFiller profiler) {
         REGISTRY.clear();
-        MMEvents.RECIPE.post(ScriptType.SERVER, new RecipeEventHandler());
+        if (ModList.get().isLoaded("kubejs")) {
+            MMEvents.RECIPE.post(ScriptType.SERVER, new RecipeEventHandler());
+        }
         for (Map.Entry<ResourceLocation, JsonElement> entry : entries.entrySet()) {
             REGISTRY.put(entry.getKey(), RecipeModel.parse(entry.getKey(), entry.getValue().getAsJsonObject()));
         }

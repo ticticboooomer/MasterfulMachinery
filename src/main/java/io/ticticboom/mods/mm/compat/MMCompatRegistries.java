@@ -7,15 +7,9 @@ import io.ticticboom.mods.mm.compat.jei.port.*;
 import io.ticticboom.mods.mm.compat.jei.port.mek.*;
 import io.ticticboom.mods.mm.compat.jei.recipe.PerTickJeiRecipeEntry;
 import io.ticticboom.mods.mm.compat.jei.recipe.SimpleJeiRecipeEntry;
-import io.ticticboom.mods.mm.recipedisplay.MMRecipeDisplayElement;
-import io.ticticboom.mods.mm.recipedisplay.image.ImageRecipeDisplayElement;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.NewRegistryEvent;
 import net.minecraftforge.registries.RegisterEvent;
@@ -27,13 +21,11 @@ import java.util.function.Supplier;
 public class MMCompatRegistries {
     public static Supplier<IForgeRegistry<JeiRecipeEntry>> JEI_RECIPE_ENTRIES;
     public static Supplier<IForgeRegistry<JeiPortTypeEntry>> JEI_PORTS;
-    public static Supplier<IForgeRegistry<MMRecipeDisplayElement>> RECIPE_DISPLAY_ELEMENTS;
 
     public static void on(NewRegistryEvent event) {
         if (ModList.get().isLoaded("jei")) {
             JEI_RECIPE_ENTRIES = event.create(new RegistryBuilder<JeiRecipeEntry>().setName(Ref.CompatRegistries.JEI_RECIPE_ENTRIES));
             JEI_PORTS = event.create(new RegistryBuilder<JeiPortTypeEntry>().setName(Ref.CompatRegistries.JEI_PORT_TYPES));
-            RECIPE_DISPLAY_ELEMENTS = event.create(new RegistryBuilder<MMRecipeDisplayElement>().setName(Ref.CompatRegistries.RECIPE_DISPLAY_ELEMENTS));
         }
     }
 
@@ -58,16 +50,11 @@ public class MMCompatRegistries {
         }
     }
 
-    public static void registerJeiRecipeDisplayElements(RegisterEvent event) {
-        event.register(RECIPE_DISPLAY_ELEMENTS.get().getRegistryKey(), Ref.RecipeDisplayElements.IMAGE, ImageRecipeDisplayElement::new);
-    }
-
     public static void init() {
         if (ModList.get().isLoaded("jei")) {
             FMLJavaModLoadingContext.get().getModEventBus().addListener(MMCompatRegistries::on);
             FMLJavaModLoadingContext.get().getModEventBus().addListener(MMCompatRegistries::registerJeiPorts);
             FMLJavaModLoadingContext.get().getModEventBus().addListener(MMCompatRegistries::registerJeiRecipeEntries);
-            FMLJavaModLoadingContext.get().getModEventBus().addListener(MMCompatRegistries::registerJeiRecipeDisplayElements);
         }
     }
 }

@@ -20,10 +20,4 @@ public class ImageRecipeDisplayElement extends MMRecipeDisplayElement {
         return new ImageConfiguredRecipeDisplayElement(texture, u, v, w, h, x, y);
     }
 
-    @Override
-    public void render(IConfiguredRecipeDisplayElement config, RecipeDisplayContext ctx) {
-        var conf = (ImageConfiguredRecipeDisplayElement) config;
-        RenderHelper.useTexture(conf.texture());
-        ctx.helpers().getGuiHelper().createDrawable(conf.texture(), conf.u(), conf.v(), conf.width(), conf.height()).draw(ctx.stack(), conf.x(), conf.y());
-    }
 }

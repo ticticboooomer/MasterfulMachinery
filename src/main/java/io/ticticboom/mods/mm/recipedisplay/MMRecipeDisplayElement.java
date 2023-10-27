@@ -7,5 +7,5 @@ public abstract class MMRecipeDisplayElement {
     public abstract IConfiguredRecipeDisplayElement parse(JsonObject json);
 
 
-    public abstract void render(IConfiguredRecipeDisplayElement config, RecipeDisplayContext ctx);
+
 }

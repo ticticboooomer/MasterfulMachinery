@@ -5,8 +5,7 @@ import io.ticticboom.mods.mm.compat.jei.base.JeiPortTypeEntry;
 import io.ticticboom.mods.mm.compat.jei.base.JeiRecipeEntry;
 import io.ticticboom.mods.mm.compat.jei.port.*;
 import io.ticticboom.mods.mm.compat.jei.port.mek.*;
-import io.ticticboom.mods.mm.compat.jei.recipe.PerTickJeiRecipeEntry;
-import io.ticticboom.mods.mm.compat.jei.recipe.SimpleJeiRecipeEntry;
+import io.ticticboom.mods.mm.compat.jei.recipe.*;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -30,15 +29,18 @@ public class MMCompatRegistries {
     }
 
     public static void registerJeiRecipeEntries(RegisterEvent event) {
-
         event.register(JEI_RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.SIMPLE, SimpleJeiRecipeEntry::new);
         event.register(JEI_RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.PER_TICK, PerTickJeiRecipeEntry::new);
+        event.register(JEI_RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.DESIGNATED, DesignatedJeiRecipeEntry::new);
+        event.register(JEI_RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.AND_GATE, AndGateJeiRecipeEntry::new);
+        event.register(JEI_RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.DIMENSION, DimensionJeiRecipeEntry::new);
     }
 
     public static void registerJeiPorts(RegisterEvent event) {
         event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.ENERGY, EnergyJeiPortTypeEntry::new);
         event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.FLUID, FluidJeiPortTypeEntry::new);
         event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.ITEM, ItemJeiPortTypeEntry::new);
+
         if (ModList.get().isLoaded("create")) {
             event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.CREATE_ROT, RotationJeiPortTypeEntry::new);
         }
@@ -47,6 +49,8 @@ public class MMCompatRegistries {
             event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.MEK_INFUSE, MekInfuseJeiPortTypeEntry::new);
             event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.MEK_PIGMENT, MekPigmentJeiPortTypeEntry::new);
             event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.MEK_SLURRY, MekSlurryJeiPortTypeEntry::new);
+            event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.MEK_LASER, MekLaserJeiPortType::new);
+            event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.MEK_HEAT, MekHeatJeiPortTypeEntry::new);
         }
     }
 

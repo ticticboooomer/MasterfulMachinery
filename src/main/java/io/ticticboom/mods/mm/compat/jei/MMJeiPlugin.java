@@ -1,8 +1,13 @@
 package io.ticticboom.mods.mm.compat.jei;
 
+import com.google.common.collect.ImmutableList;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.block.ControllerBlock;
 import io.ticticboom.mods.mm.compat.MMCompatRegistries;
+import io.ticticboom.mods.mm.compat.jei.recipe.DimensionJeiRecipeEntry;
+import io.ticticboom.mods.mm.recipe.dimension.jei.DimIngredientHelper;
+import io.ticticboom.mods.mm.recipe.dimension.jei.DimIngredientRenderer;
+import io.ticticboom.mods.mm.recipe.dimension.jei.DimIngredientType;
 import io.ticticboom.mods.mm.setup.MMRegistries;
 import io.ticticboom.mods.mm.setup.model.RecipeModel;
 import io.ticticboom.mods.mm.setup.reload.RecipeManager;
@@ -44,6 +49,7 @@ public class MMJeiPlugin implements IModPlugin {
         for (var entry : MMCompatRegistries.JEI_PORTS.get().getEntries()) {
             entry.getValue().registerJeiIngredient(registration, this.helpers);
         }
+        registration.register(DimensionJeiRecipeEntry.ING_TYPE, ImmutableList.of(), new DimIngredientHelper(), new DimIngredientRenderer());
     }
 
     @Override

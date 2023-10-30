@@ -3,6 +3,7 @@ package io.ticticboom.mods.mm.compat.jei.recipe;
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.ticticboom.mods.mm.compat.MMCompatRegistries;
 import io.ticticboom.mods.mm.compat.jei.SlotGrid;
+import io.ticticboom.mods.mm.compat.jei.SlotGridEntry;
 import io.ticticboom.mods.mm.compat.jei.base.JeiRecipeEntry;
 import io.ticticboom.mods.mm.recipe.ConfiguredRecipeEntry;
 import io.ticticboom.mods.mm.recipe.IConfiguredRecipeEntry;
@@ -25,6 +26,15 @@ public class AndGateJeiRecipeEntry extends JeiRecipeEntry {
 
     @Override
     public void renderJei(RecipeModel recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY, IConfiguredRecipeEntry entry, IJeiHelpers helpers, boolean input, int x, int y, SlotGrid slots) {
-
+        var conf = (GateConfiguredRecipeEntry)entry;
+        int cx = x;
+        int cy = y;
+        for (var condit : conf.conditions()) {
+            var val = MMCompatRegistries.JEI_RECIPE_ENTRIES.get().getValue(condit.type());
+            val.renderJei(recipe, recipeSlotsView, stack, mouseX, mouseY, condit.entry(), helpers, input, cx, cy, slots);
+            SlotGridEntry next = slots.next();
+            cx = next.x;
+            cy = next.y;
+        }
     }
 }

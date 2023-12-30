@@ -27,12 +27,9 @@ import io.ticticboom.mods.mm.recipe.connected.output.OutputConnectedRecipeEntry;
 import io.ticticboom.mods.mm.recipe.designated.DesignatedRecipeEntry;
 import io.ticticboom.mods.mm.recipe.dimension.DimensionRecipeEntry;
 import io.ticticboom.mods.mm.recipe.gates.and.AndGateRecipeEntry;
-import io.ticticboom.mods.mm.recipe.gates.or.OrGateRecipeEntry;
 import io.ticticboom.mods.mm.recipe.pertick.PerTickRecipeEntry;
 import io.ticticboom.mods.mm.recipe.preset.PresetRecipeEntry;
 import io.ticticboom.mods.mm.recipe.simple.SimpleRecipeEntry;
-import io.ticticboom.mods.mm.recipe.structure.StructurePartRecipeEntry;
-import io.ticticboom.mods.mm.recipe.tickmodifier.generic.TickModifierRecipeEntry;
 import io.ticticboom.mods.mm.structure.MMStructurePart;
 import io.ticticboom.mods.mm.structure.block.BlockStructurePart;
 import io.ticticboom.mods.mm.structure.blockstate.BlockstateStructurePart;
@@ -43,15 +40,12 @@ import io.ticticboom.mods.mm.structure.portblock.PortBlockStructurePart;
 import io.ticticboom.mods.mm.structure.tag.BlockTagStructurePart;
 import io.ticticboom.mods.mm.structure.transformers.MMStructureTransform;
 import io.ticticboom.mods.mm.structure.transformers.RotationStructureTransform;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
@@ -100,14 +94,10 @@ public class MMRegistries {
 
     @SubscribeEvent
     public static void registerRecipeEntries(RegisterEvent event) {
-
         event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.SIMPLE, SimpleRecipeEntry::new);
         event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.PER_TICK, PerTickRecipeEntry::new);
-        event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.OR_GATE, OrGateRecipeEntry::new);
         event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.AND_GATE, AndGateRecipeEntry::new);
-        event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.STRUCTURE_PART, StructurePartRecipeEntry::new);
         event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.PRESET, PresetRecipeEntry::new);
-        event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.TICK_MODIFIER, TickModifierRecipeEntry::new);
         event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.DESIGNATED, DesignatedRecipeEntry::new);
         event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.CONNECTED_OUTPUT, OutputConnectedRecipeEntry::new);
         event.register(RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.CONNECTED_INPUT, InputConnectedRecipeEntry::new);

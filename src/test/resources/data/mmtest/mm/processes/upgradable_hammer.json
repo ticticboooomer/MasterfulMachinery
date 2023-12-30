@@ -6,41 +6,19 @@
   "duration": 20,
   "inputs": [
     {
-      "type": "mm:gate/or",
-      "conditions": [
-        {
-          "type": "mm:gate/and",
-          "conditions": [
-            {
-              "type": "mm:simple",
-              "ingredient": {
-                "type": "mm:mekanism_laser",
-                "energy": 100000
-              }
-            },
-            {
-              "type": "mm:simple",
-              "ingredient": {
-                "type": "mm:item",
-                "item": "minecraft:glass",
-                "count": 1
-              }
-            },
-            {
-              "type": "mm:connected/input",
-              "id": "connection1",
-              "setFlag": true
-            }
-          ]
-        },
-        {
-          "type": "mm:simple",
-          "ingredient": {
-            "type": "mm:mekanism_laser",
-            "energy": 100000
-          }
-        }
-      ]
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:mekanism_laser",
+        "energy": 100000
+      }
+    },
+    {
+      "type": "mm:simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:glass",
+        "count": 1
+      }
     }
   ],
   "outputs": [

@@ -5,17 +5,10 @@ import io.ticticboom.mods.mm.compat.jei.base.JeiPortTypeEntry;
 import io.ticticboom.mods.mm.compat.jei.base.JeiRecipeEntry;
 import io.ticticboom.mods.mm.compat.jei.port.*;
 import io.ticticboom.mods.mm.compat.jei.port.mek.*;
-import io.ticticboom.mods.mm.compat.jei.recipe.PerTickJeiRecipeEntry;
-import io.ticticboom.mods.mm.compat.jei.recipe.SimpleJeiRecipeEntry;
-import io.ticticboom.mods.mm.recipedisplay.MMRecipeDisplayElement;
-import io.ticticboom.mods.mm.recipedisplay.image.ImageRecipeDisplayElement;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import io.ticticboom.mods.mm.compat.jei.recipe.*;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.NewRegistryEvent;
 import net.minecraftforge.registries.RegisterEvent;
@@ -27,26 +20,27 @@ import java.util.function.Supplier;
 public class MMCompatRegistries {
     public static Supplier<IForgeRegistry<JeiRecipeEntry>> JEI_RECIPE_ENTRIES;
     public static Supplier<IForgeRegistry<JeiPortTypeEntry>> JEI_PORTS;
-    public static Supplier<IForgeRegistry<MMRecipeDisplayElement>> RECIPE_DISPLAY_ELEMENTS;
 
     public static void on(NewRegistryEvent event) {
         if (ModList.get().isLoaded("jei")) {
             JEI_RECIPE_ENTRIES = event.create(new RegistryBuilder<JeiRecipeEntry>().setName(Ref.CompatRegistries.JEI_RECIPE_ENTRIES));
             JEI_PORTS = event.create(new RegistryBuilder<JeiPortTypeEntry>().setName(Ref.CompatRegistries.JEI_PORT_TYPES));
-            RECIPE_DISPLAY_ELEMENTS = event.create(new RegistryBuilder<MMRecipeDisplayElement>().setName(Ref.CompatRegistries.RECIPE_DISPLAY_ELEMENTS));
         }
     }
 
     public static void registerJeiRecipeEntries(RegisterEvent event) {
-
         event.register(JEI_RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.SIMPLE, SimpleJeiRecipeEntry::new);
         event.register(JEI_RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.PER_TICK, PerTickJeiRecipeEntry::new);
+        event.register(JEI_RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.DESIGNATED, DesignatedJeiRecipeEntry::new);
+        event.register(JEI_RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.AND_GATE, AndGateJeiRecipeEntry::new);
+        event.register(JEI_RECIPE_ENTRIES.get().getRegistryKey(), Ref.RecipeEntries.DIMENSION, DimensionJeiRecipeEntry::new);
     }
 
     public static void registerJeiPorts(RegisterEvent event) {
         event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.ENERGY, EnergyJeiPortTypeEntry::new);
         event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.FLUID, FluidJeiPortTypeEntry::new);
         event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.ITEM, ItemJeiPortTypeEntry::new);
+
         if (ModList.get().isLoaded("create")) {
             event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.CREATE_ROT, RotationJeiPortTypeEntry::new);
         }
@@ -55,11 +49,9 @@ public class MMCompatRegistries {
             event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.MEK_INFUSE, MekInfuseJeiPortTypeEntry::new);
             event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.MEK_PIGMENT, MekPigmentJeiPortTypeEntry::new);
             event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.MEK_SLURRY, MekSlurryJeiPortTypeEntry::new);
+            event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.MEK_LASER, MekLaserJeiPortType::new);
+            event.register(JEI_PORTS.get().getRegistryKey(), Ref.Ports.MEK_HEAT, MekHeatJeiPortTypeEntry::new);
         }
-    }
-
-    public static void registerJeiRecipeDisplayElements(RegisterEvent event) {
-        event.register(RECIPE_DISPLAY_ELEMENTS.get().getRegistryKey(), Ref.RecipeDisplayElements.IMAGE, ImageRecipeDisplayElement::new);
     }
 
     public static void init() {
@@ -67,7 +59,6 @@ public class MMCompatRegistries {
             FMLJavaModLoadingContext.get().getModEventBus().addListener(MMCompatRegistries::on);
             FMLJavaModLoadingContext.get().getModEventBus().addListener(MMCompatRegistries::registerJeiPorts);
             FMLJavaModLoadingContext.get().getModEventBus().addListener(MMCompatRegistries::registerJeiRecipeEntries);
-            FMLJavaModLoadingContext.get().getModEventBus().addListener(MMCompatRegistries::registerJeiRecipeDisplayElements);
         }
     }
 }

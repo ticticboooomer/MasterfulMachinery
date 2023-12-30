@@ -18,7 +18,7 @@ plugins {
 apply plugin: 'net.minecraftforge.gradle'
 
 
-version = '1.19.2-0.4.2'
+version = '1.19.2-0.4.3'
 group = 'io.ticticboom.mods.mm' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'MM'
 

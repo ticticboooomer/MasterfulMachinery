@@ -1,0 +1,9 @@
+{
+  "id": "somepack:my_port_a",
+  "name": "My Port A",
+  "type": "mm:items",
+  "config": {
+    "rows": 3,
+    "columns": 3
+  }
+}

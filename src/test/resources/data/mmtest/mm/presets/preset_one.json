@@ -1,7 +1,0 @@
-{
-  "type": "mm:per_tick",
-  "ingredient": {
-    "type": "mm:create_rotation",
-    "speed": 10
-  }
-}

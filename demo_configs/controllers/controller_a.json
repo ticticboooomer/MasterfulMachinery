@@ -1,0 +1,7 @@
+{
+  "id": "mm:controller_a",
+  "type": "mm:machine",
+  "name": {
+    "translation": "some.translation.key"
+  }
+}

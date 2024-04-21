@@ -1,1 +1,0 @@
-io.ticticboom.mods.mm.compat.kube.MMJSPlugin

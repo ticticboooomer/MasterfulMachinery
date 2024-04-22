@@ -9,12 +9,12 @@ import net.minecraft.resources.ResourceLocation;
 public record ControllerModel(
         String id,
         ResourceLocation type,
-        Component name
+        String name
 ) {
     public static ControllerModel parse(JsonObject json) {
         var id = json.get("id").getAsString();
+        var name = json.get("name").getAsString();
         var type = ParserUtils.parseId(json, "type");
-        var name = ParserUtils.parseComponent(json, "name");
         return new ControllerModel(id, type, name);
     }
 }

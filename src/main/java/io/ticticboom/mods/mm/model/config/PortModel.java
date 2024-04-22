@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public record PortModel(
         String id,
-        Component name,
+        String name,
         IdList controllerIds,
         ResourceLocation type,
         IPortStorageFactory config
@@ -17,7 +17,7 @@ public record PortModel(
 
     public static PortModel parse(JsonObject json) {
         var id = json.get("id").getAsString();
-        var name = ParserUtils.parseComponent(json, "name");
+        var name = json.get("name").getAsString();
         var controllerIds = IdList.parse(json.get("controllerIds"));
         var type = ParserUtils.parseId(json, "type");
         var portType = MMPortRegistry.get(type);

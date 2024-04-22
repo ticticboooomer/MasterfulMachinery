@@ -42,7 +42,7 @@ public class MMBlockstateProvider extends BlockStateProvider {
     }
 
     public BlockModelBuilder dynamicBlockNorthOverlay(ResourceLocation loc, ResourceLocation baseTexture, ResourceLocation overlayTexture) {
-        return models().getBuilder(loc.toString())
+        return models().getBuilder(loc.toString()).parent(new ModelFile.UncheckedModelFile(mcLoc("block/block")))
             .texture("particle", overlayTexture)
                 .transforms()
                 .transform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND)

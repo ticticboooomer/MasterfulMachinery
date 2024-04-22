@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.datagen.provider.MMBlockstateProvider;
+import io.ticticboom.mods.mm.datagen.provider.MMItemModelProvider;
 import io.ticticboom.mods.mm.datagen.provider.MMLootTableProvider;
 import net.minecraft.DetectedVersion;
 import net.minecraft.WorldVersion;
@@ -43,6 +44,7 @@ public class DataGenManager {
         ExistingFileHelper efh = new ExistingFileHelper(ImmutableList.of(), ImmutableSet.of(), false, null, null);
         generator.addProvider(true, new MMLootTableProvider(generator));
         generator.addProvider(true, new MMBlockstateProvider(generator, efh));
+        generator.addProvider(true, new MMItemModelProvider(generator, efh));
     }
 
     public static DataGenerator createDataGenerator() {

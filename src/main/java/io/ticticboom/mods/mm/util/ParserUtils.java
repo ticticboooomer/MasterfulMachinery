@@ -19,7 +19,7 @@ public class ParserUtils {
     public static Component parseComponent(JsonElement json) {
         if (json.isJsonPrimitive() && json.getAsJsonPrimitive().isString()) {
             return Component.literal(json.getAsString());
-        } else if (json.isJsonObject() && json.getAsJsonObject().has("tranlation")) {
+        } else if (json.isJsonObject() && json.getAsJsonObject().has("translation")) {
             return Component.translatable(json.getAsJsonObject().get("translation").getAsString());
         }
         throw new RuntimeException("Failed to parse text component as literal or translatable, Refer to MM documentation for assistance");

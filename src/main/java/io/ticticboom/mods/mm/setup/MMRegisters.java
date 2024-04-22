@@ -4,9 +4,7 @@ import io.ticticboom.mods.mm.Ref;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.common.CreativeModeTabRegistry;
@@ -22,7 +20,8 @@ public class MMRegisters {
     public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, Ref.ID);
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Ref.ID);
 
-    public static final RegistryObject<CreativeModeTab> MM_TAB = TABS.register("mm", () -> CreativeModeTab.builder().title(Component.literal("Masterful Machinery")).displayItems((p, o) -> {
+    public static final RegistryObject<CreativeModeTab> MM_TAB = TABS.register("mm", () -> CreativeModeTab.builder().title(Component.literal("Masterful Machinery"))
+            .displayItems((p, o) -> {
         for (RegistryObject<Item> entry : ITEM.getEntries()) {
             o.accept(entry.get());
         }
@@ -35,6 +34,5 @@ public class MMRegisters {
         BLOCK_ENTITIES.register(bus);
         MENUS.register(bus);
         TABS.register(bus);
-
     }
 }

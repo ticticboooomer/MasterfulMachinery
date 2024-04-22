@@ -1,5 +1,6 @@
 package io.ticticboom.mods.mm.event;
 
+import io.ticticboom.mods.mm.datagen.PackEventHandler;
 import io.ticticboom.mods.mm.setup.loader.ControllerLoader;
 import io.ticticboom.mods.mm.setup.loader.PortLoader;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -12,7 +13,9 @@ public class SetupEventHandler {
 
     @SubscribeEvent
     public static void onConstruction(FMLConstructModEvent event) {
+        PackEventHandler.ensureConfigPath();
         ControllerLoader.loadAll();
         PortLoader.loadAll();
     }
+
 }

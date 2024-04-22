@@ -2,6 +2,7 @@ package io.ticticboom.mods.mm.ports.item.register;
 
 import io.ticticboom.mods.mm.model.config.PortModel;
 import io.ticticboom.mods.mm.ports.IPortBlockEntity;
+import io.ticticboom.mods.mm.ports.IPortPart;
 import io.ticticboom.mods.mm.ports.IPortStorage;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class ItemPortBlockEntity extends BlockEntity implements IPortBlockEntity {
+public class ItemPortBlockEntity extends BlockEntity implements IPortBlockEntity, IPortPart {
     private final RegistryGroupHolder groupHolder;
     private final PortModel model;
 
@@ -51,5 +52,10 @@ public class ItemPortBlockEntity extends BlockEntity implements IPortBlockEntity
     @Override
     public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
         return groupHolder.getMenu().get().create(i, inventory);
+    }
+
+    @Override
+    public PortModel getModel() {
+        return model;
     }
 }

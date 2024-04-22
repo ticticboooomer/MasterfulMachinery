@@ -15,7 +15,9 @@ import java.util.List;
 public abstract class AbstractConfigLoader<TModel> {
 
     protected abstract String getConfigPath();
+
     protected abstract List<TModel> parseModels(List<JsonObject> jsons);
+
     protected abstract void registerControllers(List<TModel> models);
 
     public void load() {
@@ -30,7 +32,8 @@ public abstract class AbstractConfigLoader<TModel> {
         if (!Files.exists(root)) {
             Files.createDirectories(root);
         }
-        return Files.walk(root, FileVisitOption.FOLLOW_LINKS).map(x -> {
+
+        return Files.walk(root, FileVisitOption.FOLLOW_LINKS).filter(Files::isRegularFile).map(x -> {
             try {
                 var file = Files.readString(x);
                 return JsonParser.parseString(file).getAsJsonObject();

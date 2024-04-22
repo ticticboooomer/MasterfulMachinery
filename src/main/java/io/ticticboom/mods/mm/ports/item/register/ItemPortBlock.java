@@ -1,6 +1,9 @@
 package io.ticticboom.mods.mm.ports.item.register;
 
+import io.ticticboom.mods.mm.Ref;
+import io.ticticboom.mods.mm.datagen.provider.MMBlockstateProvider;
 import io.ticticboom.mods.mm.model.config.PortModel;
+import io.ticticboom.mods.mm.ports.IPortBlock;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.util.PortUtils;
 import net.minecraft.core.BlockPos;
@@ -14,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 
-public class ItemPortBlock extends Block {
+public class ItemPortBlock extends Block implements IPortBlock {
     private final PortModel model;
     private final RegistryGroupHolder groupHolder;
     private final boolean isInput;
@@ -29,5 +32,20 @@ public class ItemPortBlock extends Block {
     @Override
     public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         return PortUtils.commonUse(state, level, pos, player, hand, hitResult);
+    }
+
+    @Override
+    public PortModel getModel() {
+        return model;
+    }
+
+    @Override
+    public void generateModel(MMBlockstateProvider provider) {
+        if (isInput) {
+            provider.dynamicBlock(groupHolder.getBlock().getId(), Ref.Textures.BASE_BLOCK, Ref.Textures.INPUT_ITEM_PORT_OVERLAY);
+        } else {
+            provider.dynamicBlock(groupHolder.getBlock().getId(), Ref.Textures.BASE_BLOCK, Ref.Textures.OUTPUT_ITEM_PORT_OVERLAY);
+        }
+        provider.simpleBlock(groupHolder.getBlock().get());
     }
 }

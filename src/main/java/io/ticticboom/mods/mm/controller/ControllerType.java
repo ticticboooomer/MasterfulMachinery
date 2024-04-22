@@ -26,4 +26,5 @@ public abstract class ControllerType {
         groupHolder.setItem(registerItem(model, groupHolder));
         return groupHolder;
     }
+
 }

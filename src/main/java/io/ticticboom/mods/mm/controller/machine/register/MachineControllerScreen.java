@@ -25,7 +25,11 @@ public class MachineControllerScreen extends AbstractContainerScreen<MachineCont
 
     @Override
     protected void renderLabels(GuiGraphics gfx, int mouseX, int mouseY) {
-        gfx.drawWordWrap(this.font, FormattedText.of(menu.getModel().name()), 10, 10, 200, 0xacacac);
+        // change to variables not hard coded strings
+        gfx.drawWordWrap(this.font, FormattedText.of(menu.getModel().name()), 10, 10, 150, 0xacacac);
+        gfx.drawWordWrap(this.font, FormattedText.of("Formed:"), 10, 40, 150, 0xacacac);
+        gfx.drawWordWrap(this.font, FormattedText.of("My Silly Structure ABC"), 10, 53, 150, 0xacacac);
+        gfx.drawWordWrap(this.font, FormattedText.of("Progress: 100%"), 10, 110, 150, 0xacacac);
     }
 
     @Override

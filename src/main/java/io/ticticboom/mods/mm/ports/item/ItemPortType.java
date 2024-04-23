@@ -24,22 +24,22 @@ public class ItemPortType extends PortType {
     }
 
     @Override
-    public RegistryObject<BlockEntityType<?>> registerBlockEntity(PortModel model, RegistryGroupHolder groupHolder, boolean isInput) {
-        return MMRegisters.BLOCK_ENTITIES.register(PortUtils.name(model, isInput), () -> BlockEntityType.Builder.of((p, s) -> new ItemPortBlockEntity(groupHolder, model, isInput, p, s), groupHolder.getBlock().get()).build(null));
+    public RegistryObject<BlockEntityType<?>> registerBlockEntity(PortModel model, RegistryGroupHolder groupHolder) {
+        return MMRegisters.BLOCK_ENTITIES.register(model.id(), () -> BlockEntityType.Builder.of((p, s) -> new ItemPortBlockEntity(groupHolder, model, model.input(), p, s), groupHolder.getBlock().get()).build(null));
     }
 
     @Override
-    public RegistryObject<Block> registerBlock(PortModel model, RegistryGroupHolder groupHolder, boolean isInput) {
-        return MMRegisters.BLOCKS.register(PortUtils.name(model, isInput), () -> new ItemPortBlock(model, groupHolder, isInput));
+    public RegistryObject<Block> registerBlock(PortModel model, RegistryGroupHolder groupHolder) {
+        return MMRegisters.BLOCKS.register(model.id(), () -> new ItemPortBlock(model, groupHolder, model.input()));
     }
 
     @Override
-    public RegistryObject<Item> registerItem(PortModel model, RegistryGroupHolder groupHolder, boolean isInput) {
-        return MMRegisters.ITEM.register(PortUtils.name(model, isInput), () -> new ItemPortBlockItem(model, groupHolder, isInput));
+    public RegistryObject<Item> registerItem(PortModel model, RegistryGroupHolder groupHolder) {
+        return MMRegisters.ITEM.register(model.id(), () -> new ItemPortBlockItem(model, groupHolder, model.input()));
     }
 
     @Override
-    public RegistryObject<MenuType<?>> registerMenu(PortModel model, RegistryGroupHolder groupHolder, boolean isInput) {
-        return MMRegisters.MENUS.register(PortUtils.name(model, isInput), () -> IForgeMenuType.create((i, o, u) -> new ItemPortMenu(model, groupHolder, isInput, i, o, u)));
+    public RegistryObject<MenuType<?>> registerMenu(PortModel model, RegistryGroupHolder groupHolder) {
+        return MMRegisters.MENUS.register(model.id(), () -> IForgeMenuType.create((i, o, u) -> new ItemPortMenu(model, groupHolder, model.input(), i, o, u)));
     }
 }

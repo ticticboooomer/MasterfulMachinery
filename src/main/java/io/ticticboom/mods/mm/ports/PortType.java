@@ -11,16 +11,16 @@ import net.minecraftforge.registries.RegistryObject;
 public abstract class PortType {
     public abstract IPortParser getParser();
 
-    public abstract RegistryObject<BlockEntityType<?>> registerBlockEntity(PortModel model, RegistryGroupHolder groupHolder, boolean isInput);
-    public abstract RegistryObject<Block> registerBlock(PortModel model, RegistryGroupHolder groupHolder, boolean isInput);
-    public abstract RegistryObject<Item> registerItem(PortModel model, RegistryGroupHolder groupHolder, boolean isInput);
-    public abstract RegistryObject<MenuType<?>> registerMenu(PortModel model, RegistryGroupHolder groupHolder, boolean isInput);
-    public RegistryGroupHolder register(PortModel model, boolean isInput) {
+    public abstract RegistryObject<BlockEntityType<?>> registerBlockEntity(PortModel model, RegistryGroupHolder groupHolder);
+    public abstract RegistryObject<Block> registerBlock(PortModel model, RegistryGroupHolder groupHolder);
+    public abstract RegistryObject<Item> registerItem(PortModel model, RegistryGroupHolder groupHolder);
+    public abstract RegistryObject<MenuType<?>> registerMenu(PortModel model, RegistryGroupHolder groupHolder);
+    public RegistryGroupHolder register(PortModel model) {
         RegistryGroupHolder groupHolder = new RegistryGroupHolder();
-        groupHolder.setMenu(registerMenu(model, groupHolder, isInput));
-        groupHolder.setBlock(registerBlock(model, groupHolder, isInput));
-        groupHolder.setBe(registerBlockEntity(model, groupHolder, isInput));
-        groupHolder.setItem(registerItem(model, groupHolder, isInput));
+        groupHolder.setMenu(registerMenu(model, groupHolder));
+        groupHolder.setBlock(registerBlock(model, groupHolder));
+        groupHolder.setBe(registerBlockEntity(model, groupHolder));
+        groupHolder.setItem(registerItem(model, groupHolder));
         groupHolder.setRegistryId(model.type());
         return groupHolder;
     }

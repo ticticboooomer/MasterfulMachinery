@@ -4,6 +4,7 @@ import io.ticticboom.mods.mm.menu.MMContainerMenu;
 import io.ticticboom.mods.mm.model.config.PortModel;
 import io.ticticboom.mods.mm.ports.IPortBlockEntity;
 import io.ticticboom.mods.mm.ports.IPortPart;
+import io.ticticboom.mods.mm.ports.IPortStorage;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.util.MenuUtils;
 import net.minecraft.network.FriendlyByteBuf;
@@ -30,6 +31,8 @@ public class ItemPortMenu extends MMContainerMenu implements IPortPart {
         this.isInput = isInput;
         this.inv = inv;
         this.be = be;
+        IPortStorage storage = be.getStorage();
+        storage.setupContainer(this, inv, model);
     }
 
     public ItemPortMenu(PortModel model, RegistryGroupHolder groupHolder, boolean isInput, int windowId, Inventory inv, FriendlyByteBuf buf) {

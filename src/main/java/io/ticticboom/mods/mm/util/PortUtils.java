@@ -14,7 +14,13 @@ import net.minecraftforge.network.NetworkHooks;
 
 public class PortUtils {
 
-    public static String name(PortModel model, boolean input) {
-        return model.id() + "_" + (input ? "input" : "output");
+    public static String id(String id, boolean input) {
+        var res = id + "_" + (input ? "input" : "output");
+        return res;
+    }
+
+    public static String name(String name, boolean input) {
+        var res = name + " " + (input ? "Input" : "Output");
+        return res;
     }
 }

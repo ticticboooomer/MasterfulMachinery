@@ -5,7 +5,7 @@ import io.ticticboom.mods.mm.datagen.provider.MMBlockstateProvider;
 import io.ticticboom.mods.mm.model.config.PortModel;
 import io.ticticboom.mods.mm.ports.IPortBlock;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
-import io.ticticboom.mods.mm.util.PortUtils;
+import io.ticticboom.mods.mm.util.BlockUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -31,7 +31,7 @@ public class ItemPortBlock extends Block implements IPortBlock {
 
     @Override
     public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        return PortUtils.commonUse(state, level, pos, player, hand, hitResult);
+        return BlockUtils.commonUse(state, level, pos, player, hand, hitResult, ItemPortBlockEntity.class);
     }
 
     @Override

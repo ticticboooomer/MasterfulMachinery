@@ -25,5 +25,6 @@ public class Ref {
         public static final ResourceLocation CONTROLLER_OVERLAY = id("block/controller_cutout");
         public static final ResourceLocation INPUT_ITEM_PORT_OVERLAY = id("block/base_ports/item_input_cutout");
         public static final ResourceLocation OUTPUT_ITEM_PORT_OVERLAY = id("block/base_ports/item_output_cutout");
+        public static final ResourceLocation GUI_LARGE = id("textures/gui/gui_large.png");
     }
 }

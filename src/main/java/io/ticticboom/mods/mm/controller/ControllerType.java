@@ -2,11 +2,16 @@ package io.ticticboom.mods.mm.controller;
 
 import io.ticticboom.mods.mm.model.config.ControllerModel;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.function.Supplier;
 
 public abstract class ControllerType {
 
@@ -18,13 +23,16 @@ public abstract class ControllerType {
 
     public abstract RegistryObject<MenuType<?>> registerMenu(ControllerModel model, RegistryGroupHolder groupHolder);
 
+    public abstract void registerScreen(RegistryGroupHolder groupHolder);
+
     public RegistryGroupHolder register(ControllerModel model) {
         RegistryGroupHolder groupHolder = new RegistryGroupHolder();
         groupHolder.setMenu(registerMenu(model, groupHolder));
         groupHolder.setBlock(registerBlock(model, groupHolder));
         groupHolder.setBe(registerBlockEntity(model, groupHolder));
         groupHolder.setItem(registerItem(model, groupHolder));
+        groupHolder.setRegistryId(model.type());
+        MMControllerRegistry.CONTROLLERS.add(groupHolder);
         return groupHolder;
     }
-
 }

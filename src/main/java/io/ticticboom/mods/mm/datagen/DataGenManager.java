@@ -34,6 +34,7 @@ public class DataGenManager {
                     return;
                 }
                 generator.run();
+                hasGenerated = true;
             } catch (Exception e) {
                 e.printStackTrace();
             }

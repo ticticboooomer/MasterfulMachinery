@@ -5,6 +5,7 @@ import io.ticticboom.mods.mm.menu.MMContainerMenu;
 import io.ticticboom.mods.mm.model.config.ControllerModel;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.util.MenuUtils;
+import lombok.Getter;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -15,14 +16,20 @@ import org.jetbrains.annotations.Nullable;
 
 public class MachineControllerMenu extends MMContainerMenu {
 
-    public MachineControllerMenu(ControllerModel model, RegistryGroupHolder groupHolder, int windowId, IControllerBlockEntity be) {
+    @Getter
+    private final ControllerModel model;
+    private final Inventory inv;
+    @Getter
+    private final IControllerBlockEntity be;
+
+    public MachineControllerMenu(ControllerModel  model, RegistryGroupHolder groupHolder, int windowId, Inventory inv, IControllerBlockEntity be) {
         super(groupHolder, windowId, MenuUtils.createAccessFromBlockEntity(be.getBlockEntity()));
+        this.model = model;
+        this.inv = inv;
+        this.be = be;
     }
 
     public MachineControllerMenu(ControllerModel model, RegistryGroupHolder groupHolder, int windowId, Inventory inv, FriendlyByteBuf buf) {
-        this(model, groupHolder, windowId, (IControllerBlockEntity) inv.player.level().getBlockEntity(buf.readBlockPos()));
+        this(model, groupHolder, windowId, inv, (IControllerBlockEntity) inv.player.level().getBlockEntity(buf.readBlockPos()));
     }
-
-
-
 }

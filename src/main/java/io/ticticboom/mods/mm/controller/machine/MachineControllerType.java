@@ -1,13 +1,13 @@
 package io.ticticboom.mods.mm.controller.machine;
 
 import io.ticticboom.mods.mm.controller.ControllerType;
-import io.ticticboom.mods.mm.controller.machine.register.MachineControllerBlock;
-import io.ticticboom.mods.mm.controller.machine.register.MachineControllerBlockEntity;
-import io.ticticboom.mods.mm.controller.machine.register.MachineControllerBlockItem;
-import io.ticticboom.mods.mm.controller.machine.register.MachineControllerMenu;
+import io.ticticboom.mods.mm.controller.machine.register.*;
 import io.ticticboom.mods.mm.model.config.ControllerModel;
 import io.ticticboom.mods.mm.setup.MMRegisters;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -34,5 +34,10 @@ public class MachineControllerType extends ControllerType {
     @Override
     public RegistryObject<MenuType<?>> registerMenu(ControllerModel model, RegistryGroupHolder groupHolder) {
         return MMRegisters.MENUS.register(model.id(), () -> IForgeMenuType.create((i,o,u) -> new MachineControllerMenu(model, groupHolder, i, o, u)));
+    }
+
+    @Override
+    public void registerScreen(RegistryGroupHolder groupHolder) {
+        MenuScreens.register((MenuType<MachineControllerMenu>)groupHolder.getMenu().get(), MachineControllerScreen::new);
     }
 }

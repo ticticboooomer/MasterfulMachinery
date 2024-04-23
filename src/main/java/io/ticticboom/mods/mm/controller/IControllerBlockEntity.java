@@ -1,6 +1,8 @@
 package io.ticticboom.mods.mm.controller;
 
-public interface IControllerBlockEntity {
+import net.minecraft.world.MenuProvider;
+
+public interface IControllerBlockEntity extends MenuProvider {
     default <T> T getBlockEntity() {
         return (T) this;
     }

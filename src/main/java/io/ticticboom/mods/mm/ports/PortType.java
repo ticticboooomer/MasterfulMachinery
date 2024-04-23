@@ -21,6 +21,7 @@ public abstract class PortType {
         groupHolder.setBlock(registerBlock(model, groupHolder, isInput));
         groupHolder.setBe(registerBlockEntity(model, groupHolder, isInput));
         groupHolder.setItem(registerItem(model, groupHolder, isInput));
+        groupHolder.setRegistryId(model.type());
         return groupHolder;
     }
 }

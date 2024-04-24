@@ -1,19 +1,18 @@
 package io.ticticboom.mods.mm.structure;
 
-import io.ticticboom.mods.mm.model.config.IdList;
-import lombok.Getter;
+import com.google.gson.JsonObject;
+import io.ticticboom.mods.mm.structure.layout.StructureLayout;
+import io.ticticboom.mods.mm.structure.layout.StructureLayoutPiece;
 import net.minecraft.resources.ResourceLocation;
 
-@Getter
-public abstract class StructureModel {
-    private final String name;
-    private final IdList controllerIds;
-    private final ResourceLocation type;
-
-    public StructureModel(String name, IdList controllerIds, ResourceLocation type) {
-
-        this.name = name;
-        this.controllerIds = controllerIds;
-        this.type = type;
+public record StructureModel(
+        ResourceLocation id,
+        String name,
+        StructureLayout layout
+) {
+    public static StructureModel parse(JsonObject json, ResourceLocation structureId) {
+        var name = json.get("name").getAsString();
+        var layout = StructureLayout.parse(json, structureId);
+        return new StructureModel(structureId, name, layout);
     }
 }

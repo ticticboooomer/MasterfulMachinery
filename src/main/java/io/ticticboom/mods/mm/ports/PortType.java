@@ -2,6 +2,7 @@ package io.ticticboom.mods.mm.ports;
 
 import io.ticticboom.mods.mm.model.config.PortModel;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -16,7 +17,6 @@ public abstract class PortType {
     public abstract RegistryObject<Item> registerItem(PortModel model, RegistryGroupHolder groupHolder);
     public abstract RegistryObject<MenuType<?>> registerMenu(PortModel model, RegistryGroupHolder groupHolder);
     public abstract void registerScreen(RegistryGroupHolder groupHolder);
-
     public RegistryGroupHolder register(PortModel model) {
         RegistryGroupHolder groupHolder = new RegistryGroupHolder();
         groupHolder.setMenu(registerMenu(model, groupHolder));

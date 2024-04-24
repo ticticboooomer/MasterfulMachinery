@@ -8,6 +8,7 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class StructureManager extends SimpleJsonResourceReloadListener {
@@ -16,8 +17,13 @@ public class StructureManager extends SimpleJsonResourceReloadListener {
         super(Ref.GSON, "mm/structures");
     }
 
+    public static final Map<ResourceLocation, StructureModel> STRUCTURES = new HashMap<>();
+
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> jsons, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
-
+        for (Map.Entry<ResourceLocation, JsonElement> entry : jsons.entrySet()) {
+            var model = StructureModel.parse(entry.getValue().getAsJsonObject(), entry.getKey());
+            STRUCTURES.put(entry.getKey(), model);
+        }
     }
 }

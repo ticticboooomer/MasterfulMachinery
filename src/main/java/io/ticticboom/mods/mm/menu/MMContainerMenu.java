@@ -13,11 +13,13 @@ public abstract class MMContainerMenu extends AbstractContainerMenu {
 
     private final ContainerLevelAccess access;
     private final RegistryGroupHolder groupHolder;
+    private final int storageSlots;
 
-    protected MMContainerMenu(RegistryGroupHolder groupHolder, int p_38852_, ContainerLevelAccess access) {
+    protected MMContainerMenu(RegistryGroupHolder groupHolder, int p_38852_, ContainerLevelAccess access, int storageSlots) {
         super(groupHolder.getMenu().get(), p_38852_);
         this.access = access;
         this.groupHolder = groupHolder;
+        this.storageSlots = storageSlots;
     }
 
     @Override
@@ -28,23 +30,28 @@ public abstract class MMContainerMenu extends AbstractContainerMenu {
             ItemStack rawStack = quickMovedSlot.getItem();
             quickMovedStack = rawStack.copy();
 
+            int capSize = storageSlots;
+            int pinvSize = 27;
+            int phbSize = 9;
+            int playerStart = capSize;
+            int hbStart = capSize + pinvSize;
+            int totalSize = capSize + pinvSize + phbSize;
             if (i == 0) {
-                if (!this.moveItemStackTo(rawStack, 5, 41, true)) {
+                if (!this.moveItemStackTo(rawStack, capSize, totalSize, true)) {
                     return ItemStack.EMPTY;
                 }
-
                 quickMovedSlot.onQuickCraft(rawStack, quickMovedStack);
-            } else if (i >= 5 && i < 41) {
-                if (!this.moveItemStackTo(rawStack, 1, 5, false)) {
-                    if (i < 32) {
-                        if (!this.moveItemStackTo(rawStack, 32, 41, false)) {
+            } else if (i >= capSize && i < totalSize) {
+                if (!this.moveItemStackTo(rawStack, 0, capSize, false)) {
+                    if (i < hbStart) {
+                        if (!this.moveItemStackTo(rawStack, hbStart, totalSize, false)) {
                             return ItemStack.EMPTY;
                         }
-                    } else if (!this.moveItemStackTo(rawStack, 5, 32, false)) {
+                    } else if (!this.moveItemStackTo(rawStack, capSize, hbStart, false)) {
                         return ItemStack.EMPTY;
                     }
                 }
-            } else if (!this.moveItemStackTo(rawStack, 5, 41, false)) {
+            } else if (!this.moveItemStackTo(rawStack, capSize, totalSize, false)) {
                 return ItemStack.EMPTY;
             }
             if (rawStack.isEmpty()) {

@@ -15,6 +15,8 @@ public abstract class PortType {
     public abstract RegistryObject<Block> registerBlock(PortModel model, RegistryGroupHolder groupHolder);
     public abstract RegistryObject<Item> registerItem(PortModel model, RegistryGroupHolder groupHolder);
     public abstract RegistryObject<MenuType<?>> registerMenu(PortModel model, RegistryGroupHolder groupHolder);
+    public abstract void registerScreen(RegistryGroupHolder groupHolder);
+
     public RegistryGroupHolder register(PortModel model) {
         RegistryGroupHolder groupHolder = new RegistryGroupHolder();
         groupHolder.setMenu(registerMenu(model, groupHolder));
@@ -22,6 +24,7 @@ public abstract class PortType {
         groupHolder.setBe(registerBlockEntity(model, groupHolder));
         groupHolder.setItem(registerItem(model, groupHolder));
         groupHolder.setRegistryId(model.type());
+        MMPortRegistry.PORTS.add(groupHolder);
         return groupHolder;
     }
 }

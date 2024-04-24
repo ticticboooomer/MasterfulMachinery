@@ -40,7 +40,7 @@ public class ItemPortBlockEntity extends BlockEntity implements IPortBlockEntity
 
     @Override
     public IPortStorage getStorage() {
-        return null;
+        return storage;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class ItemPortBlockEntity extends BlockEntity implements IPortBlockEntity
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
-        return groupHolder.getMenu().get().create(i, inventory);
+        return new ItemPortMenu(model, groupHolder, input, i, inventory, this);
     }
 
     @Override

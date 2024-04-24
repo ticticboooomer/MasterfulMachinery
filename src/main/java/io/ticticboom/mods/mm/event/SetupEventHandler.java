@@ -3,6 +3,7 @@ package io.ticticboom.mods.mm.event;
 import io.ticticboom.mods.mm.controller.ControllerType;
 import io.ticticboom.mods.mm.controller.MMControllerRegistry;
 import io.ticticboom.mods.mm.datagen.PackEventHandler;
+import io.ticticboom.mods.mm.ports.MMPortRegistry;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.setup.loader.ControllerLoader;
 import io.ticticboom.mods.mm.setup.loader.PortLoader;
@@ -28,6 +29,11 @@ public class SetupEventHandler {
             for (RegistryGroupHolder controller : MMControllerRegistry.CONTROLLERS) {
                 ResourceLocation type = controller.getRegistryId();
                 MMControllerRegistry.get(type).registerScreen(controller);
+            }
+
+            for (RegistryGroupHolder port : MMPortRegistry.PORTS) {
+                ResourceLocation type = port.getRegistryId();
+                MMPortRegistry.get(type).registerScreen(port);
             }
         });
     }

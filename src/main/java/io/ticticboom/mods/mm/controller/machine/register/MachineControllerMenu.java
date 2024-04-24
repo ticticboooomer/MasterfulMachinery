@@ -23,7 +23,7 @@ public class MachineControllerMenu extends MMContainerMenu {
     private final IControllerBlockEntity be;
 
     public MachineControllerMenu(ControllerModel  model, RegistryGroupHolder groupHolder, int windowId, Inventory inv, IControllerBlockEntity be) {
-        super(groupHolder, windowId, MenuUtils.createAccessFromBlockEntity(be.getBlockEntity()));
+        super(groupHolder, windowId, MenuUtils.createAccessFromBlockEntity(be.getBlockEntity()), 0);
         this.model = model;
         this.inv = inv;
         this.be = be;

@@ -17,6 +17,8 @@ public interface IPortStorage {
 
     void load(CompoundTag tag);
 
+    IPortStorageModel getStorageModel();
+
     default void setupContainer(AbstractContainerMenu container, Inventory inv, PortModel model) {
         int playerOffsetX = 8;
         int playerOffsetY = 141;
@@ -30,6 +32,4 @@ public interface IPortStorage {
             container.addSlot(new Slot(inv, i, 8 + (i * 18), 199));
         }
     }
-
-    ;
 }

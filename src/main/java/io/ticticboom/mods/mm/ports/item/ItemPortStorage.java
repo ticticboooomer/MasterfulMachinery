@@ -2,6 +2,7 @@ package io.ticticboom.mods.mm.ports.item;
 
 import io.ticticboom.mods.mm.model.config.PortModel;
 import io.ticticboom.mods.mm.ports.IPortStorage;
+import io.ticticboom.mods.mm.ports.IPortStorageModel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -43,6 +44,11 @@ public class ItemPortStorage implements IPortStorage {
     public void load(CompoundTag tag) {
         CompoundTag compoundTag = tag.getCompound("handler");
         handler.deserializeNBT(compoundTag);
+    }
+
+    @Override
+    public IPortStorageModel getStorageModel() {
+        return model;
     }
 
     @Override

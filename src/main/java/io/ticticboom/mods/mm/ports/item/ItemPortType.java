@@ -3,13 +3,12 @@ package io.ticticboom.mods.mm.ports.item;
 import io.ticticboom.mods.mm.model.config.PortModel;
 import io.ticticboom.mods.mm.ports.IPortParser;
 import io.ticticboom.mods.mm.ports.PortType;
-import io.ticticboom.mods.mm.ports.item.register.ItemPortBlock;
-import io.ticticboom.mods.mm.ports.item.register.ItemPortBlockEntity;
-import io.ticticboom.mods.mm.ports.item.register.ItemPortBlockItem;
-import io.ticticboom.mods.mm.ports.item.register.ItemPortMenu;
+import io.ticticboom.mods.mm.ports.item.register.*;
 import io.ticticboom.mods.mm.setup.MMRegisters;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.util.PortUtils;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -41,5 +40,10 @@ public class ItemPortType extends PortType {
     @Override
     public RegistryObject<MenuType<?>> registerMenu(PortModel model, RegistryGroupHolder groupHolder) {
         return MMRegisters.MENUS.register(model.id(), () -> IForgeMenuType.create((i, o, u) -> new ItemPortMenu(model, groupHolder, model.input(), i, o, u)));
+    }
+
+    @Override
+    public void registerScreen(RegistryGroupHolder groupHolder) {
+        MenuScreens.register((MenuType<ItemPortMenu>) groupHolder.getMenu().get(), ItemPortScreen::new);
     }
 }

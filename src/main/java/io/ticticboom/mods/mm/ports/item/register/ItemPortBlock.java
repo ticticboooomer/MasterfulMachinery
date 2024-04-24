@@ -12,12 +12,15 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class ItemPortBlock extends Block implements IPortBlock {
+public class ItemPortBlock extends Block implements IPortBlock, EntityBlock {
     private final PortModel model;
     private final RegistryGroupHolder groupHolder;
     private final boolean isInput;
@@ -47,5 +50,11 @@ public class ItemPortBlock extends Block implements IPortBlock {
             provider.dynamicBlock(groupHolder.getBlock().getId(), Ref.Textures.BASE_BLOCK, Ref.Textures.OUTPUT_ITEM_PORT_OVERLAY);
         }
         provider.simpleBlock(groupHolder.getBlock().get());
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return groupHolder.getBe().get().create(blockPos, blockState);
     }
 }

@@ -1,7 +1,6 @@
 package io.ticticboom.mods.mm.ports;
 
 import io.ticticboom.mods.mm.Ref;
-import io.ticticboom.mods.mm.model.config.PortModel;
 import io.ticticboom.mods.mm.ports.item.ItemPortType;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import net.minecraft.resources.ResourceLocation;

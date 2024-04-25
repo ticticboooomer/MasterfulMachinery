@@ -2,8 +2,9 @@ package io.ticticboom.mods.mm.structure;
 
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.structure.layout.StructureLayout;
-import io.ticticboom.mods.mm.structure.layout.StructureLayoutPiece;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
 public record StructureModel(
         ResourceLocation id,
@@ -14,5 +15,9 @@ public record StructureModel(
         var name = json.get("name").getAsString();
         var layout = StructureLayout.parse(json, structureId);
         return new StructureModel(structureId, name, layout);
+    }
+
+    public boolean formed(Level level, BlockPos controllerPos) {
+        return layout.formed(level, controllerPos, this);
     }
 }

@@ -1,6 +1,5 @@
 package io.ticticboom.mods.mm.structure;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import io.ticticboom.mods.mm.Ref;
 import net.minecraft.resources.ResourceLocation;

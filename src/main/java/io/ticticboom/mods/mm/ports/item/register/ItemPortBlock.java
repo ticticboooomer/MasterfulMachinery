@@ -2,7 +2,7 @@ package io.ticticboom.mods.mm.ports.item.register;
 
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.datagen.provider.MMBlockstateProvider;
-import io.ticticboom.mods.mm.model.config.PortModel;
+import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.ports.IPortBlock;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.util.BlockUtils;

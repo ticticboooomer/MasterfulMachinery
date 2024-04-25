@@ -2,12 +2,10 @@ package io.ticticboom.mods.mm.controller.machine;
 
 import io.ticticboom.mods.mm.controller.ControllerType;
 import io.ticticboom.mods.mm.controller.machine.register.*;
-import io.ticticboom.mods.mm.model.config.ControllerModel;
+import io.ticticboom.mods.mm.model.ControllerModel;
 import io.ticticboom.mods.mm.setup.MMRegisters;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;

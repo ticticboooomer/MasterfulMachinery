@@ -1,14 +1,12 @@
 package io.ticticboom.mods.mm.ports.item;
 
-import io.ticticboom.mods.mm.model.config.PortModel;
+import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.ports.IPortParser;
 import io.ticticboom.mods.mm.ports.PortType;
 import io.ticticboom.mods.mm.ports.item.register.*;
 import io.ticticboom.mods.mm.setup.MMRegisters;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
-import io.ticticboom.mods.mm.util.PortUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;

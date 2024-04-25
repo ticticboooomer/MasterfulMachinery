@@ -1,8 +1,7 @@
-package io.ticticboom.mods.mm.model.config;
+package io.ticticboom.mods.mm.model;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.util.ParserUtils;
 import lombok.Getter;
 import net.minecraft.resources.ResourceLocation;

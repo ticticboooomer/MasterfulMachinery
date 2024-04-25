@@ -1,6 +1,6 @@
 package io.ticticboom.mods.mm.ports.item;
 
-import io.ticticboom.mods.mm.model.config.PortModel;
+import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.ports.IPortStorage;
 import io.ticticboom.mods.mm.ports.IPortStorageModel;
 import net.minecraft.nbt.CompoundTag;

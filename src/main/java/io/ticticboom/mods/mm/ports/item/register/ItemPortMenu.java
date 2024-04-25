@@ -1,29 +1,15 @@
 package io.ticticboom.mods.mm.ports.item.register;
 
 import io.ticticboom.mods.mm.menu.MMContainerMenu;
-import io.ticticboom.mods.mm.model.config.PortModel;
+import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.ports.IPortBlockEntity;
 import io.ticticboom.mods.mm.ports.IPortMenu;
-import io.ticticboom.mods.mm.ports.IPortPart;
 import io.ticticboom.mods.mm.ports.IPortStorage;
-import io.ticticboom.mods.mm.ports.item.ItemPortStorage;
 import io.ticticboom.mods.mm.ports.item.ItemPortStorageModel;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.util.MenuUtils;
-import lombok.Getter;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.Vec2;
-import net.minecraftforge.items.ItemStackHandler;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ItemPortMenu extends MMContainerMenu implements IPortMenu {
     private final PortModel model;

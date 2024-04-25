@@ -1,8 +1,7 @@
 package io.ticticboom.mods.mm.ports;
 
-import io.ticticboom.mods.mm.model.config.PortModel;
+import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;

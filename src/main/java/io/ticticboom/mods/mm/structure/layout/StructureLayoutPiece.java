@@ -4,10 +4,13 @@ import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.ports.IPortBlockEntity;
 import io.ticticboom.mods.mm.ports.MMPortRegistry;
 import io.ticticboom.mods.mm.ports.PortType;
+import io.ticticboom.mods.mm.structure.StructureModel;
 import io.ticticboom.mods.mm.util.ParserUtils;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -20,6 +23,10 @@ public class StructureLayoutPiece {
 
     public StructureLayoutPiece(final Predicate<StructurePiecePredicateParams> predicate) {
         this.predicate = predicate;
+    }
+
+    public boolean formed(Level level, BlockPos pos, StructureModel model) {
+        return predicate.test(new StructurePiecePredicateParams(level, pos));
     }
 
     public static StructureLayoutPiece parse(JsonObject json, ResourceLocation structureId) {

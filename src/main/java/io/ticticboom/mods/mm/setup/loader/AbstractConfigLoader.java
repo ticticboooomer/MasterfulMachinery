@@ -2,7 +2,6 @@ package io.ticticboom.mods.mm.setup.loader;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import io.ticticboom.mods.mm.model.config.ControllerModel;
 import lombok.SneakyThrows;
 import net.minecraftforge.fml.loading.FMLPaths;
 

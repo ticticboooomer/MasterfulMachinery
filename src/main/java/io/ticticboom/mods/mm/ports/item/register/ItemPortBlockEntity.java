@@ -1,6 +1,6 @@
 package io.ticticboom.mods.mm.ports.item.register;
 
-import io.ticticboom.mods.mm.model.config.PortModel;
+import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.ports.IPortBlockEntity;
 import io.ticticboom.mods.mm.ports.IPortPart;
 import io.ticticboom.mods.mm.ports.IPortStorage;

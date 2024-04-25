@@ -1,14 +1,12 @@
 package io.ticticboom.mods.mm.setup.loader;
 
 import com.google.gson.JsonObject;
-import io.ticticboom.mods.mm.model.config.PortModel;
+import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.ports.MMPortRegistry;
 import io.ticticboom.mods.mm.ports.PortType;
 
-import javax.sound.sampled.Port;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class PortLoader extends AbstractConfigLoader<PortModel> {
 

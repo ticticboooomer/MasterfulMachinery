@@ -4,7 +4,7 @@ import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.controller.IControllerBlock;
 import io.ticticboom.mods.mm.controller.IControllerPart;
 import io.ticticboom.mods.mm.datagen.provider.MMBlockstateProvider;
-import io.ticticboom.mods.mm.model.config.ControllerModel;
+import io.ticticboom.mods.mm.model.ControllerModel;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.util.BlockUtils;
 import net.minecraft.core.BlockPos;
@@ -15,10 +15,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
@@ -68,5 +69,13 @@ public class MachineControllerBlock extends HorizontalDirectionalBlock implement
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
         return groupHolder.getBe().get().create(blockPos, blockState);
+    }
+
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        if (type == groupHolder.getBe().get()) {
+            return (l, pos, s, be) -> ((MachineControllerBlockEntity) be).tick();
+        }
+        return null;
     }
 }

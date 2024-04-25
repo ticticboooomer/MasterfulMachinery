@@ -1,8 +1,7 @@
-package io.ticticboom.mods.mm.model.config;
+package io.ticticboom.mods.mm.model;
 
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.util.ParserUtils;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 

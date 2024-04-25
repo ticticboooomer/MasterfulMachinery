@@ -19,10 +19,10 @@ public class StructureLayout {
     private StructureCharacterGrid charGrid;
 
     @Getter
-    private List<PositionedLayoutPiece> positionedPieces;
+    private List<PositionedLayoutPiece> positionedPieces = new ArrayList<>();
 
     @Getter
-    Map<Rotation, List<PositionedLayoutPiece>> rotatedPositionedPieces;
+    Map<Rotation, List<PositionedLayoutPiece>> rotatedPositionedPieces = new HashMap<>();
 
     @Getter
     private Map<StructureKeyChar, StructureLayoutPiece> pieces;
@@ -34,10 +34,12 @@ public class StructureLayout {
     }
 
     public void setupVariants() {
-        for (Map.Entry<StructureKeyChar, StructureLayoutPiece> entry : pieces.entrySet()) {
-            StructureLayoutPiece piece = entry.getValue();
-            charGrid.runFor((pos, controllerPos) -> positionedPieces.add(new PositionedLayoutPiece(pos.subtract(controllerPos), piece)));
-        }
+        charGrid.runFor((pos, cPos, chr) -> {
+            StructureLayoutPiece piece = pieces.get(chr);
+            positionedPieces.add(new PositionedLayoutPiece(pos.subtract(cPos), piece));
+        });
+
+        rotatedPositionedPieces.put(Rotation.NONE, positionedPieces);
 
         for (Rotation rotation : Rotation.values()) {
             var rotatedPieces = new ArrayList<PositionedLayoutPiece>();
@@ -67,8 +69,8 @@ public class StructureLayout {
     }
 
     public static StructureLayout parse(JsonObject json, ResourceLocation structureId) {
-        var raw = getCharGrid(json.getAsJsonObject("layout"));
-        var pieces = getPieces(json.getAsJsonObject("key"), structureId);
+        var raw = getCharGrid(json);
+        var pieces = getPieces(json, structureId);
         return new StructureLayout(raw, pieces);
     }
 
@@ -88,7 +90,7 @@ public class StructureLayout {
             var resultRows = new ArrayList<String>();
             JsonArray rows = layer.getAsJsonArray();
             for (var row : rows) {
-                resultRows.add(row.toString());
+                resultRows.add(row.getAsString());
             }
             rawLayout.add(resultRows);
         }

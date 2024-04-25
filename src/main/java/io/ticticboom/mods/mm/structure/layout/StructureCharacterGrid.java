@@ -3,11 +3,9 @@ package io.ticticboom.mods.mm.structure.layout;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
+import org.apache.logging.log4j.util.TriConsumer;
 
 import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 public class StructureCharacterGrid {
     private List<List<String>> rawLayout;
@@ -27,33 +25,42 @@ public class StructureCharacterGrid {
         int ySize = 0;
         int zSize = 0;
         int xSize = 0;
+        int invertedY = 0;
 
-        for (int y = rawLayout.size() - 1; y > 0; y--) {
+        for (int y = rawLayout.size() - 1; y >= 0; y--) {
             var layer = rawLayout.get(y);
             for (int z = 0; z < layer.size(); z++) {
                 var row = layer.get(z);
                 for (int x = 0; x < row.length(); x++) {
                     if (row.charAt(x) == 'C') {
-                        controllerPos = new BlockPos(x, rawLayout.size() - y, z);
+                        controllerPos = new BlockPos(x, invertedY, z);
                     }
                     xSize = x;
                 }
                 zSize = z;
             }
+            invertedY++;
             ySize = y;
         }
         bounds = new Vec3i(xSize, ySize, zSize);
     }
 
-    public void runFor(BiConsumer<BlockPos, BlockPos> consumer) {
-        for (int y = rawLayout.size() - 1; y > 0; y--) {
+    public void runFor(TriConsumer<BlockPos, BlockPos, StructureKeyChar> consumer) {
+        int invertedY = 0;
+
+        for (int y = rawLayout.size() - 1; y >= 0; y--) {
             var layer = rawLayout.get(y);
             for (int z = 0; z < layer.size(); z++) {
                 var row = layer.get(z);
                 for (int x = 0; x < row.length(); x++) {
-                    consumer.accept(new BlockPos(x, y, z), controllerPos);
+                    var chr = row.charAt(x);
+                    if (chr == ' ' || chr == 'C') {
+                        continue;
+                    }
+                    consumer.accept(new BlockPos(x, invertedY, z), controllerPos, new StructureKeyChar(chr));
                 }
             }
+            invertedY++;
         }
     }
 

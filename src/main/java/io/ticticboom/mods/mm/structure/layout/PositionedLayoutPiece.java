@@ -11,7 +11,7 @@ public record PositionedLayoutPiece(
         StructureLayoutPiece piece
 ) {
     public boolean formed(Level level, BlockPos controllerPos, StructureModel model) {
-        BlockPos offset = controllerPos.offset(controllerPos);
+        BlockPos offset = controllerPos.offset(pos);
         return piece.formed(level, offset, model);
     }
 

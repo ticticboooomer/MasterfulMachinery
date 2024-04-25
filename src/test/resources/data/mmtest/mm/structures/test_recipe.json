@@ -1,0 +1,21 @@
+{
+  "name": "My Funki Recipe",
+  "controllerIds": "mm:controller_a",
+  "layout": [
+    [
+      "   ",
+      " A ",
+      "   "
+    ],
+    [
+      " A ",
+      "ACA",
+      " A "
+    ]
+  ],
+  "key": {
+    "A": {
+      "block": "minecraft:glass"
+    }
+  }
+}

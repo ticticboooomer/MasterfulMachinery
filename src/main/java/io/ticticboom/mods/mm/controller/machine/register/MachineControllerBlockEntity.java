@@ -1,5 +1,6 @@
 package io.ticticboom.mods.mm.controller.machine.register;
 
+import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.controller.IControllerBlockEntity;
 import io.ticticboom.mods.mm.controller.IControllerPart;
 import io.ticticboom.mods.mm.model.ControllerModel;
@@ -15,6 +16,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Date;
+
 public class MachineControllerBlockEntity extends BlockEntity implements IControllerBlockEntity, IControllerPart {
     private final ControllerModel model;
     private final RegistryGroupHolder groupHolder;
@@ -27,7 +30,9 @@ public class MachineControllerBlockEntity extends BlockEntity implements IContro
 
     public void tick() {
         for (StructureModel value : StructureManager.STRUCTURES.values()) {
-            value.formed(level, getBlockPos());
+            if (value.formed(level, getBlockPos())){
+                Ref.LOG.info("FORMED");
+            }
         }
     }
 

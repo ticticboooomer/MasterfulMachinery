@@ -2,8 +2,8 @@ package io.ticticboom.mods.mm.setup.loader;
 
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.model.PortModel;
-import io.ticticboom.mods.mm.ports.MMPortRegistry;
-import io.ticticboom.mods.mm.ports.PortType;
+import io.ticticboom.mods.mm.port.MMPortRegistry;
+import io.ticticboom.mods.mm.port.PortType;
 
 import java.util.ArrayList;
 import java.util.List;

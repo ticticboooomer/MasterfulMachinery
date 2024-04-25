@@ -1,4 +1,4 @@
-package io.ticticboom.mods.mm.ports.item;
+package io.ticticboom.mods.mm.port.item;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;

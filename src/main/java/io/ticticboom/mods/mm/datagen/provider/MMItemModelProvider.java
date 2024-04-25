@@ -2,10 +2,9 @@ package io.ticticboom.mods.mm.datagen.provider;
 
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.controller.IControllerPart;
-import io.ticticboom.mods.mm.ports.IPortPart;
+import io.ticticboom.mods.mm.port.IPortPart;
 import io.ticticboom.mods.mm.setup.MMRegisters;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;

@@ -6,9 +6,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.controller.IControllerPart;
-import io.ticticboom.mods.mm.ports.IPortPart;
+import io.ticticboom.mods.mm.port.IPortPart;
 import io.ticticboom.mods.mm.setup.MMRegisters;
-import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.loot.LootTableSubProvider;
@@ -20,9 +19,6 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 public class MMLootTableProvider extends LootTableProvider {

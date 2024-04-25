@@ -1,8 +1,8 @@
-package io.ticticboom.mods.mm.ports.item;
+package io.ticticboom.mods.mm.port.item;
 
 import io.ticticboom.mods.mm.model.PortModel;
-import io.ticticboom.mods.mm.ports.IPortStorage;
-import io.ticticboom.mods.mm.ports.IPortStorageModel;
+import io.ticticboom.mods.mm.port.IPortStorage;
+import io.ticticboom.mods.mm.port.IPortStorageModel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;

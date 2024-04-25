@@ -1,6 +1,6 @@
-package io.ticticboom.mods.mm.ports.item;
+package io.ticticboom.mods.mm.port.item;
 
-import io.ticticboom.mods.mm.ports.IPortStorageModel;
+import io.ticticboom.mods.mm.port.IPortStorageModel;
 
 public record ItemPortStorageModel(
         int rows,

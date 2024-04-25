@@ -1,4 +1,4 @@
-package io.ticticboom.mods.mm.ports.item;
+package io.ticticboom.mods.mm.port.item;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;

@@ -1,19 +1,16 @@
-package io.ticticboom.mods.mm.ports.item.register;
+package io.ticticboom.mods.mm.port.item.register;
 
 import io.ticticboom.mods.mm.Ref;
-import io.ticticboom.mods.mm.ports.item.ItemPortContainer;
-import io.ticticboom.mods.mm.ports.item.ItemPortStorage;
-import io.ticticboom.mods.mm.ports.item.ItemPortStorageModel;
+import io.ticticboom.mods.mm.port.item.ItemPortStorage;
+import io.ticticboom.mods.mm.port.item.ItemPortStorageModel;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.phys.Vec2;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ItemPortScreen extends AbstractContainerScreen<ItemPortMenu> {
 

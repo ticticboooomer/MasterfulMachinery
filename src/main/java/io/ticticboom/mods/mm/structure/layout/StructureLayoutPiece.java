@@ -1,7 +1,7 @@
 package io.ticticboom.mods.mm.structure.layout;
 
 import com.google.gson.JsonObject;
-import io.ticticboom.mods.mm.ports.IPortBlockEntity;
+import io.ticticboom.mods.mm.port.IPortBlockEntity;
 import io.ticticboom.mods.mm.structure.StructureModel;
 import io.ticticboom.mods.mm.util.ParserUtils;
 import net.minecraft.core.BlockPos;

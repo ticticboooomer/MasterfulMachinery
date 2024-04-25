@@ -22,6 +22,10 @@ public class Ref {
         public static final ResourceLocation MACHINE = id("machine");
     }
 
+    public static class RecipeEntries {
+        public static final ResourceLocation CONSUME = id("consume");
+    }
+
     public static class Textures {
         public static final ResourceLocation BASE_BLOCK = id("block/base_block");
         public static final ResourceLocation CONTROLLER_OVERLAY = id("block/controller_cutout");

@@ -2,16 +2,13 @@ package io.ticticboom.mods.mm.datagen.provider;
 
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.controller.IControllerBlock;
-import io.ticticboom.mods.mm.ports.IPortBlock;
+import io.ticticboom.mods.mm.port.IPortBlock;
 import io.ticticboom.mods.mm.setup.MMRegisters;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraftforge.client.ForgeRenderTypes;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.client.model.generators.loaders.CompositeModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;

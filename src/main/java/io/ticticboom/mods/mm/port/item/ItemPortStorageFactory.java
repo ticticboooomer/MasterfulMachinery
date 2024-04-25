@@ -1,7 +1,7 @@
-package io.ticticboom.mods.mm.ports.item;
+package io.ticticboom.mods.mm.port.item;
 
-import io.ticticboom.mods.mm.ports.IPortStorage;
-import io.ticticboom.mods.mm.ports.IPortStorageFactory;
+import io.ticticboom.mods.mm.port.IPortStorage;
+import io.ticticboom.mods.mm.port.IPortStorageFactory;
 
 public class ItemPortStorageFactory implements IPortStorageFactory {
 

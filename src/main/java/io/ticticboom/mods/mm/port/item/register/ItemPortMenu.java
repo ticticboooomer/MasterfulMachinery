@@ -1,11 +1,11 @@
-package io.ticticboom.mods.mm.ports.item.register;
+package io.ticticboom.mods.mm.port.item.register;
 
 import io.ticticboom.mods.mm.menu.MMContainerMenu;
 import io.ticticboom.mods.mm.model.PortModel;
-import io.ticticboom.mods.mm.ports.IPortBlockEntity;
-import io.ticticboom.mods.mm.ports.IPortMenu;
-import io.ticticboom.mods.mm.ports.IPortStorage;
-import io.ticticboom.mods.mm.ports.item.ItemPortStorageModel;
+import io.ticticboom.mods.mm.port.IPortBlockEntity;
+import io.ticticboom.mods.mm.port.IPortMenu;
+import io.ticticboom.mods.mm.port.IPortStorage;
+import io.ticticboom.mods.mm.port.item.ItemPortStorageModel;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.util.MenuUtils;
 import net.minecraft.network.FriendlyByteBuf;

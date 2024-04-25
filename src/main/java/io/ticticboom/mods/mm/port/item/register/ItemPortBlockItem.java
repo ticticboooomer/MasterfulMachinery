@@ -1,7 +1,7 @@
-package io.ticticboom.mods.mm.ports.item.register;
+package io.ticticboom.mods.mm.port.item.register;
 
 import io.ticticboom.mods.mm.model.PortModel;
-import io.ticticboom.mods.mm.ports.IPortPart;
+import io.ticticboom.mods.mm.port.IPortPart;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import net.minecraft.world.item.BlockItem;
 

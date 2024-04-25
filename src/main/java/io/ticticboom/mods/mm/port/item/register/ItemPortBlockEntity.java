@@ -1,9 +1,9 @@
-package io.ticticboom.mods.mm.ports.item.register;
+package io.ticticboom.mods.mm.port.item.register;
 
 import io.ticticboom.mods.mm.model.PortModel;
-import io.ticticboom.mods.mm.ports.IPortBlockEntity;
-import io.ticticboom.mods.mm.ports.IPortPart;
-import io.ticticboom.mods.mm.ports.IPortStorage;
+import io.ticticboom.mods.mm.port.IPortBlockEntity;
+import io.ticticboom.mods.mm.port.IPortPart;
+import io.ticticboom.mods.mm.port.IPortStorage;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;

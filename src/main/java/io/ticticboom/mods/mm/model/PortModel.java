@@ -1,8 +1,8 @@
 package io.ticticboom.mods.mm.model;
 
 import com.google.gson.JsonObject;
-import io.ticticboom.mods.mm.ports.IPortStorageFactory;
-import io.ticticboom.mods.mm.ports.MMPortRegistry;
+import io.ticticboom.mods.mm.port.IPortStorageFactory;
+import io.ticticboom.mods.mm.port.MMPortRegistry;
 import io.ticticboom.mods.mm.util.ParserUtils;
 import io.ticticboom.mods.mm.util.PortUtils;
 import net.minecraft.resources.ResourceLocation;

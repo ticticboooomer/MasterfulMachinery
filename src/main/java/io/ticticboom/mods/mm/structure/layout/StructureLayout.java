@@ -2,6 +2,9 @@ package io.ticticboom.mods.mm.structure.layout;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import io.ticticboom.mods.mm.port.IPortBlockEntity;
+import io.ticticboom.mods.mm.port.IPortStorage;
+import io.ticticboom.mods.mm.recipe.RecipeStorages;
 import io.ticticboom.mods.mm.structure.StructureModel;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
@@ -66,6 +69,32 @@ public class StructureLayout {
             }
         }
         return true;
+    }
+
+    public RecipeStorages getRecipeStorages(Level level, BlockPos worldControllerPos, StructureModel model) {
+        for (List<PositionedLayoutPiece> asRotation : rotatedPositionedPieces.values()) {
+            if (innerFormed(level, worldControllerPos, model, asRotation)) {
+                return innerGetRecipeStorages(level, worldControllerPos, asRotation);
+            }
+        }
+        return null;
+    }
+
+    private RecipeStorages innerGetRecipeStorages(Level level, BlockPos worldControllerPos, List<PositionedLayoutPiece> positionedPieces) {
+        var inputStorages = new ArrayList<IPortStorage>();
+        var outputStorages = new ArrayList<IPortStorage>();
+        for (PositionedLayoutPiece positionedPiece : positionedPieces) {
+            BlockPos absolutePos = positionedPiece.findAbsolutePos(worldControllerPos);
+            var be = level.getBlockEntity(absolutePos);
+            if (be instanceof IPortBlockEntity pbe) {
+                if (pbe.isInput()) {
+                    inputStorages.add(pbe.getStorage());
+                } else {
+                    outputStorages.add(pbe.getStorage());
+                }
+            }
+        }
+        return new RecipeStorages(inputStorages, outputStorages);
     }
 
     public static StructureLayout parse(JsonObject json, ResourceLocation structureId) {

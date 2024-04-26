@@ -2,6 +2,7 @@ package io.ticticboom.mods.mm.structure;
 
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.model.IdList;
+import io.ticticboom.mods.mm.recipe.RecipeStorages;
 import io.ticticboom.mods.mm.structure.layout.StructureLayout;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -22,5 +23,9 @@ public record StructureModel(
 
     public boolean formed(Level level, BlockPos controllerPos) {
         return layout.formed(level, controllerPos, this);
+    }
+
+    public RecipeStorages getStorages(Level level, BlockPos controllerPos) {
+        return layout.getRecipeStorages(level, controllerPos, this);
     }
 }

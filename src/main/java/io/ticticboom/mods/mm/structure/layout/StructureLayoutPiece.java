@@ -2,6 +2,7 @@ package io.ticticboom.mods.mm.structure.layout;
 
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.port.IPortBlockEntity;
+import io.ticticboom.mods.mm.port.IPortStorage;
 import io.ticticboom.mods.mm.structure.StructureModel;
 import io.ticticboom.mods.mm.util.ParserUtils;
 import net.minecraft.core.BlockPos;
@@ -10,6 +11,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class StructureLayoutPiece {

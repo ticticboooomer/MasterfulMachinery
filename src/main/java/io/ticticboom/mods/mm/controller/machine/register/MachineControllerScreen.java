@@ -10,10 +10,12 @@ import net.minecraft.world.entity.player.Inventory;
 public class MachineControllerScreen extends AbstractContainerScreen<MachineControllerMenu> {
 
     private final MachineControllerMenu menu;
+    private final MachineControllerBlockEntity be;
 
     public MachineControllerScreen(MachineControllerMenu menu, Inventory inv, Component p_96550_) {
         super(menu, inv, p_96550_);
         this.menu = menu;
+        this.be = (MachineControllerBlockEntity) menu.getBe();
         this.imageHeight = 222;
         this.imageWidth = 174;
     }
@@ -25,11 +27,20 @@ public class MachineControllerScreen extends AbstractContainerScreen<MachineCont
 
     @Override
     protected void renderLabels(GuiGraphics gfx, int mouseX, int mouseY) {
-        // change to variables not hard coded strings
+        // controller name
         gfx.drawWordWrap(this.font, FormattedText.of(menu.getModel().name()), 10, 10, 150, 0xacacac);
-        gfx.drawWordWrap(this.font, FormattedText.of("Formed:"), 10, 40, 150, 0xacacac);
-        gfx.drawWordWrap(this.font, FormattedText.of("My Silly Structure ABC"), 10, 53, 150, 0xacacac);
-        gfx.drawWordWrap(this.font, FormattedText.of("Progress: 100%"), 10, 110, 150, 0xacacac);
+
+        // structure formation details
+        var isFormed = be.getStructure() != null;
+        gfx.drawWordWrap(this.font, FormattedText.of(isFormed ? "Formed As:" : "Not Formed"), 10, 40, 150, 0xacacac);
+        if (isFormed) {
+            gfx.drawWordWrap(this.font, FormattedText.of(be.getStructure().name()), 10, 53, 150, 0xacacac);
+        }
+        // recipe processing details
+        var isProcessing = be.getRecipeState() != null;
+        if (isProcessing) {
+            gfx.drawWordWrap(this.font, FormattedText.of("Progress: " + String.format("%,2f", be.getRecipeState().getTickPercentage()) + "%"), 10, 110, 150, 0xacacac);
+        }
     }
 
     @Override

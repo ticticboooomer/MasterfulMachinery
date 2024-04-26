@@ -23,6 +23,6 @@ public class ItemPortParser implements IPortParser {
     public IPortIngredient parseRecipeIngredient(JsonObject json) {
         var itemId = ParserUtils.parseId(json, "item");
         var count = json.get("count").getAsInt();
-        return new ItemPortIngredient();
+        return new ItemPortIngredient(itemId, count);
     }
 }

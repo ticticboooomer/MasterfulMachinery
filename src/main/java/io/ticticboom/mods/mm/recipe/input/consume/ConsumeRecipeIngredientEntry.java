@@ -1,11 +1,9 @@
-package io.ticticboom.mods.mm.recipe.entry.consume;
+package io.ticticboom.mods.mm.recipe.input.consume;
 
 import io.ticticboom.mods.mm.port.IPortIngredient;
-import io.ticticboom.mods.mm.port.IPortStorage;
-import io.ticticboom.mods.mm.recipe.entry.IRecipeIngredientEntry;
+import io.ticticboom.mods.mm.recipe.RecipeStorages;
+import io.ticticboom.mods.mm.recipe.input.IRecipeIngredientEntry;
 import net.minecraft.world.level.Level;
-
-import java.util.List;
 
 public class ConsumeRecipeIngredientEntry implements IRecipeIngredientEntry {
 
@@ -16,12 +14,12 @@ public class ConsumeRecipeIngredientEntry implements IRecipeIngredientEntry {
     }
 
     @Override
-    public boolean canProcess(Level level, List<IPortStorage> storages) {
+    public boolean canProcess(Level level, RecipeStorages storages) {
         return ingredient.canProcess(level, storages);
     }
 
     @Override
-    public void process(Level level, List<IPortStorage> storages) {
+    public void process(Level level, RecipeStorages storages) {
         ingredient.process(level, storages);
     }
 }

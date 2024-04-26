@@ -1,4 +1,4 @@
-package io.ticticboom.mods.mm.recipe.entry;
+package io.ticticboom.mods.mm.recipe.input;
 
 import com.google.gson.JsonObject;
 

@@ -23,7 +23,8 @@ public class Ref {
     }
 
     public static class RecipeEntries {
-        public static final ResourceLocation CONSUME = id("consume");
+        public static final ResourceLocation CONSUME_INPUT = id("input/consume");
+        public static final ResourceLocation SIMPLE_OUTPUT = id("output/simple");
     }
 
     public static class Textures {

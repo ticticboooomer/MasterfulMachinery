@@ -4,12 +4,16 @@ import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.IPortStorage;
 import io.ticticboom.mods.mm.port.IPortStorageModel;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class ItemPortStorage implements IPortStorage {
 
@@ -63,10 +67,48 @@ public class ItemPortStorage implements IPortStorage {
 
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < columns; x++) {
-                container.addSlot(new Slot(portInv,  (y * columns) + x, x * 18 + offsetX, y * 18 + offsetY));
+                container.addSlot(new Slot(portInv, (y * columns) + x, x * 18 + offsetX, y * 18 + offsetY));
             }
         }
 
         IPortStorage.super.setupContainer(container, inv, portModel);
+    }
+
+    public int canExtract(Item item, int count) {
+        return handlerExtract(item, count, true);
+    }
+
+    public int extract(Item item, int count) {
+        return handlerExtract(item, count, false);
+    }
+
+    private int handlerExtract(Item item, int count, boolean simulate) {
+        int remaining = count;
+        for (int slot = 0; slot < handler.getSlots(); slot++) {
+            if (!handler.getStackInSlot(slot).is(item)) {
+                continue;
+            }
+            var extracted = handler.extractItem(slot, remaining, simulate);
+            remaining -= extracted.getCount();
+        }
+        return remaining;
+    }
+
+    public int canInsert(Item item, int count) {
+        return handlerInsert(item, count, true);
+    }
+
+    public int insert(Item item, int count) {
+        return handlerInsert(item, count, false);
+    }
+
+    private int handlerInsert(Item item, int count, boolean simulate) {
+        int remainingToInsert = count;
+        for (int slot = 0; slot < handler.getSlots(); slot++) {
+            var toInsert = Math.min(handler.getSlotLimit(slot), remainingToInsert);
+            var remains = handler.insertItem(slot, new ItemStack(item, toInsert), simulate);
+            remainingToInsert -= (toInsert - remains.getCount());
+        }
+        return remainingToInsert;
     }
 }

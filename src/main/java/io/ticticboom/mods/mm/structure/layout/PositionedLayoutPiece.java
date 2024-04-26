@@ -11,8 +11,11 @@ public record PositionedLayoutPiece(
         StructureLayoutPiece piece
 ) {
     public boolean formed(Level level, BlockPos controllerPos, StructureModel model) {
-        BlockPos offset = controllerPos.offset(pos);
-        return piece.formed(level, offset, model);
+        return piece.formed(level, findAbsolutePos(controllerPos), model);
+    }
+
+    public BlockPos findAbsolutePos(BlockPos controllerPos) {
+        return controllerPos.offset(pos);
     }
 
     public PositionedLayoutPiece rotate(Rotation rot) {

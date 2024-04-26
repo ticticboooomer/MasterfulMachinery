@@ -8,6 +8,7 @@ plugins {
 
 version = '1.20.1-0.5.0'
 group = 'io.ticticboom.mods.mm' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+
 base {
     archivesName = 'MM'
 }

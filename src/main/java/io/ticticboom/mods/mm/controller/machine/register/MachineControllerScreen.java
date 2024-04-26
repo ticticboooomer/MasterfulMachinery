@@ -11,6 +11,7 @@ public class MachineControllerScreen extends AbstractContainerScreen<MachineCont
 
     private final MachineControllerMenu menu;
     private final MachineControllerBlockEntity be;
+    private final FormattedText header;
 
     public MachineControllerScreen(MachineControllerMenu menu, Inventory inv, Component p_96550_) {
         super(menu, inv, p_96550_);
@@ -18,6 +19,9 @@ public class MachineControllerScreen extends AbstractContainerScreen<MachineCont
         this.be = (MachineControllerBlockEntity) menu.getBe();
         this.imageHeight = 222;
         this.imageWidth = 174;
+        String name = menu.getModel().name();
+        int subStrLength = Math.min(55, name.length());
+        header = FormattedText.of(name.substring(0, subStrLength) + (subStrLength < 55 ? "" : "..."));
     }
 
     @Override
@@ -28,7 +32,7 @@ public class MachineControllerScreen extends AbstractContainerScreen<MachineCont
     @Override
     protected void renderLabels(GuiGraphics gfx, int mouseX, int mouseY) {
         // controller name
-        gfx.drawWordWrap(this.font, FormattedText.of(menu.getModel().name()), 10, 10, 150, 0xacacac);
+        gfx.drawWordWrap(this.font, header, 10, 10, 150, 0xacacac);
 
         // structure formation details
         var isFormed = be.getStructure() != null;

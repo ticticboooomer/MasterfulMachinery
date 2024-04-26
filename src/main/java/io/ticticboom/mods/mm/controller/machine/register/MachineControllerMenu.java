@@ -4,6 +4,7 @@ import io.ticticboom.mods.mm.controller.IControllerBlockEntity;
 import io.ticticboom.mods.mm.menu.MMContainerMenu;
 import io.ticticboom.mods.mm.model.ControllerModel;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
+import io.ticticboom.mods.mm.util.BlockUtils;
 import io.ticticboom.mods.mm.util.MenuUtils;
 import lombok.Getter;
 import net.minecraft.network.FriendlyByteBuf;
@@ -22,6 +23,7 @@ public class MachineControllerMenu extends MMContainerMenu {
         this.model = model;
         this.inv = inv;
         this.be = be;
+        BlockUtils.setupPlayerInventory(this, inv);
     }
 
     public MachineControllerMenu(ControllerModel model, RegistryGroupHolder groupHolder, int windowId, Inventory inv, FriendlyByteBuf buf) {

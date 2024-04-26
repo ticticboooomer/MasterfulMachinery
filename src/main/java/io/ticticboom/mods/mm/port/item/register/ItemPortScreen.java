@@ -23,7 +23,9 @@ public class ItemPortScreen extends AbstractContainerScreen<ItemPortMenu> {
         this.menu = menu;
         this.imageHeight = 222;
         this.imageWidth = 174;
-        header = FormattedText.of(menu.getModel().name());
+        String name = menu.getModel().name();
+        int subStrLength = Math.min(55, name.length());
+        header = FormattedText.of(name.substring(0, subStrLength) + (subStrLength < 55 ? "" : "..."));
         setupSlots();
     }
 
@@ -60,8 +62,9 @@ public class ItemPortScreen extends AbstractContainerScreen<ItemPortMenu> {
     }
 
     @Override
-    public void render(GuiGraphics gfx, int partialTicks, int mouseX, float mouseY) {
+    public void render(GuiGraphics gfx, int mouseX, int mouseY, float partialTicks) {
         renderBackground(gfx);
-        super.render(gfx, partialTicks, mouseX, mouseY);
+        renderTooltip(gfx, mouseX, mouseY);
+        super.render(gfx, mouseX, mouseY, partialTicks);
     }
 }

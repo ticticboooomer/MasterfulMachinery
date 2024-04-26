@@ -6,6 +6,7 @@ import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.IPortBlock;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.util.BlockUtils;
+import io.ticticboom.mods.mm.util.PortUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -26,7 +27,7 @@ public class ItemPortBlock extends Block implements IPortBlock, EntityBlock {
     private final boolean isInput;
 
     public ItemPortBlock(PortModel model, RegistryGroupHolder groupHolder, boolean isInput) {
-        super(Properties.of().requiresCorrectToolForDrops().destroyTime(5f).explosionResistance(6f).sound(SoundType.METAL));
+        super(BlockUtils.createBlockProperties());
         this.model = model;
         this.groupHolder = groupHolder;
         this.isInput = isInput;
@@ -44,12 +45,7 @@ public class ItemPortBlock extends Block implements IPortBlock, EntityBlock {
 
     @Override
     public void generateModel(MMBlockstateProvider provider) {
-        if (isInput) {
-            provider.dynamicBlock(groupHolder.getBlock().getId(), Ref.Textures.BASE_BLOCK, Ref.Textures.INPUT_ITEM_PORT_OVERLAY);
-        } else {
-            provider.dynamicBlock(groupHolder.getBlock().getId(), Ref.Textures.BASE_BLOCK, Ref.Textures.OUTPUT_ITEM_PORT_OVERLAY);
-        }
-        provider.simpleBlock(groupHolder.getBlock().get());
+        PortUtils.commonGenerateModel(provider, groupHolder, isInput, Ref.Textures.INPUT_ITEM_PORT_OVERLAY, Ref.Textures.OUTPUT_ITEM_PORT_OVERLAY);
     }
 
     @Nullable

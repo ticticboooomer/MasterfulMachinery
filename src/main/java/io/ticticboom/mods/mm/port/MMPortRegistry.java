@@ -2,6 +2,7 @@ package io.ticticboom.mods.mm.port;
 
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.Ref;
+import io.ticticboom.mods.mm.port.fluid.FluidPortType;
 import io.ticticboom.mods.mm.port.item.ItemPortType;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.util.ParserUtils;
@@ -14,6 +15,7 @@ public class MMPortRegistry {
     public static List<RegistryGroupHolder> PORTS = new ArrayList<>();
     public static void init() {
         register(Ref.Ports.ITEM, new ItemPortType());
+        register(Ref.Ports.FLUID, new FluidPortType());
     }
 
     public static PortType get(ResourceLocation id) {

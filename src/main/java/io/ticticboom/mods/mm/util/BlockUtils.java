@@ -11,6 +11,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
@@ -38,5 +41,9 @@ public class BlockUtils {
         for (int i = 0; i < 9; i++) {
             container.addSlot(new Slot(inv, i, 8 + (i * 18), 199));
         }
+    }
+
+    public static BlockBehaviour.Properties createBlockProperties() {
+        return BlockBehaviour.Properties.of().requiresCorrectToolForDrops().destroyTime(5f).explosionResistance(6f).sound(SoundType.METAL);
     }
 }

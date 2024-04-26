@@ -28,8 +28,11 @@ public class ItemPortStorage implements IPortStorage {
     }
 
     @Override
-    public <T> LazyOptional<T> getCapability() {
-        return handlerLazyOptional.cast();
+    public <T> LazyOptional<T> getCapability(Capability<T> capability) {
+        if (hasCapability(capability)) {
+            return handlerLazyOptional.cast();
+        }
+        return LazyOptional.empty();
     }
 
     @Override

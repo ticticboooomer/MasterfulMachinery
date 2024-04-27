@@ -91,9 +91,4 @@ public class ItemPortBlockEntity extends BlockEntity implements IPortBlockEntity
         saveAdditional(tag);
         return tag;
     }
-
-    @Override
-    public void handleUpdateTag(CompoundTag tag) {
-        super.handleUpdateTag(tag);
-    }
 }

@@ -9,6 +9,7 @@ import net.minecraft.nbt.TagTypes;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fluids.FluidStack;
 
 public class FluidPortStorage implements IPortStorage {
     private final FluidPortStorageModel model;
@@ -16,9 +17,9 @@ public class FluidPortStorage implements IPortStorage {
     private final FluidPortHandler handler;
     private final LazyOptional<FluidPortHandler> handlerLazyOptional;
 
-    public FluidPortStorage(FluidPortStorageModel model, INotifyChangeFunction change) {
+    public FluidPortStorage(FluidPortStorageModel model, INotifyChangeFunction changed) {
         this.model = model;
-        handler = new FluidPortHandler(model.rows() * model.columns(), model.slotCapacity());
+        handler = new FluidPortHandler(model.rows() * model.columns(), model.slotCapacity(), changed);
         handlerLazyOptional = LazyOptional.of(() -> handler);
     }
 
@@ -51,5 +52,9 @@ public class FluidPortStorage implements IPortStorage {
     @Override
     public IPortStorageModel getStorageModel() {
         return model;
+    }
+
+    public FluidStack getStackInSlot(int slot) {
+        return handler.getFluidInTank(slot);
     }
 }

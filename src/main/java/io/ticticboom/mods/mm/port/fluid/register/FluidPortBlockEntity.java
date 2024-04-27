@@ -87,4 +87,12 @@ public class FluidPortBlockEntity extends BlockEntity implements IPortBlockEntit
         storage.load(tag.getCompound(Ref.NBT_STORAGE_KEY));
         super.load(tag);
     }
+
+
+    @Override
+    public CompoundTag getUpdateTag() {
+        var tag = new CompoundTag();
+        saveAdditional(tag);
+        return tag;
+    }
 }

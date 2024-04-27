@@ -2,6 +2,7 @@ package io.ticticboom.mods.mm.port.fluid;
 
 import com.mojang.serialization.Codec;
 import io.ticticboom.mods.mm.Ref;
+import io.ticticboom.mods.mm.port.common.INotifyChangeFunction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.*;
 import net.minecraft.world.level.material.Fluid;
@@ -17,14 +18,16 @@ public class FluidPortHandler implements IFluidHandler {
 
     private final int tanks;
     private final int capacity;
+    private final INotifyChangeFunction changed;
 
     private final ArrayList<FluidStack> stacks;
 
     public static final Codec<List<FluidStack>> STACKS_CODEC = Codec.list(FluidStack.CODEC);
 
-    public FluidPortHandler(int tanks, int capacity) {
+    public FluidPortHandler(int tanks, int capacity, INotifyChangeFunction changed) {
         this.tanks = tanks;
         this.capacity = capacity;
+        this.changed = changed;
         stacks = new ArrayList<FluidStack>();
         for (int i = 0; i < tanks; i++) {
             stacks.add(FluidStack.EMPTY);
@@ -62,6 +65,7 @@ public class FluidPortHandler implements IFluidHandler {
         for (int slot = 0; slot < stacks.size(); slot++) {
             filled += innerFill(slot, stack.getFluid(), stack.getAmount() - filled, action.simulate());
         }
+        changed.call();
         return filled;
     }
 
@@ -75,7 +79,12 @@ public class FluidPortHandler implements IFluidHandler {
         var canBeFilled = Math.min(capacity - storedAmount, amount);
 
         if (!simulate) {
-            stacks.get(slot).setAmount(storedAmount + canBeFilled);
+            FluidStack stack = stacks.get(slot);
+            if (stack.isEmpty()) {
+                stacks.set(slot, new FluidStack(fluid, canBeFilled));
+            } else {
+                stack.setAmount(storedAmount + canBeFilled);
+            }
         }
         return canBeFilled;
     }
@@ -90,6 +99,7 @@ public class FluidPortHandler implements IFluidHandler {
             var innerDrained = innerDrain(slot, stack.getFluid(), stack.getAmount(), action.simulate());
             drained += innerDrained.getAmount();
         }
+        changed.call();
         return new FluidStack(stack.getFluid(), drained);
     }
 
@@ -102,7 +112,10 @@ public class FluidPortHandler implements IFluidHandler {
 
         var canBeDrained = Math.min(storedAmount, amount);
         if (!simulate) {
-            stacks.get(slot).setAmount(storedAmount - canBeDrained);
+            FluidStack stack = stacks.get(slot);
+            if (!stack.isEmpty()) {
+                stack.setAmount(storedAmount - canBeDrained);
+            }
         }
         return new FluidStack(fluid, canBeDrained);
     }
@@ -119,6 +132,7 @@ public class FluidPortHandler implements IFluidHandler {
             var innerDrained = innerDrain(slot, fluid, i, action.simulate());
             drained += innerDrained.getAmount();
         }
+        changed.call();
         return new FluidStack(fluid, drained);
     }
 

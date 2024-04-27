@@ -2,6 +2,7 @@ package io.ticticboom.mods.mm.port.fluid;
 
 import io.ticticboom.mods.mm.port.IPortStorage;
 import io.ticticboom.mods.mm.port.IPortStorageFactory;
+import io.ticticboom.mods.mm.port.common.INotifyChangeFunction;
 
 public class FluidPortStorageFactory implements IPortStorageFactory {
 
@@ -13,7 +14,7 @@ public class FluidPortStorageFactory implements IPortStorageFactory {
     }
 
     @Override
-    public IPortStorage createPortStorage() {
-        return new FluidPortStorage(model);
+    public IPortStorage createPortStorage(INotifyChangeFunction changed) {
+        return new FluidPortStorage(model, changed);
     }
 }

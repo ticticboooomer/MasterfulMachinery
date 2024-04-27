@@ -2,6 +2,7 @@ package io.ticticboom.mods.mm.port.item;
 
 import io.ticticboom.mods.mm.port.IPortStorage;
 import io.ticticboom.mods.mm.port.IPortStorageFactory;
+import io.ticticboom.mods.mm.port.common.INotifyChangeFunction;
 
 public class ItemPortStorageFactory implements IPortStorageFactory {
 
@@ -12,7 +13,7 @@ public class ItemPortStorageFactory implements IPortStorageFactory {
     }
 
     @Override
-    public IPortStorage createPortStorage() {
-        return new ItemPortStorage(model);
+    public IPortStorage createPortStorage(INotifyChangeFunction changed) {
+        return new ItemPortStorage(model, changed);
     }
 }

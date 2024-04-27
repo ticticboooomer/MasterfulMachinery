@@ -27,18 +27,17 @@ public class ItemPortBlockEntity extends BlockEntity implements IPortBlockEntity
     private final RegistryGroupHolder groupHolder;
     private final PortModel model;
 
-    @Getter
     private final ItemPortStorage storage;
 
     @Getter
     private final boolean input;
 
     public ItemPortBlockEntity(RegistryGroupHolder groupHolder, PortModel model, boolean input, BlockPos pos,
-            BlockState state) {
+                               BlockState state) {
         super(groupHolder.getBe().get(), pos, state);
         this.groupHolder = groupHolder;
         this.model = model;
-        storage = (ItemPortStorage) model.config().createPortStorage();
+        storage = (ItemPortStorage) model.config().createPortStorage(this::setChanged);
         this.input = input;
     }
 

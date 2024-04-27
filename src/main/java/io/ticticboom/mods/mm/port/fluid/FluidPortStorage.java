@@ -2,6 +2,7 @@ package io.ticticboom.mods.mm.port.fluid;
 
 import io.ticticboom.mods.mm.port.IPortStorage;
 import io.ticticboom.mods.mm.port.IPortStorageModel;
+import io.ticticboom.mods.mm.port.common.INotifyChangeFunction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.TagTypes;
@@ -15,7 +16,7 @@ public class FluidPortStorage implements IPortStorage {
     private final FluidPortHandler handler;
     private final LazyOptional<FluidPortHandler> handlerLazyOptional;
 
-    public FluidPortStorage(FluidPortStorageModel model) {
+    public FluidPortStorage(FluidPortStorageModel model, INotifyChangeFunction change) {
         this.model = model;
         handler = new FluidPortHandler(model.rows() * model.columns(), model.slotCapacity());
         handlerLazyOptional = LazyOptional.of(() -> handler);

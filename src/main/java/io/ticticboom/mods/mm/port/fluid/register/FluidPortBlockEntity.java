@@ -31,12 +31,12 @@ public class FluidPortBlockEntity extends BlockEntity implements IPortBlockEntit
     private final FluidPortStorage storage;
 
     public FluidPortBlockEntity(PortModel model, RegistryGroupHolder groupHolder, boolean isInput, BlockPos pos,
-            BlockState state) {
+                                BlockState state) {
         super(groupHolder.getBe().get(), pos, state);
         this.model = model;
         this.groupHolder = groupHolder;
         this.isInput = isInput;
-        storage = (FluidPortStorage) model.config().createPortStorage();
+        storage = (FluidPortStorage) model.config().createPortStorage(this::setChanged);
     }
 
     @Override
@@ -87,5 +87,4 @@ public class FluidPortBlockEntity extends BlockEntity implements IPortBlockEntit
         storage.load(tag.getCompound(Ref.NBT_STORAGE_KEY));
         super.load(tag);
     }
-
 }

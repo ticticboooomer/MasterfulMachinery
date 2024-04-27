@@ -3,9 +3,9 @@ package io.ticticboom.mods.mm.port.item;
 import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.IPortStorage;
 import io.ticticboom.mods.mm.port.IPortStorageModel;
+import io.ticticboom.mods.mm.port.common.INotifyChangeFunction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
@@ -14,7 +14,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class ItemPortStorage implements IPortStorage {
 
@@ -22,9 +21,9 @@ public class ItemPortStorage implements IPortStorage {
     private final LazyOptional<ItemPortHandler> handlerLazyOptional;
     private final ItemPortStorageModel model;
 
-    public ItemPortStorage(ItemPortStorageModel model) {
+    public ItemPortStorage(ItemPortStorageModel model, INotifyChangeFunction changed) {
         this.model = model;
-        handler = new ItemPortHandler(model.rows() * model.columns());
+        handler = new ItemPortHandler(model.rows() * model.columns(), changed);
         handlerLazyOptional = LazyOptional.of(() -> handler);
     }
 

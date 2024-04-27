@@ -24,7 +24,8 @@ public class ModRoot {
     private void registerClientPack() {
         try {
             if (FMLEnvironment.dist == Dist.CLIENT) {
-                Minecraft.getInstance().getResourcePackRepository().addPackFinder(new MMRepositorySource(MMRepoType.RESOURCES));
+                Minecraft.getInstance().getResourcePackRepository()
+                        .addPackFinder(new MMRepositorySource(MMRepoType.RESOURCES));
             }
         } catch (Exception e) {
             e.printStackTrace();

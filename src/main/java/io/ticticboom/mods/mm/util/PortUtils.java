@@ -17,7 +17,8 @@ public class PortUtils {
         return res;
     }
 
-    public static void commonGenerateModel(MMBlockstateProvider provider, RegistryGroupHolder groupHolder, boolean isInput, ResourceLocation inputOverlay, ResourceLocation outputOverlay){
+    public static void commonGenerateModel(MMBlockstateProvider provider, RegistryGroupHolder groupHolder,
+            boolean isInput, ResourceLocation inputOverlay, ResourceLocation outputOverlay) {
         if (isInput) {
             provider.dynamicBlock(groupHolder.getBlock().getId(), Ref.Textures.BASE_BLOCK, inputOverlay);
         } else {

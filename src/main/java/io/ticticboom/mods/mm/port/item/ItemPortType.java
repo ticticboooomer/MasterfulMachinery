@@ -25,7 +25,11 @@ public class ItemPortType extends PortType {
 
     @Override
     public RegistryObject<BlockEntityType<?>> registerBlockEntity(PortModel model, RegistryGroupHolder groupHolder) {
-        return MMRegisters.BLOCK_ENTITIES.register(model.id(), () -> BlockEntityType.Builder.of((p, s) -> new ItemPortBlockEntity(groupHolder, model, model.input(), p, s), groupHolder.getBlock().get()).build(null));
+        return MMRegisters.BLOCK_ENTITIES.register(model.id(),
+                () -> BlockEntityType.Builder
+                        .of((p, s) -> new ItemPortBlockEntity(groupHolder, model, model.input(), p, s),
+                                groupHolder.getBlock().get())
+                        .build(null));
     }
 
     @Override
@@ -40,7 +44,8 @@ public class ItemPortType extends PortType {
 
     @Override
     public RegistryObject<MenuType<?>> registerMenu(PortModel model, RegistryGroupHolder groupHolder) {
-        return MMRegisters.MENUS.register(model.id(), () -> IForgeMenuType.create((i, o, u) -> new ItemPortMenu(model, groupHolder, model.input(), i, o, u)));
+        return MMRegisters.MENUS.register(model.id(),
+                () -> IForgeMenuType.create((i, o, u) -> new ItemPortMenu(model, groupHolder, model.input(), i, o, u)));
     }
 
     @Override

@@ -3,6 +3,8 @@ package io.ticticboom.mods.mm.port.fluid;
 import io.ticticboom.mods.mm.port.IPortStorage;
 import io.ticticboom.mods.mm.port.IPortStorageModel;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.TagTypes;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -34,14 +36,14 @@ public class FluidPortStorage implements IPortStorage {
 
     @Override
     public CompoundTag save(CompoundTag tag) {
-        CompoundTag compoundTag = handler.serializeNBT();
+        var compoundTag = handler.serializeNBT();
         tag.put("handler", compoundTag);
         return tag;
     }
 
     @Override
     public void load(CompoundTag tag) {
-        CompoundTag compoundTag = tag.getCompound("handler");
+        var compoundTag = tag.get("handler");
         handler.deserializeNBT(compoundTag);
     }
 

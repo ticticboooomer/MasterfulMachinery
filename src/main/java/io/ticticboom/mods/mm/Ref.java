@@ -14,6 +14,8 @@ public class Ref {
         return new ResourceLocation(ID, path);
     }
 
+    public static String NBT_STORAGE_KEY = "MMStorage";
+
     public static class Ports {
         public static final ResourceLocation ITEM = id("item");
         public static final ResourceLocation FLUID = id("fluid");
@@ -41,4 +43,5 @@ public class Ref {
         public static final ResourceLocation INPUT_FLUID_PORT_OVERLAY = id("block/base_ports/fluid_input_cutout");
         public static final ResourceLocation OUTPUT_FLUID_PORT_OVERLAY = id("block/base_ports/fluid_output_cutout");
     }
+
 }

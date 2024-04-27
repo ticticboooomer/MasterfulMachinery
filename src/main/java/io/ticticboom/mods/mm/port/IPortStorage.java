@@ -22,6 +22,6 @@ public interface IPortStorage {
     IPortStorageModel getStorageModel();
 
     default void setupContainer(AbstractContainerMenu container, Inventory inv, PortModel model) {
-        BlockUtils.setupPlayerInventory(container, inv);
+        BlockUtils.setupPlayerInventory(container, inv, 0, 0);
     }
 }

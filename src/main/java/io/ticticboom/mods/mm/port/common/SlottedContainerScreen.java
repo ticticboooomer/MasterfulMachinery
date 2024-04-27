@@ -1,6 +1,7 @@
 package io.ticticboom.mods.mm.port.common;
 
 import io.ticticboom.mods.mm.Ref;
+import io.ticticboom.mods.mm.port.IPortBlockEntity;
 import io.ticticboom.mods.mm.port.IPortMenu;
 import io.ticticboom.mods.mm.port.item.register.ItemPortBlockEntity;
 import net.minecraft.client.gui.GuiGraphics;
@@ -30,11 +31,10 @@ public class SlottedContainerScreen<T extends AbstractContainerMenu & IPortMenu>
         setupSlots();
     }
 
-
     private void setupSlots() {
-        ItemPortBlockEntity blockEntity = menu.getBlockEntity();
-        var storage =  blockEntity.getStorage();
-        var model = (ISlottedPortStorageModel)storage.getStorageModel();
+        IPortBlockEntity blockEntity = menu.getBlockEntity();
+        var storage = blockEntity.getStorage();
+        var model = (ISlottedPortStorageModel) storage.getStorageModel();
 
         var columns = model.columns();
         var rows = model.rows();
@@ -45,7 +45,7 @@ public class SlottedContainerScreen<T extends AbstractContainerMenu & IPortMenu>
 
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < columns; x++) {
-                slots.add(new Vec2 (x * 18 + offsetX, y * 18 + offsetY));
+                slots.add(new Vec2(x * 18 + offsetX, y * 18 + offsetY));
             }
         }
     }
@@ -54,7 +54,7 @@ public class SlottedContainerScreen<T extends AbstractContainerMenu & IPortMenu>
     protected void renderBg(GuiGraphics gfx, float partialTicks, int mouseX, int mouseY) {
         gfx.blit(Ref.Textures.PORT_GUI, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
         for (Vec2 slot : slots) {
-            gfx.blit(Ref.Textures.SLOT_PARTS, this.leftPos + (int)slot.x, this.topPos + (int)slot.y, 0, 26, 18, 18);
+            gfx.blit(Ref.Textures.SLOT_PARTS, this.leftPos + (int) slot.x, this.topPos + (int) slot.y, 0, 26, 18, 18);
         }
     }
 
@@ -66,7 +66,7 @@ public class SlottedContainerScreen<T extends AbstractContainerMenu & IPortMenu>
     @Override
     public void render(GuiGraphics gfx, int mouseX, int mouseY, float partialTicks) {
         renderBackground(gfx);
-        renderTooltip(gfx, mouseX, mouseY);
         super.render(gfx, mouseX, mouseY, partialTicks);
+        renderTooltip(gfx, mouseX, mouseY);
     }
 }

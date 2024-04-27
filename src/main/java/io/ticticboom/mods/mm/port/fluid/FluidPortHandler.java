@@ -10,21 +10,25 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class FluidPortHandler implements IFluidHandler, INBTSerializable<CompoundTag> {
+public class FluidPortHandler implements IFluidHandler {
 
     private final int tanks;
     private final int capacity;
 
-    private final NonNullList<FluidStack> stacks;
+    private final ArrayList<FluidStack> stacks;
 
     public static final Codec<List<FluidStack>> STACKS_CODEC = Codec.list(FluidStack.CODEC);
 
     public FluidPortHandler(int tanks, int capacity) {
         this.tanks = tanks;
         this.capacity = capacity;
-        stacks = NonNullList.withSize(tanks, FluidStack.EMPTY);
+        stacks = new ArrayList<FluidStack>();
+        for (int i = 0; i < tanks; i++) {
+            stacks.add(FluidStack.EMPTY);
+        }
     }
 
     @Override
@@ -128,18 +132,14 @@ public class FluidPortHandler implements IFluidHandler, INBTSerializable<Compoun
         return null;
     }
 
-    @Override
-    public CompoundTag serializeNBT() {
-        var tag = new CompoundTag();
-        var dataResult = STACKS_CODEC.encode(stacks, NbtOps.INSTANCE, tag);
+    public Tag serializeNBT() {
+        var dataResult = NbtOps.INSTANCE.withEncoder(STACKS_CODEC).apply(stacks);
         var result = dataResult.getOrThrow(false, Ref.LOG::error);
-        return (CompoundTag) result;
+        return result;
     }
 
-
-    @Override
-    public void deserializeNBT(CompoundTag nbt) {
-        var dataResult = STACKS_CODEC.decode(NbtOps.INSTANCE, nbt);
+    public void deserializeNBT(Tag nbt) {
+        var dataResult = NbtOps.INSTANCE.withDecoder(STACKS_CODEC).apply(nbt);
         var result = dataResult.getOrThrow(false, Ref.LOG::error);
         stacks.clear();
         stacks.addAll(result.getFirst());

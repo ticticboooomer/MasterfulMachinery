@@ -13,6 +13,7 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 
 @Mod(Ref.ID)
 public class ModRoot {
+
     public ModRoot() {
         MMPortRegistry.init();
         MMControllerRegistry.init();
@@ -31,4 +32,5 @@ public class ModRoot {
             e.printStackTrace();
         }
     }
+
 }

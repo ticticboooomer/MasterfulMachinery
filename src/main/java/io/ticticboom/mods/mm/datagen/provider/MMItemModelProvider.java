@@ -2,6 +2,7 @@ package io.ticticboom.mods.mm.datagen.provider;
 
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.controller.IControllerPart;
+import io.ticticboom.mods.mm.port.IPortBlockEntity;
 import io.ticticboom.mods.mm.port.IPortPart;
 import io.ticticboom.mods.mm.setup.MMRegisters;
 import net.minecraft.data.DataGenerator;

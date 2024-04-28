@@ -21,7 +21,7 @@
       "block": "mm:my_port_a_input"
     },
     "D": {
-      "block": "mm:my_port_a_output"
+      "block": "mm:my_fluid_port_output"
     }
   }
 }

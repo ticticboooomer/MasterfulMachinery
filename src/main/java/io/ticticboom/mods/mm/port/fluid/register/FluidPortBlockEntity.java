@@ -23,6 +23,7 @@ import net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -71,7 +72,7 @@ public class FluidPortBlockEntity extends BlockEntity implements IPortBlockEntit
             return;
         }
         super.setChanged();
-        level.sendBlockUpdated(getBlockPos(), this.getBlockState(), this.getBlockState(), FluidPortBlock.UPDATE_CLIENTS);
+        level.sendBlockUpdated(getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
     }
 
     @Override

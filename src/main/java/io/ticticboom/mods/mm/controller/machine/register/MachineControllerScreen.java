@@ -40,6 +40,7 @@ public class MachineControllerScreen extends AbstractContainerScreen<MachineCont
         if (isFormed) {
             gfx.drawWordWrap(this.font, FormattedText.of(be.getStructure().name()), 10, 53, 150, 0xacacac);
         }
+
         // recipe processing details
         var isProcessing = be.getRecipeState() != null;
         if (isProcessing) {
@@ -51,8 +52,9 @@ public class MachineControllerScreen extends AbstractContainerScreen<MachineCont
     }
 
     @Override
-    public void render(GuiGraphics gfx, int partialTicks, int mouseX, float mouseY) {
+    public void render(GuiGraphics gfx, int mouseX, int mouseY, float partial) {
         renderBackground(gfx);
-        super.render(gfx, partialTicks, mouseX, mouseY);
+        super.render(gfx, mouseX, mouseY, partial);
+        renderTooltip(gfx, mouseX, mouseY);
     }
 }

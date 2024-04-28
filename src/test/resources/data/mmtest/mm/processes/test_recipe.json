@@ -15,9 +15,9 @@
     {
       "type": "mm:output/simple",
       "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:redstone",
-        "count": 4
+        "type": "mm:fluid",
+        "fluid": "mekanism:hydrogen",
+        "amount": 1000
       }
     }
   ]

@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.port.IPortIngredient;
 import io.ticticboom.mods.mm.port.IPortParser;
 import io.ticticboom.mods.mm.port.IPortStorageFactory;
+import io.ticticboom.mods.mm.util.ParserUtils;
 
 public class FluidPortParser implements IPortParser {
     @Override
@@ -16,6 +17,8 @@ public class FluidPortParser implements IPortParser {
 
     @Override
     public IPortIngredient parseRecipeIngredient(JsonObject json) {
-        return null;
+        var fluidId = ParserUtils.parseId(json, "fluid");
+        var amount = json.get("amount").getAsInt();
+        return new FluidPortIngredient(fluidId, amount);
     }
 }

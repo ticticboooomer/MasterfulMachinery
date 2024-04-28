@@ -49,7 +49,7 @@ public class StructureLayoutPiece {
         }
         // if port type
         if (json.has("portType")) {
-            var portTypeId = ParserUtils.parseId(json, "port");
+            var portTypeId = ParserUtils.parseId(json, "portType");
             return new StructureLayoutPiece(x -> {
                 var be = x.level().getBlockEntity(x.pos());
                 if (be == null) {

@@ -5,6 +5,7 @@ import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.IPortBlockEntity;
 import io.ticticboom.mods.mm.port.IPortPart;
 import io.ticticboom.mods.mm.port.IPortStorage;
+import io.ticticboom.mods.mm.port.item.ItemPortHandler;
 import io.ticticboom.mods.mm.port.item.ItemPortStorage;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import lombok.Getter;

@@ -1,6 +1,7 @@
 package io.ticticboom.mods.mm.port.fluid.register;
 
 import io.ticticboom.mods.mm.Ref;
+import io.ticticboom.mods.mm.controller.machine.register.MachineControllerBlockEntity;
 import io.ticticboom.mods.mm.datagen.provider.MMBlockstateProvider;
 import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.IPortBlock;
@@ -15,6 +16,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
@@ -52,7 +55,16 @@ public class FluidPortBlock extends Block implements IPortBlock, EntityBlock {
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
-            InteractionHand hand, BlockHitResult hitResult) {
+                                 InteractionHand hand, BlockHitResult hitResult) {
         return BlockUtils.commonUse(state, level, pos, player, hand, hitResult, FluidPortBlockEntity.class);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        if (type == groupHolder.getBe().get()) {
+            return (l, pos, s, be) -> ((FluidPortBlockEntity) be).tick();
+        }
+        return null;
     }
 }

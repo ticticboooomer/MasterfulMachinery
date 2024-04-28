@@ -1,5 +1,7 @@
 package io.ticticboom.mods.mm.port.fluid.register;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.IPortBlockEntity;
@@ -9,8 +11,15 @@ import io.ticticboom.mods.mm.port.fluid.FluidPortStorage;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.PacketEncoder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -19,8 +28,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.nio.charset.Charset;
 
 public class FluidPortBlockEntity extends BlockEntity implements IPortBlockEntity, IPortPart {
 
@@ -39,6 +51,10 @@ public class FluidPortBlockEntity extends BlockEntity implements IPortBlockEntit
         storage = (FluidPortStorage) model.config().createPortStorage(this::setChanged);
     }
 
+    public void tick() {
+
+    }
+
     @Override
     public PortModel getPortModel() {
         return model;
@@ -47,6 +63,15 @@ public class FluidPortBlockEntity extends BlockEntity implements IPortBlockEntit
     @Override
     public IPortStorage getStorage() {
         return storage;
+    }
+
+    @Override
+    public void setChanged() {
+        if (level.isClientSide()){
+            return;
+        }
+        super.setChanged();
+        level.sendBlockUpdated(getBlockPos(), this.getBlockState(), this.getBlockState(), FluidPortBlock.UPDATE_CLIENTS);
     }
 
     @Override
@@ -88,11 +113,16 @@ public class FluidPortBlockEntity extends BlockEntity implements IPortBlockEntit
         super.load(tag);
     }
 
-
     @Override
     public CompoundTag getUpdateTag() {
         var tag = new CompoundTag();
         saveAdditional(tag);
         return tag;
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 }

@@ -4,6 +4,7 @@ import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.IPortStorage;
 import io.ticticboom.mods.mm.port.IPortStorageModel;
 import io.ticticboom.mods.mm.port.common.INotifyChangeFunction;
+import lombok.Getter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.player.Inventory;
@@ -17,6 +18,7 @@ import net.minecraftforge.common.util.LazyOptional;
 
 public class ItemPortStorage implements IPortStorage {
 
+    @Getter
     private final ItemPortHandler handler;
     private final LazyOptional<ItemPortHandler> handlerLazyOptional;
     private final ItemPortStorageModel model;

@@ -11,11 +11,13 @@ import io.ticticboom.mods.mm.util.MenuUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 
 public class FluidPortMenu extends MMContainerMenu implements IPortMenu {
 
     private final PortModel model;
     private final boolean isInput;
+    private final Inventory inv;
     private final IPortBlockEntity be;
 
     public FluidPortMenu(PortModel model, RegistryGroupHolder groupHolder, boolean isInput, int windowId,
@@ -23,6 +25,7 @@ public class FluidPortMenu extends MMContainerMenu implements IPortMenu {
         super(groupHolder, windowId, MenuUtils.createAccessFromBlockEntity(be.getBlockEntity()), 0);
         this.model = model;
         this.isInput = isInput;
+        this.inv = inv;
         this.be = be;
         var storage = be.getStorage();
         storage.setupContainer(this, inv, model);
@@ -40,6 +43,12 @@ public class FluidPortMenu extends MMContainerMenu implements IPortMenu {
         return storage.getStackInSlot(slot);
     }
 
+    public IFluidHandler getHandler(){
+        FluidPortBlockEntity be = getBlockEntity();
+        FluidPortStorage storage = (FluidPortStorage)be.getStorage();
+        return storage.getHandler();
+    }
+
     @Override
     public PortModel getModel() {
         return model;
@@ -48,5 +57,9 @@ public class FluidPortMenu extends MMContainerMenu implements IPortMenu {
     @Override
     public <T> T getBlockEntity() {
         return (T) be;
+    }
+
+    public Inventory getInventory() {
+        return inv;
     }
 }

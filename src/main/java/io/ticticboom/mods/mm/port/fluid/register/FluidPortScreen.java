@@ -12,9 +12,14 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.client.event.ContainerScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fluids.FluidActionResult;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
@@ -25,13 +30,11 @@ public class FluidPortScreen extends SlottedContainerScreen<FluidPortMenu> {
     }
 
     public void renderFluids(GuiGraphics gfx, int mouseX, int mouseY) {
-        IPortBlockEntity pbe = menu.getBlockEntity();
-        FluidPortStorage storage = (FluidPortStorage) pbe.getStorage();
         int i = 0;
         for (Vec2 slot : slots) {
             int slotX = (int) slot.x + 1;
             int slotY = (int) slot.y + 1;
-            var stack = storage.getStackInSlot(i);
+            var stack = menu.getStackInSlot(i);
             var color = 0x80ffffff;
             FluidRenderer.INSTANCE.render(gfx, slotX, slotY, stack, 16);
             if (WidgetUtils.isPointerWithinSized(mouseX, mouseY, this.leftPos + slotX, this.topPos + slotY, 16, 16)) {
@@ -45,7 +48,6 @@ public class FluidPortScreen extends SlottedContainerScreen<FluidPortMenu> {
             i++;
         }
     }
-
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
     public static class Handler {

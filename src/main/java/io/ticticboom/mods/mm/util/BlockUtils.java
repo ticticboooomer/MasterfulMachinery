@@ -17,14 +17,24 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class BlockUtils {
     public static <T extends MenuProvider> InteractionResult commonUse(BlockState state, Level level, BlockPos pos,
-            Player player, InteractionHand hand, BlockHitResult hitResult, Class<T> clz) {
+                                                                       Player player, InteractionHand hand, BlockHitResult hitResult, Class<T> clz, @Nullable Supplier<Boolean> preScreenCheck) {
+        if (preScreenCheck == null) {
+            preScreenCheck = () -> true;
+        }
         if (!level.isClientSide() && hand == InteractionHand.MAIN_HAND) {
             var be = level.getBlockEntity(pos);
             if (clz.isAssignableFrom(be.getClass())) {
-                NetworkHooks.openScreen((ServerPlayer) player, (T) be, pos);
+                if (preScreenCheck.get()) {
+                    NetworkHooks.openScreen((ServerPlayer) player, (T) be, pos);
+                }
             }
         }
         return InteractionResult.sidedSuccess(level.isClientSide);

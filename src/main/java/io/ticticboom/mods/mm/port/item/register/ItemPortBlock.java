@@ -41,7 +41,7 @@ public class ItemPortBlock extends Block implements IPortBlock, EntityBlock {
 
     @Override
     public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        return BlockUtils.commonUse(state, level, pos, player, hand, hitResult, ItemPortBlockEntity.class);
+        return BlockUtils.commonUse(state, level, pos, player, hand, hitResult, ItemPortBlockEntity.class, null);
     }
 
     @Override

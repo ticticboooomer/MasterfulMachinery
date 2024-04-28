@@ -5,6 +5,8 @@ import io.ticticboom.mods.mm.controller.machine.register.MachineControllerBlockE
 import io.ticticboom.mods.mm.datagen.provider.MMBlockstateProvider;
 import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.IPortBlock;
+import io.ticticboom.mods.mm.port.fluid.FluidPortStorage;
+import io.ticticboom.mods.mm.port.item.ItemPortStorage;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.util.BlockUtils;
 import io.ticticboom.mods.mm.util.PortUtils;
@@ -21,6 +23,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
+import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
 
 public class FluidPortBlock extends Block implements IPortBlock, EntityBlock {
@@ -56,7 +60,21 @@ public class FluidPortBlock extends Block implements IPortBlock, EntityBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
                                  InteractionHand hand, BlockHitResult hitResult) {
-        return BlockUtils.commonUse(state, level, pos, player, hand, hitResult, FluidPortBlockEntity.class);
+        return BlockUtils.commonUse(state, level, pos, player, hand, hitResult, FluidPortBlockEntity.class, () -> {
+            IFluidHandler handler = getHandler(level, pos);
+            if (handler == null){
+                return true;
+            }
+            return !FluidUtil.interactWithFluidHandler(player, hand, handler);
+        });
+    }
+
+    private IFluidHandler getHandler(Level level, BlockPos pos) {
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (blockEntity instanceof FluidPortBlockEntity pbe) {
+            return ((FluidPortStorage) pbe.getStorage()).getWrappedHandler();
+        }
+        return null;
     }
 
     @Nullable

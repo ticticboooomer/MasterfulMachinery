@@ -9,6 +9,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 
 public class FluidPortStorage implements IPortStorage {
     private final FluidPortStorageModel model;
@@ -21,6 +22,10 @@ public class FluidPortStorage implements IPortStorage {
         this.model = model;
         handler = new FluidPortHandler(model.rows() * model.columns(), model.slotCapacity(), changed);
         handlerLazyOptional = LazyOptional.of(() -> handler);
+    }
+
+    public IFluidHandler getWrappedHandler() {
+        return new WrappedFluidPortHandler(handler);
     }
 
     @Override

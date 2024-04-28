@@ -3,10 +3,9 @@ package io.ticticboom.mods.mm.port.fluid;
 import com.mojang.serialization.Codec;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.port.common.INotifyChangeFunction;
-import net.minecraft.core.NonNullList;
+import lombok.Getter;
 import net.minecraft.nbt.*;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.NotNull;
@@ -18,6 +17,7 @@ public class FluidPortHandler implements IFluidHandler {
 
     private final int tanks;
     private final int capacity;
+    @Getter
     private final INotifyChangeFunction changed;
 
     private final ArrayList<FluidStack> stacks;
@@ -42,6 +42,10 @@ public class FluidPortHandler implements IFluidHandler {
     @Override
     public @NotNull FluidStack getFluidInTank(int i) {
         return stacks.get(i);
+    }
+
+    public void setFluidInTank(int i, FluidStack fluidStack) {
+        stacks.set(i, fluidStack);
     }
 
     @Override
@@ -94,6 +98,7 @@ public class FluidPortHandler implements IFluidHandler {
         if (stack.isEmpty()) {
             return FluidStack.EMPTY;
         }
+
         int drained = 0;
         for (int slot = 0; slot < stacks.size(); slot++) {
             var innerDrained = innerDrain(slot, stack.getFluid(), stack.getAmount(), action.simulate());
@@ -103,7 +108,7 @@ public class FluidPortHandler implements IFluidHandler {
         return new FluidStack(stack.getFluid(), drained);
     }
 
-    private FluidStack innerDrain(int slot, Fluid fluid, int amount, boolean simulate) {
+    public FluidStack innerDrain(int slot, Fluid fluid, int amount, boolean simulate) {
         FluidStack slotStack = stacks.get(slot);
         int storedAmount = slotStack.getAmount();
         if (!isFluidValid(slot, new FluidStack(fluid, amount))) {

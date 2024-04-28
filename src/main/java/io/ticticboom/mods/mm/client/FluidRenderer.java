@@ -28,16 +28,12 @@ public class FluidRenderer {
     }
 
     public void render(GuiGraphics gfx, final int xPosition, final int yPosition, FluidStack stack, final int height) {
-        RenderSystem.disableDepthTest();
-        RenderSystem.depthMask(false);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         drawFluid(gfx, xPosition, yPosition, stack, height);
 
         RenderSystem.setShaderColor(1, 1, 1, 1);
 
-        RenderSystem.depthMask(true);
-        RenderSystem.enableDepthTest();
         RenderSystem.disableBlend();
     }
 
@@ -62,7 +58,7 @@ public class FluidRenderer {
         RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
         setGLColorFromInt(color);
 
-        gfx.blit(xPosition, yPosition,  0, width, height, sprite);
+        gfx.blit(xPosition, yPosition,  100, width, height, sprite);
     }
 
     private static void setGLColorFromInt(int color) {

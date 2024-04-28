@@ -4,10 +4,13 @@ import io.ticticboom.mods.mm.menu.MMContainerMenu;
 import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.IPortBlockEntity;
 import io.ticticboom.mods.mm.port.IPortMenu;
+import io.ticticboom.mods.mm.port.IPortStorage;
+import io.ticticboom.mods.mm.port.fluid.FluidPortStorage;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.util.MenuUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraftforge.fluids.FluidStack;
 
 public class FluidPortMenu extends MMContainerMenu implements IPortMenu {
 
@@ -29,6 +32,12 @@ public class FluidPortMenu extends MMContainerMenu implements IPortMenu {
             FriendlyByteBuf buf) {
         this(model, groupHolder, isInput, windowId, inv,
                 (IPortBlockEntity) inv.player.level().getBlockEntity(buf.readBlockPos()));
+    }
+
+    public FluidStack getStackInSlot(int slot) {
+        FluidPortBlockEntity be = getBlockEntity();
+        FluidPortStorage storage = (FluidPortStorage)be.getStorage();
+        return storage.getStackInSlot(slot);
     }
 
     @Override

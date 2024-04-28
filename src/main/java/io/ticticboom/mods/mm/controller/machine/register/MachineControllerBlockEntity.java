@@ -41,8 +41,10 @@ public class MachineControllerBlockEntity extends BlockEntity implements IContro
     private RecipeModel currentRecipe = null;
     private RecipeStorages portStorages = null;
 
-
     public void tick() {
+        if (!level.isClientSide()){
+            return;
+        }
         // check if cached structure is still formed
         if (canRemainFormed()) {
             runRecipe();

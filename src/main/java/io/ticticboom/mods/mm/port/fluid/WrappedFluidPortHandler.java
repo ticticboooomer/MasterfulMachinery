@@ -46,7 +46,7 @@ public class WrappedFluidPortHandler implements IFluidHandler {
             }
 
             if (stack.isEmpty()) {
-                filled = tankCapacity;
+                filled = Math.min(resource.getAmount(), tankCapacity);
                 if (action.execute()) {
                     handler.setFluidInTank(i, new FluidStack(resource.getFluid(), filled));
                 }

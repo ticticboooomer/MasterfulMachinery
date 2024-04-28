@@ -1,0 +1,27 @@
+{
+  "name": "My Funki Recipe",
+  "controllerIds": "mm:controller_a",
+  "layout": [
+    [
+      "   ",
+      " A ",
+      "   "
+    ],
+    [
+      "   ",
+      "PCD",
+      "   "
+    ]
+  ],
+  "key": {
+    "A": {
+      "block": "minecraft:glass"
+    },
+    "P": {
+      "block": "mm:my_port_a_input"
+    },
+    "D": {
+      "block": "mm:my_port_a_output"
+    }
+  }
+}

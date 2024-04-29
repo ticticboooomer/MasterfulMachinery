@@ -32,7 +32,7 @@ public abstract class AbstractConfigLoader<TModel> {
             Files.createDirectories(root);
         }
 
-        return Files.walk(root, FileVisitOption.FOLLOW_LINKS).filter(Files::isRegularFile).map(x -> {
+        return Files.walk(root, FileVisitOption.FOLLOW_LINKS).filter(x -> x.toFile().getName().endsWith(".json")).map(x -> {
             try {
                 var file = Files.readString(x);
                 return JsonParser.parseString(file).getAsJsonObject();

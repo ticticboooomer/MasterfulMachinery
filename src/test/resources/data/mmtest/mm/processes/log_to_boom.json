@@ -1,0 +1,32 @@
+{
+  "ticks": 200,
+  "structureId": "mm:some_folder/lumber_treatment_plant",
+  "inputs": [
+    {
+      "type": "mm:input/consume",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:oak_log",
+        "count": 8
+      }
+    },
+    {
+      "type": "mm:input/consume",
+      "ingredient": {
+        "type": "mm:fluid",
+        "fluid": "minecraft:water",
+        "amount": 2000
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "type": "mm:output/simple",
+      "ingredient": {
+        "type": "mm:item",
+        "item": "minecraft:tnt",
+        "count": 12
+      }
+    }
+  ]
+}

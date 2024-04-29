@@ -8,10 +8,12 @@ import io.ticticboom.mods.mm.port.IPortStorage;
 import io.ticticboom.mods.mm.port.item.ItemPortStorageModel;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.util.MenuUtils;
+import lombok.Getter;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 
 public class ItemPortMenu extends MMContainerMenu implements IPortMenu {
+    @Getter
     private final PortModel model;
     private final RegistryGroupHolder groupHolder;
     private final boolean isInput;
@@ -36,11 +38,6 @@ public class ItemPortMenu extends MMContainerMenu implements IPortMenu {
 
     public ItemPortMenu(PortModel model, RegistryGroupHolder groupHolder, boolean isInput, int windowId, Inventory inv, FriendlyByteBuf buf) {
         this(model, groupHolder, isInput, windowId, inv, (IPortBlockEntity) inv.player.level().getBlockEntity(buf.readBlockPos()));
-    }
-
-    @Override
-    public PortModel getModel() {
-        return model;
     }
 
     @Override

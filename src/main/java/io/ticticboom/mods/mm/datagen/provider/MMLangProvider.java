@@ -24,5 +24,6 @@ public class MMLangProvider extends LanguageProvider {
                 this.add(entry.get(), part.getModel().name());
             }
         }
+        this.add(MMRegisters.BLUEPRINT.get(), "Blueprint");
     }
 }

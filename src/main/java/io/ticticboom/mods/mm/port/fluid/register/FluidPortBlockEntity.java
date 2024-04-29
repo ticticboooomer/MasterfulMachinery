@@ -57,11 +57,6 @@ public class FluidPortBlockEntity extends BlockEntity implements IPortBlockEntit
     }
 
     @Override
-    public PortModel getPortModel() {
-        return model;
-    }
-
-    @Override
     public IPortStorage getStorage() {
         return storage;
     }

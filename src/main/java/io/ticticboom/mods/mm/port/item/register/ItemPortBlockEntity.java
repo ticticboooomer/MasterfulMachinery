@@ -48,11 +48,6 @@ public class ItemPortBlockEntity extends BlockEntity implements IPortBlockEntity
     }
 
     @Override
-    public PortModel getPortModel() {
-        return model;
-    }
-
-    @Override
     public IPortStorage getStorage() {
         return storage;
     }

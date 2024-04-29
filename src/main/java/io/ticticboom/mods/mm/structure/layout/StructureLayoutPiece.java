@@ -2,7 +2,6 @@ package io.ticticboom.mods.mm.structure.layout;
 
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.port.IPortBlockEntity;
-import io.ticticboom.mods.mm.port.IPortStorage;
 import io.ticticboom.mods.mm.structure.StructureModel;
 import io.ticticboom.mods.mm.util.ParserUtils;
 import net.minecraft.core.BlockPos;
@@ -11,7 +10,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.Optional;
 import java.util.function.Predicate;
 
 public class StructureLayoutPiece {
@@ -56,7 +54,7 @@ public class StructureLayoutPiece {
                     return false;
                 }
                 if (be instanceof IPortBlockEntity pbe) {
-                    return pbe.getPortModel().type().equals(portTypeId);
+                    return pbe.getModel().type().equals(portTypeId);
                 }
                 return false;
             });
@@ -79,7 +77,7 @@ public class StructureLayoutPiece {
                     return false;
                 }
                 if (be instanceof IPortBlockEntity pbe) {
-                    var isPort = pbe.getPortModel().id().equals(portId.getPath());
+                    var isPort = pbe.getModel().id().equals(portId.getPath());
                     if (!isPort) {
                         return false;
                     }

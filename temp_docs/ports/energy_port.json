@@ -1,0 +1,11 @@
+{
+  "id": "energy_port",
+  "controllerIds": "mm:controller_a",
+  "name": "My energy Port",
+  "type": "mm:energy",
+  "config": {
+    "capacity": 1000000,
+    "maxReceive": 1000,
+    "maxExtract": 1000
+  }
+}

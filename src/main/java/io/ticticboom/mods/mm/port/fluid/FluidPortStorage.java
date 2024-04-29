@@ -1,5 +1,6 @@
 package io.ticticboom.mods.mm.port.fluid;
 
+import io.ticticboom.mods.mm.cap.MMCapabilities;
 import io.ticticboom.mods.mm.port.IPortStorage;
 import io.ticticboom.mods.mm.port.IPortStorageModel;
 import io.ticticboom.mods.mm.port.common.INotifyChangeFunction;
@@ -38,7 +39,7 @@ public class FluidPortStorage implements IPortStorage {
 
     @Override
     public <T> boolean hasCapability(Capability<T> capability) {
-        return ForgeCapabilities.FLUID_HANDLER == capability;
+        return MMCapabilities.FLUID == capability;
     }
 
     @Override

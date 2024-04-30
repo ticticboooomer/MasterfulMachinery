@@ -5,6 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import net.minecraft.nbt.CompoundTag;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -34,4 +37,5 @@ public class RecipeStateModel {
         model.setCanFinish(tag.getBoolean("canFinish"));
         return model;
     }
+
 }

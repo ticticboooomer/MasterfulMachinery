@@ -9,6 +9,14 @@ public class ConsumeRecipeIngredientEntryParser implements IRecipeIngredientEntr
     @Override
     public IRecipeIngredientEntry parse(JsonObject json) {
         var ingredient = MMPortRegistry.parseIngredient(json.getAsJsonObject("ingredient"));
-        return new ConsumeRecipeIngredientEntry(ingredient);
+        double chance = 1.f;
+        if (json.has("chance")) {
+            chance = json.get("chance").getAsDouble();
+        }
+        boolean perTick = false;
+        if (json.has("per_tick")) {
+            perTick = json.get("per_tick").getAsBoolean();
+        }
+        return new ConsumeRecipeIngredientEntry(ingredient, chance, perTick);
     }
 }

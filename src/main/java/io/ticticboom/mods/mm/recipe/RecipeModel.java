@@ -21,8 +21,8 @@ public record RecipeModel(
     }
 
     public boolean canProcess(Level level, RecipeStateModel model, RecipeStorages storages) {
-        var canInput = inputs.canProcess(level, storages);
-        var canOutput = outputs.canProcess(level, storages);
+        var canInput = inputs.canProcess(level, storages, model);
+        var canOutput = outputs.canProcess(level, storages, model);
 
         boolean canProcessResult = canInput && canOutput;
         if (!canProcessResult) {
@@ -33,8 +33,8 @@ public record RecipeModel(
     }
 
     public void runTick(Level level, RecipeStateModel model, RecipeStorages storages) {
-        inputs.processTick(level, storages);
-        outputs.processTick(level, storages);
+        inputs.processTick(level, storages, model);
+        outputs.processTick(level, storages, model);
 
         model.proceedTick();
         model.setTickPercentage(((double) model.getTickProgress() / ticks) * 100);
@@ -44,8 +44,8 @@ public record RecipeModel(
     }
 
     public void process(Level level, RecipeStateModel model, RecipeStorages storages) {
-        inputs.process(level, storages);
-        outputs.process(level, storages);
+        inputs.process(level, storages, model);
+        outputs.process(level, storages, model);
 
         model.setTickProgress(0);
         model.setCanFinish(false);

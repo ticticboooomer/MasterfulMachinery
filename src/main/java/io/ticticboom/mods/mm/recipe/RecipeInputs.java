@@ -21,24 +21,24 @@ public record RecipeInputs(
         return new RecipeInputs(inputs);
     }
 
-    public boolean canProcess(Level level, RecipeStorages storages) {
+    public boolean canProcess(Level level, RecipeStorages storages, RecipeStateModel model) {
         for (IRecipeIngredientEntry input : inputs) {
-            if (!input.canProcess(level, storages)) {
+            if (!input.canProcess(level, storages, model)) {
                 return false;
             }
         }
         return true;
     }
 
-    public void processTick(Level level, RecipeStorages storages) {
+    public void processTick(Level level, RecipeStorages storages, RecipeStateModel model) {
         for (IRecipeIngredientEntry input : inputs) {
-            input.processTick(level, storages);
+            input.processTick(level, storages, model);
         }
     }
 
-    public void process(Level level, RecipeStorages storages) {
+    public void process(Level level, RecipeStorages storages, RecipeStateModel model) {
         for (IRecipeIngredientEntry input : inputs) {
-            input.process(level, storages);
+            input.process(level, storages, model);
         }
     }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "My Funki Recipe",
+  "name": "Pointless Thingy",
   "controllerIds": "mm:controller_a",
   "layout": [
     [
@@ -18,10 +18,10 @@
       "block": "minecraft:glass"
     },
     "P": {
-      "block": "mm:my_port_a_input"
+      "block": "mm:energy_port_input"
     },
     "D": {
-      "block": "mm:my_port_a_output"
+      "block": "mm:energy_port_output"
     }
   }
 }

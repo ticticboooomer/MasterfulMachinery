@@ -47,6 +47,8 @@ public class Ref {
 
         public static final ResourceLocation INPUT_ENERGY_PORT_OVERLAY = id("block/base_ports/energy_input_cutout");
         public static final ResourceLocation OUTPUT_ENERGY_PORT_OVERLAY = id("block/base_ports/energy_output_cutout");
+
+        public static final ResourceLocation ITEM_PORT_FLAG=  id("item/item_port_flag");
     }
 
 }

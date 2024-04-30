@@ -1,13 +1,12 @@
 {
-  "ticks": 40,
-  "structureId": "mm:test_structure",
+  "ticks": 60,
+  "structureId": "mm:energy_structure",
   "inputs": [
     {
       "type": "mm:input/consume",
       "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:nether_star",
-        "count": 1
+        "type": "mm:energy",
+        "amount": 1000
       }
     }
   ],
@@ -15,8 +14,7 @@
     {
       "type": "mm:output/simple",
       "ingredient": {
-        "type": "mm:fluid",
-        "fluid": "minecraft:lava",
+        "type": "mm:energy",
         "amount": 1000
       }
     }

@@ -53,4 +53,16 @@ public class EnergyPortStorage implements IPortStorage {
     public IPortStorageModel getStorageModel() {
         return model;
     }
+
+    public int extract(int amount, boolean simulate) {
+        return handler.extractEnergy(amount, simulate);
+    }
+
+    public int insert(int amount, boolean simulate) {
+        return handler.receiveEnergy(amount, simulate);
+    }
+
+    public int getStoredEnergy()  {
+        return handler.getEnergyStored();
+    }
 }

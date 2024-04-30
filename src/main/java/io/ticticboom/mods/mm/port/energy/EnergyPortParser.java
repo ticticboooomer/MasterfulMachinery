@@ -13,6 +13,7 @@ public class EnergyPortParser implements IPortParser {
 
     @Override
     public IPortIngredient parseRecipeIngredient(JsonObject json) {
-        return null;
+        var amount = json.get("amount").getAsInt();
+        return new EnergyPortIngredient(amount);
     }
 }

@@ -2,15 +2,10 @@ package io.ticticboom.mods.mm.port.item.register;
 
 import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.IPortItem;
-import io.ticticboom.mods.mm.port.IPortPart;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
-
-import java.util.Optional;
 
 public class ItemPortBlockItem extends BlockItem implements IPortItem {
     private final PortModel model;

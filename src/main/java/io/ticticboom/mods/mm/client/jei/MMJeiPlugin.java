@@ -6,15 +6,14 @@ import io.ticticboom.mods.mm.client.jei.category.MMRecipeCategory;
 import io.ticticboom.mods.mm.client.jei.ingredient.MMJeiIngredients;
 import io.ticticboom.mods.mm.client.jei.ingredient.energy.EnergyIngredientHelper;
 import io.ticticboom.mods.mm.client.jei.ingredient.energy.EnergyIngredientRenderer;
+import io.ticticboom.mods.mm.client.jei.ingredient.energy.EnergyStack;
 import io.ticticboom.mods.mm.recipe.MachineRecipeManager;
-import io.ticticboom.mods.mm.recipe.RecipeModel;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IModIngredientRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.RecipeManager;
 
 import java.util.ArrayList;
 
@@ -39,6 +38,6 @@ public class MMJeiPlugin implements IModPlugin {
 
     @Override
     public void registerIngredients(IModIngredientRegistration registration) {
-        registration.register(MMJeiIngredients.ENERGY, ImmutableList.of(), new EnergyIngredientHelper(), new EnergyIngredientRenderer());
+        registration.register(MMJeiIngredients.ENERGY, ImmutableList.of(new EnergyStack(1)), new EnergyIngredientHelper(), new EnergyIngredientRenderer());
     }
 }

@@ -1,5 +1,7 @@
 package io.ticticboom.mods.mm.client.jei;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,5 +37,9 @@ public class SlotGrid {
             }
         }
         return new SlotGridEntry(1000, 1000);
+    }
+
+    public List<SlotGridEntry> getSlots() {
+        return slots.stream().filter(SlotGridEntry::used).toList();
     }
 }

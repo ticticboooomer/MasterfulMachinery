@@ -5,6 +5,8 @@ import com.google.gson.JsonParser;
 import lombok.SneakyThrows;
 import net.minecraftforge.fml.loading.FMLPaths;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
@@ -31,8 +33,7 @@ public abstract class AbstractConfigLoader<TModel> {
         if (!Files.exists(root)) {
             Files.createDirectories(root);
         }
-
-        return Files.walk(root, FileVisitOption.FOLLOW_LINKS).filter(x -> x.toFile().getName().endsWith(".json")).map(x -> {
+        return Files.walk(root, FileVisitOption.FOLLOW_LINKS).filter(x -> x.toString().endsWith(".json")).map(x -> {
             try {
                 var file = Files.readString(x);
                 return JsonParser.parseString(file).getAsJsonObject();

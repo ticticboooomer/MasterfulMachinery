@@ -11,6 +11,14 @@ public class SlotGridEntry {
         this.y = y;
     }
 
+    public int getInnerX() {
+        return x + 1;
+    }
+
+    public int getInnerY() {
+        return y + 1;
+    }
+
     public void setUsed() {
         used = true;
     }

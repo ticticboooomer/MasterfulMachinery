@@ -55,15 +55,15 @@ public class SimpleRecipeOutputEntry implements IRecipeOutputEntry {
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeModel model, IFocusGroup focus, IJeiHelpers helpers, SlotGrid grid) {
         SlotGridEntry slot = grid.next();
         slot.setUsed();
-        var rSlot = builder.addSlot(RecipeIngredientRole.OUTPUT, slot.x, slot.y);
+        var rSlot = builder.addSlot(RecipeIngredientRole.OUTPUT, slot.getInnerX(), slot.getInnerY());
         ingredient.setRecipe(builder, model, focus, helpers, grid, rSlot);
         var fmtChance = String.format("%.2f", chance * 100) + "% Chance of Output";
         rSlot.addTooltipCallback((v, list) -> {
             if (chance < 1) {
-                list.add(Component.literal(fmtChance).withStyle(ChatFormatting.ITALIC));
+                list.add(Component.literal(fmtChance).withStyle(ChatFormatting.DARK_AQUA));
             }
             if (perTick) {
-                list.add(Component.literal("Output Per Tick").withStyle(ChatFormatting.ITALIC));
+                list.add(Component.literal("Output Per Tick").withStyle(ChatFormatting.DARK_AQUA));
             }
         });
     }

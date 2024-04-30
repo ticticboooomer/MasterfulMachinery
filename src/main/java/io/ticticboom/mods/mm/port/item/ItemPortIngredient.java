@@ -1,8 +1,15 @@
 package io.ticticboom.mods.mm.port.item;
 
+import io.ticticboom.mods.mm.client.jei.SlotGrid;
+import io.ticticboom.mods.mm.client.jei.ingredient.MMJeiIngredients;
 import io.ticticboom.mods.mm.port.IPortIngredient;
 import io.ticticboom.mods.mm.port.IPortStorage;
+import io.ticticboom.mods.mm.recipe.RecipeModel;
 import io.ticticboom.mods.mm.recipe.RecipeStorages;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
+import mezz.jei.api.helpers.IJeiHelpers;
+import mezz.jei.api.recipe.IFocusGroup;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -65,5 +72,10 @@ public class ItemPortIngredient implements IPortIngredient {
         for (ItemPortStorage itemStorage : itemStorages) {
             remainingToInsert = itemStorage.insert(item, remainingToInsert);
         }
+    }
+
+    @Override
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeModel model, IFocusGroup focus, IJeiHelpers helpers, SlotGrid grid, IRecipeSlotBuilder recipeSlot) {
+        recipeSlot.addIngredient(MMJeiIngredients.ITEM, this.stack);
     }
 }

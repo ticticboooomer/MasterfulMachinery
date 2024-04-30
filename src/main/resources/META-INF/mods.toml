@@ -60,3 +60,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magn
     versionRange="[1.20,1.20.2)"
     ordering="NONE"
     side="BOTH"
+[[dependencies.mm]]
+    modId="jei"
+    mandatory=true
+    versionRange="[15,16)"
+    ordering="NONE"

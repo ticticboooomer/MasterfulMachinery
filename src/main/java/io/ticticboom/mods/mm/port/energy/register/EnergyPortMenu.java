@@ -25,6 +25,7 @@ public class EnergyPortMenu extends MMContainerMenu implements IPortMenu {
         this.isInput = isInput;
         this.inv = inv;
         this.be = be;
+        be.getStorage().setupContainer(this, inv, model);
     }
 
     public EnergyPortMenu(PortModel model, RegistryGroupHolder groupHolder, boolean isInput, int windowId, Inventory inv, FriendlyByteBuf buf) {

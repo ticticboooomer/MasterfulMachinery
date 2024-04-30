@@ -2,7 +2,6 @@ package io.ticticboom.mods.mm.port.fluid.register;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.ticticboom.mods.mm.client.FluidRenderer;
-import io.ticticboom.mods.mm.client.gui.FluidSlot;
 import io.ticticboom.mods.mm.port.IPortBlockEntity;
 import io.ticticboom.mods.mm.port.common.SlottedContainerScreen;
 import io.ticticboom.mods.mm.port.fluid.FluidPortStorage;

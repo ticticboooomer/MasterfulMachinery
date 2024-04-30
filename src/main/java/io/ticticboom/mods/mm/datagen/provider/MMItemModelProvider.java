@@ -1,6 +1,7 @@
 package io.ticticboom.mods.mm.datagen.provider;
 
 import io.ticticboom.mods.mm.Ref;
+import io.ticticboom.mods.mm.block.IExtraBlockPart;
 import io.ticticboom.mods.mm.controller.IControllerPart;
 import io.ticticboom.mods.mm.port.IPortBlockEntity;
 import io.ticticboom.mods.mm.port.IPortPart;
@@ -33,6 +34,10 @@ public class MMItemModelProvider extends ItemModelProvider {
             }
             if (entry.get() instanceof IPortPart portPart) {
                 String id = portPart.getModel().id();
+                this.getBuilder(Ref.id(id).toString()).parent(new ModelFile.UncheckedModelFile(Ref.id("block/" + id)));
+            }
+            if (entry.get() instanceof IExtraBlockPart ebp) {
+                String id = ebp.getModel().id();
                 this.getBuilder(Ref.id(id).toString()).parent(new ModelFile.UncheckedModelFile(Ref.id("block/" + id)));
             }
         }

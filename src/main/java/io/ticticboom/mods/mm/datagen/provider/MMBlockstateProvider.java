@@ -1,6 +1,7 @@
 package io.ticticboom.mods.mm.datagen.provider;
 
 import io.ticticboom.mods.mm.Ref;
+import io.ticticboom.mods.mm.block.IExtraBlock;
 import io.ticticboom.mods.mm.controller.IControllerBlock;
 import io.ticticboom.mods.mm.port.IPortBlock;
 import io.ticticboom.mods.mm.setup.MMRegisters;
@@ -34,6 +35,9 @@ public class MMBlockstateProvider extends BlockStateProvider {
             }
             if (block instanceof IPortBlock portBlock) {
                 portBlock.generateModel(this);
+            }
+            if (block instanceof IExtraBlock eb) {
+                eb.generateModel(this);
             }
         }
     }
@@ -73,8 +77,8 @@ public class MMBlockstateProvider extends BlockStateProvider {
                 .end();
     }
 
-    public void dynamicBlock(ResourceLocation loc, ResourceLocation baseTexture, ResourceLocation overlayTexture) {
-        models().getBuilder(loc.toString()).parent(new ModelFile.UncheckedModelFile(mcLoc("block/block")))
+    public BlockModelBuilder dynamicBlock(ResourceLocation loc, ResourceLocation baseTexture, ResourceLocation overlayTexture) {
+        return models().getBuilder(loc.toString()).parent(new ModelFile.UncheckedModelFile(mcLoc("block/block")))
                 .texture("particle", overlayTexture)
                 .transforms()
                 .transform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND)

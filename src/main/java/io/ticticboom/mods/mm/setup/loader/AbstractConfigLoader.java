@@ -17,12 +17,12 @@ public abstract class AbstractConfigLoader<TModel> {
 
     protected abstract List<TModel> parseModels(List<JsonObject> jsons);
 
-    protected abstract void registerControllers(List<TModel> models);
+    protected abstract void registerModels(List<TModel> models);
 
     public void load() {
         var jsons = getJsons();
         var models = parseModels(jsons);
-        registerControllers(models);
+        registerModels(models);
     }
 
     @SneakyThrows

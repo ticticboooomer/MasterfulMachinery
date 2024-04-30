@@ -4,15 +4,18 @@
   "inputs": [
     {
       "type": "mm:input/consume",
+      "chance": 0.2,
+      "perTick": true,
       "ingredient": {
         "type": "mm:energy",
-        "amount": 1000
+        "amount": 100
       }
     }
   ],
   "outputs": [
     {
       "type": "mm:output/simple",
+      "chance": 0.2,
       "ingredient": {
         "type": "mm:energy",
         "amount": 1000

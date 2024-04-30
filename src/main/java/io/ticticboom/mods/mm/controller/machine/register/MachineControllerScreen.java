@@ -46,7 +46,7 @@ public class MachineControllerScreen extends AbstractContainerScreen<MachineCont
         if (isProcessing) {
             gfx.drawWordWrap(this.font,
                     FormattedText
-                            .of("Progress: " + String.format("%,2f", be.getRecipeState().getTickPercentage()) + "%"),
+                            .of("Progress: " + String.format("%.2f", be.getRecipeState().getTickPercentage()) + "%"),
                     10, 110, 150, 0xacacac);
         }
     }

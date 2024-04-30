@@ -9,6 +9,14 @@ public class SimpleRecipeOutputEntryParser implements IRecipeOutputEntryParser {
     @Override
     public IRecipeOutputEntry parse(JsonObject json) {
         var ingredient = MMPortRegistry.parseIngredient(json.getAsJsonObject("ingredient"));
-        return new SimpleRecipeOutputEntry(ingredient);
+        double chance = 1.f;
+        if (json.has("chance")) {
+            chance = json.get("chance").getAsDouble();
+        }
+        boolean perTick = false;
+        if (json.has("per_tick")) {
+            perTick = json.get("per_tick").getAsBoolean();
+        }
+        return new SimpleRecipeOutputEntry(ingredient, chance, perTick);
     }
 }

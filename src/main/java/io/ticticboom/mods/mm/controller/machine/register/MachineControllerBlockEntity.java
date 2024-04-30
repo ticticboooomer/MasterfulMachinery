@@ -71,6 +71,7 @@ public class MachineControllerBlockEntity extends BlockEntity implements IContro
             }
 
             if (structureModel.formed(level, getBlockPos())) {
+                setChanged();
                 structure = structureModel;
                 runRecipe();
                 return;
@@ -107,6 +108,7 @@ public class MachineControllerBlockEntity extends BlockEntity implements IContro
         if (!canContinueRecipe()) {
             for (RecipeModel recipe : MachineRecipeManager.RECIPES.values()) {
                 if (recipe.canProcess(level, recipeState, portStorages)) {
+                    setChanged();
                     currentRecipe = recipe;
                     performRecipeTick();
                     return;
@@ -127,6 +129,7 @@ public class MachineControllerBlockEntity extends BlockEntity implements IContro
     }
 
     public void invalidateProgress() {
+        setChanged();
         structure = null;
         invalidateRecipe();
     }
@@ -155,7 +158,7 @@ public class MachineControllerBlockEntity extends BlockEntity implements IContro
     @Override
     protected void saveAdditional(CompoundTag tag) {
         if (recipeState != null) {
-            tag.put("recipeState", recipeState.save(tag));
+            tag.put("recipeState", recipeState.save(new CompoundTag()));
         }
         if (structure != null) {
             tag.putString("structureId", structure.id().toString());

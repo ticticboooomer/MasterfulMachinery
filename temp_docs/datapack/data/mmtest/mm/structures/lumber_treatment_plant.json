@@ -1,0 +1,38 @@
+{
+  "name": "My Funki Recipe",
+  "controllerIds": "mm:coke_oven",
+  "layout": [
+    [
+      "     ",
+      "  A  ",
+      "     "
+    ],
+    [
+      "     ",
+      "1PCD2",
+      "     "
+    ],
+    [
+      "     ",
+      "1P D2",
+      "     "
+    ]
+  ],
+  "key": {
+    "A": {
+      "block": "minecraft:glass"
+    },
+    "P": {
+      "block": "mm:coke_oven_item_input"
+    },
+    "D": {
+      "block": "mm:coke_oven_item_output"
+    },
+    "1": {
+      "block": "mm:coke_oven_fluid_3x3_input"
+    },
+    "2": {
+      "block": "mm:coke_oven_fluid_3x3_output"
+    }
+  }
+}

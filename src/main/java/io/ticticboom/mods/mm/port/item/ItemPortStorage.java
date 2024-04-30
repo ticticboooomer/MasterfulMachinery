@@ -1,5 +1,6 @@
 package io.ticticboom.mods.mm.port.item;
 
+import io.ticticboom.mods.mm.cap.MMCapabilities;
 import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.IPortStorage;
 import io.ticticboom.mods.mm.port.IPortStorageModel;
@@ -39,7 +40,7 @@ public class ItemPortStorage implements IPortStorage {
 
     @Override
     public <T> boolean hasCapability(Capability<T> capability) {
-        return capability == ForgeCapabilities.ITEM_HANDLER;
+        return capability == MMCapabilities.ITEM;
     }
 
     @Override

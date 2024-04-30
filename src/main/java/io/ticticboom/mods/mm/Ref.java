@@ -19,6 +19,7 @@ public class Ref {
     public static class Ports {
         public static final ResourceLocation ITEM = id("item");
         public static final ResourceLocation FLUID = id("fluid");
+        public static final ResourceLocation ENERGY = id("energy");
     }
 
     public static class Controller {
@@ -40,8 +41,14 @@ public class Ref {
 
         public static final ResourceLocation INPUT_ITEM_PORT_OVERLAY = id("block/base_ports/item_input_cutout");
         public static final ResourceLocation OUTPUT_ITEM_PORT_OVERLAY = id("block/base_ports/item_output_cutout");
+
         public static final ResourceLocation INPUT_FLUID_PORT_OVERLAY = id("block/base_ports/fluid_input_cutout");
         public static final ResourceLocation OUTPUT_FLUID_PORT_OVERLAY = id("block/base_ports/fluid_output_cutout");
+
+        public static final ResourceLocation INPUT_ENERGY_PORT_OVERLAY = id("block/base_ports/energy_input_cutout");
+        public static final ResourceLocation OUTPUT_ENERGY_PORT_OVERLAY = id("block/base_ports/energy_output_cutout");
+
+        public static final ResourceLocation ITEM_PORT_FLAG=  id("item/item_port_flag");
     }
 
 }

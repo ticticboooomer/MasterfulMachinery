@@ -16,7 +16,7 @@
       "type": "mm:output/simple",
       "ingredient": {
         "type": "mm:fluid",
-        "fluid": "mekanism:hydrogen",
+        "fluid": "minecraft:lava",
         "amount": 1000
       }
     }

@@ -1,4 +1,4 @@
-package io.ticticboom.mods.mm.port.fluid;
+package io.ticticboom.mods.mm.port.energy;
 
 import io.ticticboom.mods.mm.cap.MMCapabilities;
 import io.ticticboom.mods.mm.port.IPortStorage;
@@ -7,26 +7,22 @@ import io.ticticboom.mods.mm.port.common.INotifyChangeFunction;
 import lombok.Getter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.energy.EnergyStorage;
+import net.minecraftforge.energy.IEnergyStorage;
 
-public class FluidPortStorage implements IPortStorage {
-    private final FluidPortStorageModel model;
+public class EnergyPortStorage implements IPortStorage {
 
+
+    private final EnergyPortStorageModel model;
     @Getter
-    private final FluidPortHandler handler;
-    private final LazyOptional<FluidPortHandler> handlerLazyOptional;
+    private final EnergyPortHandler handler;
+    private final LazyOptional<IEnergyStorage> handlerLazyOptional;
 
-    public FluidPortStorage(FluidPortStorageModel model, INotifyChangeFunction changed) {
+    public EnergyPortStorage(EnergyPortStorageModel model, INotifyChangeFunction changed) {
         this.model = model;
-        handler = new FluidPortHandler(model.rows() * model.columns(), model.slotCapacity(), changed);
+        handler = new EnergyPortHandler(model.capacity(), model.maxReceive(), model.maxExtract(), changed);
         handlerLazyOptional = LazyOptional.of(() -> handler);
-    }
-
-    public IFluidHandler getWrappedHandler() {
-        return new WrappedFluidPortHandler(handler);
     }
 
     @Override
@@ -39,20 +35,18 @@ public class FluidPortStorage implements IPortStorage {
 
     @Override
     public <T> boolean hasCapability(Capability<T> capability) {
-        return MMCapabilities.FLUID == capability;
+        return MMCapabilities.ENERGY == capability;
     }
 
     @Override
     public CompoundTag save(CompoundTag tag) {
-        var compoundTag = handler.serializeNBT();
-        tag.put("handler", compoundTag);
+        tag.put("handler", handler.serializeNBT());
         return tag;
     }
 
     @Override
     public void load(CompoundTag tag) {
-        var compoundTag = tag.get("handler");
-        handler.deserializeNBT(compoundTag);
+        handler.deserializeNBT(tag.get("handler"));
     }
 
     @Override
@@ -60,7 +54,15 @@ public class FluidPortStorage implements IPortStorage {
         return model;
     }
 
-    public FluidStack getStackInSlot(int slot) {
-        return handler.getFluidInTank(slot);
+    public int extract(int amount, boolean simulate) {
+        return handler.extractEnergy(amount, simulate);
+    }
+
+    public int insert(int amount, boolean simulate) {
+        return handler.receiveEnergy(amount, simulate);
+    }
+
+    public int getStoredEnergy()  {
+        return handler.getEnergyStored();
     }
 }

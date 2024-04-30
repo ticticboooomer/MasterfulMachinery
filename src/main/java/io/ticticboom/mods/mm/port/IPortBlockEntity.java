@@ -4,7 +4,7 @@ import io.ticticboom.mods.mm.model.PortModel;
 import net.minecraft.world.MenuProvider;
 
 public interface IPortBlockEntity extends MenuProvider {
-    PortModel getPortModel();
+    PortModel getModel();
 
     IPortStorage getStorage();
 

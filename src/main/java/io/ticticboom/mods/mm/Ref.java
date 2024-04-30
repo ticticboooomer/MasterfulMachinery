@@ -31,6 +31,12 @@ public class Ref {
         public static final ResourceLocation SIMPLE_OUTPUT = id("output/simple");
     }
 
+    public static class ExtraBlocks {
+        public static final ResourceLocation CIRCUIT = id("circuit");
+        public static final ResourceLocation GEARBOX = id("gearbox");
+        public static final ResourceLocation VENT = id("vent");
+    }
+
     public static class Textures {
         public static final ResourceLocation BASE_BLOCK = id("block/base_block");
         public static final ResourceLocation CONTROLLER_OVERLAY = id("block/controller_cutout");
@@ -48,7 +54,9 @@ public class Ref {
         public static final ResourceLocation INPUT_ENERGY_PORT_OVERLAY = id("block/base_ports/energy_input_cutout");
         public static final ResourceLocation OUTPUT_ENERGY_PORT_OVERLAY = id("block/base_ports/energy_output_cutout");
 
-        public static final ResourceLocation ITEM_PORT_FLAG=  id("item/item_port_flag");
+        public static final ResourceLocation CIRCUIT_OVERLAY = id("block/circuit_cutout");
+        public static final ResourceLocation GEARBOX_OVERLAY = id("block/gearbox_cutout");
+        public static final ResourceLocation VENT_OVERLAY = id("block/vent_cutout");
     }
 
 }

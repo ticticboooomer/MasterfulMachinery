@@ -13,7 +13,7 @@ public class ControllerLoader extends AbstractConfigLoader<ControllerModel> {
     }
 
     @Override
-    protected void registerControllers(List<ControllerModel> models) {
+    protected void registerModels(List<ControllerModel> models) {
         for (ControllerModel model : models) {
             ControllerType controllerType = MMControllerRegistry.get(model.type());
             controllerType.register(model);

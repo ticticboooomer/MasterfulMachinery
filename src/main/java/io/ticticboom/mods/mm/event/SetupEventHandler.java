@@ -5,6 +5,7 @@ import io.ticticboom.mods.mm.datagen.PackEventHandler;
 import io.ticticboom.mods.mm.port.MMPortRegistry;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.setup.loader.ControllerLoader;
+import io.ticticboom.mods.mm.setup.loader.ExtraBlockLoader;
 import io.ticticboom.mods.mm.setup.loader.PortLoader;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,6 +21,7 @@ public class SetupEventHandler {
         PackEventHandler.ensureConfigPath();
         ControllerLoader.loadAll();
         PortLoader.loadAll();
+        ExtraBlockLoader.loadAll();
     }
 
     @SubscribeEvent

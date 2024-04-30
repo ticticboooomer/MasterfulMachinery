@@ -1,5 +1,6 @@
 package io.ticticboom.mods.mm;
 
+import io.ticticboom.mods.mm.block.MMExtraBlockRegistry;
 import io.ticticboom.mods.mm.controller.MMControllerRegistry;
 import io.ticticboom.mods.mm.datagen.DataGenManager;
 import io.ticticboom.mods.mm.datagen.MMRepoType;
@@ -17,6 +18,7 @@ public class ModRoot {
     public ModRoot() {
         MMPortRegistry.init();
         MMControllerRegistry.init();
+        MMExtraBlockRegistry.init();
         MMRegisters.register();
         DataGenManager.registerDataProviders();
         registerClientPack();

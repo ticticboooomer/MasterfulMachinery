@@ -1,7 +1,7 @@
-package io.ticticboom.mods.mm.client.jei.ingredient.energy;
+package io.ticticboom.mods.mm.compat.jei.ingredient.energy;
 
 import io.ticticboom.mods.mm.Ref;
-import io.ticticboom.mods.mm.client.jei.ingredient.MMJeiIngredients;
+import io.ticticboom.mods.mm.compat.jei.ingredient.MMJeiIngredients;
 import mezz.jei.api.ingredients.IIngredientHelper;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.ingredients.subtypes.UidContext;

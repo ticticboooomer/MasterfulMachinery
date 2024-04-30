@@ -1,13 +1,10 @@
 package io.ticticboom.mods.mm.recipe;
 
 import com.google.gson.JsonObject;
-import io.ticticboom.mods.mm.client.jei.SlotGridEntry;
+import io.ticticboom.mods.mm.compat.jei.SlotGridEntry;
 import io.ticticboom.mods.mm.util.ParserUtils;
-import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec2;
-import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;

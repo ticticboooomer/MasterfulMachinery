@@ -1,7 +1,7 @@
 package io.ticticboom.mods.mm.recipe.output.simple;
 
-import io.ticticboom.mods.mm.client.jei.SlotGrid;
-import io.ticticboom.mods.mm.client.jei.SlotGridEntry;
+import io.ticticboom.mods.mm.compat.jei.SlotGrid;
+import io.ticticboom.mods.mm.compat.jei.SlotGridEntry;
 import io.ticticboom.mods.mm.port.IPortIngredient;
 import io.ticticboom.mods.mm.recipe.RecipeModel;
 import io.ticticboom.mods.mm.recipe.RecipeStateModel;

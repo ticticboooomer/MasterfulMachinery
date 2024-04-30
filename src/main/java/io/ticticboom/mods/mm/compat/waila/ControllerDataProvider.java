@@ -1,11 +1,10 @@
-package io.ticticboom.mods.mm.client.waila;
+package io.ticticboom.mods.mm.compat.waila;
 
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.controller.machine.register.MachineControllerBlockEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.IServerDataProvider;

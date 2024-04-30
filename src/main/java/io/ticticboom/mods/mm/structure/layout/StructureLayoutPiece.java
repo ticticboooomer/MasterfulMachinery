@@ -1,22 +1,31 @@
 package io.ticticboom.mods.mm.structure.layout;
 
 import com.google.gson.JsonObject;
+import io.ticticboom.mods.mm.client.structure.GuiStructureLayoutPiece;
 import io.ticticboom.mods.mm.port.IPortBlockEntity;
+import io.ticticboom.mods.mm.port.MMPortRegistry;
 import io.ticticboom.mods.mm.structure.StructureModel;
 import io.ticticboom.mods.mm.util.ParserUtils;
+import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.tags.ITag;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 public class StructureLayoutPiece {
     private Predicate<StructurePiecePredicateParams> predicate;
+    @Getter
+    private GuiStructureLayoutPiece guiPiece;
 
-    public StructureLayoutPiece(final Predicate<StructurePiecePredicateParams> predicate) {
+    public StructureLayoutPiece(final Predicate<StructurePiecePredicateParams> predicate, GuiStructureLayoutPiece guiPiece) {
         this.predicate = predicate;
+        this.guiPiece = guiPiece;
     }
 
     public boolean formed(Level level, BlockPos pos, StructureModel model) {
@@ -34,7 +43,7 @@ public class StructureLayoutPiece {
             return new StructureLayoutPiece(x -> {
                 var state = x.level().getBlockState(x.pos());
                 return state.is(requiredBlock);
-            });
+            }, new GuiStructureLayoutPiece(() -> List.of(requiredBlock)));
         }
         // if tag
         if (json.has("tag")) {
@@ -43,7 +52,10 @@ public class StructureLayoutPiece {
             return new StructureLayoutPiece(x -> {
                 var state = x.level().getBlockState(x.pos());
                 return state.is(requiredTag);
-            });
+            }, new GuiStructureLayoutPiece(() -> {
+                ITag<Block> tag = ForgeRegistries.BLOCKS.tags().getTag(requiredTag);
+                return tag.stream().toList();
+            }));
         }
         // if port type
         if (json.has("portType")) {
@@ -57,7 +69,8 @@ public class StructureLayoutPiece {
                     return pbe.getModel().type().equals(portTypeId);
                 }
                 return false;
-            });
+            }, new GuiStructureLayoutPiece(() -> MMPortRegistry.PORTS.stream().filter(x -> x.getRegistryId().equals(portTypeId))
+                        .map(x -> x.getBlock().get()).toList()));
         }
         // if specific port
         if (json.has("port")) {
@@ -87,7 +100,7 @@ public class StructureLayoutPiece {
                     return true;
                 }
                 return false;
-            });
+            }, new GuiStructureLayoutPiece(() -> MMPortRegistry.getPortBlocks(portId)));
         }
         throw new RuntimeException(String.format("Structure failed to parse [%s] no suitable structure key requirement found", structureId));
     }

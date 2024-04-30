@@ -1,6 +1,6 @@
-package io.ticticboom.mods.mm.client.jei.ingredient;
+package io.ticticboom.mods.mm.compat.jei.ingredient;
 
-import io.ticticboom.mods.mm.client.jei.ingredient.energy.EnergyIngredientType;
+import io.ticticboom.mods.mm.compat.jei.ingredient.energy.EnergyIngredientType;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.ingredients.IIngredientType;

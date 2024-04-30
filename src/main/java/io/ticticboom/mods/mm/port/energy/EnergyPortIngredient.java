@@ -1,8 +1,8 @@
 package io.ticticboom.mods.mm.port.energy;
 
-import io.ticticboom.mods.mm.client.jei.SlotGrid;
-import io.ticticboom.mods.mm.client.jei.ingredient.MMJeiIngredients;
-import io.ticticboom.mods.mm.client.jei.ingredient.energy.EnergyStack;
+import io.ticticboom.mods.mm.compat.jei.SlotGrid;
+import io.ticticboom.mods.mm.compat.jei.ingredient.MMJeiIngredients;
+import io.ticticboom.mods.mm.compat.jei.ingredient.energy.EnergyStack;
 import io.ticticboom.mods.mm.port.IPortIngredient;
 import io.ticticboom.mods.mm.recipe.RecipeModel;
 import io.ticticboom.mods.mm.recipe.RecipeStorages;

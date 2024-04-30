@@ -1,7 +1,7 @@
 package io.ticticboom.mods.mm.recipe.input.consume;
 
-import io.ticticboom.mods.mm.client.jei.SlotGrid;
-import io.ticticboom.mods.mm.client.jei.SlotGridEntry;
+import io.ticticboom.mods.mm.compat.jei.SlotGrid;
+import io.ticticboom.mods.mm.compat.jei.SlotGridEntry;
 import io.ticticboom.mods.mm.port.IPortIngredient;
 import io.ticticboom.mods.mm.recipe.RecipeModel;
 import io.ticticboom.mods.mm.recipe.RecipeStateModel;
@@ -15,10 +15,6 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
-
-import java.util.Optional;
-import java.util.Random;
-import java.util.UUID;
 
 public class ConsumeRecipeIngredientEntry implements IRecipeIngredientEntry {
 

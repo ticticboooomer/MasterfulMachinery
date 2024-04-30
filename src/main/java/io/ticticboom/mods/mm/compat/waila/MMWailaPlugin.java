@@ -1,4 +1,4 @@
-package io.ticticboom.mods.mm.client.waila;
+package io.ticticboom.mods.mm.compat.waila;
 
 import io.ticticboom.mods.mm.controller.machine.register.MachineControllerBlock;
 import io.ticticboom.mods.mm.controller.machine.register.MachineControllerBlockEntity;

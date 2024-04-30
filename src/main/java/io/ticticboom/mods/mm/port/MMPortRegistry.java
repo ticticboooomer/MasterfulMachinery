@@ -8,6 +8,7 @@ import io.ticticboom.mods.mm.port.item.ItemPortType;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.util.ParserUtils;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
 
 import java.util.*;
 
@@ -28,12 +29,26 @@ public class MMPortRegistry {
         PORT_TYPES.put(id, type);
     }
 
-    public static Collection<PortType> getPorts() {
+    public static Collection<PortType> getPortBlocks() {
         return PORT_TYPES.values();
     }
 
     public static IPortIngredient parseIngredient(JsonObject json) {
         var type = ParserUtils.parseId(json, "type");
         return PORT_TYPES.get(type).getParser().parseRecipeIngredient(json);
+    }
+
+    public static List<Block> getPortBlocks(ResourceLocation id) {
+        for (RegistryGroupHolder port : PORTS) {
+            if (port.getBlock().get() instanceof IPortBlock bp) {
+                bp.getModel().id().equals(id);
+            }
+        }
+        return PORTS.stream().filter(x -> {
+            if (x.getBlock().get() instanceof IPortBlock bp) {
+                return bp.getModel().id().equals(id);
+            }
+            return false;
+        }).map(x -> x.getBlock().get()).toList();
     }
 }

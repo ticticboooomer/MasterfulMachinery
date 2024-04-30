@@ -1,9 +1,8 @@
 package io.ticticboom.mods.mm.port.item;
 
-import io.ticticboom.mods.mm.client.jei.SlotGrid;
-import io.ticticboom.mods.mm.client.jei.ingredient.MMJeiIngredients;
+import io.ticticboom.mods.mm.compat.jei.SlotGrid;
+import io.ticticboom.mods.mm.compat.jei.ingredient.MMJeiIngredients;
 import io.ticticboom.mods.mm.port.IPortIngredient;
-import io.ticticboom.mods.mm.port.IPortStorage;
 import io.ticticboom.mods.mm.recipe.RecipeModel;
 import io.ticticboom.mods.mm.recipe.RecipeStorages;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;

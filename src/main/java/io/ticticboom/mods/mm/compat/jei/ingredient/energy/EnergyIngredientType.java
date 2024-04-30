@@ -1,4 +1,4 @@
-package io.ticticboom.mods.mm.client.jei.ingredient.energy;
+package io.ticticboom.mods.mm.compat.jei.ingredient.energy;
 
 import mezz.jei.api.ingredients.IIngredientType;
 

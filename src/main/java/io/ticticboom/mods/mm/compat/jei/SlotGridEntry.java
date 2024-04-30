@@ -1,4 +1,4 @@
-package io.ticticboom.mods.mm.client.jei;
+package io.ticticboom.mods.mm.compat.jei;
 
 public class SlotGridEntry {
     public final int x;

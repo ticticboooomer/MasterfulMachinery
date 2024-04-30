@@ -1,6 +1,4 @@
-package io.ticticboom.mods.mm.client.jei;
-
-import lombok.Getter;
+package io.ticticboom.mods.mm.compat.jei;
 
 import java.util.ArrayList;
 import java.util.List;

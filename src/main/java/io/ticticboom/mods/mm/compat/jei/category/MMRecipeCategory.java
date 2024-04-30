@@ -1,8 +1,8 @@
-package io.ticticboom.mods.mm.client.jei.category;
+package io.ticticboom.mods.mm.compat.jei.category;
 
 import io.ticticboom.mods.mm.Ref;
-import io.ticticboom.mods.mm.client.jei.SlotGrid;
-import io.ticticboom.mods.mm.client.jei.SlotGridEntry;
+import io.ticticboom.mods.mm.compat.jei.SlotGrid;
+import io.ticticboom.mods.mm.compat.jei.SlotGridEntry;
 import io.ticticboom.mods.mm.recipe.RecipeModel;
 import io.ticticboom.mods.mm.recipe.input.IRecipeIngredientEntry;
 import io.ticticboom.mods.mm.recipe.output.IRecipeOutputEntry;
@@ -11,18 +11,14 @@ import io.ticticboom.mods.mm.util.WidgetUtils;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
-import mezz.jei.api.gui.ingredient.IRecipeSlotView;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-
-import java.util.List;
 
 public class MMRecipeCategory implements IRecipeCategory<RecipeModel> {
 

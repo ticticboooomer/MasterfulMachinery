@@ -1,8 +1,6 @@
-package io.ticticboom.mods.mm.client.jei.ingredient.energy;
+package io.ticticboom.mods.mm.compat.jei.ingredient.energy;
 
-import cpw.mods.util.Lazy;
 import io.ticticboom.mods.mm.Ref;
-import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;

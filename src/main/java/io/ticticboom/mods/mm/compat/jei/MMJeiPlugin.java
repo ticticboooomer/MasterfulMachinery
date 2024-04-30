@@ -1,13 +1,15 @@
-package io.ticticboom.mods.mm.client.jei;
+package io.ticticboom.mods.mm.compat.jei;
 
 import com.google.common.collect.ImmutableList;
 import io.ticticboom.mods.mm.Ref;
-import io.ticticboom.mods.mm.client.jei.category.MMRecipeCategory;
-import io.ticticboom.mods.mm.client.jei.ingredient.MMJeiIngredients;
-import io.ticticboom.mods.mm.client.jei.ingredient.energy.EnergyIngredientHelper;
-import io.ticticboom.mods.mm.client.jei.ingredient.energy.EnergyIngredientRenderer;
-import io.ticticboom.mods.mm.client.jei.ingredient.energy.EnergyStack;
+import io.ticticboom.mods.mm.compat.jei.category.MMRecipeCategory;
+import io.ticticboom.mods.mm.compat.jei.category.MMStructureCategory;
+import io.ticticboom.mods.mm.compat.jei.ingredient.MMJeiIngredients;
+import io.ticticboom.mods.mm.compat.jei.ingredient.energy.EnergyIngredientHelper;
+import io.ticticboom.mods.mm.compat.jei.ingredient.energy.EnergyIngredientRenderer;
+import io.ticticboom.mods.mm.compat.jei.ingredient.energy.EnergyStack;
 import io.ticticboom.mods.mm.recipe.MachineRecipeManager;
+import io.ticticboom.mods.mm.structure.StructureManager;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IModIngredientRegistration;
@@ -29,11 +31,13 @@ public class MMJeiPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new MMRecipeCategory(registration.getJeiHelpers()));
+        registration.addRecipeCategories(new MMStructureCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         registration.addRecipes(MMRecipeCategory.RECIPE_TYPE, new ArrayList<>(MachineRecipeManager.RECIPES.values()));
+        registration.addRecipes(MMStructureCategory.RECIPE_TYPE, new ArrayList<>(StructureManager.STRUCTURES.values()));
     }
 
     @Override

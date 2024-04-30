@@ -1,7 +1,7 @@
 package io.ticticboom.mods.mm.port.fluid;
 
-import io.ticticboom.mods.mm.client.jei.SlotGrid;
-import io.ticticboom.mods.mm.client.jei.ingredient.MMJeiIngredients;
+import io.ticticboom.mods.mm.compat.jei.SlotGrid;
+import io.ticticboom.mods.mm.compat.jei.ingredient.MMJeiIngredients;
 import io.ticticboom.mods.mm.port.IPortIngredient;
 import io.ticticboom.mods.mm.recipe.RecipeModel;
 import io.ticticboom.mods.mm.recipe.RecipeStorages;
@@ -12,7 +12,6 @@ import mezz.jei.api.recipe.IFocusGroup;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.registries.ForgeRegistries;

@@ -2,6 +2,10 @@ package io.ticticboom.mods.mm.compat.jei.category;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import io.ticticboom.mods.mm.Ref;
+import io.ticticboom.mods.mm.client.structure.GuiCountedItemStack;
+import io.ticticboom.mods.mm.client.structure.GuiStructureRenderer;
+import io.ticticboom.mods.mm.compat.jei.SlotGrid;
+import io.ticticboom.mods.mm.compat.jei.SlotGridEntry;
 import io.ticticboom.mods.mm.controller.MMControllerRegistry;
 import io.ticticboom.mods.mm.setup.MMRegisters;
 import io.ticticboom.mods.mm.structure.StructureModel;
@@ -21,6 +25,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
+
+import java.util.List;
 
 public class MMStructureCategory implements IRecipeCategory<StructureModel> {
 
@@ -46,7 +52,7 @@ public class MMStructureCategory implements IRecipeCategory<StructureModel> {
 
     @Override
     public IDrawable getBackground() {
-        return helper.createDrawable(Ref.Textures.GUI_LARGE_JEI, 0, 0, 162, 150);
+        return helper.createDrawable(Ref.Textures.GUI_LARGE_JEI, 0, 0, 162, 170);
     }
 
     @Override
@@ -63,19 +69,36 @@ public class MMStructureCategory implements IRecipeCategory<StructureModel> {
                 catalysts.addItemStack(controller.getDefaultInstance());
             }
         }
-        // TODO: change to visible later
-        var inputs = builder.addInvisibleIngredients(RecipeIngredientRole.INPUT);
-        inputs.addItemStacks(recipe.getRelatedBlocksAsItemStacks());
-        recipe.getGuiRenderer().resetTransforms();
+        GuiStructureRenderer guiRenderer = recipe.getGuiRenderer();
+        guiRenderer.resetTransforms();
+        guiRenderer.init();
+        var countedItemStacks = recipe.getCountedItemStacks();
+        var grid = new SlotGrid(20, 20, 160, 40, 1, 130);
+        recipe.setGrid(grid);
+        for (GuiCountedItemStack countedItemStack : countedItemStacks) {
+            SlotGridEntry next = grid.next();
+            next.setUsed();
+            var slot = builder.addSlot(RecipeIngredientRole.INPUT, next.x, next.y);
+            slot.addItemStacks(countedItemStack.getStacks());
+            slot.addTooltipCallback((a, b) -> {
+                b.add(b.size() - 2, countedItemStack.getDetail());
+            });
+        }
     }
 
     @Override
     public void draw(StructureModel recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         Vector4f zero = new Vector4f(0, 0, 0, 1);
         zero.mul(guiGraphics.pose().last().pose());
-        GLScissor.enable((int)zero.x(), (int)zero.y(), 160, 120);
+        GLScissor.enable((int) zero.x(), (int) zero.y(), 160, 120);
         var renderer = recipe.getGuiRenderer();
         renderer.render(guiGraphics, (int) mouseX, (int) mouseY);
         GLScissor.disable();
+        for (SlotGridEntry slot : recipe.getGrid().getSlots()) {
+            if (!slot.used()) {
+                continue;
+            }
+            guiGraphics.blit(Ref.Textures.SLOT_PARTS, slot.x -1, slot.y - 1, 0, 26, 18, 18);
+        }
     }
 }

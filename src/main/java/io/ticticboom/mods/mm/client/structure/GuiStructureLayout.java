@@ -2,6 +2,7 @@ package io.ticticboom.mods.mm.client.structure;
 
 import io.ticticboom.mods.mm.structure.layout.PositionedLayoutPiece;
 import io.ticticboom.mods.mm.structure.layout.StructureLayout;
+import lombok.Getter;
 import net.minecraft.core.BlockPos;
 
 import java.util.ArrayList;
@@ -10,6 +11,9 @@ import java.util.List;
 public class GuiStructureLayout {
     private final StructureLayout layout;
     private final BlockPos controllerPos;
+
+    @Getter
+    private List<GuiCountedItemStack> countedKeys = new ArrayList<>();
 
     public GuiStructureLayout(StructureLayout layout) {
 

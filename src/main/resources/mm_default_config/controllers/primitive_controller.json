@@ -1,7 +1,0 @@
-{
-  "type": "mm:fixed",
-  "id": "crusher",
-  "name": {
-    "translation": "block.mm.crusher_controller"
-  }
-}

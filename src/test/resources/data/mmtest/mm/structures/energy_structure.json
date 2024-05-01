@@ -24,7 +24,7 @@
       "block": "mm:energy_port_output"
     },
     "L": {
-      "block": "minecraft:oak_log"
+      "tag": "forge:ores"
     }
   }
 }

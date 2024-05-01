@@ -2,13 +2,18 @@ package io.ticticboom.mods.mm.structure;
 
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.client.structure.GuiBlockRenderer;
+import io.ticticboom.mods.mm.client.structure.GuiCountedItemStack;
 import io.ticticboom.mods.mm.client.structure.GuiStructureRenderer;
 import io.ticticboom.mods.mm.client.structure.PositionedCyclingBlockRenderer;
+import io.ticticboom.mods.mm.compat.jei.SlotGrid;
 import io.ticticboom.mods.mm.controller.MMControllerRegistry;
 import io.ticticboom.mods.mm.model.IdList;
 import io.ticticboom.mods.mm.recipe.RecipeStorages;
 import io.ticticboom.mods.mm.structure.layout.PositionedLayoutPiece;
+import io.ticticboom.mods.mm.structure.layout.StructureCharacterGrid;
 import io.ticticboom.mods.mm.structure.layout.StructureLayout;
+import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -20,7 +25,9 @@ import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.util.thread.EffectiveSide;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StructureModel {
 
@@ -32,22 +39,29 @@ public class StructureModel {
     @OnlyIn(Dist.CLIENT)
     private GuiStructureRenderer renderer;
 
+    @OnlyIn(Dist.CLIENT)
+    private List<GuiCountedItemStack> countedPartItems;
+
+    @Getter
+    @Setter
+    @OnlyIn(Dist.CLIENT)
+    private SlotGrid grid;
+
     public StructureModel(
             ResourceLocation id,
             String name,
             IdList controllerIds,
             StructureLayout layout
     ) {
-
         this.id = id;
         this.name = name;
         this.controllerIds = controllerIds;
         this.layout = layout;
         if (EffectiveSide.get() == LogicalSide.CLIENT) {
             renderer = new GuiStructureRenderer(this);
+            countedPartItems = getCountedItemStacks();
         }
     }
-
 
     @OnlyIn(Dist.CLIENT)
     public PositionedCyclingBlockRenderer controllerUiRenderer() {
@@ -102,11 +116,25 @@ public class StructureModel {
     public List<ItemStack> getRelatedBlocksAsItemStacks() {
         var result = new ArrayList<ItemStack>();
         for (PositionedLayoutPiece positionedPiece : layout.getPositionedPieces()) {
-            List<Block> blocks = positionedPiece.piece().getGuiPiece().getBlocks();
-            for (Block block : blocks) {
-                result.add(block.asItem().getDefaultInstance());
-            }
+            var items = positionedPiece.piece().getGuiPiece().getBlocks().stream().map(x -> x.asItem().getDefaultInstance()).toList();
+            result.addAll(items);
         }
         return result;
+    }
+
+    public List<GuiCountedItemStack> getCountedItemStacks() {
+        var result = new HashMap<String, GuiCountedItemStack>();
+        for (PositionedLayoutPiece positionedPiece : layout.getPositionedPieces()) {
+            var guiPiece = positionedPiece.piece().getGuiPiece();
+            var blocks = guiPiece.getBlocks().stream().map(x -> x.asItem().getDefaultInstance()).toList();
+            String valueId = positionedPiece.piece().getValueId();
+            if (!result.containsKey(valueId)) {
+                result.put(valueId, new GuiCountedItemStack(1, blocks, guiPiece.getDisplay(),
+                        valueId));
+            } else {
+                result.get(valueId).addCount(1);
+            }
+        }
+        return new ArrayList<>(result.values());
     }
 }

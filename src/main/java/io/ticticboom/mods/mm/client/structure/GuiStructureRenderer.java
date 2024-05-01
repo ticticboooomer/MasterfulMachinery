@@ -4,24 +4,34 @@ import io.ticticboom.mods.mm.client.AutoTransform;
 import io.ticticboom.mods.mm.structure.StructureModel;
 import net.minecraft.client.gui.GuiGraphics;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GuiStructureRenderer {
     private final StructureModel model;
-    private final List<PositionedCyclingBlockRenderer> parts;
+    private List<PositionedCyclingBlockRenderer> parts;
     private final GuiStructureLayout guiLayout;
 
     private AutoTransform mouseTransform;
+
+    private boolean isInitialized = false;
 
 
     public GuiStructureRenderer(StructureModel model) {
         this.model = model;
         mouseTransform = new AutoTransform(model);
         guiLayout = new GuiStructureLayout(model.layout());
-        parts = guiLayout.createBlockRenderers();
-        parts.add(model.controllerUiRenderer());
-        for (PositionedCyclingBlockRenderer part : parts) {
-            part.part.setInterval(30);
+        parts = new ArrayList<>();
+    }
+
+    public void init() {
+        if (!isInitialized) {
+            parts = guiLayout.createBlockRenderers();
+            parts.add(model.controllerUiRenderer());
+            for (PositionedCyclingBlockRenderer part : parts) {
+                part.part.setInterval(60);
+            }
+            isInitialized = true;
         }
     }
 

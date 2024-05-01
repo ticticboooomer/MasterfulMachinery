@@ -7,14 +7,21 @@ import io.ticticboom.mods.mm.port.MMPortRegistry;
 import io.ticticboom.mods.mm.structure.StructureModel;
 import io.ticticboom.mods.mm.util.ParserUtils;
 import lombok.Getter;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryManager;
 import net.minecraftforge.registries.tags.ITag;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -22,10 +29,13 @@ public class StructureLayoutPiece {
     private Predicate<StructurePiecePredicateParams> predicate;
     @Getter
     private GuiStructureLayoutPiece guiPiece;
+    @Getter
+    private final String valueId;
 
-    public StructureLayoutPiece(final Predicate<StructurePiecePredicateParams> predicate, GuiStructureLayoutPiece guiPiece) {
+    public StructureLayoutPiece(final Predicate<StructurePiecePredicateParams> predicate, GuiStructureLayoutPiece guiPiece, String valueId) {
         this.predicate = predicate;
         this.guiPiece = guiPiece;
+        this.valueId = valueId;
     }
 
     public boolean formed(Level level, BlockPos pos, StructureModel model) {
@@ -43,7 +53,7 @@ public class StructureLayoutPiece {
             return new StructureLayoutPiece(x -> {
                 var state = x.level().getBlockState(x.pos());
                 return state.is(requiredBlock);
-            }, new GuiStructureLayoutPiece(() -> List.of(requiredBlock)));
+            }, new GuiStructureLayoutPiece(() -> List.of(requiredBlock), Component.literal("Block: ").append(Component.literal(requiredBlockId.toString()).withStyle(ChatFormatting.DARK_AQUA))), "block:" + requiredBlockId);
         }
         // if tag
         if (json.has("tag")) {
@@ -52,12 +62,8 @@ public class StructureLayoutPiece {
             return new StructureLayoutPiece(x -> {
                 var state = x.level().getBlockState(x.pos());
                 return state.is(requiredTag);
-            }, new GuiStructureLayoutPiece(() -> {
-                ITag<Block> tag = ForgeRegistries.BLOCKS.tags().getTag(requiredTag);
-                return tag.stream().toList();
-            }));
+            }, new GuiStructureLayoutPiece(() -> ForgeRegistries.BLOCKS.tags().getTag(requiredTag).stream().toList(), Component.literal("Block Tag: ").append(Component.literal(requiredTagId.toString()).withStyle(ChatFormatting.DARK_AQUA))), "tag:" + requiredTagId);
         }
-        // if port type
         if (json.has("portType")) {
             var portTypeId = ParserUtils.parseId(json, "portType");
             return new StructureLayoutPiece(x -> {
@@ -70,7 +76,7 @@ public class StructureLayoutPiece {
                 }
                 return false;
             }, new GuiStructureLayoutPiece(() -> MMPortRegistry.PORTS.stream().filter(x -> x.getRegistryId().equals(portTypeId))
-                        .map(x -> x.getBlock().get()).toList()));
+                        .map(x -> x.getBlock().get()).toList(), Component.literal("Port Type: ").append(Component.literal(portTypeId.toString()).withStyle(ChatFormatting.DARK_AQUA))), "portType:" + portTypeId);
         }
         // if specific port
         if (json.has("port")) {
@@ -100,7 +106,8 @@ public class StructureLayoutPiece {
                     return true;
                 }
                 return false;
-            }, new GuiStructureLayoutPiece(() -> MMPortRegistry.getPortBlocks(portId)));
+            }, new GuiStructureLayoutPiece(() -> MMPortRegistry.getPortBlocks(portId),
+                    Component.literal("Block Tag: ").append(Component.literal(portId.toString()).withStyle(ChatFormatting.DARK_AQUA))), "port:" + portId);
         }
         throw new RuntimeException(String.format("Structure failed to parse [%s] no suitable structure key requirement found", structureId));
     }

@@ -30,6 +30,7 @@ public class StructureLayout {
     @Getter
     private Map<StructureKeyChar, StructureLayoutPiece> pieces;
 
+
     public StructureLayout(StructureCharacterGrid rawLayout, Map<StructureKeyChar, StructureLayoutPiece> pieces) {
         this.charGrid = rawLayout;
         this.pieces = pieces;
@@ -102,7 +103,6 @@ public class StructureLayout {
         var pieces = getPieces(json, structureId);
         return new StructureLayout(raw, pieces);
     }
-
     private static Map<StructureKeyChar, StructureLayoutPiece> getPieces(JsonObject json, ResourceLocation structureId) {
         Map<StructureKeyChar, StructureLayoutPiece> pieces = new HashMap<>();
         for (var key : json.getAsJsonObject("key").asMap().entrySet()) {

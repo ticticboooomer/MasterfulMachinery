@@ -8,7 +8,6 @@ import lombok.Getter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
 
 public class EnergyPortStorage implements IPortStorage {
@@ -54,12 +53,12 @@ public class EnergyPortStorage implements IPortStorage {
         return model;
     }
 
-    public int extract(int amount, boolean simulate) {
-        return handler.extractEnergy(amount, simulate);
+    public int internalExtract(int amount, boolean simulate) {
+        return handler.unboundedExtractEnergy(amount, simulate);
     }
 
-    public int insert(int amount, boolean simulate) {
-        return handler.receiveEnergy(amount, simulate);
+    public int internalInsert(int amount, boolean simulate) {
+        return handler.unboundedReceiveEnergy(amount, simulate);
     }
 
     public int getStoredEnergy()  {

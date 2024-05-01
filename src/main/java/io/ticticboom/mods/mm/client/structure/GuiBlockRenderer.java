@@ -1,8 +1,6 @@
 package io.ticticboom.mods.mm.client.structure;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import io.ticticboom.mods.mm.client.AutoTransform;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;

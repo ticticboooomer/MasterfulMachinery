@@ -1,14 +1,11 @@
-package io.ticticboom.mods.mm.client;
+package io.ticticboom.mods.mm.client.structure;
 
-import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.structure.StructureModel;
 import io.ticticboom.mods.mm.structure.layout.PositionedLayoutPiece;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.protocol.game.ClientboundMoveEntityPacket;
 import org.joml.*;
 import org.lwjgl.glfw.GLFW;
 

@@ -21,7 +21,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.util.thread.EffectiveSide;
 
 import java.util.ArrayList;
@@ -57,7 +59,7 @@ public class StructureModel {
         this.name = name;
         this.controllerIds = controllerIds;
         this.layout = layout;
-        if (EffectiveSide.get() == LogicalSide.CLIENT) {
+        if (FMLEnvironment.dist == Dist.CLIENT) {
             renderer = new GuiStructureRenderer(this);
             countedPartItems = getCountedItemStacks();
         }
@@ -113,16 +115,10 @@ public class StructureModel {
         return layout;
     }
 
-    public List<ItemStack> getRelatedBlocksAsItemStacks() {
-        var result = new ArrayList<ItemStack>();
-        for (PositionedLayoutPiece positionedPiece : layout.getPositionedPieces()) {
-            var items = positionedPiece.piece().getGuiPiece().getBlocks().stream().map(x -> x.asItem().getDefaultInstance()).toList();
-            result.addAll(items);
-        }
-        return result;
-    }
-
     public List<GuiCountedItemStack> getCountedItemStacks() {
+        if (countedPartItems != null) {
+            return countedPartItems;
+        }
         var result = new HashMap<String, GuiCountedItemStack>();
         for (PositionedLayoutPiece positionedPiece : layout.getPositionedPieces()) {
             var guiPiece = positionedPiece.piece().getGuiPiece();

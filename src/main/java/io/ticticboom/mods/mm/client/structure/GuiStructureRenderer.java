@@ -1,6 +1,5 @@
 package io.ticticboom.mods.mm.client.structure;
 
-import io.ticticboom.mods.mm.client.AutoTransform;
 import io.ticticboom.mods.mm.structure.StructureModel;
 import net.minecraft.client.gui.GuiGraphics;
 

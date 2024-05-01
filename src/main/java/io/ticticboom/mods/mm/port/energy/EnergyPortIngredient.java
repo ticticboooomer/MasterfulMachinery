@@ -26,7 +26,7 @@ public class EnergyPortIngredient implements IPortIngredient {
         var inputStorages = storages.getInputStorages(EnergyPortStorage.class);
         int remaining = amount;
         for (EnergyPortStorage storage : inputStorages) {
-            var extracted = storage.extract(remaining, true);
+            var extracted = storage.internalExtract(remaining, true);
             remaining -= extracted;
         }
         return remaining <= 0;
@@ -37,7 +37,7 @@ public class EnergyPortIngredient implements IPortIngredient {
         var inputStorages = storages.getInputStorages(EnergyPortStorage.class);
         int remaining = amount;
         for (EnergyPortStorage storage : inputStorages) {
-            var extracted = storage.extract(remaining, false);
+            var extracted = storage.internalExtract(remaining, false);
             remaining -= extracted;
         }
     }
@@ -47,7 +47,7 @@ public class EnergyPortIngredient implements IPortIngredient {
         var outputStorages = storages.getOutputStorages(EnergyPortStorage.class);
         int remaining = amount;
         for (EnergyPortStorage storage : outputStorages) {
-            var inserted = storage.insert(remaining, true);
+            var inserted = storage.internalInsert(remaining, true);
             remaining -= inserted;
         }
         return remaining <= 0;
@@ -58,7 +58,7 @@ public class EnergyPortIngredient implements IPortIngredient {
         var outputStorages = storages.getOutputStorages(EnergyPortStorage.class);
         int remaining = amount;
         for (EnergyPortStorage storage : outputStorages) {
-            var inserted = storage.insert(remaining, false);
+            var inserted = storage.internalInsert(remaining, false);
             remaining -= inserted;
         }
     }

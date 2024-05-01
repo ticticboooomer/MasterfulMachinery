@@ -12,6 +12,24 @@ public class EnergyPortHandler extends EnergyStorage {
         this.changed = changed;
     }
 
+    public int unboundedReceiveEnergy(int maxReceive, boolean simulate) {
+        var originalReceive = this.maxReceive;
+        this.maxReceive = maxReceive;
+        var resp = receiveEnergy(maxReceive, simulate);
+        this.maxReceive = originalReceive;
+        return resp;
+    }
+
+    public int unboundedExtractEnergy(int maxExtract, boolean simulate) {
+        var originalReceive = this.maxExtract;
+        this.maxExtract = maxExtract;
+
+        var resp = extractEnergy(maxExtract, simulate);
+
+        this.maxExtract = originalReceive;
+        return resp;
+    }
+
     @Override
     public int receiveEnergy(int maxReceive, boolean simulate) {
         changed.call();

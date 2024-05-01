@@ -16,7 +16,6 @@ public class GuiStructureLayout {
     private List<GuiCountedItemStack> countedKeys = new ArrayList<>();
 
     public GuiStructureLayout(StructureLayout layout) {
-
         this.layout = layout;
         controllerPos = new BlockPos(0, 0, 0);
     }

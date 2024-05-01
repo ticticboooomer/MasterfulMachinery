@@ -42,6 +42,6 @@ public class MMJeiPlugin implements IModPlugin {
 
     @Override
     public void registerIngredients(IModIngredientRegistration registration) {
-        registration.register(MMJeiIngredients.ENERGY, ImmutableList.of(new EnergyStack(1)), new EnergyIngredientHelper(), new EnergyIngredientRenderer());
+        registration.register(MMJeiIngredients.ENERGY, ImmutableList.of(), new EnergyIngredientHelper(), new EnergyIngredientRenderer());
     }
 }

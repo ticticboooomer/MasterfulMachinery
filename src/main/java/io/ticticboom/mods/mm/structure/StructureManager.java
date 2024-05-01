@@ -24,10 +24,12 @@ public class StructureManager extends SimpleJsonResourceReloadListener {
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> jsons, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
+        profilerFiller.push("MM Structures");
         STRUCTURES.clear();
         for (Map.Entry<ResourceLocation, JsonElement> entry : jsons.entrySet()) {
             var model = StructureModel.parse(entry.getValue().getAsJsonObject(), entry.getKey());
             STRUCTURES.put(entry.getKey(), model);
         }
+        profilerFiller.pop();
     }
 }

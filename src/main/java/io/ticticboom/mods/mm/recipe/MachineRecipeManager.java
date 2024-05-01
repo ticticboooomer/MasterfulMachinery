@@ -48,10 +48,12 @@ public class MachineRecipeManager extends SimpleJsonResourceReloadListener {
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> jsons, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
+        profilerFiller.push("MM Machine Recipe Processes");
         RECIPES.clear();
         for (Map.Entry<ResourceLocation, JsonElement> entry : jsons.entrySet()) {
             ResourceLocation id = entry.getKey();
             RECIPES.put(id, RecipeModel.parse(entry.getValue().getAsJsonObject(), id));
         }
+        profilerFiller.pop();
     }
 }

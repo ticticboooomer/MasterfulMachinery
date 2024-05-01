@@ -1,6 +1,7 @@
 package io.ticticboom.mods.mm;
 
-import io.ticticboom.mods.mm.block.MMExtraBlockRegistry;
+import io.ticticboom.mods.mm.config.MMConfigs;
+import io.ticticboom.mods.mm.extra.MMExtraBlockRegistry;
 import io.ticticboom.mods.mm.controller.MMControllerRegistry;
 import io.ticticboom.mods.mm.datagen.DataGenManager;
 import io.ticticboom.mods.mm.datagen.MMRepoType;
@@ -9,13 +10,16 @@ import io.ticticboom.mods.mm.port.MMPortRegistry;
 import io.ticticboom.mods.mm.setup.MMRegisters;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 
 @Mod(Ref.ID)
 public class ModRoot {
 
     public ModRoot() {
+        MMConfigs.register();
         MMPortRegistry.init();
         MMControllerRegistry.init();
         MMExtraBlockRegistry.init();

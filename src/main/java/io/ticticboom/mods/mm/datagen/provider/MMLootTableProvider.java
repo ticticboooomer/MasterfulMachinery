@@ -46,6 +46,7 @@ public class MMLootTableProvider extends LootTableProvider {
                     consumer.accept(Ref.id(portPart.getModel().id()), createBlockLootTable(block));
                 }
             }
+            consumer.accept(MMRegisters.SCANNER_BLOCK.getId(), createBlockLootTable(MMRegisters.SCANNER_BLOCK.get()));
         }
 
         protected LootTable.Builder createBlockLootTable(Block block) {

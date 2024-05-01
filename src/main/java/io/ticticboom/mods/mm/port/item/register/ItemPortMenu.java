@@ -26,7 +26,7 @@ public class ItemPortMenu extends MMContainerMenu implements IPortMenu {
     }
 
     public ItemPortMenu(PortModel model, RegistryGroupHolder groupHolder, boolean isInput, int windowId, Inventory inv, IPortBlockEntity be) {
-        super(groupHolder, windowId, MenuUtils.createAccessFromBlockEntity(be.getBlockEntity()), calcExtraSlots(be.getStorage()));
+        super(groupHolder.getMenu().get(), groupHolder.getBlock().get(), windowId, MenuUtils.createAccessFromBlockEntity(be.getBlockEntity()), calcExtraSlots(be.getStorage()));
         this.model = model;
         this.groupHolder = groupHolder;
         this.isInput = isInput;

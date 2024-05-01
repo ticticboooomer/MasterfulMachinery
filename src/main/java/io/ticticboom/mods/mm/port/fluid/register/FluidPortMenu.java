@@ -22,7 +22,7 @@ public class FluidPortMenu extends MMContainerMenu implements IPortMenu {
 
     public FluidPortMenu(PortModel model, RegistryGroupHolder groupHolder, boolean isInput, int windowId,
             Inventory inv, IPortBlockEntity be) {
-        super(groupHolder, windowId, MenuUtils.createAccessFromBlockEntity(be.getBlockEntity()), 0);
+        super(groupHolder.getMenu().get(), groupHolder.getBlock().get(), windowId, MenuUtils.createAccessFromBlockEntity(be.getBlockEntity()), 0);
         this.model = model;
         this.isInput = isInput;
         this.inv = inv;

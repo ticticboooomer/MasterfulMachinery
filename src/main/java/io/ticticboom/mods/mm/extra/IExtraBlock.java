@@ -1,4 +1,4 @@
-package io.ticticboom.mods.mm.block;
+package io.ticticboom.mods.mm.extra;
 
 import io.ticticboom.mods.mm.datagen.provider.MMBlockstateProvider;
 

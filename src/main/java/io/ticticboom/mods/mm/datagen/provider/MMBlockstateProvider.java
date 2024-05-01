@@ -1,7 +1,7 @@
 package io.ticticboom.mods.mm.datagen.provider;
 
 import io.ticticboom.mods.mm.Ref;
-import io.ticticboom.mods.mm.block.IExtraBlock;
+import io.ticticboom.mods.mm.extra.IExtraBlock;
 import io.ticticboom.mods.mm.controller.IControllerBlock;
 import io.ticticboom.mods.mm.port.IPortBlock;
 import io.ticticboom.mods.mm.setup.MMRegisters;
@@ -40,6 +40,7 @@ public class MMBlockstateProvider extends BlockStateProvider {
                 eb.generateModel(this);
             }
         }
+        this.simpleBlock(MMRegisters.SCANNER_BLOCK.get(), new ModelFile.ExistingModelFile(Ref.id("block/structure_generator"), this.models().existingFileHelper));
     }
 
     public BlockModelBuilder dynamicBlockNorthOverlay(ResourceLocation loc, ResourceLocation baseTexture, ResourceLocation overlayTexture) {

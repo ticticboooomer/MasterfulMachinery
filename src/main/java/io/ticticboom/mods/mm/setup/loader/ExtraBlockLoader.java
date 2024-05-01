@@ -1,8 +1,8 @@
 package io.ticticboom.mods.mm.setup.loader;
 
 import com.google.gson.JsonObject;
-import io.ticticboom.mods.mm.block.ExtraBlockModel;
-import io.ticticboom.mods.mm.block.MMExtraBlockRegistry;
+import io.ticticboom.mods.mm.extra.ExtraBlockModel;
+import io.ticticboom.mods.mm.extra.MMExtraBlockRegistry;
 
 import java.util.List;
 

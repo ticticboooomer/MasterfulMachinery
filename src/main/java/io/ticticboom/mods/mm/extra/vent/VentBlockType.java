@@ -1,7 +1,7 @@
-package io.ticticboom.mods.mm.block.vent;
+package io.ticticboom.mods.mm.extra.vent;
 
-import io.ticticboom.mods.mm.block.ExtraBlockModel;
-import io.ticticboom.mods.mm.block.ExtraBlockType;
+import io.ticticboom.mods.mm.extra.ExtraBlockModel;
+import io.ticticboom.mods.mm.extra.ExtraBlockType;
 import io.ticticboom.mods.mm.setup.MMRegisters;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import net.minecraft.world.item.Item;

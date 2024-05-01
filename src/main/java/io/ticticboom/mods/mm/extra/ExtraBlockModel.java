@@ -1,4 +1,4 @@
-package io.ticticboom.mods.mm.block;
+package io.ticticboom.mods.mm.extra;
 
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.util.ParserUtils;

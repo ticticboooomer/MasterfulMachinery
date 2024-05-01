@@ -32,3 +32,23 @@
   "port": "mm:my_fluid_port"
 }
 ```
+
+## N.Y.I. - Idea Example
+
+```json
+{
+  "A": {
+    "block": "mm:controller_a",
+    "state_properties": [
+      {
+        "property": "facing",
+        "value": "north"
+      },
+      {
+        "property": "axis",
+        "value": "y"
+      }
+    ]
+  }
+}
+```

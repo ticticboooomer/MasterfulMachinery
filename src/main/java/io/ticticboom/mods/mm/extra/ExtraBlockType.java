@@ -1,8 +1,5 @@
-package io.ticticboom.mods.mm.block;
+package io.ticticboom.mods.mm.extra;
 
-import io.ticticboom.mods.mm.datagen.provider.MMBlockstateProvider;
-import io.ticticboom.mods.mm.model.PortModel;
-import io.ticticboom.mods.mm.port.MMPortRegistry;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;

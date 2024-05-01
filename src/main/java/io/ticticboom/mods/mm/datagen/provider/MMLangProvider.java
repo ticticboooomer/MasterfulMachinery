@@ -1,7 +1,7 @@
 package io.ticticboom.mods.mm.datagen.provider;
 
 import io.ticticboom.mods.mm.Ref;
-import io.ticticboom.mods.mm.block.IExtraBlockPart;
+import io.ticticboom.mods.mm.extra.IExtraBlockPart;
 import io.ticticboom.mods.mm.controller.IControllerPart;
 import io.ticticboom.mods.mm.port.IPortPart;
 import io.ticticboom.mods.mm.setup.MMRegisters;
@@ -28,6 +28,8 @@ public class MMLangProvider extends LanguageProvider {
                 this.add(entry.get(), ebp.getModel().name());
             }
         }
+
         this.add(MMRegisters.BLUEPRINT.get(), "Blueprint");
+        this.add(MMRegisters.SCANNER_BLOCK.get(), "Structure Scanner");
     }
 }

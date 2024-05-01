@@ -12,9 +12,11 @@ import net.minecraft.WorldVersion;
 import net.minecraft.client.Minecraft;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.server.packs.repository.PackRepository;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoader;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.resource.ResourcePackLoader;
 
@@ -44,10 +46,13 @@ public class DataGenManager {
     public static void registerDataProviders() {
         generator = createDataGenerator();
         ExistingFileHelper efh = new ExistingFileHelper(ImmutableList.of(), ImmutableSet.of(), false, null, null);
+
         generator.addProvider(true, new MMLootTableProvider(generator));
-        generator.addProvider(true, new MMBlockstateProvider(generator, efh));
-        generator.addProvider(true, new MMItemModelProvider(generator, efh));
         generator.addProvider(true, new MMLangProvider(generator, "en_us"));
+        if (FMLEnvironment.dist != Dist.DEDICATED_SERVER) {
+            generator.addProvider(true, new MMBlockstateProvider(generator, efh));
+            generator.addProvider(true, new MMItemModelProvider(generator, efh));
+        }
     }
 
     public static DataGenerator createDataGenerator() {

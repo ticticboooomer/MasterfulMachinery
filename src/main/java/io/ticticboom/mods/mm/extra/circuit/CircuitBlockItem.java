@@ -1,7 +1,7 @@
-package io.ticticboom.mods.mm.block.circuit;
+package io.ticticboom.mods.mm.extra.circuit;
 
-import io.ticticboom.mods.mm.block.ExtraBlockModel;
-import io.ticticboom.mods.mm.block.IExtraBlockPart;
+import io.ticticboom.mods.mm.extra.ExtraBlockModel;
+import io.ticticboom.mods.mm.extra.IExtraBlockPart;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import net.minecraft.world.item.BlockItem;
 

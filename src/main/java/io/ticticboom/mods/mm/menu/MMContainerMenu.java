@@ -1,24 +1,29 @@
 package io.ticticboom.mods.mm.menu;
 
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class MMContainerMenu extends AbstractContainerMenu {
 
+    private final MenuType<?> type;
+    private final Block block;
     private final ContainerLevelAccess access;
-    private final RegistryGroupHolder groupHolder;
     private final int storageSlots;
 
-    protected MMContainerMenu(RegistryGroupHolder groupHolder, int p_38852_, ContainerLevelAccess access, int storageSlots) {
-        super(groupHolder.getMenu().get(), p_38852_);
+    protected MMContainerMenu(MenuType<?> type, Block block, int p_38852_, ContainerLevelAccess access, int storageSlots) {
+        super(type, p_38852_);
+        this.type = type;
+        this.block = block;
         this.access = access;
-        this.groupHolder = groupHolder;
         this.storageSlots = storageSlots;
     }
 
@@ -70,6 +75,6 @@ public abstract class MMContainerMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return stillValid(this.access, player, groupHolder.getBlock().get());
+        return stillValid(this.access, player, block);
     }
 }

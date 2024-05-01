@@ -1,8 +1,8 @@
-package io.ticticboom.mods.mm.block.circuit;
+package io.ticticboom.mods.mm.extra.circuit;
 
 import io.ticticboom.mods.mm.Ref;
-import io.ticticboom.mods.mm.block.ExtraBlockModel;
-import io.ticticboom.mods.mm.block.IExtraBlock;
+import io.ticticboom.mods.mm.extra.ExtraBlockModel;
+import io.ticticboom.mods.mm.extra.IExtraBlock;
 import io.ticticboom.mods.mm.datagen.provider.MMBlockstateProvider;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.util.BlockUtils;

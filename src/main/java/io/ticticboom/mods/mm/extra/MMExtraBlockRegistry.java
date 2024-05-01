@@ -1,15 +1,10 @@
-package io.ticticboom.mods.mm.block;
+package io.ticticboom.mods.mm.extra;
 
-import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.Ref;
-import io.ticticboom.mods.mm.block.circuit.CircuitBlockType;
-import io.ticticboom.mods.mm.block.gearbox.GearboxBlockType;
-import io.ticticboom.mods.mm.block.vent.VentBlockItem;
-import io.ticticboom.mods.mm.block.vent.VentBlockType;
-import io.ticticboom.mods.mm.port.IPortIngredient;
-import io.ticticboom.mods.mm.port.PortType;
+import io.ticticboom.mods.mm.extra.circuit.CircuitBlockType;
+import io.ticticboom.mods.mm.extra.gearbox.GearboxBlockType;
+import io.ticticboom.mods.mm.extra.vent.VentBlockType;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
-import io.ticticboom.mods.mm.util.ParserUtils;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.*;

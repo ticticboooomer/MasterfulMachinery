@@ -20,7 +20,7 @@ public class EnergyPortMenu extends MMContainerMenu implements IPortMenu {
     private final EnergyPortBlockEntity be;
 
     public EnergyPortMenu(PortModel model, RegistryGroupHolder groupHolder, boolean isInput, int windowId, Inventory inv, EnergyPortBlockEntity be) {
-        super(groupHolder, windowId, MenuUtils.createAccessFromBlockEntity(be), 0);
+        super(groupHolder.getMenu().get(), groupHolder.getBlock().get(), windowId, MenuUtils.createAccessFromBlockEntity(be), 0);
         this.model = model;
         this.isInput = isInput;
         this.inv = inv;

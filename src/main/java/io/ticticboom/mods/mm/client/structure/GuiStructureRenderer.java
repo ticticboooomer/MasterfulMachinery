@@ -11,10 +11,6 @@ public class GuiStructureRenderer {
     private final List<PositionedCyclingBlockRenderer> parts;
     private final GuiStructureLayout guiLayout;
 
-    // active values
-    private float xRotation = -225;
-    private float yRotation = 15;
-
     private AutoTransform mouseTransform;
 
 
@@ -23,6 +19,7 @@ public class GuiStructureRenderer {
         mouseTransform = new AutoTransform(model);
         guiLayout = new GuiStructureLayout(model.layout());
         parts = guiLayout.createBlockRenderers();
+        parts.add(model.controllerUiRenderer());
         for (PositionedCyclingBlockRenderer part : parts) {
             part.part.setInterval(30);
         }
@@ -36,4 +33,9 @@ public class GuiStructureRenderer {
             next.render(gfx, mouseX, mouseY, mouseTransform);
         }
     }
+
+    public void resetTransforms() {
+        mouseTransform.reset();
+    }
+
 }

@@ -5,6 +5,7 @@ import io.ticticboom.mods.mm.controller.machine.MachineControllerType;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 
 import java.util.*;
 
@@ -33,6 +34,17 @@ public class MMControllerRegistry {
             if (item instanceof IControllerPart part) {
                 if (part.getModel().id().equals(id.getPath())) {
                     return item;
+                }
+            }
+        }
+        return null;
+    }
+    public static Block getControllerBlock(ResourceLocation id) {
+        for (RegistryGroupHolder holder : CONTROLLERS) {
+            var block = holder.getBlock().get();
+            if (block instanceof IControllerPart part) {
+                if (part.getModel().id().equals(id.getPath())) {
+                    return block;
                 }
             }
         }

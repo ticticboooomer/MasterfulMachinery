@@ -1,9 +1,11 @@
 package io.ticticboom.mods.mm.compat.jei.category;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.controller.MMControllerRegistry;
 import io.ticticboom.mods.mm.setup.MMRegisters;
 import io.ticticboom.mods.mm.structure.StructureModel;
+import io.ticticboom.mods.mm.util.GLScissor;
 import mezz.jei.api.gui.builder.IIngredientAcceptor;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -18,6 +20,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 public class MMStructureCategory implements IRecipeCategory<StructureModel> {
 
@@ -63,11 +66,16 @@ public class MMStructureCategory implements IRecipeCategory<StructureModel> {
         // TODO: change to visible later
         var inputs = builder.addInvisibleIngredients(RecipeIngredientRole.INPUT);
         inputs.addItemStacks(recipe.getRelatedBlocksAsItemStacks());
+        recipe.getGuiRenderer().resetTransforms();
     }
 
     @Override
     public void draw(StructureModel recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        Vector4f zero = new Vector4f(0, 0, 0, 1);
+        zero.mul(guiGraphics.pose().last().pose());
+        GLScissor.enable((int)zero.x(), (int)zero.y(), 160, 120);
         var renderer = recipe.getGuiRenderer();
         renderer.render(guiGraphics, (int) mouseX, (int) mouseY);
+        GLScissor.disable();
     }
 }

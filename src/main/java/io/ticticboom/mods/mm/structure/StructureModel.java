@@ -1,7 +1,10 @@
 package io.ticticboom.mods.mm.structure;
 
 import com.google.gson.JsonObject;
+import io.ticticboom.mods.mm.client.structure.GuiBlockRenderer;
 import io.ticticboom.mods.mm.client.structure.GuiStructureRenderer;
+import io.ticticboom.mods.mm.client.structure.PositionedCyclingBlockRenderer;
+import io.ticticboom.mods.mm.controller.MMControllerRegistry;
 import io.ticticboom.mods.mm.model.IdList;
 import io.ticticboom.mods.mm.recipe.RecipeStorages;
 import io.ticticboom.mods.mm.structure.layout.PositionedLayoutPiece;
@@ -43,6 +46,21 @@ public class StructureModel {
         if (EffectiveSide.get() == LogicalSide.CLIENT) {
             renderer = new GuiStructureRenderer(this);
         }
+    }
+
+
+    @OnlyIn(Dist.CLIENT)
+    public PositionedCyclingBlockRenderer controllerUiRenderer() {
+        BlockPos pos = new BlockPos(0, 0, 0);
+        List<ResourceLocation> ids = controllerIds.getIds();
+        var res = new ArrayList<GuiBlockRenderer>();
+        for (ResourceLocation id : ids) {
+            Block controllerBlock = MMControllerRegistry.getControllerBlock(id);
+            GuiBlockRenderer gbr = new GuiBlockRenderer(controllerBlock);
+            gbr.setupAt(pos);
+            res.add(gbr);
+        }
+        return new PositionedCyclingBlockRenderer(res, pos);
     }
 
     public static StructureModel parse(JsonObject json, ResourceLocation structureId) {

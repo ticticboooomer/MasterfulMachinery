@@ -16,6 +16,6 @@ public class CircuitBlockType extends ExtraBlockType {
 
     @Override
     public RegistryObject<Item> registerItem(ExtraBlockModel model, RegistryGroupHolder groupHolder) {
-        return MMRegisters.ITEM.register(model.id(), () -> new CircuitBlockItem(model, groupHolder));
+        return MMRegisters.ITEMS.register(model.id(), () -> new CircuitBlockItem(model, groupHolder));
     }
 }

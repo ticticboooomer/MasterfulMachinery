@@ -7,7 +7,6 @@ import io.ticticboom.mods.mm.port.energy.register.*;
 import io.ticticboom.mods.mm.setup.MMRegisters;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -33,7 +32,7 @@ public class EnergyPortType extends PortType {
 
     @Override
     public RegistryObject<Item> registerItem(PortModel model, RegistryGroupHolder groupHolder) {
-        return MMRegisters.ITEM.register(model.id(), () -> new EnergyPortBlockItem(model, groupHolder, model.input()));
+        return MMRegisters.ITEMS.register(model.id(), () -> new EnergyPortBlockItem(model, groupHolder, model.input()));
     }
 
     @Override

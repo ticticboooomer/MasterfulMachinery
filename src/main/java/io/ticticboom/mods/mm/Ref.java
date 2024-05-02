@@ -14,6 +14,7 @@ public class Ref {
         return new ResourceLocation(ID, path);
     }
 
+    public static final ResourceLocation SCANNER_CAP = id("scanner_selection");
     public static String NBT_STORAGE_KEY = "MMStorage";
 
     public static class Ports {
@@ -42,7 +43,6 @@ public class Ref {
         public static final ResourceLocation CONTROLLER_OVERLAY = id("block/controller_cutout");
 
         public static final ResourceLocation GUI_LARGE_JEI = id("textures/gui/gui_large_jei.png");
-        public static final ResourceLocation SCANNER_GUI = id("textures/gui/scanner_gui.png");
         public static final ResourceLocation GUI_LARGE = id("textures/gui/gui_large.png");
         public static final ResourceLocation PORT_GUI = id("textures/gui/port_gui.png");
         public static final ResourceLocation SLOT_PARTS = id("textures/gui/slot_parts.png");
@@ -60,6 +60,7 @@ public class Ref {
         public static final ResourceLocation CIRCUIT_OVERLAY = id("block/circuit_cutout");
         public static final ResourceLocation GEARBOX_OVERLAY = id("block/gearbox_cutout");
         public static final ResourceLocation VENT_OVERLAY = id("block/vent_cutout");
+
     }
 
 }

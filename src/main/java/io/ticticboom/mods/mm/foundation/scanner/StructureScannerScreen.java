@@ -14,7 +14,7 @@ public class StructureScannerScreen extends AbstractContainerScreen<StructureSca
 
     @Override
     protected void renderBg(GuiGraphics gfx, float partialTick, int mouseX, int mouseY) {
-        gfx.blit(Ref.Textures.SCANNER_GUI, 0,0, 0, 0, 175, 223);
+        gfx.blit(Ref.Textures.PORT_GUI, 0,0, 0, 0, 175, 223);
     }
 
     @Override

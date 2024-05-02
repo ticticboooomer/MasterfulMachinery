@@ -16,6 +16,6 @@ public class GearboxBlockType extends ExtraBlockType {
 
     @Override
     public RegistryObject<Item> registerItem(ExtraBlockModel model, RegistryGroupHolder groupHolder) {
-        return MMRegisters.ITEM.register(model.id(), () -> new GearboxBlockItem(model, groupHolder));
+        return MMRegisters.ITEMS.register(model.id(), () -> new GearboxBlockItem(model, groupHolder));
     }
 }

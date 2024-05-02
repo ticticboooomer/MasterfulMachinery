@@ -26,7 +26,7 @@ public class MachineControllerType extends ControllerType {
 
     @Override
     public RegistryObject<Item> registerItem(ControllerModel model, RegistryGroupHolder groupHolder) {
-        return MMRegisters.ITEM.register(model.id(), () -> new MachineControllerBlockItem(model, groupHolder));
+        return MMRegisters.ITEMS.register(model.id(), () -> new MachineControllerBlockItem(model, groupHolder));
     }
 
     @Override

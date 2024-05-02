@@ -17,6 +17,6 @@ public class VentBlockType extends ExtraBlockType {
 
     @Override
     public RegistryObject<Item> registerItem(ExtraBlockModel model, RegistryGroupHolder groupHolder) {
-        return MMRegisters.ITEM.register(model.id(), () -> new VentBlockItem(model, groupHolder));
+        return MMRegisters.ITEMS.register(model.id(), () -> new VentBlockItem(model, groupHolder));
     }
 }

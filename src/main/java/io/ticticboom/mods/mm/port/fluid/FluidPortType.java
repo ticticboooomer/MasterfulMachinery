@@ -4,7 +4,6 @@ import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.IPortParser;
 import io.ticticboom.mods.mm.port.PortType;
 import io.ticticboom.mods.mm.port.fluid.register.*;
-import io.ticticboom.mods.mm.port.item.register.ItemPortBlock;
 import io.ticticboom.mods.mm.setup.MMRegisters;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -37,7 +36,7 @@ public class FluidPortType extends PortType {
 
     @Override
     public RegistryObject<Item> registerItem(PortModel model, RegistryGroupHolder groupHolder) {
-        return MMRegisters.ITEM.register(model.id(), () -> new FluidPortBlockItem(model, groupHolder, model.input()));
+        return MMRegisters.ITEMS.register(model.id(), () -> new FluidPortBlockItem(model, groupHolder, model.input()));
     }
 
     @Override

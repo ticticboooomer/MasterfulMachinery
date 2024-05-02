@@ -4,12 +4,14 @@ import io.ticticboom.mods.mm.menu.MMContainerMenu;
 import io.ticticboom.mods.mm.setup.MMRegisters;
 import io.ticticboom.mods.mm.util.BlockUtils;
 import io.ticticboom.mods.mm.util.MenuUtils;
+import lombok.Getter;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 
 public class StructureScannerMenu extends MMContainerMenu {
 
+    @Getter
     private final StructureScannerBlockEntity be;
 
     public StructureScannerMenu(int windowId, Inventory inv, StructureScannerBlockEntity be) {

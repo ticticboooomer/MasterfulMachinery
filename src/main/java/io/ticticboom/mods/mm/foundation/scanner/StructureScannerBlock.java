@@ -125,7 +125,8 @@ public class StructureScannerBlock extends HorizontalDirectionalBlock implements
             case SOUTH:
                 return SHAPE_N;
             case WEST:
-                return SHAPE_E;
+                return SHAPE_E
+                        ;
             default:
                 throw new IllegalStateException("Invalid State");
         }

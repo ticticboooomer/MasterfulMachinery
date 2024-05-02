@@ -1,6 +1,8 @@
 package io.ticticboom.mods.mm.foundation.scanner;
 
 import io.ticticboom.mods.mm.Ref;
+import io.ticticboom.mods.mm.cap.IScannerSelection;
+import io.ticticboom.mods.mm.cap.MMCapabilities;
 import io.ticticboom.mods.mm.setup.MMRegisters;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
@@ -13,17 +15,18 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 public class StructureScannerBlockEntity extends BlockEntity implements MenuProvider {
 
     @Getter
     private final StructureScannerItemHandler handler = new StructureScannerItemHandler(1, this::setChanged);
+
     @Getter
-    private String statusMessage = "";
+    private StructureScannerStatus status = StructureScannerStatus.NEEDS_DEVICE;
 
     public StructureScannerBlockEntity(BlockPos pos, BlockState state) {
         super(MMRegisters.SCANNER_BLOCK_ENTITY.get(), pos, state);
@@ -49,12 +52,15 @@ public class StructureScannerBlockEntity extends BlockEntity implements MenuProv
     @Override
     protected void saveAdditional(CompoundTag tag) {
         tag.put(Ref.NBT_STORAGE_KEY, handler.serializeNBT());
+        tag.putInt("status", status.ordinal());
         super.saveAdditional(tag);
     }
 
     @Override
     public CompoundTag getUpdateTag() {
         var tag = new CompoundTag();
+        var statusOrdinal = tag.getInt("status");
+        status = StructureScannerStatus.values()[statusOrdinal];
         saveAdditional(tag);
         return tag;
     }
@@ -68,5 +74,20 @@ public class StructureScannerBlockEntity extends BlockEntity implements MenuProv
     @Override
     public void setChanged() {
         super.setChanged();
+        checkToolSlot();
+    }
+
+    public void checkToolSlot() {
+        ItemStack stack = handler.getStackInSlot(0);
+        if (!stack.is(MMRegisters.SCANNER_TOOL.get())) {
+            status = StructureScannerStatus.NEEDS_DEVICE;
+            return;
+        }
+        IScannerSelection selection = stack.getCapability(MMCapabilities.SCANNER_SELECTION).orElseThrow(() -> new RuntimeException("Failed to get selection capability"));
+        if (selection.getEndSelection() != null && selection.getEndSelection() != null) {
+            status = StructureScannerStatus.READY;
+        } else {
+            status = StructureScannerStatus.INVALID_SELECTION;
+        }
     }
 }

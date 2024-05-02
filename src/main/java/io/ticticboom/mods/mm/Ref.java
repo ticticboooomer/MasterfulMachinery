@@ -45,6 +45,7 @@ public class Ref {
         public static final ResourceLocation GUI_LARGE_JEI = id("textures/gui/gui_large_jei.png");
         public static final ResourceLocation GUI_LARGE = id("textures/gui/gui_large.png");
         public static final ResourceLocation PORT_GUI = id("textures/gui/port_gui.png");
+        public static final ResourceLocation SCANNER_GUI = id("textures/gui/scanner_gui.png");
         public static final ResourceLocation SLOT_PARTS = id("textures/gui/slot_parts.png");
         public static final ResourceLocation CREATIVE_TAB_BG = id("textures/gui/tab_item_search.png");
 

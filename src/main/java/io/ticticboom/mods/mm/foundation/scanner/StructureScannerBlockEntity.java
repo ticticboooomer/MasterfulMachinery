@@ -2,6 +2,7 @@ package io.ticticboom.mods.mm.foundation.scanner;
 
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.setup.MMRegisters;
+import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -19,7 +20,10 @@ import org.jetbrains.annotations.Nullable;
 
 public class StructureScannerBlockEntity extends BlockEntity implements MenuProvider {
 
-    private final ItemStackHandler handler = new ItemStackHandler(1);
+    @Getter
+    private final StructureScannerItemHandler handler = new StructureScannerItemHandler(1, this::setChanged);
+    @Getter
+    private String statusMessage = "";
 
     public StructureScannerBlockEntity(BlockPos pos, BlockState state) {
         super(MMRegisters.SCANNER_BLOCK_ENTITY.get(), pos, state);
@@ -59,5 +63,10 @@ public class StructureScannerBlockEntity extends BlockEntity implements MenuProv
     @Override
     public Packet<ClientGamePacketListener> getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public void setChanged() {
+        super.setChanged();
     }
 }

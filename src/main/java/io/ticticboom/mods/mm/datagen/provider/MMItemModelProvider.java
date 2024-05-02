@@ -37,6 +37,6 @@ public class MMItemModelProvider extends ItemModelProvider {
                 this.getBuilder(Ref.id(id).toString()).parent(new ModelFile.UncheckedModelFile(Ref.id("block/" + id)));
             }
         }
-        this.getBuilder(MMRegisters.SCANNER_BLOCK_ITEM.getId().getPath()).parent(new ModelFile.UncheckedModelFile(Ref.id("block/structure_scanner")));
+        this.getBuilder(MMRegisters.SCANNER_BLOCK_ITEM.getId().toString()).parent(new ModelFile.UncheckedModelFile(Ref.id("block/structure_scanner")));
     }
 }

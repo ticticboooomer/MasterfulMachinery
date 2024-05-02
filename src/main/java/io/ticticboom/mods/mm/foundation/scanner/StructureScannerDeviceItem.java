@@ -11,11 +11,14 @@ import net.minecraft.world.item.context.UseOnContext;
 
 public class StructureScannerDeviceItem extends Item {
     public StructureScannerDeviceItem() {
-        super(new Properties());
+        super(new Properties().stacksTo(1));
     }
 
     @Override
     public InteractionResult useOn(UseOnContext ctx) {
+        if (ctx.getLevel().isClientSide()) {
+            return InteractionResult.PASS;
+        }
         var pos = ctx.getClickedPos();
         ItemStack tool = ctx.getItemInHand();
         var selection = tool.getCapability(MMCapabilities.SCANNER_SELECTION).orElseThrow(() -> new RuntimeException("No Selection Capability found!"));

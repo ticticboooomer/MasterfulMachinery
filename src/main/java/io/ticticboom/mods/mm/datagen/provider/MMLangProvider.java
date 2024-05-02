@@ -30,6 +30,7 @@ public class MMLangProvider extends LanguageProvider {
         }
 
         this.add(MMRegisters.BLUEPRINT.get(), "Blueprint");
+        this.add(MMRegisters.SCANNER_TOOL.get(), "Scanner Tool");
         this.add(MMRegisters.SCANNER_BLOCK.get(), "Structure Scanner");
     }
 }

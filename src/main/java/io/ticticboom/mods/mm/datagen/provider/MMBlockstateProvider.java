@@ -40,7 +40,7 @@ public class MMBlockstateProvider extends BlockStateProvider {
                 eb.generateModel(this);
             }
         }
-        this.simpleBlock(MMRegisters.SCANNER_BLOCK.get(), new ModelFile.ExistingModelFile(Ref.id("block/structure_generator"), this.models().existingFileHelper));
+        this.directionalState(MMRegisters.SCANNER_BLOCK.get(), new ModelFile.UncheckedModelFile(Ref.id("block/structure_scanner")));
     }
 
     public BlockModelBuilder dynamicBlockNorthOverlay(ResourceLocation loc, ResourceLocation baseTexture, ResourceLocation overlayTexture) {

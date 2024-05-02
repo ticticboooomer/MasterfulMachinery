@@ -6,6 +6,6 @@ import net.minecraft.world.item.BlockItem;
 
 public class StructureScannerBlockItem extends BlockItem {
     public StructureScannerBlockItem() {
-        super(MMRegisters.SCANNER_BLOCK.get(), new Properties());
+        super(MMRegisters.SCANNER_BLOCK.get(), new Properties().stacksTo(1));
     }
 }

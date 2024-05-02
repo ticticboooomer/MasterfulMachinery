@@ -1,6 +1,7 @@
 package io.ticticboom.mods.mm.cap;
 
 import net.minecraft.core.BlockPos;
+import net.minecraftforge.common.capabilities.AutoRegisterCapability;
 import org.jetbrains.annotations.Nullable;
 
 public class ScannerSelection implements IScannerSelection {

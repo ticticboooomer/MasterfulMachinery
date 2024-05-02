@@ -3,6 +3,7 @@ package io.ticticboom.mods.mm.foundation.scanner;
 import io.ticticboom.mods.mm.setup.MMRegisters;
 import io.ticticboom.mods.mm.util.BlockUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -28,6 +29,7 @@ public class StructureScannerBlock extends HorizontalDirectionalBlock implements
 
     public StructureScannerBlock() {
         super(BlockUtils.createBlockProperties());
+        this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH));
     }
 
     private static final VoxelShape SHAPE_N = Stream.of(
@@ -117,13 +119,13 @@ public class StructureScannerBlock extends HorizontalDirectionalBlock implements
     public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext collisionContext) {
         switch (state.getValue(FACING)) {
             case NORTH:
-                return SHAPE_N;
-            case EAST:
-                return SHAPE_E;
-            case SOUTH:
                 return SHAPE_S;
-            case WEST:
+            case EAST:
                 return SHAPE_W;
+            case SOUTH:
+                return SHAPE_N;
+            case WEST:
+                return SHAPE_E;
             default:
                 throw new IllegalStateException("Invalid State");
         }

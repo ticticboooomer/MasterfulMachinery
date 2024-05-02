@@ -4,7 +4,6 @@ import io.ticticboom.mods.mm.menu.MMContainerMenu;
 import io.ticticboom.mods.mm.setup.MMRegisters;
 import io.ticticboom.mods.mm.util.BlockUtils;
 import io.ticticboom.mods.mm.util.MenuUtils;
-import net.minecraft.BlockUtil;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
@@ -16,7 +15,8 @@ public class StructureScannerMenu extends MMContainerMenu {
     public StructureScannerMenu(int windowId, Inventory inv, StructureScannerBlockEntity be) {
         super(MMRegisters.SCANNER_BLOCK_MENU.get(), MMRegisters.SCANNER_BLOCK.get(), windowId, MenuUtils.createAccessFromBlockEntity(be), 0);
         this.be = be;
-        this.addSlot(new Slot())
+        var container = new StructureScannerContainer(be.getHandler());
+        this.addSlot(new Slot(container, 0, 152, 8));
         BlockUtils.setupPlayerInventory(this, inv, 0, 0);
     }
 

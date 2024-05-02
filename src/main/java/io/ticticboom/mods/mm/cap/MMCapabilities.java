@@ -20,16 +20,4 @@ public class MMCapabilities {
     public static final Capability<IFluidHandler> FLUID = CapabilityManager.get(new CapabilityToken<>() {});
     public static final Capability<IEnergyStorage> ENERGY = CapabilityManager.get(new CapabilityToken<>() {});
     public static final Capability<IScannerSelection> SCANNER_SELECTION = CapabilityManager.get(new CapabilityToken<>() {});
-
-    @SubscribeEvent
-    public void registerCaps(RegisterCapabilitiesEvent event) {
-        event.register(IScannerSelection.class);
-    }
-
-    @SubscribeEvent
-    public void attachCaps(AttachCapabilitiesEvent<ItemStack> event) {
-        if (event.getObject().getItem() == MMRegisters.SCANNER_TOOL.get()) {
-            event.addCapability(Ref.SCANNER_CAP, new ScannerSelectionProvider());
-        }
-    }
 }

@@ -96,7 +96,7 @@ public class StructureLayoutPiece {
                     return false;
                 }
                 if (be instanceof IPortBlockEntity pbe) {
-                    var isPort = pbe.getModel().id().equals(portId.getPath());
+                    var isPort = pbe.getModel().id().equals(portId.getPath() + (pbe.getModel().input() ? "_input" : "_output"));
                     if (!isPort) {
                         return false;
                     }

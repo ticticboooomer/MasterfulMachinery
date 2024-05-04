@@ -1,9 +1,8 @@
 package io.ticticboom.mods.mm.piece;
 
-import io.ticticboom.mods.mm.recipe.RecipeStorages;
+import net.minecraft.resources.ResourceLocation;
 
 public record StructurePieceSetupMetadata(
-        RecipeStorages structureId,
-        char keyChar
+        ResourceLocation structureId
 ) {
 }

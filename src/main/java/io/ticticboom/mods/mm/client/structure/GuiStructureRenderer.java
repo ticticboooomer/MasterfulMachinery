@@ -25,6 +25,7 @@ public class GuiStructureRenderer {
 
     public void init() {
         if (!isInitialized) {
+            model.layout().setup(model.id());
             parts = guiLayout.createBlockRenderers();
             parts.add(model.controllerUiRenderer());
             for (PositionedCyclingBlockRenderer part : parts) {

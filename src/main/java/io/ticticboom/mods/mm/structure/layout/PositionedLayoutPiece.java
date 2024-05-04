@@ -10,8 +10,8 @@ public record PositionedLayoutPiece(
         BlockPos pos,
         StructureLayoutPiece piece
 ) {
-    public boolean formed(Level level, BlockPos controllerPos, StructureModel model) {
-        return piece.formed(level, findAbsolutePos(controllerPos), model);
+    public boolean formed(Level level, BlockPos controllerPos, StructureModel model, Rotation rot) {
+        return piece.formed(level, findAbsolutePos(controllerPos), model, rot);
     }
 
     public BlockPos findAbsolutePos(BlockPos controllerPos) {

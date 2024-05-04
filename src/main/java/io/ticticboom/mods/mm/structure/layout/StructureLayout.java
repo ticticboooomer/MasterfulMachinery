@@ -55,17 +55,17 @@ public class StructureLayout {
     }
 
     public boolean formed(Level level, BlockPos worldControllerPos, StructureModel model) {
-        for (List<PositionedLayoutPiece> asRotation : rotatedPositionedPieces.values()) {
-            if (innerFormed(level, worldControllerPos, model, asRotation)) {
+        for (var entry : rotatedPositionedPieces.entrySet()) {
+            if (innerFormed(level, worldControllerPos, model, entry.getValue(), entry.getKey())) {
                 return true;
             }
         }
         return false;
     }
 
-    private boolean innerFormed(Level level, BlockPos worldControllerPos, StructureModel model, List<PositionedLayoutPiece> positionedPieces) {
+    private boolean innerFormed(Level level, BlockPos worldControllerPos, StructureModel model, List<PositionedLayoutPiece> positionedPieces, Rotation rot) {
         for (PositionedLayoutPiece piece : positionedPieces) {
-            if (!piece.formed(level, worldControllerPos, model)) {
+            if (!piece.formed(level, worldControllerPos, model, rot)) {
                 return false;
             }
         }
@@ -73,9 +73,9 @@ public class StructureLayout {
     }
 
     public RecipeStorages getRecipeStorages(Level level, BlockPos worldControllerPos, StructureModel model) {
-        for (List<PositionedLayoutPiece> asRotation : rotatedPositionedPieces.values()) {
-            if (innerFormed(level, worldControllerPos, model, asRotation)) {
-                return innerGetRecipeStorages(level, worldControllerPos, asRotation);
+        for (var entry : rotatedPositionedPieces.entrySet()) {
+            if (innerFormed(level, worldControllerPos, model, entry.getValue(), entry.getKey())) {
+                return innerGetRecipeStorages(level, worldControllerPos, entry.getValue());
             }
         }
         return null;
@@ -103,11 +103,18 @@ public class StructureLayout {
         var pieces = getPieces(json, structureId);
         return new StructureLayout(raw, pieces);
     }
+
+    public void setup(ResourceLocation structureId) {
+        for (StructureLayoutPiece value : pieces.values()) {
+            value.setup(structureId);
+        }
+    }
+
     private static Map<StructureKeyChar, StructureLayoutPiece> getPieces(JsonObject json, ResourceLocation structureId) {
         Map<StructureKeyChar, StructureLayoutPiece> pieces = new HashMap<>();
         for (var key : json.getAsJsonObject("key").asMap().entrySet()) {
             JsonObject jsonKey = key.getValue().getAsJsonObject();
-            pieces.put(new StructureKeyChar(key.getKey().charAt(0)), StructureLayoutPiece.parse(jsonKey, structureId));
+            pieces.put(new StructureKeyChar(key.getKey().charAt(0)), StructureLayoutPiece.parse(jsonKey, structureId, key.getKey()));
         }
         return pieces;
     }

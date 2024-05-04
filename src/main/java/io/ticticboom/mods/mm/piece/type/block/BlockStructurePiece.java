@@ -1,19 +1,21 @@
 package io.ticticboom.mods.mm.piece.type.block;
 
 import io.ticticboom.mods.mm.piece.StructurePieceSetupMetadata;
-import io.ticticboom.mods.mm.piece.type.IStructurePiece;
-import io.ticticboom.mods.mm.piece.util.StructurePieceUtils;
+import io.ticticboom.mods.mm.piece.type.StructurePiece;
+import io.ticticboom.mods.mm.util.StructurePieceUtils;
 import io.ticticboom.mods.mm.structure.StructureModel;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
-public class BlockStructurePiece implements IStructurePiece {
+public class BlockStructurePiece extends StructurePiece {
 
     private final ResourceLocation blockId;
     private Block block;
@@ -23,17 +25,26 @@ public class BlockStructurePiece implements IStructurePiece {
     }
 
     @Override
-    public List<String> validateSetup(StructurePieceSetupMetadata meta) {
-        List<String> errors = new ArrayList<>();
+    public void validateSetup(StructurePieceSetupMetadata meta) {
         block = ForgeRegistries.BLOCKS.getValue(blockId);
         if (block == null) {
-            StructurePieceUtils.errorMessageFor("'block' field is not a valid block id", meta);
+            throw new RuntimeException(StructurePieceUtils.errorMessageFor("'block' field is not a valid block id", meta));
         }
-        return errors;
+        setup = true;
     }
 
     @Override
     public boolean formed(Level level, BlockPos pos, StructureModel model) {
         return level.getBlockState(pos).is(block);
+    }
+
+    @Override
+    public Supplier<List<Block>> createBlocksSupplier() {
+        return () -> List.of(block);
+    }
+
+    @Override
+    public Component createDisplayComponent() {
+        return Component.literal("Block Id: ").append(Component.literal(blockId.toString()).withStyle(ChatFormatting.DARK_AQUA));
     }
 }

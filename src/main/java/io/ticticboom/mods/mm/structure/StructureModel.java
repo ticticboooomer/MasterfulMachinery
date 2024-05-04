@@ -9,27 +9,25 @@ import io.ticticboom.mods.mm.compat.jei.SlotGrid;
 import io.ticticboom.mods.mm.controller.MMControllerRegistry;
 import io.ticticboom.mods.mm.model.IdList;
 import io.ticticboom.mods.mm.recipe.RecipeStorages;
+import io.ticticboom.mods.mm.setup.MMRegisters;
 import io.ticticboom.mods.mm.structure.layout.PositionedLayoutPiece;
-import io.ticticboom.mods.mm.structure.layout.StructureCharacterGrid;
 import io.ticticboom.mods.mm.structure.layout.StructureLayout;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.fml.util.thread.EffectiveSide;
+import org.checkerframework.checker.units.qual.C;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class StructureModel {
 
@@ -61,7 +59,7 @@ public class StructureModel {
         this.layout = layout;
         if (FMLEnvironment.dist == Dist.CLIENT) {
             renderer = new GuiStructureRenderer(this);
-            countedPartItems = getCountedItemStacks();
+//            countedPartItems = getCountedItemStacks();
         }
     }
 
@@ -72,7 +70,7 @@ public class StructureModel {
         var res = new ArrayList<GuiBlockRenderer>();
         for (ResourceLocation id : ids) {
             Block controllerBlock = MMControllerRegistry.getControllerBlock(id);
-            GuiBlockRenderer gbr = new GuiBlockRenderer(controllerBlock);
+            GuiBlockRenderer gbr = new GuiBlockRenderer(controllerBlock, List.of());
             gbr.setupAt(pos);
             res.add(gbr);
         }
@@ -131,6 +129,13 @@ public class StructureModel {
                 result.get(valueId).addCount(1);
             }
         }
-        return new ArrayList<>(result.values());
+        countedPartItems = new ArrayList<>(result.values());
+        var controllerList = new ArrayList<ItemStack>();
+        for (ResourceLocation controller : controllerIds.getIds()) {
+            Block controllerBlock = MMControllerRegistry.getControllerBlock(controller);
+            controllerList.add(controllerBlock.asItem().getDefaultInstance());
+        }
+        countedPartItems.add(new GuiCountedItemStack(1, controllerList, Component.literal("Controller"), "C"));
+        return countedPartItems;
     }
 }

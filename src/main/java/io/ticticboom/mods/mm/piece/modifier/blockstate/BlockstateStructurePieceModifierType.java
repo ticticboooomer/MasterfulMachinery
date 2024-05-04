@@ -2,7 +2,7 @@ package io.ticticboom.mods.mm.piece.modifier.blockstate;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import io.ticticboom.mods.mm.piece.modifier.IStructurePieceModifier;
+import io.ticticboom.mods.mm.piece.modifier.StructurePieceModifier;
 import io.ticticboom.mods.mm.piece.modifier.MMStructurePieceModifierType;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class BlockstateStructurePieceModifierType extends MMStructurePieceModifi
     }
 
     @Override
-    public IStructurePieceModifier parse(JsonObject json) {
+    public StructurePieceModifier parse(JsonObject json) {
         var properties = json.get("properties").getAsJsonArray();
         var props = new ArrayList<StructureBlockstateProperty>();
         for (JsonElement property : properties) {

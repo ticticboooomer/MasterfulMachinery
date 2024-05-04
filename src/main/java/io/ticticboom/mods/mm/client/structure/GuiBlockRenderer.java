@@ -1,6 +1,7 @@
 package io.ticticboom.mods.mm.client.structure;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import io.ticticboom.mods.mm.piece.modifier.StructurePieceModifier;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -18,25 +19,35 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.model.data.ModelData;
 
+import java.util.List;
+
 @OnlyIn(Dist.CLIENT)
 public class GuiBlockRenderer {
     private final Block block;
     private BlockEntityRenderer<BlockEntity> ber;
     private BlockEntity be;
-    private final BlockState state;
+    private BlockState state;
+    private final List<StructurePieceModifier> modifiers;
     private static Minecraft mc = Minecraft.getInstance();
     private BlockPos pos;
 
-    public GuiBlockRenderer(Block block) {
+    public GuiBlockRenderer(Block block, List<StructurePieceModifier> modifiers) {
         this.block = block;
-        state = block.defaultBlockState();
+        this.modifiers = modifiers;
     }
 
     public void setupAt(BlockPos pos) {
         this.pos = pos;
+        state = block.defaultBlockState();
         if (block instanceof EntityBlock eb) {
             be = eb.newBlockEntity(pos, state);
             ber = Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(be);
+        }
+        for (StructurePieceModifier mod : modifiers) {
+            state = mod.modifyBlockState(state, be, pos);
+            if (be != null) {
+                be = mod.modifyBlockEntity(state, be, pos);
+            }
         }
     }
 

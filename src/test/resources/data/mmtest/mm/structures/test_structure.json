@@ -15,7 +15,13 @@
   ],
   "key": {
     "A": {
-      "block": "minecraft:glass"
+      "block": "minecraft:oak_log",
+      "properties": [
+        {
+          "property": "axis",
+          "value": "x"
+        }
+      ]
     },
     "P": {
       "block": "mm:my_port_a_input"

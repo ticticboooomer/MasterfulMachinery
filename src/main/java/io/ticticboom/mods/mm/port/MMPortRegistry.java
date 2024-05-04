@@ -41,7 +41,7 @@ public class MMPortRegistry {
     public static List<Block> getPortBlocks(ResourceLocation id) {
         return PORTS.stream().filter(x -> {
             if (x.getBlock().get() instanceof IPortBlock bp) {
-                return bp.getModel().id().equals(id.getPath());
+                return bp.getModel().id().equals(id.getPath() + (bp.getModel().input() ? "_input" : "_output"));
             }
             return false;
         }).map(x -> x.getBlock().get()).toList();

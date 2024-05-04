@@ -26,10 +26,11 @@
       "block": "mm:coke_oven_item_input"
     },
     "D": {
-      "block": "mm:coke_oven_item_output"
+      "port": "mm:coke_oven_item"
     },
     "1": {
-      "block": "mm:coke_oven_fluid_3x3_input"
+      "port": "mm:coke_oven_fluid_3x3",
+      "input": true
     },
     "2": {
       "block": "mm:coke_oven_fluid_3x3_output"

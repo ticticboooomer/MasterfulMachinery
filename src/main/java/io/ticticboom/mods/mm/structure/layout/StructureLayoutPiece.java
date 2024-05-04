@@ -89,6 +89,7 @@ public class StructureLayoutPiece {
                 requiresIO = false;
                 isInput = false;
             }
+            final var name = requiresIO ? (isInput ? "Input " : "Output ") : "";
             final var portId = ParserUtils.parseId(json, "port");
             return new StructureLayoutPiece(x -> {
                 var be = x.level().getBlockEntity(x.pos());
@@ -96,7 +97,7 @@ public class StructureLayoutPiece {
                     return false;
                 }
                 if (be instanceof IPortBlockEntity pbe) {
-                    var isPort = pbe.getModel().id().equals(portId.getPath());
+                    var isPort = pbe.getModel().id().equals(portId.getPath() + (pbe.isInput() ? "_input" : "_output"));
                     if (!isPort) {
                         return false;
                     }
@@ -107,7 +108,7 @@ public class StructureLayoutPiece {
                 }
                 return false;
             }, new GuiStructureLayoutPiece(() -> MMPortRegistry.getPortBlocks(portId),
-                    Component.literal("Block Tag: ").append(Component.literal(portId.toString()).withStyle(ChatFormatting.DARK_AQUA))), "port:" + portId);
+                    Component.literal( name + "Port: ").append(Component.literal(portId.toString()).withStyle(ChatFormatting.DARK_AQUA))), "port:" + portId);
         }
         throw new RuntimeException(String.format("Structure failed to parse [%s] no suitable structure key requirement found", structureId));
     }

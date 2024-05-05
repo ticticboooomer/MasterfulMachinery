@@ -107,6 +107,10 @@ public class MachineControllerBlockEntity extends BlockEntity implements IContro
 
         if (!canContinueRecipe()) {
             for (RecipeModel recipe : MachineRecipeManager.RECIPES.values()) {
+                if (!recipe.structureId().equals(structure.id())) {
+                    continue;
+                }
+
                 if (recipe.canProcess(level, recipeState, portStorages)) {
                     setChanged();
                     currentRecipe = recipe;

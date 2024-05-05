@@ -26,7 +26,7 @@
       "block": "mm:coke_oven_item_input"
     },
     "D": {
-      "port": "mm:coke_oven_item"
+      "portType": "mm:item"
     },
     "1": {
       "port": "mm:coke_oven_fluid_3x3",

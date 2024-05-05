@@ -7,6 +7,8 @@ import io.ticticboom.mods.mm.piece.modifier.blockstate.BlockstateStructurePieceM
 import io.ticticboom.mods.mm.piece.type.StructurePiece;
 import io.ticticboom.mods.mm.piece.type.block.BlockStructurePieceType;
 import io.ticticboom.mods.mm.piece.type.MMStructurePieceType;
+import io.ticticboom.mods.mm.piece.type.port.PortStructurePieceType;
+import io.ticticboom.mods.mm.piece.type.porttype.PortTypeStructurePieceType;
 import io.ticticboom.mods.mm.piece.type.tag.TagStructurePieceType;
 
 import java.util.ArrayList;
@@ -46,6 +48,8 @@ public class MMStructurePieceRegistry {
     public static void init() {
         registerPiece(new BlockStructurePieceType());
         registerPiece(new TagStructurePieceType());
+        registerPiece(new PortStructurePieceType());
+        registerPiece(new PortTypeStructurePieceType());
 
         registerModifier(new BlockstateStructurePieceModifierType());
     }

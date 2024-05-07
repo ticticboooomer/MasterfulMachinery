@@ -39,7 +39,7 @@
 {
   "A": {
     "block": "mm:controller_a",
-    "state_properties": [
+    "properties": [
       {
         "property": "facing",
         "value": "north"

@@ -44,12 +44,13 @@ public class BlockstateStructurePieceModifier extends StructurePieceModifier {
     @Override
     public boolean formed(Level level, BlockPos pos, StructureModel model, Rotation rotation) {
         BlockState blockState = level.getBlockState(pos);
+        int matched = 0;
         for (Map.Entry<Property<?>, Comparable<?>> entry : blockState.getValues().entrySet()) {
-            if (!doesPropValueMatch(entry, rotation)) {
-                return false;
+            if (doesPropValueMatch(entry, rotation)) {
+                matched++;
             }
         }
-        return true;
+        return matched >= properties.size();
     }
 
     @Override
@@ -66,7 +67,7 @@ public class BlockstateStructurePieceModifier extends StructurePieceModifier {
         for (StructureBlockstateProperty property : properties) {
             var nameMatch = entry.getKey().getName().equals(property.key());
             if (!nameMatch) {
-                return false;
+                continue;
             }
             // make cleaner ffs
             var propVal = propValues.get(property.key());
@@ -88,11 +89,11 @@ public class BlockstateStructurePieceModifier extends StructurePieceModifier {
                 }
             }
             boolean valMatch = propVal.value().equals(entry.getValue());
-            if (!valMatch) {
-                return false;
+            if (valMatch) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     private BlockState modifyBlockstate(BlockState state) {

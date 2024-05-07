@@ -1,0 +1,27 @@
+{
+  "name": "Funky Fire Fingy",
+  "controllerIds": "mm:controller_a",
+  "layout": [
+    [
+      "A"
+    ],
+    [
+      "C"
+    ]
+  ],
+  "key": {
+    "A": {
+      "block": "minecraft:campfire",
+      "properties": [
+        {
+          "property": "lit",
+          "value": "true"
+        },
+        {
+          "property": "signal_fire",
+          "value": "false"
+        }
+      ]
+    }
+  }
+}

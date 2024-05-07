@@ -5,7 +5,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
 }
 
-version = '1.20.1-0.5.12'
+version = '1.20.1-0.5.13'
 group = 'io.ticticboom.mods.mm' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 
 base {
@@ -16,6 +16,7 @@ base {
 // Mojang ships Java 17 to end users in 1.18+
 // , so your mod should target Java 17.
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
 
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 minecraft {

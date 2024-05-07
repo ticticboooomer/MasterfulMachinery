@@ -38,15 +38,10 @@ public abstract class MMContainerMenu extends AbstractContainerMenu {
             int capSize = storageSlots;
             int pinvSize = 27;
             int phbSize = 9;
-            int playerStart = capSize;
             int hbStart = capSize + pinvSize;
             int totalSize = capSize + pinvSize + phbSize;
-            if (i == 0) {
-                if (!this.moveItemStackTo(rawStack, capSize, totalSize, true)) {
-                    return ItemStack.EMPTY;
-                }
-                quickMovedSlot.onQuickCraft(rawStack, quickMovedStack);
-            } else if (i >= capSize && i < totalSize) {
+
+            if (i >= capSize && i < totalSize) {
                 if (!this.moveItemStackTo(rawStack, 0, capSize, false)) {
                     if (i < hbStart) {
                         if (!this.moveItemStackTo(rawStack, hbStart, totalSize, false)) {

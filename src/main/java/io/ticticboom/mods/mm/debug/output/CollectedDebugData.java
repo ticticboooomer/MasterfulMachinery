@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.debug.output.model.DebugPortBlockState;
 import io.ticticboom.mods.mm.debug.output.model.DebugRecipeRunState;
 import io.ticticboom.mods.mm.model.ControllerModel;
+import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.recipe.RecipeModel;
 import io.ticticboom.mods.mm.structure.StructureModel;
 import lombok.Getter;
@@ -20,6 +21,7 @@ import java.util.List;
 public class CollectedDebugData {
     public List<StructureModel> structureDefs = new ArrayList<>();
     public List<RecipeModel> recipeDefs = new ArrayList<>();
+    public List<PortModel> portDefs = new ArrayList<>();
     public ControllerModel controllerDef;
 
     public List<JsonObject> structureStates = new ArrayList<>();

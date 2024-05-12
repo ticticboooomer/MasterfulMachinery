@@ -2,6 +2,7 @@ package io.ticticboom.mods.mm.port;
 
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.Ref;
+import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.energy.EnergyPortType;
 import io.ticticboom.mods.mm.port.fluid.FluidPortType;
 import io.ticticboom.mods.mm.port.item.ItemPortType;
@@ -38,12 +39,12 @@ public class MMPortRegistry {
         return PORT_TYPES.get(type).getParser().parseRecipeIngredient(json);
     }
 
-    public static List<Block> getPortBlocks(ResourceLocation id) {
+    public static List<PortModel> getPortModelsForControllerId(ResourceLocation id) {
         return PORTS.stream().filter(x -> {
             if (x.getBlock().get() instanceof IPortBlock bp) {
-                return bp.getModel().id().equals(id.getPath() + (bp.getModel().input() ? "_input" : "_output"));
+                return bp.getModel().controllerIds().contains(id);
             }
             return false;
-        }).map(x -> x.getBlock().get()).toList();
+        }).map(x -> ((IPortBlock)x.getBlock().get()).getModel()).toList();
     }
 }

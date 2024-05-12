@@ -13,6 +13,7 @@ public record PortModel(
         IdList controllerIds,
         ResourceLocation type,
         IPortStorageFactory config,
+        JsonObject jsonConfig,
         boolean input) {
 
     public static PortModel parse(JsonObject json, boolean input) {
@@ -22,6 +23,7 @@ public record PortModel(
         var type = ParserUtils.parseId(json, "type");
         var portType = MMPortRegistry.get(type);
         var storageFactory = portType.getParser().parseStorage(json.get("config").getAsJsonObject());
-        return new PortModel(id, name, controllerIds, type, storageFactory, input);
+        return new PortModel(id, name, controllerIds, type, storageFactory, json, input);
     }
+
 }

@@ -4,6 +4,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.controller.machine.register.MachineControllerBlockEntity;
+import io.ticticboom.mods.mm.model.PortModel;
+import io.ticticboom.mods.mm.port.MMPortRegistry;
 import io.ticticboom.mods.mm.recipe.MachineRecipeManager;
 import io.ticticboom.mods.mm.recipe.RecipeModel;
 import io.ticticboom.mods.mm.recipe.RecipeStateModel;
@@ -35,6 +37,7 @@ public class DebugOutputManager {
         BlockEntity be = level.getBlockEntity(pos);
         if (be instanceof MachineControllerBlockEntity cbe) {
             data.setControllerDef(cbe.getModel());
+            data.setPortDefs(MMPortRegistry.getPortModelsForControllerId(Ref.id(cbe.getModel().id())));
             // get structure defs
             var controllerId = Ref.id(data.getControllerDef().id());
             data.setStructureDefs(StructureManager.getStructuresForController(controllerId));
@@ -83,7 +86,7 @@ public class DebugOutputManager {
     }
 
     @SneakyThrows
-    public static void output(CollectedDebugData data) {
+    public static String output(CollectedDebugData data) {
         var file = getOutputFile();
         var fout = new FileOutputStream(file);
         var zip = new ZipOutputStream(fout);
@@ -124,6 +127,15 @@ public class DebugOutputManager {
             zip.closeEntry();
         }
 
+        for (PortModel portDef : data.portDefs) {
+            zip.putNextEntry(new ZipEntry("ports/" + portDef.id() + ".json"));
+
+            String string = gson.toJson(portDef.jsonConfig());
+            zip.write(string.getBytes(StandardCharsets.UTF_8));
+
+            zip.closeEntry();
+        }
+
         // diags
         zip.putNextEntry(new ZipEntry("system-diags.json"));
         zip.write(gson.toJson(data.diags).getBytes(StandardCharsets.UTF_8));
@@ -135,6 +147,7 @@ public class DebugOutputManager {
         zip.closeEntry();
 
         zip.close();
+        return file.getAbsolutePath();
     }
 
     @SneakyThrows

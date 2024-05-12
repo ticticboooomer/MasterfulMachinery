@@ -10,7 +10,7 @@
     [
       "     ",
       "1PCD2",
-      "     "
+      "45678"
     ],
     [
       "     ",
@@ -34,6 +34,21 @@
     },
     "2": {
       "block": "mm:coke_oven_fluid_3x3_output"
+    },
+    "4": {
+      "block": "minecraft:black_wool"
+    },
+    "5": {
+      "block": "minecraft:blue_wool"
+    },
+    "6": {
+      "block": "minecraft:red_wool"
+    },
+    "7": {
+      "block": "minecraft:green_wool"
+    },
+    "8": {
+      "block": "minecraft:orange_wool"
     }
   }
 }

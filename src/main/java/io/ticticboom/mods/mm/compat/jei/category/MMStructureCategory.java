@@ -73,7 +73,7 @@ public class MMStructureCategory implements IRecipeCategory<StructureModel> {
         guiRenderer.resetTransforms();
         guiRenderer.init();
         var countedItemStacks = recipe.getCountedItemStacks();
-        var grid = new SlotGrid(20, 20, 160, 40, 1, 130);
+        var grid = new SlotGrid(20, 20, 8, 3, 1, 130);
         recipe.setGrid(grid);
         for (GuiCountedItemStack countedItemStack : countedItemStacks) {
             SlotGridEntry next = grid.next();

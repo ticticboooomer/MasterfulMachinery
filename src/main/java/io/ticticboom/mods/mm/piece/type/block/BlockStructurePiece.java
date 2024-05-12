@@ -1,5 +1,6 @@
 package io.ticticboom.mods.mm.piece.type.block;
 
+import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.piece.StructurePieceSetupMetadata;
 import io.ticticboom.mods.mm.piece.type.StructurePiece;
 import io.ticticboom.mods.mm.util.StructurePieceUtils;
@@ -46,5 +47,18 @@ public class BlockStructurePiece extends StructurePiece {
     @Override
     public Component createDisplayComponent() {
         return Component.literal("Block Id: ").append(Component.literal(blockId.toString()).withStyle(ChatFormatting.DARK_AQUA));
+    }
+
+    @Override
+    public JsonObject debugExpected(Level level, BlockPos pos, StructureModel model, JsonObject json) {
+        json.addProperty("block", blockId.toString());
+        return json;
+    }
+
+    @Override
+    public JsonObject debugFound(Level level, BlockPos pos, StructureModel model, JsonObject json) {
+        var foundId = ForgeRegistries.BLOCKS.getKey(level.getBlockState(pos).getBlock());
+        json.addProperty("block", foundId.toString());
+        return json;
     }
 }

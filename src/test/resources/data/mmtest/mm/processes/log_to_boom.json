@@ -1,6 +1,6 @@
 {
   "ticks": 200,
-  "structureId": "mm:some_folder/lumber_treatment_plant",
+  "structureId": "mmtest:some_folder/lumber_treatment_plant",
   "inputs": [
     {
       "type": "mm:input/consume",

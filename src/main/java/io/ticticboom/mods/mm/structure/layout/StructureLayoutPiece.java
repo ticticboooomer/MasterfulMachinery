@@ -1,5 +1,6 @@
 package io.ticticboom.mods.mm.structure.layout;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.client.structure.GuiStructureLayoutPiece;
 import io.ticticboom.mods.mm.piece.MMStructurePieceRegistry;
@@ -72,5 +73,28 @@ public class StructureLayoutPiece {
         for (StructurePieceModifier modifier : modifiers) {
             modifier.validateSetup(meta, blocks);
         }
+    }
+
+    public JsonObject debugFormed(Level level, BlockPos pos, StructureModel model, Rotation rot) {
+        var json = new JsonObject();
+        json.addProperty("formed", formed(level, pos, model, rot));
+        var expected = piece.debugExpected(level, pos, model, new JsonObject());
+        var found = piece.debugFound(level, pos, model, new JsonObject());
+        json.add("expected", expected);
+        json.add("found", found);
+
+        // TODO audit modifiers
+        var modifiersJson = new JsonArray();
+        for (StructurePieceModifier modifier : modifiers) {
+            var expectedModifier = modifier.debugExpected(level, pos, model, rot, new JsonObject());
+            var foundModifier = modifier.debugFound(level, pos, model, rot, new JsonObject());
+            var modifierInnerJson = new JsonObject();
+            modifierInnerJson.addProperty("id", modifier.getId());
+            modifierInnerJson.add("expected", expectedModifier);
+            modifierInnerJson.add("found", foundModifier);
+            modifiersJson.add(modifierInnerJson);
+        }
+        json.add("modifiers", modifiersJson);
+        return json;
     }
 }

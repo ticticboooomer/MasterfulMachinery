@@ -1,5 +1,7 @@
 package io.ticticboom.mods.mm.piece.modifier.blockstate;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import io.ticticboom.mods.mm.Ref;
@@ -8,6 +10,7 @@ import io.ticticboom.mods.mm.piece.modifier.StructurePieceModifier;
 import io.ticticboom.mods.mm.structure.StructureModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Rotation;
@@ -22,11 +25,18 @@ import java.util.*;
 
 public class BlockstateStructurePieceModifier extends StructurePieceModifier {
 
+    private final String id;
     private final List<StructureBlockstateProperty> properties;
     private final Map<String, Property.Value<?>> propValues = new HashMap<>();
 
-    public BlockstateStructurePieceModifier(List<StructureBlockstateProperty> properties) {
+    public BlockstateStructurePieceModifier(String id, List<StructureBlockstateProperty> properties) {
+        this.id = id;
         this.properties = properties;
+    }
+
+    @Override
+    public String getId() {
+        return id;
     }
 
     @Override
@@ -61,6 +71,30 @@ public class BlockstateStructurePieceModifier extends StructurePieceModifier {
     @Override
     public BlockEntity modifyBlockEntity(BlockState state, BlockEntity be, BlockPos pos) {
         return be;
+    }
+
+    @Override
+    public JsonObject debugExpected(Level level, BlockPos pos, StructureModel model, Rotation rotation, JsonObject json) {
+        var propsJson = new JsonArray();
+        for (StructureBlockstateProperty property : properties) {
+            var propertyJson = new JsonObject();
+            propertyJson.addProperty("property", property.key());
+            propertyJson.add("value", property.value());
+            propsJson.add(propertyJson);
+        }
+        return json;
+    }
+
+    @Override
+    public JsonObject debugFound(Level level, BlockPos pos, StructureModel model, Rotation rotation, JsonObject json) {
+        var blockstate = level.getBlockState(pos);
+        var res = JsonOps.INSTANCE.withEncoder(BlockState.CODEC).apply(blockstate).result();
+        if (res.isPresent()) {
+            json.add("blockstate", res.get());
+        } else {
+            json.addProperty("failedToSerializeBlockState", true);
+        }
+        return json;
     }
 
     private boolean doesPropValueMatch(Map.Entry<Property<?>, Comparable<?>> entry, Rotation rot) {

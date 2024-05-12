@@ -1,6 +1,7 @@
 package io.ticticboom.mods.mm.setup;
 
 import io.ticticboom.mods.mm.Ref;
+import io.ticticboom.mods.mm.debug.tool.DebugToolItem;
 import io.ticticboom.mods.mm.item.BlueprintItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -21,6 +22,7 @@ public class MMRegisters {
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Ref.ID);
 
     public static final RegistryObject<Item> BLUEPRINT = ITEMS.register("blueprint", BlueprintItem::new);
+    public static final RegistryObject<Item> DEBUG_TOOL = ITEMS.register("debug_tool", DebugToolItem::new);
 
     public static final RegistryObject<CreativeModeTab> MM_TAB = TABS.register("mm", () -> CreativeModeTab.builder().title(Component.literal("Masterful Machinery"))
             .icon(() -> BLUEPRINT.get().getDefaultInstance())

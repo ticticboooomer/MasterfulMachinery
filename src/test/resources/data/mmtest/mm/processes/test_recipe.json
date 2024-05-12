@@ -1,6 +1,6 @@
 {
   "ticks": 40,
-  "structureId": "mm:test_structure",
+  "structureId": "mmtest:test_structure",
   "inputs": [
     {
       "type": "mm:input/consume",

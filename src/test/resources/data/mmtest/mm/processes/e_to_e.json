@@ -1,6 +1,6 @@
 {
   "ticks": 60,
-  "structureId": "mm:energy_structure",
+  "structureId": "mmtest:energy_structure",
   "inputs": [
     {
       "type": "mm:input/consume",

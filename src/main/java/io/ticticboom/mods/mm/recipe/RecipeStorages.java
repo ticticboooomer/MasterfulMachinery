@@ -1,5 +1,7 @@
 package io.ticticboom.mods.mm.recipe;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.port.IPortStorage;
 
 import java.util.ArrayList;
@@ -25,5 +27,20 @@ public record RecipeStorages(
             }
         }
         return result;
+    }
+
+    public JsonObject debug() {
+        var inputsJson = new JsonArray();
+        var outputsJson = new JsonArray();
+        for (IPortStorage inputStorage : inputStorages) {
+            inputsJson.add(inputStorage.debugDump());
+        }
+        for (IPortStorage outputStorage : outputStorages) {
+            outputsJson.add(outputStorage.debugDump());
+        }
+        var json = new JsonObject();
+        json.add("inputs", inputsJson);
+        json.add("outputs", outputsJson);
+        return json;
     }
 }

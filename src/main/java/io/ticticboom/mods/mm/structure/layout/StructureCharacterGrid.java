@@ -1,5 +1,7 @@
 package io.ticticboom.mods.mm.structure.layout;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;

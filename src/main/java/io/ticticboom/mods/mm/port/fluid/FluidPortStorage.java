@@ -1,5 +1,8 @@
 package io.ticticboom.mods.mm.port.fluid;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.mojang.serialization.JsonOps;
 import io.ticticboom.mods.mm.cap.MMCapabilities;
 import io.ticticboom.mods.mm.port.IPortStorage;
 import io.ticticboom.mods.mm.port.IPortStorageModel;
@@ -12,12 +15,16 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
+import java.util.UUID;
+
 public class FluidPortStorage implements IPortStorage {
     private final FluidPortStorageModel model;
 
     @Getter
     private final FluidPortHandler handler;
     private final LazyOptional<FluidPortHandler> handlerLazyOptional;
+    private final UUID uid = UUID.randomUUID();
+
 
     public FluidPortStorage(FluidPortStorageModel model, INotifyChangeFunction changed) {
         this.model = model;
@@ -58,6 +65,31 @@ public class FluidPortStorage implements IPortStorage {
     @Override
     public IPortStorageModel getStorageModel() {
         return model;
+    }
+
+    @Override
+    public UUID getStorageUid() {
+        return uid;
+    }
+
+    @Override
+    public JsonObject debugDump() {
+        var json = new JsonObject();
+        json.addProperty("uid", uid.toString());
+        json.addProperty("slotCapacity", model.slotCapacity());
+        json.addProperty("rows", model.rows());
+        json.addProperty("columns", model.columns());
+        var tanks = new JsonArray();
+        for (int i = 0; i < handler.getTanks(); i++) {
+            var stack = handler.getFluidInTank(i);
+            var res = JsonOps.INSTANCE.withEncoder(FluidStack.CODEC).apply(stack);
+            if (res.result().isPresent()) {
+                tanks.add(res.result().get());
+            } else {
+                tanks.add("Error Serializing Fluid Stack");
+            }
+        }
+        return json;
     }
 
     public FluidStack getStackInSlot(int slot) {

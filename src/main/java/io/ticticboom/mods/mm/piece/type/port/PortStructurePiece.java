@@ -1,6 +1,7 @@
 package io.ticticboom.mods.mm.piece.type.port;
 
 import com.electronwill.nightconfig.core.AbstractConfig;
+import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.piece.StructurePieceSetupMetadata;
@@ -17,6 +18,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,5 +76,30 @@ public class PortStructurePiece extends StructurePiece {
     @Override
     public Component createDisplayComponent() {
         return Component.literal("Port: ").append(Component.literal(portId.toString()).withStyle(ChatFormatting.DARK_AQUA));
+    }
+
+    @Override
+    public JsonObject debugExpected(Level level, BlockPos pos, StructureModel model, JsonObject json) {
+        json.addProperty("portId", portId.toString());
+        json.addProperty("requiresIOCheck", input.isPresent());
+        input.ifPresent(aBoolean -> json.addProperty("isInput", aBoolean));
+        return json;
+    }
+
+    @Override
+    public JsonObject debugFound(Level level, BlockPos pos, StructureModel model, JsonObject json) {
+        var foundBlock = level.getBlockState(pos).getBlock();
+        var foundBlockId = ForgeRegistries.BLOCKS.getKey(foundBlock);
+        json.addProperty("block", foundBlockId.toString());
+        if (foundBlock instanceof IPortBlock pb) {
+            json.addProperty("isPort", true);
+            var portType = pb.getModel().type();
+            json.addProperty("portTypeId", portType.toString());
+            json.addProperty("portId", Ref.id(pb.getModel().id()).toString());
+            json.addProperty("isInput", pb.getModel().input());
+        } else {
+            json.addProperty("isPort", false);
+        }
+        return json;
     }
 }

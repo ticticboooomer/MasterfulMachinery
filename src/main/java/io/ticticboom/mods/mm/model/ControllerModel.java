@@ -8,12 +8,13 @@ import net.minecraft.resources.ResourceLocation;
 public record ControllerModel(
         String id,
         ResourceLocation type,
-        String name
+        String name,
+        JsonObject config
 ) {
     public static ControllerModel parse(JsonObject json) {
         var id = json.get("id").getAsString();
         var name = json.get("name").getAsString();
         var type = ParserUtils.parseId(json, "type");
-        return new ControllerModel(id, type, name);
+        return new ControllerModel(id, type, name, json);
     }
 }

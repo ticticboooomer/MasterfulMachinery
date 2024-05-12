@@ -34,4 +34,12 @@ public class IdList {
         }
         return new IdList(ids);
     }
+
+    public JsonArray debug() {
+        var ids = new JsonArray();
+        for (ResourceLocation id : this.ids) {
+            ids.add(id.toString());
+        }
+        return ids;
+    }
 }

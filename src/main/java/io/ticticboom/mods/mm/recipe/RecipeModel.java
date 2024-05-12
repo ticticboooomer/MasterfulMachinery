@@ -16,14 +16,19 @@ public record RecipeModel(
         RecipeInputs inputs,
         RecipeOutputs outputs,
         List<SlotGridEntry> inputSlots,
-        List<SlotGridEntry> outputSlots
+        List<SlotGridEntry> outputSlots,
+        JsonObject config
 ) {
     public static RecipeModel parse(JsonObject json, ResourceLocation id) {
         var structrueId = ParserUtils.parseId(json, "structureId");
         var ticks = json.get("ticks").getAsInt();
         var inputs = RecipeInputs.parse(json.getAsJsonArray("inputs"));
         var outputs = RecipeOutputs.parse(json.getAsJsonArray("outputs"));
-        return new RecipeModel(id, structrueId, ticks, inputs, outputs, new ArrayList<>(), new ArrayList<>());
+        return new RecipeModel(id, structrueId, ticks, inputs, outputs, new ArrayList<>(), new ArrayList<>(), json);
+    }
+
+    public String debugPath() {
+        return id.getNamespace() + "/" + id.getPath() + ".json";
     }
 
     public boolean canProcess(Level level, RecipeStateModel model, RecipeStorages storages) {
@@ -55,5 +60,16 @@ public record RecipeModel(
 
         model.setTickProgress(0);
         model.setCanFinish(false);
+    }
+
+    public JsonObject debugRun(Level level, RecipeStateModel model, RecipeStorages storages) {
+        var json = new JsonObject();
+        json.addProperty("id", id.toString());
+        json.addProperty("structureId", structureId.toString());
+        json.addProperty("ticks", ticks);
+        json.add("inputs", inputs.debugRun(level, storages, model));
+        json.add("outputs", outputs.debugRun(level, storages, model));
+        json.add("portStorages", storages.debug());
+        return json;
     }
 }

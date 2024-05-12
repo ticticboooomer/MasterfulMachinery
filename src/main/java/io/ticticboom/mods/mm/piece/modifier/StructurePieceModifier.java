@@ -1,5 +1,6 @@
 package io.ticticboom.mods.mm.piece.modifier;
 
+import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.piece.StructurePieceSetupMetadata;
 import io.ticticboom.mods.mm.structure.StructureModel;
 import lombok.Getter;
@@ -17,8 +18,11 @@ public abstract class StructurePieceModifier {
     @Getter
     @Setter
     private boolean setup = false;
+    public abstract String getId();
     public abstract void validateSetup(StructurePieceSetupMetadata meta, List<Block> requiredBlocks);
     public abstract boolean formed(Level level, BlockPos pos, StructureModel model, Rotation rotation);
     public abstract BlockState modifyBlockState(BlockState state, BlockEntity be, BlockPos pos);
     public abstract BlockEntity modifyBlockEntity(BlockState state, BlockEntity be, BlockPos pos);
+    public abstract JsonObject debugExpected(Level level, BlockPos pos, StructureModel model, Rotation rotation, JsonObject json);
+    public abstract JsonObject debugFound(Level level, BlockPos pos, StructureModel model, Rotation rotation, JsonObject json);
 }

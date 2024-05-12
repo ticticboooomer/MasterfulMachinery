@@ -21,6 +21,6 @@ public class BlockstateStructurePieceModifierType extends MMStructurePieceModifi
         for (JsonElement property : properties) {
             props.add(StructureBlockstateProperty.parse(property.getAsJsonObject()));
         }
-        return new BlockstateStructurePieceModifier(props);
+        return new BlockstateStructurePieceModifier("blockstateProperties", props);
     }
 }

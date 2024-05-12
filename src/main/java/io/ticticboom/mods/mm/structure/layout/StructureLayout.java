@@ -8,6 +8,7 @@ import io.ticticboom.mods.mm.recipe.RecipeStorages;
 import io.ticticboom.mods.mm.structure.StructureModel;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Rotation;
@@ -61,6 +62,27 @@ public class StructureLayout {
             }
         }
         return false;
+    }
+
+    public JsonObject debugFormed(Level level, BlockPos worldControllerPos, StructureModel model) {
+        var json = new JsonObject();
+        for (var entry : rotatedPositionedPieces.entrySet()) {
+            json.add(entry.getKey().name(), debugInnerFormed(level, worldControllerPos, model, entry.getValue(), entry.getKey()));
+        }
+        return json;
+    }
+
+    public JsonObject debugInnerFormed(Level level, BlockPos worldControllerPos, StructureModel model, List<PositionedLayoutPiece> positionedPieces, Rotation rot) {
+        var json = new JsonObject();
+        json.addProperty("formed", innerFormed(level, worldControllerPos, model, positionedPieces, rot));
+        json.addProperty("rotation", rot.name());
+        var piecesJson = new JsonArray();
+        for (PositionedLayoutPiece positionedPiece : positionedPieces) {
+            var pieceJson = positionedPiece.piece().debugFormed(level, worldControllerPos, model, rot);
+            piecesJson.add(pieceJson);
+        }
+        json.add("pieces", piecesJson);
+        return json;
     }
 
     private boolean innerFormed(Level level, BlockPos worldControllerPos, StructureModel model, List<PositionedLayoutPiece> positionedPieces, Rotation rot) {

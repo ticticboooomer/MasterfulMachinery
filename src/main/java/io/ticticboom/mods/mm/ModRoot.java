@@ -1,5 +1,6 @@
 package io.ticticboom.mods.mm;
 
+import io.ticticboom.mods.mm.config.MMConfigSetup;
 import io.ticticboom.mods.mm.extra.MMExtraBlockRegistry;
 import io.ticticboom.mods.mm.controller.MMControllerRegistry;
 import io.ticticboom.mods.mm.datagen.DataGenManager;
@@ -17,6 +18,7 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 public class ModRoot {
 
     public ModRoot() {
+        MMConfigSetup.setup();
         MMPortRegistry.init();
         MMControllerRegistry.init();
         MMExtraBlockRegistry.init();

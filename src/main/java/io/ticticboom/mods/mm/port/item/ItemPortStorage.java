@@ -1,5 +1,8 @@
 package io.ticticboom.mods.mm.port.item;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.mojang.serialization.JsonOps;
 import io.ticticboom.mods.mm.cap.MMCapabilities;
 import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.IPortStorage;
@@ -17,12 +20,15 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 
+import java.util.UUID;
+
 public class ItemPortStorage implements IPortStorage {
 
     @Getter
     private final ItemPortHandler handler;
     private final LazyOptional<ItemPortHandler> handlerLazyOptional;
     private final ItemPortStorageModel model;
+    private final UUID uid = UUID.randomUUID();
 
     public ItemPortStorage(ItemPortStorageModel model, INotifyChangeFunction changed) {
         this.model = model;
@@ -59,6 +65,29 @@ public class ItemPortStorage implements IPortStorage {
     @Override
     public IPortStorageModel getStorageModel() {
         return model;
+    }
+
+    @Override
+    public UUID getStorageUid() {
+        return uid;
+    }
+
+    @Override
+    public JsonObject debugDump() {
+        JsonObject json = new JsonObject();
+        json.addProperty("uid", uid.toString());
+        json.addProperty("rows", model.rows());
+        json.addProperty("columns", model.columns());
+        var stacksJson = new JsonArray();
+        for (ItemStack stack : handler.getStacks()) {
+            var res = JsonOps.INSTANCE.withEncoder(ItemStack.CODEC).apply(stack);
+            if (res.result().isPresent()) {
+                stacksJson.add(res.result().get());
+            } else {
+                stacksJson.add("Error Serializing Item Stack");
+            }
+        }
+        return json;
     }
 
     @Override

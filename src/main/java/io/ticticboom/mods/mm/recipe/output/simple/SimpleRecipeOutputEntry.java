@@ -1,5 +1,6 @@
 package io.ticticboom.mods.mm.recipe.output.simple;
 
+import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.compat.jei.SlotGrid;
 import io.ticticboom.mods.mm.compat.jei.SlotGridEntry;
 import io.ticticboom.mods.mm.port.IPortIngredient;
@@ -66,5 +67,13 @@ public class SimpleRecipeOutputEntry implements IRecipeOutputEntry {
                 list.add(Component.literal("Output Per Tick").withStyle(ChatFormatting.DARK_AQUA));
             }
         });
+    }
+
+    @Override
+    public JsonObject debugExpected(Level level, RecipeStorages storages, RecipeStateModel model, JsonObject json) {
+        json.addProperty("chance", chance);
+        json.addProperty("perTick", perTick);
+        json.add("ingredient", ingredient.debugOutput(level, storages, new JsonObject()));
+        return json;
     }
 }

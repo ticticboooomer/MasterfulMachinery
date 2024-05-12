@@ -11,6 +11,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -21,6 +22,12 @@ public class StructureManager extends SimpleJsonResourceReloadListener {
     }
 
     public static final Map<ResourceLocation, StructureModel> STRUCTURES = new HashMap<>();
+
+    public static List<StructureModel> getStructuresForController(ResourceLocation controllerId) {
+        return STRUCTURES.values().stream()
+                .filter(x -> x.controllerIds().contains(controllerId))
+                .toList();
+    }
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> jsons, ResourceManager resourceManager, ProfilerFiller profilerFiller) {

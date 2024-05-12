@@ -1,5 +1,6 @@
 package io.ticticboom.mods.mm.recipe.input.consume;
 
+import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.compat.jei.SlotGrid;
 import io.ticticboom.mods.mm.compat.jei.SlotGridEntry;
 import io.ticticboom.mods.mm.port.IPortIngredient;
@@ -65,5 +66,13 @@ public class ConsumeRecipeIngredientEntry implements IRecipeIngredientEntry {
                 list.add(Component.literal("Consumed Per Tick").withStyle(ChatFormatting.DARK_AQUA));
             }
         });
+    }
+
+    @Override
+    public JsonObject debugExpected(Level level, RecipeStorages storages, RecipeStateModel state, JsonObject json) {
+        json.addProperty("chance", chance);
+        json.addProperty("perTick", perTick);
+        json.add("ingredient", ingredient.debugInput(level, storages, new JsonObject()));
+        return json;
     }
 }

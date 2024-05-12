@@ -3,6 +3,7 @@ package io.ticticboom.mods.mm.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import io.ticticboom.mods.mm.recipe.input.IRecipeIngredientEntry;
 import io.ticticboom.mods.mm.recipe.output.IRecipeOutputEntry;
 import net.minecraft.world.level.Level;
 
@@ -40,5 +41,17 @@ public record RecipeOutputs(
         for (IRecipeOutputEntry output : outputs) {
             output.processTick(level, storages, model);
         }
+    }
+
+
+    public JsonArray debugRun(Level level, RecipeStorages storages, RecipeStateModel model) {
+        var jsonArray = new JsonArray();
+        for (IRecipeOutputEntry output : outputs) {
+            var expected = output.debugExpected(level, storages, model, new JsonObject());
+            var inputRunJson = new JsonObject();
+            inputRunJson.add("expected", expected);
+            jsonArray.add(inputRunJson);
+        }
+        return jsonArray;
     }
 }

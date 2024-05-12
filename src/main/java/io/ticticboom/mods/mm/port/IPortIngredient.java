@@ -1,5 +1,6 @@
 package io.ticticboom.mods.mm.port;
 
+import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.compat.jei.SlotGrid;
 import io.ticticboom.mods.mm.recipe.RecipeModel;
 import io.ticticboom.mods.mm.recipe.RecipeStorages;
@@ -15,4 +16,6 @@ public interface IPortIngredient {
     boolean canOutput(Level level, RecipeStorages storages);
     void output(Level level, RecipeStorages storages);
     void setRecipe(IRecipeLayoutBuilder builder, RecipeModel model, IFocusGroup focus, IJeiHelpers helpers, SlotGrid grid, IRecipeSlotBuilder recipeSlot);
+    JsonObject debugInput(Level level, RecipeStorages storages, JsonObject json);
+    JsonObject debugOutput(Level level, RecipeStorages storages, JsonObject json);
 }

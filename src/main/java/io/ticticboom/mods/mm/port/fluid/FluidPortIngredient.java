@@ -1,5 +1,9 @@
 package io.ticticboom.mods.mm.port.fluid;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.mojang.serialization.JsonOps;
+import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.compat.jei.SlotGrid;
 import io.ticticboom.mods.mm.compat.jei.ingredient.MMJeiIngredients;
 import io.ticticboom.mods.mm.port.IPortIngredient;
@@ -76,5 +80,68 @@ public class FluidPortIngredient implements IPortIngredient {
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeModel model, IFocusGroup focus, IJeiHelpers helpers, SlotGrid grid, IRecipeSlotBuilder recipeSlot) {
         recipeSlot.addIngredient(MMJeiIngredients.FLUID, new FluidStack(fluid, amount));
+    }
+
+    @Override
+    public JsonObject debugInput(Level level, RecipeStorages storages, JsonObject json) {
+        var fluidStorages = storages.getInputStorages(FluidPortStorage.class);
+        var searchedStorages = new JsonArray();
+        var searchIterations = new JsonArray();
+        json.addProperty("ingredientType", Ref.Ports.FLUID.toString());
+        json.addProperty("amountToDrain", amount);
+
+        int remaining = amount;
+        for (FluidPortStorage storage : fluidStorages) {
+            var iterJson = new JsonObject();
+
+            var drained = storage.getHandler().drain(new FluidStack(fluid, remaining), IFluidHandler.FluidAction.SIMULATE);
+            remaining -= drained.getAmount();
+
+            var drainedRes = JsonOps.INSTANCE.withEncoder(FluidStack.CODEC).apply(drained);
+
+            if (drainedRes.result().isPresent()) {
+                iterJson.add("drainedFluidStack", drainedRes.result().get());
+            } else {
+                iterJson.addProperty("failedToSerializeFluidStack", true);
+            }
+            iterJson.addProperty("drainedAmount", drained.getAmount());
+            iterJson.addProperty("remainingToDrain", remaining);
+            iterJson.addProperty("storageUid", storage.getStorageUid().toString());
+
+            searchIterations.add(iterJson);
+            searchedStorages.add(storage.getStorageUid().toString());
+        }
+        json.add("drainIterations", searchIterations);
+        json.addProperty("canRun", remaining <= 0);
+        json.add("searchedStorages", searchedStorages);
+        return json;
+    }
+
+    @Override
+    public JsonObject debugOutput(Level level, RecipeStorages storages, JsonObject json) {
+        var fluidStorages = storages.getOutputStorages(FluidPortStorage.class);
+        var searchedStorages = new JsonArray();
+        var searchIterations = new JsonArray();
+        json.addProperty("ingredientType", Ref.Ports.FLUID.toString());
+        json.addProperty("amountToFill", amount);
+
+        int remaining = amount;
+        for (FluidPortStorage storage : fluidStorages) {
+            var iterJson = new JsonObject();
+
+            var filled = storage.getHandler().fill(new FluidStack(fluid, remaining), IFluidHandler.FluidAction.SIMULATE);
+            remaining -= filled;
+
+            iterJson.addProperty("filledAmount", filled);
+            iterJson.addProperty("remainingToFill", remaining);
+            iterJson.addProperty("storageUid", storage.getStorageUid().toString());
+
+            searchIterations.add(iterJson);
+            searchedStorages.add(storage.getStorageUid().toString());
+        }
+        json.add("fillIterations", searchIterations);
+        json.addProperty("canRun", remaining <= 0);
+        json.add("searchedStorages", searchedStorages);
+        return json;
     }
 }

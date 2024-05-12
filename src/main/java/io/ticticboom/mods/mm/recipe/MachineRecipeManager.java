@@ -16,6 +16,7 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MachineRecipeManager extends SimpleJsonResourceReloadListener {
@@ -44,6 +45,10 @@ public class MachineRecipeManager extends SimpleJsonResourceReloadListener {
     public static IRecipeOutputEntry parseOutputEntry(JsonObject json) {
         var typeId = ParserUtils.parseId(json, "type");
         return ENTRY_OUTPUT_PARSERS.get(typeId).parse(json);
+    }
+
+    public static List<RecipeModel> getRecipeForStructureIds(List<ResourceLocation> structureIds) {
+        return RECIPES.values().stream().filter(x -> structureIds.contains(x.structureId())).toList();
     }
 
     @Override

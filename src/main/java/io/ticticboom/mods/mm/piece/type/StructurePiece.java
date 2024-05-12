@@ -1,5 +1,6 @@
 package io.ticticboom.mods.mm.piece.type;
 
+import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.piece.StructurePieceSetupMetadata;
 import io.ticticboom.mods.mm.structure.StructureModel;
 import lombok.Getter;
@@ -22,4 +23,6 @@ public abstract class StructurePiece {
     public abstract boolean formed(Level level, BlockPos pos, StructureModel model);
     public abstract Supplier<List<Block>> createBlocksSupplier();
     public abstract Component createDisplayComponent();
+    public abstract JsonObject debugExpected(Level level, BlockPos pos, StructureModel model, JsonObject json);
+    public abstract JsonObject debugFound(Level level, BlockPos pos, StructureModel model, JsonObject json);
 }

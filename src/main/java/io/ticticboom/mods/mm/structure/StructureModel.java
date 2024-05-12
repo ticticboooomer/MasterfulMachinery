@@ -35,6 +35,8 @@ public class StructureModel {
     private final String name;
     private final IdList controllerIds;
     private final StructureLayout layout;
+    @Getter
+    private final JsonObject config;
 
     @OnlyIn(Dist.CLIENT)
     private GuiStructureRenderer renderer;
@@ -51,12 +53,13 @@ public class StructureModel {
             ResourceLocation id,
             String name,
             IdList controllerIds,
-            StructureLayout layout
+            StructureLayout layout, JsonObject config
     ) {
         this.id = id;
         this.name = name;
         this.controllerIds = controllerIds;
         this.layout = layout;
+        this.config = config;
         if (FMLEnvironment.dist == Dist.CLIENT) {
             renderer = new GuiStructureRenderer(this);
 //            countedPartItems = getCountedItemStacks();
@@ -81,7 +84,7 @@ public class StructureModel {
         var name = json.get("name").getAsString();
         var layout = StructureLayout.parse(json, structureId);
         var ids = IdList.parse(json.get("controllerIds"));
-        return new StructureModel(structureId, name, ids, layout);
+        return new StructureModel(structureId, name, ids, layout, json);
     }
 
     public boolean formed(Level level, BlockPos controllerPos) {
@@ -92,6 +95,25 @@ public class StructureModel {
         return layout.getRecipeStorages(level, controllerPos, this);
     }
 
+    public JsonObject debugFormed(Level level, BlockPos controllerPos) {
+        var json = new JsonObject();
+        var debugLayout = layout.debugFormed(level, controllerPos, this);
+        json.addProperty("structureId", id.toString());
+        json.addProperty("name", name);
+        json.add("controllerIds", controllerIds.debug());
+        json.add("layout", debugLayout);
+        return json;
+    }
+
+    public JsonObject debugSerialize() {
+        var json =  new JsonObject();
+        json.addProperty("structureId", id.toString());
+        json.addProperty("name", name);
+        json.add("controllerIds", controllerIds.debug());
+
+        return json;
+    }
+
     @OnlyIn(Dist.CLIENT)
     public GuiStructureRenderer getGuiRenderer() {
         return renderer;
@@ -99,6 +121,10 @@ public class StructureModel {
 
     public ResourceLocation id() {
         return id;
+    }
+
+    public String debugPath() {
+        return id.getNamespace() + "/" + id.getPath() + ".json";
     }
 
     public String name() {

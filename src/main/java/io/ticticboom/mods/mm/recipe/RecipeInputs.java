@@ -41,4 +41,15 @@ public record RecipeInputs(
             input.process(level, storages, model);
         }
     }
+
+    public JsonArray debugRun(Level level, RecipeStorages storages, RecipeStateModel model) {
+        var jsonArray = new JsonArray();
+        for (IRecipeIngredientEntry input : inputs) {
+            var expected = input.debugExpected(level, storages, model, new JsonObject());
+            var inputRunJson = new JsonObject();
+            inputRunJson.add("expected", expected);
+            jsonArray.add(inputRunJson);
+        }
+        return jsonArray;
+    }
 }

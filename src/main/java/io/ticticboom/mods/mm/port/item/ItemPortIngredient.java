@@ -1,5 +1,8 @@
 package io.ticticboom.mods.mm.port.item;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.compat.jei.SlotGrid;
 import io.ticticboom.mods.mm.compat.jei.ingredient.MMJeiIngredients;
 import io.ticticboom.mods.mm.port.IPortIngredient;
@@ -76,5 +79,56 @@ public class ItemPortIngredient implements IPortIngredient {
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeModel model, IFocusGroup focus, IJeiHelpers helpers, SlotGrid grid, IRecipeSlotBuilder recipeSlot) {
         recipeSlot.addIngredient(MMJeiIngredients.ITEM, this.stack);
+    }
+
+    @Override
+    public JsonObject debugInput(Level level, RecipeStorages storages, JsonObject json) {
+        List<ItemPortStorage> itemStorages = storages.getInputStorages(ItemPortStorage.class);
+        var searchedStorages = new JsonArray();
+        var searchIterations = new JsonArray();
+        json.addProperty("ingredientType", Ref.Ports.ITEM.toString());
+        json.addProperty("amountToExtract", count);
+
+        int remaining = count;
+        for (ItemPortStorage storage : itemStorages) {
+            var iterJson = new JsonObject();
+
+            remaining = storage.canExtract(item, remaining);
+
+            iterJson.addProperty("remaining", remaining);
+            iterJson.addProperty("storageUid", storage.getStorageUid().toString());
+            searchIterations.add(iterJson);
+            searchedStorages.add(storage.getStorageUid().toString());
+        }
+        json.add("extractIterations", searchIterations);
+        json.addProperty("canRun", remaining <= 0);
+        json.add("searchedStorages", searchedStorages);
+        return json;
+    }
+
+    @Override
+    public JsonObject debugOutput(Level level, RecipeStorages storages, JsonObject json) {
+        List<ItemPortStorage> itemStorages = storages.getOutputStorages(ItemPortStorage.class);
+        var searchedStorages = new JsonArray();
+        var searchIterations = new JsonArray();
+        json.addProperty("ingredientType", Ref.Ports.ITEM.toString());
+        json.addProperty("amountToInsert", count);
+
+        int remainingToInsert = count;
+        for (ItemPortStorage storage : itemStorages) {
+            var iterJson = new JsonObject();
+
+            remainingToInsert = storage.canInsert(item, remainingToInsert);
+
+            iterJson.addProperty("remaining", remainingToInsert);
+            iterJson.addProperty("storageUid", storage.getStorageUid().toString());
+            searchIterations.add(iterJson);
+            searchedStorages.add(storage.getStorageUid().toString());
+        }
+
+        json.add("insertIterations", searchIterations);
+        json.addProperty("canRun", remainingToInsert <= 0);
+        json.add("searchedStorages", searchedStorages);
+        return json;
     }
 }

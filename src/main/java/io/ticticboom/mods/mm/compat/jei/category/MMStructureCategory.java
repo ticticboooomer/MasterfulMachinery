@@ -19,8 +19,10 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FormattedText;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import org.joml.Vector3f;
@@ -100,5 +102,10 @@ public class MMStructureCategory implements IRecipeCategory<StructureModel> {
             }
             guiGraphics.blit(Ref.Textures.SLOT_PARTS, slot.x -1, slot.y - 1, 0, 26, 18, 18);
         }
+        var fText = FormattedText.of(recipe.name());
+        guiGraphics.pose().pushPose();
+        guiGraphics.pose().translate(0, 0, 1000);
+        guiGraphics.drawWordWrap(Minecraft.getInstance().font, fText, 5, 5, 160, 0xFFFFFF);
+        guiGraphics.pose().popPose();
     }
 }

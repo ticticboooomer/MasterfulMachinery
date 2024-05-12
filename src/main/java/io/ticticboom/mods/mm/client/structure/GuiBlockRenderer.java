@@ -67,7 +67,11 @@ public class GuiBlockRenderer {
         RenderType renderType = ItemBlockRenderTypes.getRenderType(state, true);
         brd.renderSingleBlock(state, pose, bufferSource, 0xF000F0, OverlayTexture.NO_OVERLAY, modeldata, renderType);
         if (ber != null) {
-            ber.render(be, 1.f, gfx.pose(), bufferSource, 0xF000F0, OverlayTexture.NO_OVERLAY);
+            try {
+                ber.render(be, 1.f, gfx.pose(), bufferSource, 0xF000F0, OverlayTexture.NO_OVERLAY);
+            } catch (Exception ignored) {
+
+            }
         }
         bufferSource.endBatch();
         pose.popPose();

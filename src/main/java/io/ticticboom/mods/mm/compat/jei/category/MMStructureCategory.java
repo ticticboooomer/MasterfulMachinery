@@ -1,6 +1,10 @@
 package io.ticticboom.mods.mm.compat.jei.category;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
+import com.mojang.math.Vector4f;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.client.structure.GuiCountedItemStack;
 import io.ticticboom.mods.mm.client.structure.GuiStructureRenderer;
@@ -10,6 +14,7 @@ import io.ticticboom.mods.mm.controller.MMControllerRegistry;
 import io.ticticboom.mods.mm.setup.MMRegisters;
 import io.ticticboom.mods.mm.structure.StructureModel;
 import io.ticticboom.mods.mm.util.GLScissor;
+import io.ticticboom.mods.mm.util.WidgetUtils;
 import mezz.jei.api.gui.builder.IIngredientAcceptor;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -19,14 +24,12 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FormattedText;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
-
-import java.util.List;
 
 public class MMStructureCategory implements IRecipeCategory<StructureModel> {
 
@@ -87,18 +90,24 @@ public class MMStructureCategory implements IRecipeCategory<StructureModel> {
     }
 
     @Override
-    public void draw(StructureModel recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(StructureModel recipe, IRecipeSlotsView recipeSlotsView, PoseStack pose, double mouseX, double mouseY) {
         Vector4f zero = new Vector4f(0, 0, 0, 1);
-        zero.mul(guiGraphics.pose().last().pose());
+        zero.transform(pose.last().pose());
         GLScissor.enable((int) zero.x(), (int) zero.y(), 160, 120);
         var renderer = recipe.getGuiRenderer();
-        renderer.render(guiGraphics, (int) mouseX, (int) mouseY);
+        renderer.render(pose, (int) mouseX, (int) mouseY);
         GLScissor.disable();
         for (SlotGridEntry slot : recipe.getGrid().getSlots()) {
             if (!slot.used()) {
                 continue;
             }
-            guiGraphics.blit(Ref.Textures.SLOT_PARTS, slot.x -1, slot.y - 1, 0, 26, 18, 18);
+            RenderSystem.setShaderTexture(0, Ref.Textures.SLOT_PARTS);
+            GuiComponent.blit(pose,  slot.x -1, slot.y - 1, 0, 26, 18, 18, 256, 256);
         }
+        var fText = FormattedText.of(recipe.name());
+        pose.pushPose();
+        pose.translate(0, 0, 1000);
+        WidgetUtils.drawWordWrap(pose, Minecraft.getInstance().font, fText, 5, 5, 160, 0xFFFFFF);
+        pose.popPose();
     }
 }

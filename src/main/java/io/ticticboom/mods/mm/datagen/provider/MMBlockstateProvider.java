@@ -5,10 +5,10 @@ import io.ticticboom.mods.mm.extra.IExtraBlock;
 import io.ticticboom.mods.mm.controller.IControllerBlock;
 import io.ticticboom.mods.mm.port.IPortBlock;
 import io.ticticboom.mods.mm.setup.MMRegisters;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.client.model.generators.loaders.CompositeModelBuilder;
@@ -22,7 +22,7 @@ public class MMBlockstateProvider extends BlockStateProvider {
     private final DataGenerator generator;
 
     public MMBlockstateProvider(DataGenerator generator, ExistingFileHelper exFileHelper) {
-        super(generator.getPackOutput(), Ref.ID, exFileHelper);
+        super(generator, Ref.ID, exFileHelper);
         this.generator = generator;
     }
 
@@ -46,12 +46,12 @@ public class MMBlockstateProvider extends BlockStateProvider {
         return models().getBuilder(loc.toString()).parent(new ModelFile.UncheckedModelFile(mcLoc("block/block")))
             .texture("particle", overlayTexture)
                 .transforms()
-                .transform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND)
+                .transform(ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND)
                 .rotation(75F, 45F, 0F)
                 .translation(0F, 2.5F, 0)
                 .scale(0.375F, 0.375F, 0.375F)
                 .end()
-                .transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND)
+                .transform(ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND)
                 .rotation(75F, 45F, 0F)
                 .translation(0F, 2.5F, 0)
                 .scale(0.375F, 0.375F, 0.375F)
@@ -81,12 +81,12 @@ public class MMBlockstateProvider extends BlockStateProvider {
         return models().getBuilder(loc.toString()).parent(new ModelFile.UncheckedModelFile(mcLoc("block/block")))
                 .texture("particle", overlayTexture)
                 .transforms()
-                .transform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND)
+                .transform(ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND)
                 .rotation(75F, 45F, 0F)
                 .translation(0F, 2.5F, 0)
                 .scale(0.375F, 0.375F, 0.375F)
                 .end()
-                .transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND)
+                .transform(ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND)
                 .rotation(75F, 45F, 0F)
                 .translation(0F, 2.5F, 0)
                 .scale(0.375F, 0.375F, 0.375F)

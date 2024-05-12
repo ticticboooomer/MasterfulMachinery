@@ -4,6 +4,7 @@ import io.ticticboom.mods.mm.config.MMConfig;
 import io.ticticboom.mods.mm.controller.machine.register.MachineControllerBlock;
 import io.ticticboom.mods.mm.debug.output.CollectedDebugData;
 import io.ticticboom.mods.mm.debug.output.DebugOutputManager;
+import io.ticticboom.mods.mm.setup.MMRegisters;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
@@ -15,7 +16,7 @@ import net.minecraft.world.item.context.UseOnContext;
 
 public class DebugToolItem extends Item {
     public DebugToolItem() {
-        super(new Properties().stacksTo(1));
+        super(new Properties().stacksTo(1).tab(MMRegisters.MM_TAB));
     }
 
     @Override

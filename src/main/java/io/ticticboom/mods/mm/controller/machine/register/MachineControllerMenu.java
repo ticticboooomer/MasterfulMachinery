@@ -33,6 +33,6 @@ public class MachineControllerMenu extends MMContainerMenu {
     public MachineControllerMenu(ControllerModel model, RegistryGroupHolder groupHolder, int windowId, Inventory inv,
             FriendlyByteBuf buf) {
         this(model, groupHolder, windowId, inv,
-                (IControllerBlockEntity) inv.player.level().getBlockEntity(buf.readBlockPos()));
+                (IControllerBlockEntity) inv.player.level.getBlockEntity(buf.readBlockPos()));
     }
 }

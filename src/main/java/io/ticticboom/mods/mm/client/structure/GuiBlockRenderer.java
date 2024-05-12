@@ -3,7 +3,6 @@ package io.ticticboom.mods.mm.client.structure;
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.ticticboom.mods.mm.piece.modifier.StructurePieceModifier;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -51,14 +50,12 @@ public class GuiBlockRenderer {
         }
     }
 
-    public void render(GuiGraphics gfx, int mouseX, int mouseY, AutoTransform mouseTransform) {
-        PoseStack pose = gfx.pose();
+    public void render(PoseStack pose, int mouseX, int mouseY, AutoTransform mouseTransform) {
         pose.pushPose();
-        mouseTransform.transform(pose.last().pose(), pos);
+        mouseTransform.transform(pose, pos);
         BlockRenderDispatcher brd = mc.getBlockRenderer();
-        MultiBufferSource.BufferSource bufferSource = gfx.bufferSource();
+        MultiBufferSource.BufferSource bufferSource = mc.renderBuffers().bufferSource();
         var modeldata = be != null ? be.getModelData() : ModelData.EMPTY;
-        var model = brd.getBlockModel(state);
         var color = mc.getBlockColors().getColor(state, null, pos, 0);
         color = color == -1 ? 0xFFFFFF : color;
         float r = (float) (color >> 16 & 255) / 255.0F;
@@ -68,7 +65,7 @@ public class GuiBlockRenderer {
         brd.renderSingleBlock(state, pose, bufferSource, 0xF000F0, OverlayTexture.NO_OVERLAY, modeldata, renderType);
         if (ber != null) {
             try {
-                ber.render(be, 1.f, gfx.pose(), bufferSource, 0xF000F0, OverlayTexture.NO_OVERLAY);
+                ber.render(be, 1.f, pose, bufferSource, 0xF000F0, OverlayTexture.NO_OVERLAY);
             } catch (Exception ignored) {
 
             }

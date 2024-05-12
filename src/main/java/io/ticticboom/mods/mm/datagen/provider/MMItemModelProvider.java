@@ -16,7 +16,7 @@ public class MMItemModelProvider extends ItemModelProvider {
     private final DataGenerator generator;
 
     public MMItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-        super(generator.getPackOutput(), Ref.ID, existingFileHelper);
+        super(generator, Ref.ID, existingFileHelper);
         this.generator = generator;
     }
 

@@ -37,7 +37,7 @@ public class ItemPortMenu extends MMContainerMenu implements IPortMenu {
     }
 
     public ItemPortMenu(PortModel model, RegistryGroupHolder groupHolder, boolean isInput, int windowId, Inventory inv, FriendlyByteBuf buf) {
-        this(model, groupHolder, isInput, windowId, inv, (IPortBlockEntity) inv.player.level().getBlockEntity(buf.readBlockPos()));
+        this(model, groupHolder, isInput, windowId, inv, (IPortBlockEntity) inv.player.level.getBlockEntity(buf.readBlockPos()));
     }
 
     @Override

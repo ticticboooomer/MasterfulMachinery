@@ -134,7 +134,7 @@ public class StructureLayout {
 
     private static Map<StructureKeyChar, StructureLayoutPiece> getPieces(JsonObject json, ResourceLocation structureId) {
         Map<StructureKeyChar, StructureLayoutPiece> pieces = new HashMap<>();
-        for (var key : json.getAsJsonObject("key").asMap().entrySet()) {
+        for (var key : json.getAsJsonObject("key").getAsJsonObject().entrySet()) {
             JsonObject jsonKey = key.getValue().getAsJsonObject();
             pieces.put(new StructureKeyChar(key.getKey().charAt(0)), StructureLayoutPiece.parse(jsonKey, structureId, key.getKey()));
         }

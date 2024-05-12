@@ -1,12 +1,15 @@
 package io.ticticboom.mods.mm.client.structure;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
 import io.ticticboom.mods.mm.structure.StructureModel;
 import io.ticticboom.mods.mm.structure.layout.PositionedLayoutPiece;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import org.joml.*;
+import net.minecraft.core.Vec3i;
 import org.lwjgl.glfw.GLFW;
 
 import java.lang.Math;
@@ -26,22 +29,17 @@ public class AutoTransform {
     private double scrollLastPos = 0;
     private double scaleFactor = 1;
 
-    private Vector3i minBound = new Vector3i(Integer.MAX_VALUE);
-    private Vector3i maxBound = new Vector3i(Integer.MIN_VALUE);
+    private Vec3i minBound = new Vec3i(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE);
+    private Vec3i maxBound = new Vec3i(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
     private Vector3f pan;
     private Vector3f offset;
 
     public AutoTransform(StructureModel model) {
+
         for (PositionedLayoutPiece piece : model.layout().getPositionedPieces()) {
             BlockPos pos = piece.pos();
-            // min
-            minBound.x = Math.min(pos.getX(), minBound.x);
-            minBound.y = Math.min(pos.getY(), minBound.y);
-            minBound.z = Math.min(pos.getZ(), minBound.z);
-            // max
-            maxBound.x = Math.max(pos.getX(), maxBound.x);
-            maxBound.y = Math.max(pos.getY(), maxBound.y);
-            maxBound.z = Math.max(pos.getZ(), maxBound.z);
+            minBound = new Vec3i(Math.min(pos.getX(), minBound.getX()), Math.min(pos.getY(), minBound.getY()), Math.min(pos.getZ(), minBound.getZ()));
+            maxBound = new Vec3i(Math.max(pos.getX(), maxBound.getX()), Math.max(pos.getY(), maxBound.getY()), Math.max(pos.getZ(), maxBound.getZ()));
         }
 
         reset();
@@ -71,24 +69,24 @@ public class AutoTransform {
             pan.add((float) relMoveX * 0.08f, (float) -relMoveY * 0.08f, 0);
         }
 
-        float centerX = ((float) maxBound.x - minBound.x) / 2f;
-        float centerY = ((float) maxBound.y - minBound.y) / 2f;
-        float centerZ = ((float) maxBound.z - minBound.z) / 2f;
+        float centerX = ((float) maxBound.getX() - minBound.getX()) / 2f;
+        float centerY = ((float) maxBound.getY() - minBound.getY()) / 2f;
+        float centerZ = ((float) maxBound.getZ() - minBound.getZ()) / 2f;
 
-        offset = new Vector3f(minBound.x, minBound.y, minBound.z);
+        offset = new Vector3f(minBound.getX(), minBound.getY(), minBound.getZ());
         offset.add(centerX, centerY, centerZ);
         offset.add(-0.5f, -0.5f, -0.5f);
         lastX = mouseX;
         lastY = mouseY;
     }
 
-    public Matrix4f transform(Matrix4f m, BlockPos pos) {
+    public PoseStack transform(PoseStack m, BlockPos pos) {
         m.scale(12, -12, 12);
-        m.translate(pan);
-        m.rotate(new Quaternionf(new AxisAngle4f((float) yRotation * ((float) Math.PI / 180f), 1, 0, 0)));
-        m.rotate(new Quaternionf(new AxisAngle4f(-(float) xRotation * ((float) Math.PI / 180f), 0, -1, 0)));
+        m.translate(pan.x(), pan.y(), pan.z());
+        m.mulPose(new Quaternion(new Vector3f(1, 0, 0), (float) yRotation, true));
+        m.mulPose(new Quaternion(new Vector3f(0, -1, 0), -(float) xRotation, true));
         m.scale((float) scaleFactor, (float) scaleFactor, (float) scaleFactor);
-        m.translate(pos.getX() + offset.x, pos.getY() + offset.y, pos.getZ() + offset.z);
+        m.translate(pos.getX() + offset.x(), pos.getY() + offset.y(), pos.getZ() + offset.z());
         return m;
     }
 

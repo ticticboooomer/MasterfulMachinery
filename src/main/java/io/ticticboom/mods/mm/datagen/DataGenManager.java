@@ -23,6 +23,7 @@ import net.minecraftforge.resource.ResourcePackLoader;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 
 public class DataGenManager {
 
@@ -56,7 +57,7 @@ public class DataGenManager {
     }
 
     public static DataGenerator createDataGenerator() {
-        generator = new DataGenerator(MMRepositorySource.CONFIG_DIR, DetectedVersion.tryDetectVersion(), true);
+        generator = new DataGenerator(MMRepositorySource.CONFIG_DIR, List.of(), DetectedVersion.tryDetectVersion(), true);
         return generator;
     }
 }

@@ -1,5 +1,7 @@
 package io.ticticboom.mods.mm.compat.jei.category;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.compat.jei.SlotGrid;
 import io.ticticboom.mods.mm.compat.jei.SlotGridEntry;
@@ -17,8 +19,10 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.network.chat.Component;
+
+import java.util.List;
 
 public class MMRecipeCategory implements IRecipeCategory<RecipeModel> {
 
@@ -70,20 +74,24 @@ public class MMRecipeCategory implements IRecipeCategory<RecipeModel> {
     }
 
     @Override
-    public void draw(RecipeModel recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics gfx, double mouseX, double mouseY) {
+    public void draw(RecipeModel recipe, IRecipeSlotsView recipeSlotsView, PoseStack gfx, double mouseX, double mouseY) {
         bgProgressBar.draw(gfx, 70, 12);
         fgProgressBar.draw(gfx, 70, 12);
-        var seconds = (double) recipe.ticks() / 20;
-        var fmt = String.format("%.2f", seconds) + "s";
-
-        if (WidgetUtils.isPointerWithinSized((int) mouseX, (int) mouseY, 70, 12, 24, 17)) {
-            gfx.renderTooltip(Minecraft.getInstance().font, Component.literal(fmt), (int) mouseX, (int) mouseY);
-        }
 
         for (SlotGridEntry inputSlot : recipe.inputSlots()) {
             if (inputSlot.used()) {
-                gfx.blit(Ref.Textures.SLOT_PARTS, inputSlot.x, inputSlot.y, 0, 26, 18, 18);
+                helpers.getGuiHelper().getSlotDrawable().draw(gfx, inputSlot.x, inputSlot.y);
             }
         }
+    }
+
+    @Override
+    public List<Component> getTooltipStrings(RecipeModel recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+        if (WidgetUtils.isPointerWithinSized((int) mouseX, (int) mouseY, 70, 12, 24, 17)) {
+            var seconds = (double) recipe.ticks() / 20;
+            var fmt = String.format("%.2f", seconds) + "s";
+            return List.of(Component.literal(fmt));
+        }
+        return List.of();
     }
 }

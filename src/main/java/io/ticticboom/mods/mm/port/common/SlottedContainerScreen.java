@@ -1,10 +1,11 @@
 package io.ticticboom.mods.mm.port.common;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.port.IPortBlockEntity;
 import io.ticticboom.mods.mm.port.IPortMenu;
-import io.ticticboom.mods.mm.port.item.register.ItemPortBlockEntity;
-import net.minecraft.client.gui.GuiGraphics;
+import io.ticticboom.mods.mm.util.WidgetUtils;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
@@ -51,20 +52,22 @@ public class SlottedContainerScreen<T extends AbstractContainerMenu & IPortMenu>
     }
 
     @Override
-    protected void renderBg(GuiGraphics gfx, float partialTicks, int mouseX, int mouseY) {
-        gfx.blit(Ref.Textures.PORT_GUI, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
+    protected void renderBg(PoseStack gfx, float partialTicks, int mouseX, int mouseY) {
+        RenderSystem.setShaderTexture(0, Ref.Textures.PORT_GUI);
+        this.blit(gfx, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
+        RenderSystem.setShaderTexture(0, Ref.Textures.SLOT_PARTS);
         for (Vec2 slot : slots) {
-            gfx.blit(Ref.Textures.SLOT_PARTS, this.leftPos + (int) slot.x, this.topPos + (int) slot.y, 0, 26, 18, 18);
+            this.blit(gfx, this.leftPos + (int) slot.x, this.topPos + (int) slot.y, 0, 26, 18, 18);
         }
     }
 
     @Override
-    protected void renderLabels(GuiGraphics gfx, int mouseX, int mouseY) {
-        gfx.drawWordWrap(this.font, header, 8, 8, 150, 0x404040);
+    protected void renderLabels(PoseStack gfx, int mouseX, int mouseY) {
+        WidgetUtils.drawWordWrap(gfx, this.font, header, 8, 8, 150, 0x404040);
     }
 
     @Override
-    public void render(GuiGraphics gfx, int mouseX, int mouseY, float partialTicks) {
+    public void render(PoseStack gfx, int mouseX, int mouseY, float partialTicks) {
         renderBackground(gfx);
         super.render(gfx, mouseX, mouseY, partialTicks);
         renderTooltip(gfx, mouseX, mouseY);

@@ -1,0 +1,22 @@
+{
+  "block.mm.coke_oven": "Coke Oven",
+  "block.mm.coke_oven_fluid_3x3_input": "C_O Fluid Hatch - Input",
+  "block.mm.coke_oven_fluid_3x3_output": "C_O Fluid Hatch - Output",
+  "block.mm.coke_oven_item_input": "C_O Item Hatch - Input",
+  "block.mm.coke_oven_item_output": "C_O Item Hatch - Output",
+  "block.mm.controller_a": "My Controller A has a really really long dumb name",
+  "block.mm.controller_b": "Controller B",
+  "block.mm.energy_port_input": "My energy Port Input",
+  "block.mm.energy_port_output": "My energy Port Output",
+  "block.mm.lumber_treater": "My Super Cool Long A$$ Named Lumber Treatment Plant Because Its Cool And Looooonnnngggg",
+  "block.mm.lumber_treater_item_input": "L_T Item Hatch - Input",
+  "block.mm.lumber_treater_item_output": "L_T Item Hatch - Output",
+  "block.mm.my_circuit": "My Circuit",
+  "block.mm.my_fluid_port_input": "My Fluid Port Input",
+  "block.mm.my_fluid_port_output": "My Fluid Port Output",
+  "block.mm.my_gears": "My Gears",
+  "block.mm.my_port_a_input": "My Port A Input",
+  "block.mm.my_port_a_output": "My Port A Output",
+  "block.mm.my_vent": "My Vent",
+  "item.mm.blueprint": "Blueprint"
+}

@@ -1,11 +1,12 @@
 package io.ticticboom.mods.mm.port.energy.register;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import io.ticticboom.mods.mm.Ref;
-import io.ticticboom.mods.mm.port.IPortStorage;
 import io.ticticboom.mods.mm.port.energy.EnergyPortStorage;
 import io.ticticboom.mods.mm.port.energy.EnergyPortStorageModel;
 import io.ticticboom.mods.mm.util.WidgetUtils;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Widget;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
@@ -27,32 +28,34 @@ public class EnergyPortScreen extends AbstractContainerScreen<EnergyPortMenu> {
     }
 
     @Override
-    protected void renderBg(GuiGraphics gfx, float partialTicks, int mouseX, int mouseY) {
-        gfx.blit(Ref.Textures.PORT_GUI, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
+    protected void renderBg(PoseStack gfx, float partialTicks, int mouseX, int mouseY) {
+        RenderSystem.setShaderTexture(0, Ref.Textures.PORT_GUI);
+        this.blit(gfx, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
     }
 
     @Override
-    protected void renderLabels(GuiGraphics gfx, int p_282681_, int p_283686_) {
-        gfx.drawWordWrap(this.font, header, 8, 8, 150, 0x404040);
+    protected void renderLabels(PoseStack gfx, int p_282681_, int p_283686_) {
+        WidgetUtils.drawWordWrap(gfx, this.font, header, 8, 8, 150, 0x404040);
     }
 
     @Override
-    public void render(GuiGraphics gfx, int mouseX, int mouseY, float partialTick) {
+    public void render(PoseStack gfx, int mouseX, int mouseY, float partialTick) {
         renderBackground(gfx);
         super.render(gfx, mouseX, mouseY, partialTick);
         renderTooltip(gfx, mouseX, mouseY);
-        gfx.blit(Ref.Textures.SLOT_PARTS, this.leftPos + 7, this.topPos + 50, 89, 78, 162, 80);
+        RenderSystem.setShaderTexture(0, Ref.Textures.SLOT_PARTS);
+        this.blit(gfx, this.leftPos + 7, this.topPos + 50, 89, 78, 162, 80);
         EnergyPortBlockEntity be = menu.getBlockEntity();
         EnergyPortStorage storage = (EnergyPortStorage) be.getStorage();
         EnergyPortStorageModel storageModel = be.getStorageModel();
-        var filledValue = (double)storage.getStoredEnergy() / (double)storageModel.capacity();
-        var filledHeight = (int)(filledValue * 78);
+        var filledValue = (double) storage.getStoredEnergy() / (double) storageModel.capacity();
+        var filledHeight = (int) (filledValue * 78);
         var start = 129 - filledHeight;
-        gfx.blit(Ref.Textures.SLOT_PARTS, this.leftPos + 8, this.topPos + start, 90, 0, 160, filledHeight);
+        this.blit(gfx, this.leftPos + 8, this.topPos + start, 90, 0, 160, filledHeight);
         if (WidgetUtils.isPointerWithinSized(mouseX, mouseY, this.leftPos + 7, this.topPos + 50, 162, 80)) {
             var tooltip = new ArrayList<Component>();
             tooltip.add(Component.literal(String.format("Stored Energy: %sFE", storage.getStoredEnergy())));
-            gfx.renderComponentTooltip(this.font, tooltip, mouseX, mouseY);
+            this.renderComponentTooltip(gfx, tooltip, mouseX, mouseY);
         }
     }
 }

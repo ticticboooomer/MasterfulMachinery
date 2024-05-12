@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,7 +31,7 @@ public class MachineControllerBlock extends HorizontalDirectionalBlock implement
     private final RegistryGroupHolder groupHolder;
 
     public MachineControllerBlock(ControllerModel model, RegistryGroupHolder groupHolder) {
-        super(Properties.of().requiresCorrectToolForDrops().destroyTime(5f).explosionResistance(6f).sound(SoundType.METAL));
+        super(Properties.of(Material.METAL).requiresCorrectToolForDrops().destroyTime(5f).explosionResistance(6f).sound(SoundType.METAL));
         this.model = model;
         this.groupHolder = groupHolder;
         registerDefaultState(this.getStateDefinition().any()

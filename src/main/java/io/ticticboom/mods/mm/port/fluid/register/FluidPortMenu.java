@@ -34,7 +34,7 @@ public class FluidPortMenu extends MMContainerMenu implements IPortMenu {
     public FluidPortMenu(PortModel model, RegistryGroupHolder groupHolder, boolean isInput, int windowId, Inventory inv,
             FriendlyByteBuf buf) {
         this(model, groupHolder, isInput, windowId, inv,
-                (IPortBlockEntity) inv.player.level().getBlockEntity(buf.readBlockPos()));
+                (IPortBlockEntity) inv.player.level.getBlockEntity(buf.readBlockPos()));
     }
 
     public FluidStack getStackInSlot(int slot) {

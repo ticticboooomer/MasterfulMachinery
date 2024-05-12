@@ -29,7 +29,7 @@ public class EnergyPortMenu extends MMContainerMenu implements IPortMenu {
     }
 
     public EnergyPortMenu(PortModel model, RegistryGroupHolder groupHolder, boolean isInput, int windowId, Inventory inv, FriendlyByteBuf buf) {
-        this(model, groupHolder, isInput, windowId, inv, (EnergyPortBlockEntity) inv.player.level().getBlockEntity(buf.readBlockPos()));
+        this(model, groupHolder, isInput, windowId, inv, (EnergyPortBlockEntity) inv.player.level.getBlockEntity(buf.readBlockPos()));
     }
 
     @Override

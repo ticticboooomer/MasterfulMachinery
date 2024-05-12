@@ -1,7 +1,10 @@
 package io.ticticboom.mods.mm.controller.machine.register;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import io.ticticboom.mods.mm.Ref;
-import net.minecraft.client.gui.GuiGraphics;
+import io.ticticboom.mods.mm.util.WidgetUtils;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
@@ -25,26 +28,27 @@ public class MachineControllerScreen extends AbstractContainerScreen<MachineCont
     }
 
     @Override
-    protected void renderBg(GuiGraphics gfx, float partialTick, int mouseX, int mouseY) {
-        gfx.blit(Ref.Textures.GUI_LARGE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
+    protected void renderBg(PoseStack gfx, float partialTick, int mouseX, int mouseY) {
+        RenderSystem.setShaderTexture(0, Ref.Textures.GUI_LARGE);
+        this.blit(gfx, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
     }
 
     @Override
-    protected void renderLabels(GuiGraphics gfx, int mouseX, int mouseY) {
+    protected void renderLabels(PoseStack gfx, int mouseX, int mouseY) {
         // controller name
-        gfx.drawWordWrap(this.font, header, 10, 10, 150, 0xacacac);
+        WidgetUtils.drawWordWrap(gfx, this.font, header, 10, 10, 150, 0xacacac);
 
         // structure formation details
         var isFormed = be.getStructure() != null;
-        gfx.drawWordWrap(this.font, FormattedText.of(isFormed ? "Formed As:" : "Not Formed"), 10, 40, 150, 0xacacac);
+        WidgetUtils.drawWordWrap(gfx, this.font, FormattedText.of(isFormed ? "Formed As:" : "Not Formed"), 10, 40, 150, 0xacacac);
         if (isFormed) {
-            gfx.drawWordWrap(this.font, FormattedText.of(be.getStructure().name()), 10, 53, 150, 0xacacac);
+            WidgetUtils.drawWordWrap(gfx, this.font, FormattedText.of(be.getStructure().name()), 10, 53, 150, 0xacacac);
         }
 
         // recipe processing details
         var isProcessing = be.getRecipeState() != null;
         if (isProcessing) {
-            gfx.drawWordWrap(this.font,
+            WidgetUtils.drawWordWrap(gfx, this.font,
                     FormattedText
                             .of("Progress: " + String.format("%.2f", be.getRecipeState().getTickPercentage()) + "%"),
                     10, 110, 150, 0xacacac);
@@ -52,7 +56,7 @@ public class MachineControllerScreen extends AbstractContainerScreen<MachineCont
     }
 
     @Override
-    public void render(GuiGraphics gfx, int mouseX, int mouseY, float partial) {
+    public void render(PoseStack gfx, int mouseX, int mouseY, float partial) {
         renderBackground(gfx);
         super.render(gfx, mouseX, mouseY, partial);
         renderTooltip(gfx, mouseX, mouseY);

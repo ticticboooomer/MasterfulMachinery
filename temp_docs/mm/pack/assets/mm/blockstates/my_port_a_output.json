@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "mm:block/my_port_a_output"
+    }
+  }
+}

@@ -12,7 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class MMLangProvider extends LanguageProvider {
     public MMLangProvider(DataGenerator generator, String locale) {
-        super(generator.getPackOutput(), Ref.ID, locale);
+        super(generator, Ref.ID, locale);
     }
 
     @Override

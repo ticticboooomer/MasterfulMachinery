@@ -1,13 +1,16 @@
 package io.ticticboom.mods.mm.datagen;
 
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.packs.PackResources;
+import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.server.packs.repository.RepositorySource;
-import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.nio.file.Path;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class MMRepositorySource implements RepositorySource {
 
@@ -18,20 +21,16 @@ public class MMRepositorySource implements RepositorySource {
         this.type = type;
     }
 
-    @Override
-    public void loadPacks(Consumer<Pack> consumer) {
-        var pack = Pack.create(type.getNameId(), type.nameComponent(), true, createPackSupplier(CONFIG_DIR), createPackInfo(), type.type, Pack.Position.TOP, false, PackSource.DEFAULT);
-        consumer.accept(pack);
-    }
-
-    private Pack.ResourcesSupplier createPackSupplier(Path configDir) {
-        return (a) -> {
+    private Supplier<PackResources> createPackSupplier(Path configDir) {
+        return () -> {
             DataGenManager.generate();
-            return new GeneratedPack(type.getNameId(), false, type.getPath(configDir));
+            return new GeneratedPack(type.getNameId(), type.getPath(configDir));
         };
     }
 
-    private Pack.Info createPackInfo() {
-        return new Pack.Info(type.nameComponent(), 15, 15, FeatureFlagSet.of(), false);
+    @Override
+    public void loadPacks(Consumer<Pack> consumer, Pack.PackConstructor packConstructor) {
+        var pack = Pack.create(type.getNameId(), true, createPackSupplier(CONFIG_DIR), packConstructor, Pack.Position.TOP, PackSource.DEFAULT);
+        consumer.accept(pack);
     }
 }

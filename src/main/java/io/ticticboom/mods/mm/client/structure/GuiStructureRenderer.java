@@ -1,7 +1,7 @@
 package io.ticticboom.mods.mm.client.structure;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import io.ticticboom.mods.mm.structure.StructureModel;
-import net.minecraft.client.gui.GuiGraphics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class GuiStructureRenderer {
         }
     }
 
-    public void render(GuiGraphics gfx, int mouseX, int mouseY) {
+    public void render(PoseStack gfx, int mouseX, int mouseY) {
         mouseTransform.run(mouseX, mouseY);
         for (PositionedCyclingBlockRenderer part : parts) {
             part.part.tick();

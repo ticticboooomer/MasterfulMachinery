@@ -2,6 +2,7 @@ package io.ticticboom.mods.mm.port.item.register;
 
 import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.IPortItem;
+import io.ticticboom.mods.mm.setup.MMRegisters;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -13,7 +14,7 @@ public class ItemPortBlockItem extends BlockItem implements IPortItem {
     private final boolean isInput;
 
     public ItemPortBlockItem(PortModel model, RegistryGroupHolder groupHolder, boolean isInput) {
-        super(groupHolder.getBlock().get(), new Properties());
+        super(groupHolder.getBlock().get(), new Properties().tab(MMRegisters.MM_TAB));
         this.model = model;
         this.groupHolder = groupHolder;
         this.isInput = isInput;

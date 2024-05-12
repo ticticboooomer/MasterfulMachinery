@@ -171,7 +171,6 @@ repositories {
         name = 'ModMaven'
         url = 'https://modmaven.dev'
     }
-    maven { url 'https://modmaven.dev/' }
     maven {
         url 'https://maven.architectury.dev/'
         content {
@@ -192,15 +191,6 @@ repositories {
             includeGroup 'dev.latvian.mods'
             includeGroup 'dev.ftb.mods'
         }
-    }
-    maven {
-        // location of the maven that hosts JEI files
-        name = 'Progwml6 maven'
-        url = 'https://dvs1.progwml6.com/files/maven/'
-    }
-    maven {
-        name = 'tterrag maven'
-        url = 'https://maven.tterrag.com/'
     }
 }
 
@@ -223,11 +213,11 @@ dependencies {
     runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:generators")// Mekanism: Generators
     runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:tools")// Mekanism: Tools
 
-//    implementation fg.deobf("dev.latvian.mods:kubejs-forge:${kubejs_version}")
-//    implementation fg.deobf("dev.latvian.mods:rhino-forge:${rhino_version}")
-//    implementation fg.deobf("dev.architectury:architectury-forge:${architectury_version}")
-//
-////    runtimeOnly  fg.deobf("curse.maven:probejs-585406:4744799")
+    implementation fg.deobf("dev.latvian.mods:kubejs-forge:${kubejs_version}")
+    implementation fg.deobf("dev.latvian.mods:rhino-forge:${rhino_version}")
+    implementation fg.deobf("dev.architectury:architectury-forge:${architectury_version}")
+
+    runtimeOnly  fg.deobf("curse.maven:probejs-585406:5227399")
 //    implementation fg.deobf("com.simibubi.create:create-${create_minecraft_version}:${create_version}:slim") { transitive = false }
 //    implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
 //    implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")

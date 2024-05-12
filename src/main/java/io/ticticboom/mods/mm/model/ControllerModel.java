@@ -17,4 +17,12 @@ public record ControllerModel(
         var type = ParserUtils.parseId(json, "type");
         return new ControllerModel(id, type, name, json);
     }
+
+    public static JsonObject paramsToJson(String id, ResourceLocation type, String name) {
+        var json = new JsonObject();
+        json.addProperty("id", id);
+        json.addProperty("type", type.toString());
+        json.addProperty("name", name);
+        return json;
+    }
 }

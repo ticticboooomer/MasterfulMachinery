@@ -5,6 +5,6 @@ import dev.latvian.mods.kubejs.KubeJSPlugin;
 public class MMKubeJSPlugin extends KubeJSPlugin {
     @Override
     public void registerEvents() {
-
+        MMKubeEvents.register();
     }
 }

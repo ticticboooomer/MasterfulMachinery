@@ -14,7 +14,7 @@ public interface MMKubeEvents {
     EventHandler PORTS = GROUP.startup("registerPorts", () -> PortEventJS.class);
 
     static void register() {
-        ItemEvents.GROUP.register();
+        GROUP.register();
     }
 
     static boolean isLoaded() {

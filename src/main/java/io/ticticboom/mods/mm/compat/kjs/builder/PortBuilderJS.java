@@ -31,11 +31,6 @@ public class PortBuilderJS {
         this.id = id;
     }
 
-    public PortBuilderJS type(String type) {
-        this.type = new ResourceLocation(type);
-        return this;
-    }
-
     public PortBuilderJS name(String name) {
         this.name = name;
         return this;
@@ -46,7 +41,8 @@ public class PortBuilderJS {
         return this;
     }
 
-    public PortBuilderJS config(Consumer<PortConfigBuilderJS> builder) {
+    public PortBuilderJS config(String type, Consumer<PortConfigBuilderJS> builder) {
+        this.type = new ResourceLocation(type);
         this.builder = builder;
         return this;
     }

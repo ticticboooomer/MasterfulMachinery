@@ -23,6 +23,7 @@ public class ControllerLoader extends AbstractConfigLoader<ControllerModel> {
             ControllerType controllerType = MMControllerRegistry.get(model.type());
             controllerType.register(model);
         }
+
         if (MMKubeEvents.isLoaded()) {
             ControllerEventJS event = new ControllerEventJS();
             MMKubeEvents.CONTROLLERS.post(event);

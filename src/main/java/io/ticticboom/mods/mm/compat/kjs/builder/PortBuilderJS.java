@@ -2,8 +2,16 @@ package io.ticticboom.mods.mm.compat.kjs.builder;
 
 import dev.latvian.mods.rhino.util.HideFromJS;
 import io.ticticboom.mods.mm.compat.kjs.builder.port.PortConfigBuilderJS;
+import io.ticticboom.mods.mm.model.IdList;
+import io.ticticboom.mods.mm.model.PortModel;
+import io.ticticboom.mods.mm.port.IPortStorage;
+import io.ticticboom.mods.mm.port.IPortStorageFactory;
+import io.ticticboom.mods.mm.port.MMPortRegistry;
+import io.ticticboom.mods.mm.port.PortType;
+import io.ticticboom.mods.mm.port.common.INotifyChangeFunction;
 import lombok.Getter;
 import net.minecraft.resources.ResourceLocation;
+import org.spongepowered.asm.util.IConsumer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,5 +49,18 @@ public class PortBuilderJS {
     public PortBuilderJS config(Consumer<PortConfigBuilderJS> builder) {
         this.builder = builder;
         return this;
+    }
+
+    @HideFromJS
+    public List<PortModel> build() {
+        var portType = MMPortRegistry.get(type);
+        var storageFactory = portType.createStorageFactory(builder);
+        IdList controllerIds = new IdList(controllers);
+        var inputPort = new PortModel(id, name, controllerIds, type, storageFactory,
+                        PortModel.paramsToJson(id, name, controllerIds, type, storageFactory, true), true);
+
+        var outputPort = new PortModel(id, name, controllerIds, type, storageFactory,
+                        PortModel.paramsToJson(id, name, controllerIds, type, storageFactory, false), false);
+        return List.of(inputPort, outputPort);
     }
 }

@@ -13,7 +13,6 @@ public interface MMKubeEvents {
     EventHandler CONTROLLERS = GROUP.startup("registerControllers", () -> ControllerEventJS.class);
     EventHandler PORTS = GROUP.startup("registerPorts", () -> PortEventJS.class);
 
-
     static void register() {
         ItemEvents.GROUP.register();
     }

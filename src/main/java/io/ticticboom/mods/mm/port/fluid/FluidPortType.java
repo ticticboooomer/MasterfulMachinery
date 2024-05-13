@@ -1,8 +1,14 @@
 package io.ticticboom.mods.mm.port.fluid;
 
+import io.ticticboom.mods.mm.compat.kjs.builder.port.PortConfigBuilderJS;
 import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.IPortParser;
+import io.ticticboom.mods.mm.port.IPortStorageFactory;
 import io.ticticboom.mods.mm.port.PortType;
+import io.ticticboom.mods.mm.port.energy.EnergyPortStorageFactory;
+import io.ticticboom.mods.mm.port.energy.EnergyPortStorageModel;
+import io.ticticboom.mods.mm.port.energy.compat.EnergyPortConfigBuilderJS;
+import io.ticticboom.mods.mm.port.fluid.compat.FluidPortConfigBuilderJS;
 import io.ticticboom.mods.mm.port.fluid.register.*;
 import io.ticticboom.mods.mm.setup.MMRegisters;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
@@ -13,6 +19,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.function.Consumer;
 
 public class FluidPortType extends PortType {
     @Override
@@ -48,5 +56,12 @@ public class FluidPortType extends PortType {
     @Override
     public void registerScreen(RegistryGroupHolder groupHolder) {
         MenuScreens.register(((MenuType<FluidPortMenu>) groupHolder.getMenu().get()), FluidPortScreen::new);
+    }
+
+    @Override
+    public IPortStorageFactory createStorageFactory(Consumer<PortConfigBuilderJS> consumer) {
+        var builder = new FluidPortConfigBuilderJS();
+        consumer.accept(builder);
+        return new FluidPortStorageFactory(((FluidPortStorageModel) builder.build()));
     }
 }

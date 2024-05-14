@@ -18,6 +18,11 @@ public record ControllerModel(
         return new ControllerModel(id, type, name, json);
     }
 
+    public static ControllerModel create(String id, ResourceLocation type, String name) {
+        JsonObject json = paramsToJson(id, type, name);
+        return new ControllerModel(id, type, name, json);
+    }
+
     public static JsonObject paramsToJson(String id, ResourceLocation type, String name) {
         var json = new JsonObject();
         json.addProperty("id", id);

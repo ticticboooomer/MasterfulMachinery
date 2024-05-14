@@ -52,11 +52,8 @@ public class PortBuilderJS {
         var portType = MMPortRegistry.get(type);
         var storageFactory = portType.createStorageFactory(builder);
         IdList controllerIds = new IdList(controllers);
-        var inputPort = new PortModel(id, name, controllerIds, type, storageFactory,
-                        PortModel.paramsToJson(id, name, controllerIds, type, storageFactory, true), true);
-
-        var outputPort = new PortModel(id, name, controllerIds, type, storageFactory,
-                        PortModel.paramsToJson(id, name, controllerIds, type, storageFactory, false), false);
+        var inputPort = PortModel.create(id, name, controllerIds, type, storageFactory, true);
+        var outputPort = PortModel.create(id, name, controllerIds, type, storageFactory, false);
         return List.of(inputPort, outputPort);
     }
 }

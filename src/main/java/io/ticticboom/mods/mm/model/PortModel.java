@@ -26,6 +26,13 @@ public record PortModel(
         return new PortModel(id, name, controllerIds, type, storageFactory, json, input);
     }
 
+    public static PortModel create(String id, String name, IdList controllerIds, ResourceLocation type, IPortStorageFactory config, boolean input) {
+        var fid = PortUtils.id(id, input);
+        var fname = PortUtils.name(name, input);
+        var json = paramsToJson(fid, fname, controllerIds, type, config, input);
+        return new PortModel(fid, fname, controllerIds, type, config, json, input);
+    }
+
     public static JsonObject paramsToJson(String id, String name, IdList controllerIds, ResourceLocation type, IPortStorageFactory config, boolean input) {
         JsonObject json = new JsonObject();
         json.addProperty("id", id);

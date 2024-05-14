@@ -126,6 +126,16 @@ public class StructureLayout {
         return new StructureLayout(raw, pieces);
     }
 
+    public JsonObject serialize(JsonObject json) {
+        json.add("layout", charGrid.serialize());
+        var key = new JsonObject();
+        for (Map.Entry<StructureKeyChar, StructureLayoutPiece> entry : pieces.entrySet()) {
+            key.add("" + entry.getKey().character(), entry.getValue().getJson());
+        }
+        json.add("key", key);
+        return json;
+    }
+
     public void setup(ResourceLocation structureId) {
         for (StructureLayoutPiece value : pieces.values()) {
             value.setup(structureId);

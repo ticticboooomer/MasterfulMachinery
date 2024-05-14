@@ -25,12 +25,15 @@ public class StructureLayoutPiece {
     private GuiStructureLayoutPiece guiPiece;
     @Getter
     private final String valueId;
+    @Getter
+    private final JsonObject json;
 
-    public StructureLayoutPiece(final StructurePiece piece, List<StructurePieceModifier> modifiers, GuiStructureLayoutPiece guiPiece, String valueId) {
+    public StructureLayoutPiece(final StructurePiece piece, List<StructurePieceModifier> modifiers, GuiStructureLayoutPiece guiPiece, String valueId, JsonObject json) {
         this.piece = piece;
         this.modifiers = modifiers;
         this.guiPiece = guiPiece;
         this.valueId = valueId;
+        this.json = json;
     }
 
     public boolean formed(Level level, BlockPos pos, StructureModel model, Rotation rot) {
@@ -63,7 +66,7 @@ public class StructureLayoutPiece {
         var piece = MMStructurePieceRegistry.findPieceType(json);
         var modifiers = MMStructurePieceRegistry.findModifierTypes(json);
         var guiPiece = new GuiStructureLayoutPiece(piece.createBlocksSupplier(), piece.createDisplayComponent(), modifiers);
-        return new StructureLayoutPiece(piece, modifiers, guiPiece, keyChar);
+        return new StructureLayoutPiece(piece, modifiers, guiPiece, keyChar, json);
     }
 
     public void setup(ResourceLocation structureId) {

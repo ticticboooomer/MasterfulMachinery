@@ -1,8 +1,7 @@
 package io.ticticboom.mods.mm.port.fluid.compat;
 
-import io.ticticboom.mods.mm.compat.kjs.builder.port.PortConfigBuilderJS;
+import io.ticticboom.mods.mm.compat.kjs.builder.PortConfigBuilderJS;
 import io.ticticboom.mods.mm.port.IPortStorageModel;
-import io.ticticboom.mods.mm.port.fluid.FluidPortStorage;
 import io.ticticboom.mods.mm.port.fluid.FluidPortStorageModel;
 
 public class FluidPortConfigBuilderJS extends PortConfigBuilderJS {

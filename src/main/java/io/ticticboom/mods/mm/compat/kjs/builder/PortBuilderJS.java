@@ -1,17 +1,11 @@
 package io.ticticboom.mods.mm.compat.kjs.builder;
 
 import dev.latvian.mods.rhino.util.HideFromJS;
-import io.ticticboom.mods.mm.compat.kjs.builder.port.PortConfigBuilderJS;
 import io.ticticboom.mods.mm.model.IdList;
 import io.ticticboom.mods.mm.model.PortModel;
-import io.ticticboom.mods.mm.port.IPortStorage;
-import io.ticticboom.mods.mm.port.IPortStorageFactory;
 import io.ticticboom.mods.mm.port.MMPortRegistry;
-import io.ticticboom.mods.mm.port.PortType;
-import io.ticticboom.mods.mm.port.common.INotifyChangeFunction;
 import lombok.Getter;
 import net.minecraft.resources.ResourceLocation;
-import org.spongepowered.asm.util.IConsumer;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,8 +3,7 @@ package io.ticticboom.mods.mm.compat.kjs;
 import dev.latvian.mods.kubejs.bindings.event.ItemEvents;
 import dev.latvian.mods.kubejs.event.EventGroup;
 import dev.latvian.mods.kubejs.event.EventHandler;
-import io.ticticboom.mods.mm.compat.kjs.event.ControllerEventJS;
-import io.ticticboom.mods.mm.compat.kjs.event.PortEventJS;
+import io.ticticboom.mods.mm.compat.kjs.event.*;
 import net.minecraftforge.fml.ModList;
 
 public interface MMKubeEvents {
@@ -12,6 +11,9 @@ public interface MMKubeEvents {
 
     EventHandler CONTROLLERS = GROUP.startup("registerControllers", () -> ControllerEventJS.class);
     EventHandler PORTS = GROUP.startup("registerPorts", () -> PortEventJS.class);
+    EventHandler EXTRA = GROUP.startup("registerExtraBlocks", () -> ExtraBlockEventJS.class);
+    EventHandler STRUCTURES = GROUP.server("createStructures", () -> StructureEventJS.class);
+    EventHandler RECIPES = GROUP.server("createProcesses", () -> RecipeEventJS.class);
 
     static void register() {
         GROUP.register();

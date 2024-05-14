@@ -3,6 +3,9 @@ package io.ticticboom.mods.mm.recipe;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.Ref;
+import io.ticticboom.mods.mm.compat.kjs.MMKubeEvents;
+import io.ticticboom.mods.mm.compat.kjs.builder.RecipeBuilderJS;
+import io.ticticboom.mods.mm.compat.kjs.event.RecipeEventJS;
 import io.ticticboom.mods.mm.recipe.input.IRecipeIngredientEntry;
 import io.ticticboom.mods.mm.recipe.input.IRecipeIngredientEntryParser;
 import io.ticticboom.mods.mm.recipe.input.consume.ConsumeRecipeIngredientEntryParser;
@@ -58,6 +61,14 @@ public class MachineRecipeManager extends SimpleJsonResourceReloadListener {
         for (Map.Entry<ResourceLocation, JsonElement> entry : jsons.entrySet()) {
             ResourceLocation id = entry.getKey();
             RECIPES.put(id, RecipeModel.parse(entry.getValue().getAsJsonObject(), id));
+        }
+        if (MMKubeEvents.isLoaded()) {
+            var event = new RecipeEventJS();
+            MMKubeEvents.RECIPES.post(event);
+            for (RecipeBuilderJS builder : event.getBuilders()) {
+                var model = builder.build();
+                RECIPES.put(model.id(), model);
+            }
         }
         profilerFiller.pop();
     }

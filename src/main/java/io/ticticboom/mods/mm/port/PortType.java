@@ -1,7 +1,6 @@
 package io.ticticboom.mods.mm.port;
 
-import com.google.gson.JsonObject;
-import io.ticticboom.mods.mm.compat.kjs.builder.port.PortConfigBuilderJS;
+import io.ticticboom.mods.mm.compat.kjs.builder.PortConfigBuilderJS;
 import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import net.minecraft.world.inventory.MenuType;

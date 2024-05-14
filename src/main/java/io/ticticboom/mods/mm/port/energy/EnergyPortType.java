@@ -1,11 +1,10 @@
 package io.ticticboom.mods.mm.port.energy;
 
-import io.ticticboom.mods.mm.compat.kjs.builder.port.PortConfigBuilderJS;
+import io.ticticboom.mods.mm.compat.kjs.builder.PortConfigBuilderJS;
 import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.IPortParser;
 import io.ticticboom.mods.mm.port.IPortStorageFactory;
 import io.ticticboom.mods.mm.port.PortType;
-import io.ticticboom.mods.mm.port.common.ISlottedPortStorageModel;
 import io.ticticboom.mods.mm.port.energy.compat.EnergyPortConfigBuilderJS;
 import io.ticticboom.mods.mm.port.energy.register.*;
 import io.ticticboom.mods.mm.setup.MMRegisters;

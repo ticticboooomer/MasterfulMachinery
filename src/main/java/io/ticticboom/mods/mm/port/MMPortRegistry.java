@@ -2,20 +2,15 @@ package io.ticticboom.mods.mm.port;
 
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.Ref;
-import io.ticticboom.mods.mm.compat.kjs.builder.port.PortConfigBuilderJS;
 import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.energy.EnergyPortType;
 import io.ticticboom.mods.mm.port.fluid.FluidPortType;
 import io.ticticboom.mods.mm.port.item.ItemPortType;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.util.ParserUtils;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
 
 import java.util.*;
-import java.util.function.Supplier;
 
 public class MMPortRegistry {
     private static Map<ResourceLocation, PortType> PORT_TYPES = new HashMap<>();

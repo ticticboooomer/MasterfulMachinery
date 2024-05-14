@@ -1,6 +1,6 @@
 package io.ticticboom.mods.mm.port.energy.compat;
 
-import io.ticticboom.mods.mm.compat.kjs.builder.port.PortConfigBuilderJS;
+import io.ticticboom.mods.mm.compat.kjs.builder.PortConfigBuilderJS;
 import io.ticticboom.mods.mm.port.IPortStorageModel;
 import io.ticticboom.mods.mm.port.energy.EnergyPortStorageModel;
 

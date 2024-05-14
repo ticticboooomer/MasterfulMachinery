@@ -37,7 +37,7 @@ public record PortModel(
         JsonObject json = new JsonObject();
         json.addProperty("id", id);
         json.addProperty("name", name);
-        json.add("controllerIds", controllerIds.debug());
+        json.add("controllerIds", controllerIds.serialize());
         json.addProperty("type", type.toString());
         json.addProperty("config", config.toString());
         return json;

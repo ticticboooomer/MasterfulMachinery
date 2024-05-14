@@ -35,7 +35,7 @@ public class IdList {
         return new IdList(ids);
     }
 
-    public JsonArray debug() {
+    public JsonArray serialize() {
         var ids = new JsonArray();
         for (ResourceLocation id : this.ids) {
             ids.add(id.toString());

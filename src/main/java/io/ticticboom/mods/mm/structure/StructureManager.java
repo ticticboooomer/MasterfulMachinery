@@ -2,6 +2,9 @@ package io.ticticboom.mods.mm.structure;
 
 import com.google.gson.JsonElement;
 import io.ticticboom.mods.mm.Ref;
+import io.ticticboom.mods.mm.compat.kjs.MMKubeEvents;
+import io.ticticboom.mods.mm.compat.kjs.builder.StructureBuilderJS;
+import io.ticticboom.mods.mm.compat.kjs.event.StructureEventJS;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -36,6 +39,14 @@ public class StructureManager extends SimpleJsonResourceReloadListener {
         for (Map.Entry<ResourceLocation, JsonElement> entry : jsons.entrySet()) {
             var model = StructureModel.parse(entry.getValue().getAsJsonObject(), entry.getKey());
             STRUCTURES.put(entry.getKey(), model);
+        }
+        if (MMKubeEvents.isLoaded()) {
+            var event = new StructureEventJS();
+            MMKubeEvents.STRUCTURES.post(event);
+            for (StructureBuilderJS builder : event.getBuilders()) {
+                var model = builder.build();
+                STRUCTURES.put(model.id(), model);
+            }
         }
         profilerFiller.pop();
     }

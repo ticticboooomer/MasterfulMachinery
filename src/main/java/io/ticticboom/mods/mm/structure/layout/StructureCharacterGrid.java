@@ -73,4 +73,16 @@ public class StructureCharacterGrid {
     public char getValueAt(BlockPos pos) {
         return getValueAt(pos.getX(), pos.getY(), pos.getZ());
     }
+
+    public JsonArray serialize() {
+        var result = new JsonArray();
+        for (List<String> layer : rawLayout) {
+            var layerJson = new JsonArray();
+            for (String row : layer) {
+                layerJson.add(row);
+            }
+            result.add(layerJson);
+        }
+        return result;
+    }
 }

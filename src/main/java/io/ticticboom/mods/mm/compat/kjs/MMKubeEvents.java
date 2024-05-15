@@ -1,10 +1,8 @@
 package io.ticticboom.mods.mm.compat.kjs;
 
-import dev.latvian.mods.kubejs.bindings.event.ItemEvents;
 import dev.latvian.mods.kubejs.event.EventGroup;
 import dev.latvian.mods.kubejs.event.EventHandler;
 import io.ticticboom.mods.mm.compat.kjs.event.*;
-import net.minecraftforge.fml.ModList;
 
 public interface MMKubeEvents {
     EventGroup GROUP = EventGroup.of("MMEvents");
@@ -17,9 +15,5 @@ public interface MMKubeEvents {
 
     static void register() {
         GROUP.register();
-    }
-
-    static boolean isLoaded() {
-        return ModList.get().isLoaded("kubejs");
     }
 }

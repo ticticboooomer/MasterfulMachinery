@@ -1,9 +1,7 @@
 package io.ticticboom.mods.mm.setup.loader;
 
 import com.google.gson.JsonObject;
-import io.ticticboom.mods.mm.compat.kjs.MMKubeEvents;
-import io.ticticboom.mods.mm.compat.kjs.builder.ExtraBlockBuilderJS;
-import io.ticticboom.mods.mm.compat.kjs.event.ExtraBlockEventJS;
+import io.ticticboom.mods.mm.compat.interop.MMInteropManager;
 import io.ticticboom.mods.mm.extra.ExtraBlockModel;
 import io.ticticboom.mods.mm.extra.MMExtraBlockRegistry;
 
@@ -31,11 +29,8 @@ public class ExtraBlockLoader extends AbstractConfigLoader<ExtraBlockModel> {
             var type = MMExtraBlockRegistry.get(model.type());
             type.register(model);
         }
-        if (MMKubeEvents.isLoaded()) {
-            var event = new ExtraBlockEventJS();
-            MMKubeEvents.EXTRA.post(event);
-            for (ExtraBlockBuilderJS builder : event.getBuilder()) {
-                ExtraBlockModel model = builder.build();
+        if (MMInteropManager.KUBEJS.isPresent()) {
+            for (ExtraBlockModel model : MMInteropManager.KUBEJS.get().postRegisterExtraBlocks()) {
                 var type = MMExtraBlockRegistry.get(model.type());
                 type.register(model);
             }

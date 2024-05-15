@@ -1,11 +1,7 @@
 package io.ticticboom.mods.mm.setup.loader;
 
 import com.google.gson.JsonObject;
-import dev.latvian.mods.kubejs.event.EventResult;
-import io.ticticboom.mods.mm.compat.kjs.MMKubeEvents;
-import io.ticticboom.mods.mm.compat.kjs.MMKubeJSPlugin;
-import io.ticticboom.mods.mm.compat.kjs.builder.ControllerBuilderJS;
-import io.ticticboom.mods.mm.compat.kjs.event.ControllerEventJS;
+import io.ticticboom.mods.mm.compat.interop.MMInteropManager;
 import io.ticticboom.mods.mm.controller.ControllerType;
 import io.ticticboom.mods.mm.controller.MMControllerRegistry;
 import io.ticticboom.mods.mm.model.ControllerModel;
@@ -24,11 +20,9 @@ public class ControllerLoader extends AbstractConfigLoader<ControllerModel> {
             controllerType.register(model);
         }
 
-        if (MMKubeEvents.isLoaded()) {
-            ControllerEventJS event = new ControllerEventJS();
-            MMKubeEvents.CONTROLLERS.post(event);
-            for (ControllerBuilderJS controller : event.getControllers()) {
-                var model = controller.build();
+        if (MMInteropManager.KUBEJS.isPresent()) {
+            var controllers = MMInteropManager.KUBEJS.get().postRegisterControllers();
+            for (ControllerModel model : controllers) {
                 ControllerType controllerType = MMControllerRegistry.get(model.type());
                 controllerType.register(model);
             }

@@ -4,12 +4,7 @@ import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.port.IPortIngredient;
 import io.ticticboom.mods.mm.port.IPortParser;
 import io.ticticboom.mods.mm.port.IPortStorageFactory;
-import io.ticticboom.mods.mm.port.item.register.ItemPortMenu;
-import io.ticticboom.mods.mm.port.item.register.ItemPortScreen;
-import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.util.ParserUtils;
-import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.world.inventory.MenuType;
 
 public class ItemPortParser implements IPortParser {
     @Override
@@ -21,8 +16,14 @@ public class ItemPortParser implements IPortParser {
 
     @Override
     public IPortIngredient parseRecipeIngredient(JsonObject json) {
-        var itemId = ParserUtils.parseId(json, "item");
         var count = json.get("count").getAsInt();
-        return new ItemPortIngredient(itemId, count);
+        if (json.has("item")) {
+            var itemId = ParserUtils.parseId(json, "item");
+            return new SingleItemPortIngredient(itemId, count);
+        } else if (json.has("tag")) {
+            var tagId = ParserUtils.parseId(json, "tag");
+            return new TagItemPortIngredient(tagId, count);
+        }
+        throw new RuntimeException("Invalid recipe item ingredient, neither item, not tag was found.");
     }
 }

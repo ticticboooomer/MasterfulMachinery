@@ -6,8 +6,8 @@
       "type": "mm:input/consume",
       "ingredient": {
         "type": "mm:item",
-        "item": "minecraft:oak_log",
-        "count": 8
+        "tag": "forge:ingots",
+        "count": 2
       }
     },
     {

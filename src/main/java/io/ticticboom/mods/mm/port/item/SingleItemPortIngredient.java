@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.compat.jei.SlotGrid;
 import io.ticticboom.mods.mm.compat.jei.ingredient.MMJeiIngredients;
-import io.ticticboom.mods.mm.port.IPortIngredient;
 import io.ticticboom.mods.mm.recipe.RecipeModel;
 import io.ticticboom.mods.mm.recipe.RecipeStorages;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -19,42 +18,30 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
+import java.util.function.Predicate;
 
-public class ItemPortIngredient implements IPortIngredient {
+public class SingleItemPortIngredient extends BaseItemPortIngredient {
 
     private final ResourceLocation itemId;
-    private final int count;
     private final Item item;
     private final ItemStack stack;
 
-    public ItemPortIngredient(ResourceLocation itemId, int count) {
-
+    public SingleItemPortIngredient(ResourceLocation itemId, int count) {
+        super(count, createPredicate(itemId));
         this.itemId = itemId;
-        this.count = count;
         item = ForgeRegistries.ITEMS.getValue(itemId);
-        if (item == null){
+        if (item == null) {
             throw new RuntimeException(String.format("Could not find item [%s] which is required by an MM recipe", itemId));
         }
         stack = new ItemStack(item, count);
     }
 
-    @Override
-    public boolean canProcess(Level level, RecipeStorages storages) {
-        List<ItemPortStorage> itemStorages = storages.getInputStorages(ItemPortStorage.class);
-        int remaining = count;
-        for (ItemPortStorage storage : itemStorages) {
-            remaining = storage.canExtract(item, remaining);
+    private static Predicate<ItemStack> createPredicate(ResourceLocation id) {
+        var item = ForgeRegistries.ITEMS.getValue(id);
+        if (item == null) {
+            throw new RuntimeException(String.format("Could not find item [%s] which is required by an MM recipe", id));
         }
-        return remaining <= 0;
-    }
-
-    @Override
-    public void process(Level level, RecipeStorages storages) {
-        List<ItemPortStorage> itemStorages = storages.getInputStorages(ItemPortStorage.class);
-        int remaining = count;
-        for (ItemPortStorage storage : itemStorages) {
-            remaining = storage.extract(item, remaining);
-        }
+        return c -> c.is(item);
     }
 
     @Override
@@ -81,30 +68,7 @@ public class ItemPortIngredient implements IPortIngredient {
         recipeSlot.addIngredient(MMJeiIngredients.ITEM, this.stack);
     }
 
-    @Override
-    public JsonObject debugInput(Level level, RecipeStorages storages, JsonObject json) {
-        List<ItemPortStorage> itemStorages = storages.getInputStorages(ItemPortStorage.class);
-        var searchedStorages = new JsonArray();
-        var searchIterations = new JsonArray();
-        json.addProperty("ingredientType", Ref.Ports.ITEM.toString());
-        json.addProperty("amountToExtract", count);
 
-        int remaining = count;
-        for (ItemPortStorage storage : itemStorages) {
-            var iterJson = new JsonObject();
-
-            remaining = storage.canExtract(item, remaining);
-
-            iterJson.addProperty("remaining", remaining);
-            iterJson.addProperty("storageUid", storage.getStorageUid().toString());
-            searchIterations.add(iterJson);
-            searchedStorages.add(storage.getStorageUid().toString());
-        }
-        json.add("extractIterations", searchIterations);
-        json.addProperty("canRun", remaining <= 0);
-        json.add("searchedStorages", searchedStorages);
-        return json;
-    }
 
     @Override
     public JsonObject debugOutput(Level level, RecipeStorages storages, JsonObject json) {

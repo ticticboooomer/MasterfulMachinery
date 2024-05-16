@@ -12,6 +12,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -55,7 +56,7 @@ public class BlockUtils {
     }
 
     public static BlockBehaviour.Properties createBlockProperties() {
-        return BlockBehaviour.Properties.of().requiresCorrectToolForDrops().destroyTime(5f).explosionResistance(6f)
+        return BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(5f, 5f)
                 .sound(SoundType.METAL);
     }
 }

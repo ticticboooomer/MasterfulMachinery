@@ -30,7 +30,7 @@ public class MachineControllerBlock extends HorizontalDirectionalBlock implement
     private final RegistryGroupHolder groupHolder;
 
     public MachineControllerBlock(ControllerModel model, RegistryGroupHolder groupHolder) {
-        super(Properties.of().requiresCorrectToolForDrops().destroyTime(5f).explosionResistance(6f).sound(SoundType.METAL));
+        super(BlockUtils.createBlockProperties());
         this.model = model;
         this.groupHolder = groupHolder;
         registerDefaultState(this.getStateDefinition().any()

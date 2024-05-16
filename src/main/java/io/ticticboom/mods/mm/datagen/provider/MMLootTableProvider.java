@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.controller.IControllerPart;
+import io.ticticboom.mods.mm.extra.IExtraBlockPart;
 import io.ticticboom.mods.mm.port.IPortPart;
 import io.ticticboom.mods.mm.setup.MMRegisters;
 import net.minecraft.data.DataGenerator;
@@ -40,10 +41,13 @@ public class MMLootTableProvider extends LootTableProvider {
             for (var blockEntry : MMRegisters.BLOCKS.getEntries()) {
                 var block = blockEntry.get();
                 if (block instanceof IControllerPart controllerPart) {
-                    consumer.accept(Ref.id(controllerPart.getModel().id()), createBlockLootTable(block));
+                    consumer.accept(Ref.id("blocks/" + controllerPart.getModel().id()), createBlockLootTable(block));
                 }
                 if (block instanceof IPortPart portPart) {
-                    consumer.accept(Ref.id(portPart.getModel().id()), createBlockLootTable(block));
+                    consumer.accept(Ref.id("blocks/" + portPart.getModel().id()), createBlockLootTable(block));
+                }
+                if (block instanceof IExtraBlockPart extra) {
+                    consumer.accept(Ref.id("blocks/" + extra.getModel().id()), createBlockLootTable(block));
                 }
             }
         }

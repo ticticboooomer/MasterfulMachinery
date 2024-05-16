@@ -1,23 +1,14 @@
 {
   "ticks": 60,
-  "structureId": "mmtest:energy_structure",
+  "structureId": "mmtest:funky_fire_fingy",
   "inputs": [
-    {
-      "type": "mm:input/consume",
-      "per_tick": true,
-      "ingredient": {
-        "type": "mm:energy",
-        "amount": 100
-      }
-    }
   ],
   "outputs": [
     {
       "type": "mm:output/simple",
-      "chance": 0.2,
       "ingredient": {
         "type": "mm:energy",
-        "amount": 1000
+        "amount": 1
       }
     }
   ]

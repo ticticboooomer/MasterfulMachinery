@@ -1,19 +1,16 @@
-package io.ticticboom.mods.mm.port.energy.register;
+package io.ticticboom.mods.mm.port.mekanism.chemical.register;
 
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.IPortBlockEntity;
-import io.ticticboom.mods.mm.port.IPortPart;
 import io.ticticboom.mods.mm.port.IPortStorage;
-import io.ticticboom.mods.mm.port.common.ISlottedPortStorageModel;
-import io.ticticboom.mods.mm.port.energy.EnergyPortStorage;
-import io.ticticboom.mods.mm.port.energy.EnergyPortStorageModel;
+import io.ticticboom.mods.mm.port.mekanism.chemical.MekanismChemicalPortStorage;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
-import lombok.Getter;
+import mekanism.api.chemical.Chemical;
+import mekanism.api.chemical.ChemicalStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -28,39 +25,19 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class  EnergyPortBlockEntity extends BlockEntity implements IPortBlockEntity, IPortPart {
+public abstract class MekanismChemicalPortBlockEntity<CHEMICAL extends Chemical<CHEMICAL>, STACK extends ChemicalStack<CHEMICAL>> extends BlockEntity implements IPortBlockEntity {
+
     private final PortModel model;
     private final RegistryGroupHolder groupHolder;
     private final boolean isInput;
+    private final MekanismChemicalPortStorage<CHEMICAL, STACK> storage;
 
-    private final EnergyPortStorage storage;
-
-    public EnergyPortBlockEntity(PortModel model, RegistryGroupHolder groupHolder, boolean isInput, BlockPos pos, BlockState state) {
+    public MekanismChemicalPortBlockEntity(PortModel model, RegistryGroupHolder groupHolder, boolean isInput, BlockPos pos, BlockState state) {
         super(groupHolder.getBe().get(), pos, state);
         this.model = model;
         this.groupHolder = groupHolder;
         this.isInput = isInput;
-
-        storage = (EnergyPortStorage) model.config().createPortStorage(this::setChanged);
-    }
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        return storage.getCapability(cap);
-    }
-
-    @Override
-    public IPortStorage getStorage() {
-        return storage;
-    }
-
-    public EnergyPortStorageModel getStorageModel() {
-        return (EnergyPortStorageModel) storage.getStorageModel();
-    }
-
-    @Override
-    public boolean isInput() {
-        return isInput;
+        this.storage = (MekanismChemicalPortStorage<CHEMICAL, STACK>) model.config().createPortStorage(this::setChanged);
     }
 
     @Override
@@ -69,26 +46,42 @@ public class  EnergyPortBlockEntity extends BlockEntity implements IPortBlockEnt
     }
 
     @Override
-    public Component getDisplayName() {
-        return Component.literal("Energy Port");
+    public IPortStorage getStorage() {
+        return storage;
+    }
+
+    @Override
+    public boolean isInput() {
+        return isInput;
     }
 
     @Nullable
     @Override
-    public AbstractContainerMenu createMenu(int windowId, Inventory inv, Player player) {
-        return new EnergyPortMenu(model, groupHolder, isInput, windowId, inv, this);
+    public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
+        return new MekanismChemicalPortMenu<>(model, groupHolder, i, this);
+    }
+
+    @Override
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        return storage.getCapability(cap);
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag) {
-        tag.put(Ref.NBT_STORAGE_KEY, storage.save(new CompoundTag()));
+        tag.put(Ref.NBT_STORAGE_KEY, storage.chemicalTank.serializeNBT());
         super.saveAdditional(tag);
     }
 
     @Override
     public void load(CompoundTag tag) {
-        storage.load(tag.getCompound(Ref.NBT_STORAGE_KEY));
         super.load(tag);
+        storage.chemicalTank.deserializeNBT(tag.getCompound(Ref.NBT_STORAGE_KEY));
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override
@@ -96,12 +89,6 @@ public class  EnergyPortBlockEntity extends BlockEntity implements IPortBlockEnt
         var tag = new CompoundTag();
         saveAdditional(tag);
         return tag;
-    }
-
-    @Nullable
-    @Override
-    public Packet<ClientGamePacketListener> getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override

@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 public class Ref {
     public static final String ID = "mm";
-    public static final Logger LOG = LogManager.getLogger();
+    public static final Logger LOG = LogManager.getLogger("MasterfulMachinery");
     public static final Gson GSON = new Gson();
 
     public static ResourceLocation id(String path) {
@@ -21,6 +21,10 @@ public class Ref {
         public static final ResourceLocation ITEM = id("item");
         public static final ResourceLocation FLUID = id("fluid");
         public static final ResourceLocation ENERGY = id("energy");
+        public static final ResourceLocation MEK_GAS = id("mekanism/gas");
+        public static final ResourceLocation MEK_SLURRY = id("mekanism/slurry");
+        public static final ResourceLocation MEK_PIGMENT = id("mekanism/pigment");
+        public static final ResourceLocation MEK_INFUSE = id("mekanism/infuse");
     }
 
     public static class Controller {
@@ -62,6 +66,17 @@ public class Ref {
         public static final ResourceLocation GEARBOX_OVERLAY = id("block/gearbox_cutout");
         public static final ResourceLocation VENT_OVERLAY = id("block/vent_cutout");
 
+        public static final ResourceLocation INPUT_GAS_PORT_OVERLAY = id("block/compat_ports/mekanism_gas_input_cutout");
+        public static final ResourceLocation OUTPUT_GAS_PORT_OVERLAY = id("block/compat_ports/mekanism_gas_output_cutout");
+
+        public static final ResourceLocation INPUT_SLURRY_PORT_OVERLAY = id("block/compat_ports/mekanism_slurry_input_cutout");
+        public static final ResourceLocation OUTPUT_SLURRY_PORT_OVERLAY = id("block/compat_ports/mekanism_slurry_output_cutout");
+
+        public static final ResourceLocation INPUT_PIGMENT_PORT_OVERLAY = id("block/compat_ports/mekanism_pigment_input_cutout");
+        public static final ResourceLocation OUTPUT_PIGMENT_PORT_OVERLAY = id("block/compat_ports/mekanism_pigment_output_cutout");
+
+        public static final ResourceLocation INPUT_INFUSE_PORT_OVERLAY = id("block/compat_ports/mekanism_infusion_input_cutout");
+        public static final ResourceLocation OUTPUT_INFUSE_PORT_OVERLAY = id("block/compat_ports/mekanism_infusion_output_cutout");
     }
 
 }

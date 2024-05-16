@@ -9,15 +9,22 @@ import io.ticticboom.mods.mm.compat.jei.ingredient.energy.EnergyIngredientHelper
 import io.ticticboom.mods.mm.compat.jei.ingredient.energy.EnergyIngredientRenderer;
 import io.ticticboom.mods.mm.compat.jei.ingredient.energy.EnergyStack;
 import io.ticticboom.mods.mm.recipe.MachineRecipeManager;
+import io.ticticboom.mods.mm.recipe.RecipeModel;
 import io.ticticboom.mods.mm.structure.StructureManager;
+import io.ticticboom.mods.mm.structure.StructureModel;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IModIngredientRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
 
 @JeiPlugin
 public class MMJeiPlugin implements IModPlugin {
@@ -28,15 +35,25 @@ public class MMJeiPlugin implements IModPlugin {
         return UID;
     }
 
+    public static final List<MMRecipeCategory> recipeCategories = new ArrayList<>();
+
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
-        registration.addRecipeCategories(new MMRecipeCategory(registration.getJeiHelpers()));
+        for (StructureModel value : StructureManager.STRUCTURES.values()) {
+            MMRecipeCategory category = new MMRecipeCategory(registration.getJeiHelpers(), value);
+            registration.addRecipeCategories(category);
+            recipeCategories.add(category);
+        }
         registration.addRecipeCategories(new MMStructureCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        registration.addRecipes(MMRecipeCategory.RECIPE_TYPE, new ArrayList<>(MachineRecipeManager.RECIPES.values()));
+
+        for (var entry : recipeCategories) {
+            var recipes = MachineRecipeManager.RECIPES.values().stream().filter(x -> x.structureId().equals(entry.getStructureModel().id())).toList();
+            registration.addRecipes(entry.getRecipeType(), recipes);
+        }
         registration.addRecipes(MMStructureCategory.RECIPE_TYPE, new ArrayList<>(StructureManager.STRUCTURES.values()));
     }
 

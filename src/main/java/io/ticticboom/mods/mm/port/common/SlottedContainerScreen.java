@@ -3,7 +3,6 @@ package io.ticticboom.mods.mm.port.common;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.port.IPortBlockEntity;
 import io.ticticboom.mods.mm.port.IPortMenu;
-import io.ticticboom.mods.mm.port.item.register.ItemPortBlockEntity;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;

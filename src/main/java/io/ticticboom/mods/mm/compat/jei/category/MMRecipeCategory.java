@@ -7,7 +7,9 @@ import io.ticticboom.mods.mm.recipe.RecipeModel;
 import io.ticticboom.mods.mm.recipe.input.IRecipeIngredientEntry;
 import io.ticticboom.mods.mm.recipe.output.IRecipeOutputEntry;
 import io.ticticboom.mods.mm.setup.MMRegisters;
+import io.ticticboom.mods.mm.structure.StructureModel;
 import io.ticticboom.mods.mm.util.WidgetUtils;
+import lombok.Getter;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
@@ -24,25 +26,28 @@ public class MMRecipeCategory implements IRecipeCategory<RecipeModel> {
 
     private final IJeiHelpers helpers;
     private final IDrawable bgProgressBar;
+    @Getter
+    private final StructureModel structureModel;
     private final IDrawable fgProgressBar;
+    private final RecipeType<RecipeModel> recipeType;
 
-    public MMRecipeCategory(IJeiHelpers helpers) {
+    public MMRecipeCategory(IJeiHelpers helpers, StructureModel parent) {
         this.helpers = helpers;
         bgProgressBar = helpers.getGuiHelper().createDrawable(Ref.Textures.SLOT_PARTS, 26, 0, 24, 17);
+        this.structureModel = parent;
         var staticProgressBar = helpers.getGuiHelper().createDrawable(Ref.Textures.SLOT_PARTS, 26, 17, 24, 17);
         fgProgressBar = helpers.getGuiHelper().createAnimatedDrawable(staticProgressBar, 16, IDrawableAnimated.StartDirection.LEFT, false);
+        recipeType = RecipeType.create("mm", parent.id().getPath() + "_recipe", RecipeModel.class);
     }
-
-    public static final RecipeType<RecipeModel> RECIPE_TYPE = RecipeType.create("mm", "recipes", RecipeModel.class);
 
     @Override
     public RecipeType<RecipeModel> getRecipeType() {
-        return RECIPE_TYPE;
+        return recipeType;
     }
 
     @Override
     public Component getTitle() {
-        return Component.literal("MM Recipe");
+        return Component.literal(this.structureModel.name()).append(Component.literal(" (Recipes)"));
     }
 
     @Override

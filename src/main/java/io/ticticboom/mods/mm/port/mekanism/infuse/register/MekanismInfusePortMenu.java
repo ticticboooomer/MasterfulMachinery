@@ -12,11 +12,11 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class MekanismInfusePortMenu extends MekanismChemicalPortMenu<InfuseType, InfusionStack> {
 
-    public MekanismInfusePortMenu(PortModel model, RegistryGroupHolder groupHolder, int windowId, MekanismChemicalPortBlockEntity<InfuseType, InfusionStack> be) {
-        super(model, groupHolder, windowId, be);
+    public MekanismInfusePortMenu(PortModel model, RegistryGroupHolder groupHolder, int windowId, Inventory inv, MekanismChemicalPortBlockEntity<InfuseType, InfusionStack> be) {
+        super(model, groupHolder, windowId, be, inv);
     }
 
     public MekanismInfusePortMenu(PortModel model, RegistryGroupHolder groupHolder, int i, Inventory o, FriendlyByteBuf u) {
-        this(model, groupHolder, i, (MekanismInfusePortBlockEntity) o.player.level().getBlockEntity(u.readBlockPos()));
+        this(model, groupHolder, i, o, (MekanismInfusePortBlockEntity) o.player.level().getBlockEntity(u.readBlockPos()));
     }
 }

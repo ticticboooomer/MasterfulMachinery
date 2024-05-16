@@ -10,11 +10,11 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 
 public class MekanismPigmentPortMenu extends MekanismChemicalPortMenu<Pigment, PigmentStack> {
-    public MekanismPigmentPortMenu(PortModel model, RegistryGroupHolder groupHolder, int windowId, MekanismChemicalPortBlockEntity<Pigment, PigmentStack> be) {
-        super(model, groupHolder, windowId, be);
+    public MekanismPigmentPortMenu(PortModel model, RegistryGroupHolder groupHolder, int windowId, Inventory inv, MekanismChemicalPortBlockEntity<Pigment, PigmentStack> be) {
+        super(model, groupHolder, windowId, be, inv);
     }
 
     public MekanismPigmentPortMenu(PortModel model, RegistryGroupHolder groupHolder, int i, Inventory o, FriendlyByteBuf u) {
-        this(model, groupHolder, i, (MekanismPigmentPortBlockEntity) o.player.level().getBlockEntity(u.readBlockPos()));
+        this(model, groupHolder, i, o, (MekanismPigmentPortBlockEntity) o.player.level().getBlockEntity(u.readBlockPos()));
     }
 }

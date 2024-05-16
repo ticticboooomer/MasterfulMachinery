@@ -5,6 +5,7 @@ import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.IPortBlockEntity;
 import io.ticticboom.mods.mm.port.IPortPart;
 import io.ticticboom.mods.mm.port.IPortStorage;
+import io.ticticboom.mods.mm.port.common.AbstractPortBlockEntity;
 import io.ticticboom.mods.mm.port.common.ISlottedPortStorageModel;
 import io.ticticboom.mods.mm.port.energy.EnergyPortStorage;
 import io.ticticboom.mods.mm.port.energy.EnergyPortStorageModel;
@@ -28,7 +29,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class  EnergyPortBlockEntity extends BlockEntity implements IPortBlockEntity, IPortPart {
+public class  EnergyPortBlockEntity extends AbstractPortBlockEntity {
     private final PortModel model;
     private final RegistryGroupHolder groupHolder;
     private final boolean isInput;

@@ -11,7 +11,7 @@ import net.minecraft.world.entity.player.Inventory;
 public class MekanismGasPortMenu extends MekanismChemicalPortMenu<Gas, GasStack> {
 
     public MekanismGasPortMenu(PortModel model, RegistryGroupHolder groupHolder, int windowId, Inventory inv, MekanismGasPortBlockEntity be) {
-        super(model, groupHolder, windowId, be);
+        super(model, groupHolder, windowId, be, inv);
     }
 
     public MekanismGasPortMenu(PortModel model, RegistryGroupHolder groupHolder, int windowId, Inventory inv, FriendlyByteBuf buf) {

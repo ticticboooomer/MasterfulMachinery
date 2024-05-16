@@ -5,6 +5,7 @@ import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.IPortBlockEntity;
 import io.ticticboom.mods.mm.port.IPortPart;
 import io.ticticboom.mods.mm.port.IPortStorage;
+import io.ticticboom.mods.mm.port.common.AbstractPortBlockEntity;
 import io.ticticboom.mods.mm.port.item.ItemPortHandler;
 import io.ticticboom.mods.mm.port.item.ItemPortStorage;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
@@ -24,7 +25,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ItemPortBlockEntity extends BlockEntity implements IPortBlockEntity, IPortPart {
+public class ItemPortBlockEntity extends AbstractPortBlockEntity {
     private final RegistryGroupHolder groupHolder;
     private final PortModel model;
 
@@ -68,23 +69,4 @@ public class ItemPortBlockEntity extends BlockEntity implements IPortBlockEntity
         return model;
     }
 
-    @Override
-    protected void saveAdditional(CompoundTag tag) {
-        var storageTag = storage.save(new CompoundTag());
-        tag.put(Ref.NBT_STORAGE_KEY, storageTag);
-        super.saveAdditional(tag);
-    }
-
-    @Override
-    public void load(CompoundTag tag) {
-        storage.load(tag.getCompound(Ref.NBT_STORAGE_KEY));
-        super.load(tag);
-    }
-
-    @Override
-    public CompoundTag getUpdateTag() {
-        var tag = new CompoundTag();
-        saveAdditional(tag);
-        return tag;
-    }
 }

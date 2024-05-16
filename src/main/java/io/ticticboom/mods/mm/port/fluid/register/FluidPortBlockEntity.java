@@ -7,6 +7,7 @@ import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.IPortBlockEntity;
 import io.ticticboom.mods.mm.port.IPortPart;
 import io.ticticboom.mods.mm.port.IPortStorage;
+import io.ticticboom.mods.mm.port.common.AbstractPortBlockEntity;
 import io.ticticboom.mods.mm.port.fluid.FluidPortStorage;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import net.minecraft.core.BlockPos;
@@ -35,7 +36,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.nio.charset.Charset;
 
-public class FluidPortBlockEntity extends BlockEntity implements IPortBlockEntity, IPortPart {
+public class FluidPortBlockEntity extends AbstractPortBlockEntity {
 
     private final PortModel model;
     private final RegistryGroupHolder groupHolder;
@@ -52,23 +53,11 @@ public class FluidPortBlockEntity extends BlockEntity implements IPortBlockEntit
         storage = (FluidPortStorage) model.config().createPortStorage(this::setChanged);
     }
 
-    public void tick() {
-
-    }
-
     @Override
     public IPortStorage getStorage() {
         return storage;
     }
 
-    @Override
-    public void setChanged() {
-        if (level.isClientSide()){
-            return;
-        }
-        super.setChanged();
-        level.sendBlockUpdated(getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
-    }
 
     @Override
     public boolean isInput() {
@@ -94,31 +83,5 @@ public class FluidPortBlockEntity extends BlockEntity implements IPortBlockEntit
     @Override
     public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
         return storage.getCapability(cap);
-    }
-
-    @Override
-    protected void saveAdditional(CompoundTag tag) {
-        var storageTag = storage.save(new CompoundTag());
-        tag.put(Ref.NBT_STORAGE_KEY, storageTag);
-        super.saveAdditional(tag);
-    }
-
-    @Override
-    public void load(CompoundTag tag) {
-        storage.load(tag.getCompound(Ref.NBT_STORAGE_KEY));
-        super.load(tag);
-    }
-
-    @Override
-    public CompoundTag getUpdateTag() {
-        var tag = new CompoundTag();
-        saveAdditional(tag);
-        return tag;
-    }
-
-    @Nullable
-    @Override
-    public Packet<ClientGamePacketListener> getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
     }
 }

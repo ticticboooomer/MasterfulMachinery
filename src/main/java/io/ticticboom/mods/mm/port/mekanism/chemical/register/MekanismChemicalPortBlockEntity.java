@@ -4,8 +4,11 @@ import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.IPortBlockEntity;
 import io.ticticboom.mods.mm.port.IPortStorage;
+import io.ticticboom.mods.mm.port.common.AbstractPortBlockEntity;
 import io.ticticboom.mods.mm.port.mekanism.chemical.MekanismChemicalPortStorage;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
+import io.ticticboom.mods.mm.util.BlockUtils;
+import io.ticticboom.mods.mm.util.MenuUtils;
 import mekanism.api.chemical.Chemical;
 import mekanism.api.chemical.ChemicalStack;
 import net.minecraft.core.BlockPos;
@@ -25,7 +28,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class MekanismChemicalPortBlockEntity<CHEMICAL extends Chemical<CHEMICAL>, STACK extends ChemicalStack<CHEMICAL>> extends BlockEntity implements IPortBlockEntity {
+public abstract class MekanismChemicalPortBlockEntity<CHEMICAL extends Chemical<CHEMICAL>, STACK extends ChemicalStack<CHEMICAL>> extends AbstractPortBlockEntity {
 
     private final PortModel model;
     private final RegistryGroupHolder groupHolder;
@@ -55,48 +58,8 @@ public abstract class MekanismChemicalPortBlockEntity<CHEMICAL extends Chemical<
         return isInput;
     }
 
-    @Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
-        return new MekanismChemicalPortMenu<>(model, groupHolder, i, this);
-    }
-
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
         return storage.getCapability(cap);
-    }
-
-    @Override
-    protected void saveAdditional(CompoundTag tag) {
-        tag.put(Ref.NBT_STORAGE_KEY, storage.chemicalTank.serializeNBT());
-        super.saveAdditional(tag);
-    }
-
-    @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
-        storage.chemicalTank.deserializeNBT(tag.getCompound(Ref.NBT_STORAGE_KEY));
-    }
-
-    @Nullable
-    @Override
-    public Packet<ClientGamePacketListener> getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    @Override
-    public CompoundTag getUpdateTag() {
-        var tag = new CompoundTag();
-        saveAdditional(tag);
-        return tag;
-    }
-
-    @Override
-    public void setChanged() {
-        if (level.isClientSide()){
-            return;
-        }
-        super.setChanged();
-        level.sendBlockUpdated(getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
     }
 }

@@ -11,11 +11,11 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class MekanismSlurryPortMenu extends MekanismChemicalPortMenu<Slurry, SlurryStack> {
 
-    public MekanismSlurryPortMenu(PortModel model, RegistryGroupHolder groupHolder, int windowId, MekanismChemicalPortBlockEntity<Slurry, SlurryStack> be) {
-        super(model, groupHolder, windowId, be);
+    public MekanismSlurryPortMenu(PortModel model, RegistryGroupHolder groupHolder, int windowId, Inventory inv,  MekanismChemicalPortBlockEntity<Slurry, SlurryStack> be) {
+        super(model, groupHolder, windowId, be, inv);
     }
 
     public MekanismSlurryPortMenu(PortModel model, RegistryGroupHolder groupHolder, int windowId, Inventory inv, FriendlyByteBuf buf) {
-        this(model, groupHolder, windowId, (MekanismSlurryPortBlockEntity) inv.player.level().getBlockEntity(buf.readBlockPos()));
+        this(model, groupHolder, windowId, inv, (MekanismSlurryPortBlockEntity) inv.player.level().getBlockEntity(buf.readBlockPos()));
     }
 }

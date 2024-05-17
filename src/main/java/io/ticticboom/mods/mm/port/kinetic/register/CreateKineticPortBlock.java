@@ -9,12 +9,12 @@ import io.ticticboom.mods.mm.util.BlockUtils;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class CreateKineticGenPortBlock extends KineticBlock implements IPortBlock {
+public class CreateKineticPortBlock extends KineticBlock implements IPortBlock {
 
     private final PortModel model;
     private final RegistryGroupHolder groupHolder;
 
-    public CreateKineticGenPortBlock(PortModel model, RegistryGroupHolder groupHolder) {
+    public CreateKineticPortBlock(PortModel model, RegistryGroupHolder groupHolder) {
         super(BlockUtils.createBlockProperties());
         this.model = model;
         this.groupHolder = groupHolder;

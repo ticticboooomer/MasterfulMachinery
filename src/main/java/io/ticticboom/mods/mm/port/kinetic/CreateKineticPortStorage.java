@@ -1,4 +1,65 @@
 package io.ticticboom.mods.mm.port.kinetic;
 
-public class CreateKineticPortStorage {
+import com.google.gson.JsonObject;
+import io.ticticboom.mods.mm.port.IPortStorage;
+import io.ticticboom.mods.mm.port.IPortStorageModel;
+import lombok.Getter;
+import lombok.Setter;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+
+import java.util.UUID;
+
+public class CreateKineticPortStorage implements IPortStorage {
+
+    private final CreateKineticPortStorageModel model;
+    private final UUID uid = UUID.randomUUID();
+
+    @Setter
+    @Getter
+    private float speed = 0;
+
+    public CreateKineticPortStorage(CreateKineticPortStorageModel model) {
+        this.model = model;
+    }
+
+    @Override
+    public <T> LazyOptional<T> getCapability(Capability<T> capability) {
+        return LazyOptional.empty();
+    }
+
+    @Override
+    public <T> boolean hasCapability(Capability<T> capability) {
+        return false;
+    }
+
+    @Override
+    public CompoundTag save(CompoundTag tag) {
+        return tag;
+    }
+
+    @Override
+    public void load(CompoundTag tag) {
+
+    }
+
+    @Override
+    public IPortStorageModel getStorageModel() {
+        return model;
+    }
+
+    @Override
+    public UUID getStorageUid() {
+        return uid;
+    }
+
+    @Override
+    public JsonObject debugDump() {
+        var json = new JsonObject();
+        json.addProperty("uid", uid.toString());
+        // TODO add kinetic state to json
+        return json;
+    }
+
 }

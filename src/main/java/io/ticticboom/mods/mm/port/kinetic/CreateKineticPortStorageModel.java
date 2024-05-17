@@ -1,4 +1,8 @@
 package io.ticticboom.mods.mm.port.kinetic;
 
-public class CreateKineticPortStorageModel {
+import io.ticticboom.mods.mm.port.IPortStorageModel;
+
+public record CreateKineticPortStorageModel(
+        float stress
+) implements IPortStorageModel {
 }

@@ -97,9 +97,11 @@ public class MMRecipeCategory implements IRecipeCategory<RecipeModel> {
             gfx.renderTooltip(Minecraft.getInstance().font, Component.literal(fmt), (int) mouseX, (int) mouseY);
         }
 
-        gfx.blit(Ref.Textures.SLOT_PARTS, 75, 28, 19, 26, 7, 9);
-        if (WidgetUtils.isPointerWithinSized((int) mouseX, (int) mouseY, 75, 28, 7, 9)) {
-            gfx.renderTooltip(Minecraft.getInstance().font, Component.literal("Structure: " + recipe.structureId().toString()), (int) mouseX, (int) mouseY);
+        if (structureModel == null) {
+            gfx.blit(Ref.Textures.SLOT_PARTS, 75, 28, 19, 26, 7, 9);
+            if (WidgetUtils.isPointerWithinSized((int) mouseX, (int) mouseY, 75, 28, 7, 9)) {
+                gfx.renderTooltip(Minecraft.getInstance().font, Component.literal("Structure: " + recipe.structureId().toString()), (int) mouseX, (int) mouseY);
+            }
         }
 
         for (SlotGridEntry inputSlot : recipe.inputSlots()) {

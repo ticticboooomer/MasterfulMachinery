@@ -6,6 +6,7 @@ import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.compat.jei.SlotGrid;
 import io.ticticboom.mods.mm.compat.jei.ingredient.MMJeiIngredients;
 import io.ticticboom.mods.mm.recipe.RecipeModel;
+import io.ticticboom.mods.mm.recipe.RecipeStateModel;
 import io.ticticboom.mods.mm.recipe.RecipeStorages;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
@@ -45,7 +46,7 @@ public class SingleItemPortIngredient extends BaseItemPortIngredient {
     }
 
     @Override
-    public boolean canOutput(Level level, RecipeStorages storages) {
+    public boolean canOutput(Level level, RecipeStorages storages, RecipeStateModel state) {
         List<ItemPortStorage> itemStorages = storages.getOutputStorages(ItemPortStorage.class);
         int remainingToInsert = count;
         for (ItemPortStorage itemStorage : itemStorages) {
@@ -55,7 +56,7 @@ public class SingleItemPortIngredient extends BaseItemPortIngredient {
     }
 
     @Override
-    public void output(Level level, RecipeStorages storages) {
+    public void output(Level level, RecipeStorages storages, RecipeStateModel state) {
         List<ItemPortStorage> itemStorages = storages.getOutputStorages(ItemPortStorage.class);
         int remainingToInsert = count;
         for (ItemPortStorage itemStorage : itemStorages) {

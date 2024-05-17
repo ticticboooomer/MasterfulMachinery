@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.port.IPortIngredient;
+import io.ticticboom.mods.mm.recipe.RecipeStateModel;
 import io.ticticboom.mods.mm.recipe.RecipeStorages;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -22,7 +23,7 @@ public abstract class BaseItemPortIngredient implements IPortIngredient {
     }
 
     @Override
-    public boolean canProcess(Level level, RecipeStorages storages) {
+    public boolean canProcess(Level level, RecipeStorages storages, RecipeStateModel state) {
         List<ItemPortStorage> itemStorages = storages.getInputStorages(ItemPortStorage.class);
         int remaining = count;
         for (ItemPortStorage storage : itemStorages) {
@@ -32,7 +33,7 @@ public abstract class BaseItemPortIngredient implements IPortIngredient {
     }
 
     @Override
-    public void process(Level level, RecipeStorages storages) {
+    public void process(Level level, RecipeStorages storages, RecipeStateModel state) {
         List<ItemPortStorage> itemStorages = storages.getInputStorages(ItemPortStorage.class);
         int remaining = count;
         for (ItemPortStorage storage : itemStorages) {

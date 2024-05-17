@@ -16,7 +16,7 @@ public class CreateKineticPortStorageFactory implements IPortStorageFactory {
 
     @Override
     public IPortStorage createPortStorage(INotifyChangeFunction changed) {
-        return new CreateKineticPortStorage(model);
+        return new CreateKineticPortStorage(model, changed);
     }
 
     @Override

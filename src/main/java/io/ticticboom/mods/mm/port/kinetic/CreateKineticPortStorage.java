@@ -3,6 +3,7 @@ package io.ticticboom.mods.mm.port.kinetic;
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.port.IPortStorage;
 import io.ticticboom.mods.mm.port.IPortStorageModel;
+import io.ticticboom.mods.mm.port.common.INotifyChangeFunction;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.nbt.CompoundTag;
@@ -14,14 +15,15 @@ import java.util.UUID;
 public class CreateKineticPortStorage implements IPortStorage {
 
     private final CreateKineticPortStorageModel model;
+    private final INotifyChangeFunction changed;
     private final UUID uid = UUID.randomUUID();
 
-    @Setter
     @Getter
     private float speed = 0;
 
-    public CreateKineticPortStorage(CreateKineticPortStorageModel model) {
+    public CreateKineticPortStorage(CreateKineticPortStorageModel model, INotifyChangeFunction changed) {
         this.model = model;
+        this.changed = changed;
     }
 
     @Override
@@ -62,4 +64,11 @@ public class CreateKineticPortStorage implements IPortStorage {
         return json;
     }
 
+    public void updateSpeed(float speed) {
+        boolean upd = this.speed != speed;
+        this.speed = speed;
+        if (upd) {
+            this.changed.call();
+        }
+    }
 }

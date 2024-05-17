@@ -34,21 +34,22 @@ public class ConsumeRecipeIngredientEntry implements IRecipeIngredientEntry {
     @Override
     public boolean canProcess(Level level, RecipeStorages storages, RecipeStateModel state) {
         shouldRun = ChanceUtils.shouldProceed(chance);
-        return ingredient.canProcess(level, storages);
+        return ingredient.canProcess(level, storages, state);
     }
 
     @Override
     public void process(Level level, RecipeStorages storages, RecipeStateModel state) {
         if (!perTick && shouldRun) {
-            ingredient.process(level, storages);
+            ingredient.process(level, storages, state);
         }
     }
 
     @Override
     public void processTick(Level level, RecipeStorages storages, RecipeStateModel state) {
         if (perTick && shouldRun) {
-            ingredient.process(level, storages);
+            ingredient.process(level, storages, state);
         }
+        ingredient.processTick(level, storages, state);
     }
 
     @Override

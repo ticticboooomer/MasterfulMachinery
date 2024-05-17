@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.compat.jei.SlotGrid;
 import io.ticticboom.mods.mm.recipe.RecipeModel;
+import io.ticticboom.mods.mm.recipe.RecipeStateModel;
 import io.ticticboom.mods.mm.recipe.RecipeStorages;
 import io.ticticboom.mods.mm.util.ConditionalLazy;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -39,13 +40,13 @@ public class TagItemPortIngredient extends BaseItemPortIngredient {
     }
 
     @Override
-    public boolean canOutput(Level level, RecipeStorages storages) {
+    public boolean canOutput(Level level, RecipeStorages storages, RecipeStateModel state) {
         Ref.LOG.warn("Item Tags Ingredients will NEVER produce output, REMOVE any recipe outputs using item tags.");
         return false;
     }
 
     @Override
-    public void output(Level level, RecipeStorages storages) {
+    public void output(Level level, RecipeStorages storages, RecipeStateModel state) {
     }
 
     @Override

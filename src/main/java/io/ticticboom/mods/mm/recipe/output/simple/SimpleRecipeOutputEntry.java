@@ -35,21 +35,22 @@ public class SimpleRecipeOutputEntry implements IRecipeOutputEntry {
     @Override
     public boolean canOutput(Level level, RecipeStorages storages, RecipeStateModel state) {
         shouldRun = ChanceUtils.shouldProceed(chance);
-        return ingredient.canOutput(level, storages);
+        return ingredient.canOutput(level, storages, state);
     }
 
     @Override
     public void output(Level level, RecipeStorages storages, RecipeStateModel state) {
         if (!perTick && shouldRun) {
-            ingredient.output(level, storages);
+            ingredient.output(level, storages, state);
         }
     }
 
     @Override
     public void processTick(Level level, RecipeStorages storages, RecipeStateModel state) {
         if (perTick && shouldRun) {
-            ingredient.output(level, storages);
+            ingredient.output(level, storages, state);
         }
+        ingredient.outputTick(level, storages, state);
     }
 
     @Override

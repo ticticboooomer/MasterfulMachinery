@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.compat.jei.SlotGrid;
 import io.ticticboom.mods.mm.port.IPortIngredient;
 import io.ticticboom.mods.mm.recipe.RecipeModel;
+import io.ticticboom.mods.mm.recipe.RecipeStateModel;
 import io.ticticboom.mods.mm.recipe.RecipeStorages;
 import mekanism.api.Action;
 import mekanism.api.chemical.Chemical;
@@ -38,7 +39,7 @@ public abstract class MekanismChemicalPortIngredient<CHEMICAL extends Chemical<C
     }
 
     @Override
-    public boolean canProcess(Level level, RecipeStorages storages) {
+    public boolean canProcess(Level level, RecipeStorages storages, RecipeStateModel state) {
         var inputStorages = storages.getInputStorages(getStorageClass());
         long remaining = amount;
         for (MekanismChemicalPortStorage<CHEMICAL, STACK> storage : inputStorages) {
@@ -49,7 +50,7 @@ public abstract class MekanismChemicalPortIngredient<CHEMICAL extends Chemical<C
     }
 
     @Override
-    public void process(Level level, RecipeStorages storages) {
+    public void process(Level level, RecipeStorages storages, RecipeStateModel state) {
         var inputStorages = storages.getInputStorages(getStorageClass());
         long remaining = amount;
         for (MekanismChemicalPortStorage<CHEMICAL, STACK> storage : inputStorages) {
@@ -59,7 +60,7 @@ public abstract class MekanismChemicalPortIngredient<CHEMICAL extends Chemical<C
     }
 
     @Override
-    public boolean canOutput(Level level, RecipeStorages storages) {
+    public boolean canOutput(Level level, RecipeStorages storages, RecipeStateModel state) {
         var outputStorages = storages.getOutputStorages(getStorageClass());
         long remaining = amount;
         for (MekanismChemicalPortStorage<CHEMICAL, STACK> storage : outputStorages) {
@@ -70,7 +71,7 @@ public abstract class MekanismChemicalPortIngredient<CHEMICAL extends Chemical<C
     }
 
     @Override
-    public void output(Level level, RecipeStorages storages) {
+    public void output(Level level, RecipeStorages storages, RecipeStateModel state) {
         var outputStorages = storages.getOutputStorages(getStorageClass());
         long remaining = amount;
         for (MekanismChemicalPortStorage<CHEMICAL, STACK> storage : outputStorages) {

@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.compat.jei.SlotGrid;
 import io.ticticboom.mods.mm.port.IPortIngredient;
 import io.ticticboom.mods.mm.recipe.RecipeModel;
+import io.ticticboom.mods.mm.recipe.RecipeStateModel;
 import io.ticticboom.mods.mm.recipe.RecipeStorages;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
@@ -21,7 +22,7 @@ public class CreateKineticPortIngredient implements IPortIngredient {
     }
 
     @Override
-    public boolean canProcess(Level level, RecipeStorages storages) {
+    public boolean canProcess(Level level, RecipeStorages storages, RecipeStateModel state) {
         var inputs = storages.getInputStorages(CreateKineticPortStorage.class);
         for (CreateKineticPortStorage input : inputs) {
             if (input.getSpeed() >= speed) {
@@ -33,22 +34,31 @@ public class CreateKineticPortIngredient implements IPortIngredient {
     }
 
     @Override
-    public void process(Level level, RecipeStorages storages) {
+    public void process(Level level, RecipeStorages storages, RecipeStateModel state) {
 
     }
 
     @Override
-    public boolean canOutput(Level level, RecipeStorages storages) {
+    public boolean canOutput(Level level, RecipeStorages storages, RecipeStateModel state) {
         var outputs = storages.getOutputStorages(CreateKineticPortStorage.class);
-       return !outputs.isEmpty();
-
+        return !outputs.isEmpty();
     }
 
     @Override
-    public void output(Level level, RecipeStorages storages) {
+    public void output(Level level, RecipeStorages storages, RecipeStateModel state) {
         var outputs = storages.getOutputStorages(CreateKineticPortStorage.class);
         for (CreateKineticPortStorage output : outputs) {
-            output.setSpeed(speed);
+            output.updateSpeed(speed);
+        }
+    }
+
+    @Override
+    public void outputTick(Level level, RecipeStorages storages, RecipeStateModel state) {
+        if (state.getTickProgress() == 0) {
+            var outputs = storages.getOutputStorages(CreateKineticPortStorage.class);
+            for (CreateKineticPortStorage output : outputs) {
+                output.updateSpeed(speed);
+            }
         }
     }
 

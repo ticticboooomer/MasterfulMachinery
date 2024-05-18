@@ -49,7 +49,7 @@ public class CreateKineticGenPortblockEntity extends GeneratingKineticBlockEntit
 
     @Nullable
     @Override
-    public AbstractContainerMenu createMenu(int p_39954_, Inventory p_39955_, Player p_39956_) {
+    public AbstractContainerMenu createMenu(int windowId, Inventory inv, Player player) {
         return null;
     }
 

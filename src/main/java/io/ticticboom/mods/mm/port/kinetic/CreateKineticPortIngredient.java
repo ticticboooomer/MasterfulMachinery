@@ -64,7 +64,6 @@ public class CreateKineticPortIngredient implements IPortIngredient {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeModel model, IFocusGroup focus, IJeiHelpers helpers, SlotGrid grid, IRecipeSlotBuilder recipeSlot) {
-
     }
 
     @Override

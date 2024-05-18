@@ -1,0 +1,9 @@
+{
+  "id": "my_infuse_port",
+  "controllerIds": "mm:controller_a",
+  "name": "My Infusion Port",
+  "type": "mm:mekanism/infuse",
+  "config": {
+    "capacity": 10000000
+  }
+}

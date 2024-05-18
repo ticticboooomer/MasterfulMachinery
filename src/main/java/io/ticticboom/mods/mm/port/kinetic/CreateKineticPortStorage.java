@@ -5,7 +5,7 @@ import io.ticticboom.mods.mm.port.IPortStorage;
 import io.ticticboom.mods.mm.port.IPortStorageModel;
 import io.ticticboom.mods.mm.port.common.INotifyChangeFunction;
 import lombok.Getter;
-import lombok.Setter;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -38,12 +38,13 @@ public class CreateKineticPortStorage implements IPortStorage {
 
     @Override
     public CompoundTag save(CompoundTag tag) {
+        tag.putFloat("speed", speed);
         return tag;
     }
 
     @Override
     public void load(CompoundTag tag) {
-
+        speed = tag.getFloat("speed");
     }
 
     @Override
@@ -60,13 +61,15 @@ public class CreateKineticPortStorage implements IPortStorage {
     public JsonObject debugDump() {
         var json = new JsonObject();
         json.addProperty("uid", uid.toString());
-        // TODO add kinetic state to json
+        json.addProperty("speed", speed);
         return json;
     }
 
     public void updateSpeed(float speed) {
+        if (speed != this.speed) {
+            this.changed.call();
+        }
         this.speed = speed;
-        this.changed.call();
     }
 
     public float getStress() {

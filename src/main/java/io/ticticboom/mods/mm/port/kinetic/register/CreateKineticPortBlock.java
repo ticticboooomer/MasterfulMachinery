@@ -32,6 +32,11 @@ public class CreateKineticPortBlock extends KineticBlock implements IPortBlock, 
     }
 
     @Override
+    public boolean hideStressImpact() {
+        return true;
+    }
+
+    @Override
     public Direction.Axis getRotationAxis(BlockState blockState) {
         return Direction.Axis.X;
     }

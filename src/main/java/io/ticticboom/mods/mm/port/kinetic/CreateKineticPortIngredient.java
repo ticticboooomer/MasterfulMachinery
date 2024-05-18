@@ -54,11 +54,9 @@ public class CreateKineticPortIngredient implements IPortIngredient {
 
     @Override
     public void outputTick(Level level, RecipeStorages storages, RecipeStateModel state) {
-        if (state.getTickProgress() == 0) {
-            var outputs = storages.getOutputStorages(CreateKineticPortStorage.class);
-            for (CreateKineticPortStorage output : outputs) {
-                output.updateSpeed(speed);
-            }
+        var outputs = storages.getOutputStorages(CreateKineticPortStorage.class);
+        for (CreateKineticPortStorage output : outputs) {
+            output.updateSpeed(speed);
         }
     }
 

@@ -6,10 +6,9 @@
   "outputs": [
     {
       "type": "mm:output/simple",
-      "per_tick": true,
       "ingredient": {
         "type": "mm:create/kinetic",
-        "speed": 8
+        "speed": 16
       }
     }
   ]

@@ -1,6 +1,7 @@
 package io.ticticboom.mods.mm.port.kinetic;
 
 import com.simibubi.create.content.kinetics.BlockStressValues;
+import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.compat.kjs.builder.PortConfigBuilderJS;
 import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.IPortParser;
@@ -16,12 +17,16 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Consumer;
 
 public class CreateKineticPortType extends PortType {
+
+    public CreateKineticPortType() {
+        BlockStressValues.registerProvider(Ref.ID, new MMKineticStressProvider());
+    }
+
     @Override
     public IPortParser getParser() {
         return new CreateKineticPortParser();

@@ -3,6 +3,7 @@ package io.ticticboom.mods.mm.port.item;
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.port.IPortStorage;
 import io.ticticboom.mods.mm.port.IPortStorageFactory;
+import io.ticticboom.mods.mm.port.IPortStorageModel;
 import io.ticticboom.mods.mm.port.common.INotifyChangeFunction;
 
 public class ItemPortStorageFactory implements IPortStorageFactory {
@@ -24,5 +25,10 @@ public class ItemPortStorageFactory implements IPortStorageFactory {
         json.addProperty("rows", model.rows());
         json.addProperty("columns", model.columns());
         return json;
+    }
+
+    @Override
+    public IPortStorageModel getModel() {
+        return model;
     }
 }

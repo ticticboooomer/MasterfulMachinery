@@ -1,6 +1,7 @@
 package io.ticticboom.mods.mm.port.kinetic.register;
 
 import com.simibubi.create.content.kinetics.base.KineticBlock;
+import com.simibubi.create.foundation.block.IBE;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.datagen.provider.MMBlockstateProvider;
 import io.ticticboom.mods.mm.model.PortModel;
@@ -10,16 +11,11 @@ import io.ticticboom.mods.mm.util.BlockUtils;
 import io.ticticboom.mods.mm.util.PortUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
 
-public class CreateKineticPortBlock extends KineticBlock implements IPortBlock, EntityBlock {
+public class CreateKineticPortBlock extends KineticBlock implements IPortBlock, IBE<CreateKineticGenPortBlockEntity> {
 
     private final PortModel model;
     private final RegistryGroupHolder groupHolder;
@@ -51,19 +47,13 @@ public class CreateKineticPortBlock extends KineticBlock implements IPortBlock, 
         return model;
     }
 
-    @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return groupHolder.getBe().get().create(pos, state);
+    public Class<CreateKineticGenPortBlockEntity> getBlockEntityClass() {
+        return CreateKineticGenPortBlockEntity.class;
     }
 
-    @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_153212_, BlockState p_153213_, BlockEntityType<T> p_153214_) {
-        return (Level p_155253_, BlockPos p_155254_, BlockState p_155255_, T be) -> {
-            if (be instanceof CreateKineticGenPortBlockEntity kbe) {
-                kbe.tick();
-            }
-        };
+    public BlockEntityType<? extends CreateKineticGenPortBlockEntity> getBlockEntityType() {
+        return (BlockEntityType<? extends CreateKineticGenPortBlockEntity>)groupHolder.getBe().get();
     }
 }

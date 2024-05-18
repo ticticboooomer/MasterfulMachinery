@@ -3,6 +3,7 @@ package io.ticticboom.mods.mm.port.energy;
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.port.IPortStorage;
 import io.ticticboom.mods.mm.port.IPortStorageFactory;
+import io.ticticboom.mods.mm.port.IPortStorageModel;
 import io.ticticboom.mods.mm.port.common.INotifyChangeFunction;
 
 public class EnergyPortStorageFactory implements IPortStorageFactory {
@@ -25,5 +26,10 @@ public class EnergyPortStorageFactory implements IPortStorageFactory {
         json.addProperty("maxReceive", model.maxReceive());
         json.addProperty("maxExtract", model.maxExtract());
         return json;
+    }
+
+    @Override
+    public IPortStorageModel getModel() {
+        return model;
     }
 }

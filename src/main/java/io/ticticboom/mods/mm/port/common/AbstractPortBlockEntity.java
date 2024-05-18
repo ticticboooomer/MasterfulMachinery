@@ -47,7 +47,7 @@ public abstract class AbstractPortBlockEntity extends BlockEntity implements IPo
 
     @Override
     public void setChanged() {
-        if (level.isClientSide()){
+        if (level == null || level.isClientSide()){
             return;
         }
         super.setChanged();

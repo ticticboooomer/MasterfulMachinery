@@ -5,6 +5,7 @@ import io.ticticboom.mods.mm.port.IPortStorage;
 import io.ticticboom.mods.mm.port.IPortStorageModel;
 import io.ticticboom.mods.mm.port.common.INotifyChangeFunction;
 import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -64,10 +65,11 @@ public class CreateKineticPortStorage implements IPortStorage {
     }
 
     public void updateSpeed(float speed) {
-        boolean upd = this.speed != speed;
         this.speed = speed;
-        if (upd) {
-            this.changed.call();
-        }
+        this.changed.call();
+    }
+
+    public float getStress() {
+        return model.stress();
     }
 }

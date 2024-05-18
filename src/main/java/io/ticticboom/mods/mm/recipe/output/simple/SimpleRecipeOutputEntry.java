@@ -54,6 +54,11 @@ public class SimpleRecipeOutputEntry implements IRecipeOutputEntry {
     }
 
     @Override
+    public void ditchRecipe(Level level, RecipeStorages storages, RecipeStateModel state) {
+        ingredient.ditchRecipe(level, storages, state);
+    }
+
+    @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeModel model, IFocusGroup focus, IJeiHelpers helpers, SlotGrid grid) {
         SlotGridEntry slot = grid.next();
         slot.setUsed();

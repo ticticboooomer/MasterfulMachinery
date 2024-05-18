@@ -63,6 +63,14 @@ public class CreateKineticPortIngredient implements IPortIngredient {
     }
 
     @Override
+    public void ditchRecipe(Level level, RecipeStorages storages, RecipeStateModel state) {
+        var outputs = storages.getOutputStorages(CreateKineticPortStorage.class);
+        for (CreateKineticPortStorage output : outputs) {
+            output.updateSpeed(0);
+        }
+    }
+
+    @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeModel model, IFocusGroup focus, IJeiHelpers helpers, SlotGrid grid, IRecipeSlotBuilder recipeSlot) {
     }
 

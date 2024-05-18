@@ -1,0 +1,30 @@
+{
+  "name": "Spinny Bish",
+  "controllerIds": "mm:controller_a",
+  "layout": [
+    [
+      "   ",
+      "LAL",
+      "   "
+    ],
+    [
+      "   ",
+      "PCD",
+      "   "
+    ]
+  ],
+  "key": {
+    "A": {
+      "block": "minecraft:glass"
+    },
+    "P": {
+      "block": "mm:spinny_port_input"
+    },
+    "D": {
+      "block": "mm:spinny_port_output"
+    },
+    "L": {
+      "tag": "forge:ores"
+    }
+  }
+}

@@ -6,6 +6,7 @@ import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.energy.EnergyPortType;
 import io.ticticboom.mods.mm.port.fluid.FluidPortType;
 import io.ticticboom.mods.mm.port.item.ItemPortType;
+import io.ticticboom.mods.mm.port.kinetic.CreateKineticPortType;
 import io.ticticboom.mods.mm.port.mekanism.gas.MekanismGasPortType;
 import io.ticticboom.mods.mm.port.mekanism.infuse.MekanismInfusePortType;
 import io.ticticboom.mods.mm.port.mekanism.pigment.MekanismPigmentPortType;
@@ -31,6 +32,9 @@ public class MMPortRegistry {
             register(Ref.Ports.MEK_SLURRY, new MekanismSlurryPortType());
             register(Ref.Ports.MEK_PIGMENT, new MekanismPigmentPortType());
             register(Ref.Ports.MEK_INFUSE, new MekanismInfusePortType());
+        }
+        if (ModList.get().isLoaded("create")) {
+            register(Ref.Ports.CREATE_KINETIC, new CreateKineticPortType());
         }
     }
 

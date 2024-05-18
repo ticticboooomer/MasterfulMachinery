@@ -19,6 +19,8 @@ public interface IPortIngredient {
     void output(Level level, RecipeStorages storages, RecipeStateModel state);
     default void outputTick(Level level, RecipeStorages storages, RecipeStateModel state) {}
     void setRecipe(IRecipeLayoutBuilder builder, RecipeModel model, IFocusGroup focus, IJeiHelpers helpers, SlotGrid grid, IRecipeSlotBuilder recipeSlot);
+    default void ditchRecipe(Level level, RecipeStorages storages, RecipeStateModel state) {
+    }
 
     JsonObject debugInput(Level level, RecipeStorages storages, JsonObject json);
     JsonObject debugOutput(Level level, RecipeStorages storages, JsonObject json);

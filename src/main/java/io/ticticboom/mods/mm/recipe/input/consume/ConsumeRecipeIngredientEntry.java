@@ -53,6 +53,11 @@ public class ConsumeRecipeIngredientEntry implements IRecipeIngredientEntry {
     }
 
     @Override
+    public void ditchRecipe(Level level, RecipeStorages storages, RecipeStateModel state) {
+        ingredient.ditchRecipe(level, storages, state);
+    }
+
+    @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeModel model, IFocusGroup focus, IJeiHelpers helpers, SlotGrid grid) {
         SlotGridEntry slot = grid.next();
         var rSlot = builder.addSlot(RecipeIngredientRole.INPUT, slot.getInnerX(), slot.getInnerY());

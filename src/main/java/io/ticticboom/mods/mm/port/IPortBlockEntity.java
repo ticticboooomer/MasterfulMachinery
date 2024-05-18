@@ -14,4 +14,8 @@ public interface IPortBlockEntity extends MenuProvider {
         return (T) this;
     }
 
+    default boolean hasMenu() {
+        return true;
+    }
+
 }

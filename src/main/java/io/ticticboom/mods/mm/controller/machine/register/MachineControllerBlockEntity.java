@@ -142,6 +142,7 @@ public class MachineControllerBlockEntity extends BlockEntity implements IContro
         if (currentRecipe != null && !typical) {
             currentRecipe.ditchRecipe(this.level, recipeState, portStorages);
         }
+        portStorages = null;
         recipeState = null;
         currentRecipe = null;
     }

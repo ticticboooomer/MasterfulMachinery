@@ -10,6 +10,7 @@ import io.ticticboom.mods.mm.port.PortType;
 import io.ticticboom.mods.mm.port.kinetic.compat.CreateKineticConfigBuilderJS;
 import io.ticticboom.mods.mm.port.kinetic.register.CreateKineticGenPortBlockEntity;
 import io.ticticboom.mods.mm.port.kinetic.register.CreateKineticPortBlock;
+import io.ticticboom.mods.mm.port.kinetic.register.CreateKineticPortBlockEntity;
 import io.ticticboom.mods.mm.port.kinetic.register.CreateKineticPortBlockItem;
 import io.ticticboom.mods.mm.setup.MMRegisters;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
@@ -34,7 +35,11 @@ public class CreateKineticPortType extends PortType {
 
     @Override
     public RegistryObject<BlockEntityType<?>> registerBlockEntity(PortModel model, RegistryGroupHolder groupHolder) {
-        return MMRegisters.BLOCK_ENTITIES.register(model.id(), () -> BlockEntityType.Builder.of((p, s) -> new CreateKineticGenPortBlockEntity(model, groupHolder, p, s), groupHolder.getBlock().get()).build(null));
+        if (model.input()) {
+            return  MMRegisters.BLOCK_ENTITIES.register(model.id(), () -> BlockEntityType.Builder.of((p, s) -> new CreateKineticPortBlockEntity(model, groupHolder, p, s), groupHolder.getBlock().get()).build(null));
+        } else {
+            return MMRegisters.BLOCK_ENTITIES.register(model.id(), () -> BlockEntityType.Builder.of((p, s) -> new CreateKineticGenPortBlockEntity(model, groupHolder, p, s), groupHolder.getBlock().get()).build(null));
+        }
     }
 
     @Override

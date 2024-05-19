@@ -2,14 +2,15 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
+    id "me.shedaniel.unified-publishing" version "0.1.+"
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
 }
 
-version = '3-1.20.1-0.1.4'
+version = mod_version
 group = 'io.ticticboom.mods.mm' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 
 base {
-    archivesName = 'MasterfulMachinery'
+    archivesName = mod_archive_name
 }
 
 
@@ -256,4 +257,29 @@ publishing {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+var fullname = "${mod_archive_name}-${mod_version} ${mod_stability_name}"
+
+unifiedPublishing {
+    project {
+        gameVersions = [publish_mc_version]
+        gameLoaders = [publish_modloader]
+        displayName = fullname
+        version = mod_version
+        changelog = new File("${project.projectDir}/changelog.txt").text.replaceAll("VERSION_NAME", fullname)
+        releaseType = mod_stability_name.toLowerCase()
+
+        mainPublication tasks.jar
+
+        curseforge {
+            token = System.getenv("CURSEFORGE_TOKEN")
+            id = publish_curseforge_id
+        }
+
+        modrinth {
+            token = System.getenv("MODRINTH_TOKEN")
+            id = publish_modrinth_id
+        }
+    }
 }

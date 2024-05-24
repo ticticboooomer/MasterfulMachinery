@@ -32,14 +32,26 @@ public class StructureManager extends SimpleJsonResourceReloadListener {
     protected void apply(Map<ResourceLocation, JsonElement> jsons, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
         profilerFiller.push("MM Structures");
         STRUCTURES.clear();
-        for (Map.Entry<ResourceLocation, JsonElement> entry : jsons.entrySet()) {
-            var model = StructureModel.parse(entry.getValue().getAsJsonObject(), entry.getKey());
-            STRUCTURES.put(entry.getKey(), model);
-        }
-        if (MMInteropManager.KUBEJS.isPresent()) {
-            for (StructureModel structureModel : MMInteropManager.KUBEJS.get().postCreateStructures()) {
-                STRUCTURES.put(structureModel.id(), structureModel);
+        try {
+
+            Ref.LCTX.reset("Structure Loading");
+            for (Map.Entry<ResourceLocation, JsonElement> entry : jsons.entrySet()) {
+                Ref.LCTX.push(String.format("Loading Structure: %s", entry.getKey().toString()));
+                var model = StructureModel.parse(entry.getValue().getAsJsonObject(), entry.getKey());
+                STRUCTURES.put(entry.getKey(), model);
+                Ref.LCTX.pop();
             }
+            if (MMInteropManager.KUBEJS.isPresent()) {
+                Ref.LCTX.push("Loading KubeJS Structures");
+                for (StructureModel structureModel : MMInteropManager.KUBEJS.get().postCreateStructures()) {
+                    Ref.LCTX.push(String.format("Loading KubeJS Structure: %s", structureModel.id()));
+                    STRUCTURES.put(structureModel.id(), structureModel);
+                    Ref.LCTX.pop();
+                }
+                Ref.LCTX.pop();
+            }
+        } catch (Exception e) {
+            Ref.LCTX.doThrow(e);
         }
         profilerFiller.pop();
     }

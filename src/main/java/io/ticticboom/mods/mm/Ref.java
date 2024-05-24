@@ -1,6 +1,7 @@
 package io.ticticboom.mods.mm;
 
 import com.google.gson.Gson;
+import io.ticticboom.mods.mm.log.LogContextStack;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 public class Ref {
     public static final String ID = "mm";
     public static final Logger LOG = LogManager.getLogger("MasterfulMachinery");
+    public static final LogContextStack LCTX = new LogContextStack();
     public static final Gson GSON = new Gson();
 
     public static ResourceLocation id(String path) {

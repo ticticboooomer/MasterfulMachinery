@@ -30,7 +30,7 @@ public class TagItemPortIngredient extends BaseItemPortIngredient {
     public TagItemPortIngredient(ResourceLocation tagId, int count) {
         super(count, createPredicate(tagId));
         this.tag = ItemTags.create(tagId);
-        stacks = ConditionalLazy.create(() -> ForgeRegistries.ITEMS.tags().getTag(tag).stream().map(Item::getDefaultInstance).toList(),
+        stacks = ConditionalLazy.create(() -> ForgeRegistries.ITEMS.tags().getTag(tag).stream().map(x -> new ItemStack(x, count)).toList(),
                 () -> !ForgeRegistries.ITEMS.tags().getTag(tag).isEmpty(), List.of());
     }
 

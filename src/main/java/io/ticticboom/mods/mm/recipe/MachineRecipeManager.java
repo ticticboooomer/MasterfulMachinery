@@ -4,6 +4,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.compat.interop.MMInteropManager;
+import io.ticticboom.mods.mm.recipe.condition.IRecipeCondition;
+import io.ticticboom.mods.mm.recipe.condition.IRecipeConditionParser;
+import io.ticticboom.mods.mm.recipe.condition.dimension.DimensionRecipeConditionParser;
 import io.ticticboom.mods.mm.recipe.input.IRecipeIngredientEntry;
 import io.ticticboom.mods.mm.recipe.input.IRecipeIngredientEntryParser;
 import io.ticticboom.mods.mm.recipe.input.consume.ConsumeRecipeIngredientEntryParser;
@@ -30,12 +33,15 @@ public class MachineRecipeManager extends SimpleJsonResourceReloadListener {
     public static final Map<ResourceLocation, RecipeModel> RECIPES = new HashMap<>();
     public static final Map<ResourceLocation, IRecipeIngredientEntryParser> ENTRY_INGREDIENT_PARSERS = new HashMap<>();
     public static final Map<ResourceLocation, IRecipeOutputEntryParser> ENTRY_OUTPUT_PARSERS = new HashMap<>();
+    public static final Map<ResourceLocation, IRecipeConditionParser> CONDITION_PARSERS = new HashMap<>();
 
     private void init() {
+        CONDITION_PARSERS.clear();
         ENTRY_OUTPUT_PARSERS.clear();
         ENTRY_INGREDIENT_PARSERS.clear();
         ENTRY_INGREDIENT_PARSERS.put(Ref.RecipeEntries.CONSUME_INPUT, new ConsumeRecipeIngredientEntryParser());
         ENTRY_OUTPUT_PARSERS.put(Ref.RecipeEntries.SIMPLE_OUTPUT, new SimpleRecipeOutputEntryParser());
+        CONDITION_PARSERS.put(Ref.RecipeConditions.DIMENSION, new DimensionRecipeConditionParser());
     }
 
     public static IRecipeIngredientEntry parseIngredientEntry(JsonObject json) {
@@ -46,6 +52,11 @@ public class MachineRecipeManager extends SimpleJsonResourceReloadListener {
     public static IRecipeOutputEntry parseOutputEntry(JsonObject json) {
         var typeId = ParserUtils.parseId(json, "type");
         return ENTRY_OUTPUT_PARSERS.get(typeId).parse(json);
+    }
+
+    public static IRecipeCondition parseCondition(JsonObject json) {
+        var typeId = ParserUtils.parseId(json, "type");
+        return CONDITION_PARSERS.get(typeId).parse(json);
     }
 
     public static List<RecipeModel> getRecipeForStructureIds(List<ResourceLocation> structureIds) {

@@ -18,5 +18,11 @@
         "speed": 16
       }
     }
+  ],
+  "conditions": [
+    {
+      "type": "mm:dimension",
+      "dimension": "minecraft:overworld"
+    }
   ]
 }

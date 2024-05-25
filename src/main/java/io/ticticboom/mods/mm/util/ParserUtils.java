@@ -5,6 +5,9 @@ import com.google.gson.JsonObject;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
+import java.util.function.Function;
+import java.util.function.Supplier;
+
 
 public class ParserUtils {
 
@@ -27,5 +30,12 @@ public class ParserUtils {
 
     public static Component parseComponent(JsonObject json, String key) {
         return parseComponent(json.get(key));
+    }
+
+    public static <T> T parseOrDefault(JsonObject json, String key, Supplier<T> defaultSupplier, Function<JsonObject, T> parser) {
+        if (json.has(key)) {
+            return parser.apply(json);
+        }
+        return defaultSupplier.get();
     }
 }

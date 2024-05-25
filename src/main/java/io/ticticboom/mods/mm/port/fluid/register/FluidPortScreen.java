@@ -1,25 +1,13 @@
 package io.ticticboom.mods.mm.port.fluid.register;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import io.ticticboom.mods.mm.client.FluidRenderer;
-import io.ticticboom.mods.mm.port.IPortBlockEntity;
 import io.ticticboom.mods.mm.port.common.SlottedContainerScreen;
-import io.ticticboom.mods.mm.port.fluid.FluidPortStorage;
 import io.ticticboom.mods.mm.util.WidgetUtils;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
-import net.minecraftforge.client.event.ContainerScreenEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fluids.FluidActionResult;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
 
@@ -45,17 +33,6 @@ public class FluidPortScreen extends SlottedContainerScreen<FluidPortMenu> {
                 }
             }
             i++;
-        }
-    }
-
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
-    public static class Handler {
-
-        @SubscribeEvent
-        public static void onForeground(ContainerScreenEvent.Render.Foreground event) {
-            if (event.getContainerScreen() instanceof FluidPortScreen fps) {
-                fps.renderFluids(event.getGuiGraphics(), event.getMouseX(), event.getMouseY());
-            }
         }
     }
 }

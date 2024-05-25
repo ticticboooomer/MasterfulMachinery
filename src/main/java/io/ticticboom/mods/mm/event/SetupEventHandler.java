@@ -19,6 +19,7 @@ public class SetupEventHandler {
     @SubscribeEvent
     public static void onConstruction(FMLConstructModEvent event) {
         event.enqueueWork(() -> {
+
             PackEventHandler.ensureConfigPath();
             ControllerLoader.loadAll();
             PortLoader.loadAll();

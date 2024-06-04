@@ -85,6 +85,12 @@ public class StructureLayout {
         return json;
     }
 
+    public void validate(StructureModel model) {
+        for (StructureLayoutPiece value : pieces.values()) {
+            value.validate(model);
+        }
+    }
+
     private boolean innerFormed(Level level, BlockPos worldControllerPos, StructureModel model, List<PositionedLayoutPiece> positionedPieces, Rotation rot) {
         for (PositionedLayoutPiece piece : positionedPieces) {
             if (!piece.formed(level, worldControllerPos, model, rot)) {

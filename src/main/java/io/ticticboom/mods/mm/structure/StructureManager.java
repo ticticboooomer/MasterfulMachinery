@@ -28,12 +28,17 @@ public class StructureManager extends SimpleJsonResourceReloadListener {
                 .toList();
     }
 
+    public static void validateAllPieces() {
+        for (StructureModel value : STRUCTURES.values()) {
+            value.layout().validate(value);
+        }
+    }
+
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> jsons, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
         profilerFiller.push("MM Structures");
         STRUCTURES.clear();
         try {
-
             Ref.LCTX.reset("Structure Loading");
             for (Map.Entry<ResourceLocation, JsonElement> entry : jsons.entrySet()) {
                 Ref.LCTX.push(String.format("Loading Structure: %s", entry.getKey().toString()));
@@ -55,4 +60,5 @@ public class StructureManager extends SimpleJsonResourceReloadListener {
         }
         profilerFiller.pop();
     }
+
 }

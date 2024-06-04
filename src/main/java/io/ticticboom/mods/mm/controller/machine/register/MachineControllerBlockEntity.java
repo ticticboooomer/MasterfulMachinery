@@ -139,7 +139,7 @@ public class MachineControllerBlockEntity extends BlockEntity implements IContro
     }
 
     public void invalidateRecipe(boolean typical) {
-        if (currentRecipe != null && !typical) {
+        if (currentRecipe != null && !typical && portStorages != null) {
             currentRecipe.ditchRecipe(this.level, recipeState, portStorages);
         }
         portStorages = null;

@@ -36,19 +36,16 @@ public class StructureLayoutPiece {
         this.json = json;
     }
 
-    public boolean formed(Level level, BlockPos pos, StructureModel model, Rotation rot) {
-        if (!piece.isSetup()) {
-            StructurePieceSetupMetadata meta = new StructurePieceSetupMetadata(model.id());
-            piece.validateSetup(meta);
-            piece.setSetup(true);
-            List<Block> requiredBlocks = piece.createBlocksSupplier().get();
-            for (StructurePieceModifier modifier : modifiers) {
-                if (!modifier.isSetup()) {
-                    modifier.validateSetup(meta, requiredBlocks);
-                    modifier.setSetup(true);
-                }
-            }
+    public void validate(StructureModel model) {
+        StructurePieceSetupMetadata meta = new StructurePieceSetupMetadata(model.id());
+        piece.validateSetup(meta);
+        List<Block> blocks = piece.createBlocksSupplier().get();
+        for (StructurePieceModifier modifier : modifiers) {
+            modifier.validateSetup(meta, blocks);
         }
+    }
+
+    public boolean formed(Level level, BlockPos pos, StructureModel model, Rotation rot) {
         var formed = piece.formed(level, pos, model);
         if (!formed) {
             return false;

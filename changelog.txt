@@ -1,3 +1,3 @@
 ## Change Log [VERSION_NAME]
 
-- fixed sided loading issues when starting dedicated server dist
+- stopped broken recipes / structures from bricking game at render time, simple reverts reload

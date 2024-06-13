@@ -35,7 +35,7 @@ public class PneumaticAirPortStorage implements IPortStorage {
     public PneumaticAirPortStorage(PneumaticAirPortStorageModel model, INotifyChangeFunction changed) {
         this.model = model;
         this.changed = changed;
-        airhandler = new MachineAirHandler(PressureTier.TIER_TWO, model.volume());
+        airhandler = new MachineAirHandler(model.tier(), model.volume());
         airhandlerLO = LazyOptional.of(() -> airhandler);
     }
 

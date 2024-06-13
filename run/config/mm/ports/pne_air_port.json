@@ -4,6 +4,8 @@
     "name": "My Pne Air Port",
     "type": "mm:pneumaticcraft/air",
     "config": {
+      "danger": 11.0,
+      "critical": 15.0,
       "volume": 20000
     }
   }

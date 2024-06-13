@@ -1,0 +1,9 @@
+{
+    "id": "pne_air_port",
+    "controllerIds": "mm:pne",
+    "name": "My Pne Air Port",
+    "type": "mm:pneumaticcraft/air",
+    "config": {
+      "volume": 20000
+    }
+  }

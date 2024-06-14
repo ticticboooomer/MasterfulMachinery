@@ -1,0 +1,29 @@
+{
+  "name": "Airy Tings",
+  "controllerIds": "mm:controller_a",
+  "layout": [
+    [
+      "   ",
+      " A ",
+      "   "
+    ],
+    [
+      "   ",
+      "PCD",
+      "   "
+    ]
+  ],
+  "key": {
+    "A": {
+      "block": "minecraft:glass"
+    },
+    "P": {
+      "portType": "mm:pneumaticcraft/air",
+      "input": true
+    },
+    "D": {
+      "portType": "mm:pneumaticcraft/air",
+      "input": false
+    }
+  }
+}

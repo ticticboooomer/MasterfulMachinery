@@ -1,0 +1,23 @@
+{
+  "ticks": 60,
+  "structureId": "mmtest:funky_fire_fingy",
+  "inputs": [
+    {
+      "type": "mm:input/consume",
+      "ingredient": {
+        "type": "mm:pneumaticcraft/air",
+        "pressure": 3.5,
+        "air": 100
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "type": "mm:output/simple",
+      "ingredient": {
+        "type": "mm:pneumaticcraft/air",
+        "air": 100
+      }
+    }
+  ]
+}

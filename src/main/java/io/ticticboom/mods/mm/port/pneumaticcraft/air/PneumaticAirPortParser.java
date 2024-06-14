@@ -13,7 +13,10 @@ public class PneumaticAirPortParser implements IPortParser {
 
     @Override
     public IPortIngredient parseRecipeIngredient(JsonObject json) {
-        var bar = json.get("bar").getAsFloat();
+        float bar = 0;
+        if (json.has("pressure")) {
+            bar = json.get("pressure").getAsFloat();
+        }
         var air = json.get("air").getAsInt();
         return new PneumaticAirPortIngredient(bar, air);
     }

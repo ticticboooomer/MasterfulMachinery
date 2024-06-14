@@ -40,13 +40,13 @@ public class PneumaticAirPortIngredient implements IPortIngredient {
 
     @Override
     public boolean canOutput(Level level, RecipeStorages storages, RecipeStateModel state) {
-        var outputStorages = storages.getOutputStorages(PneumaticAirPortStorage.class);
-        for (PneumaticAirPortStorage storage : outputStorages) {
-            if (storage.getPressure() <= bar) {
-                return true;
-            }
-        }
-        return false;
+//        var outputStorages = storages.getOutputStorages(PneumaticAirPortStorage.class);
+//        for (PneumaticAirPortStorage storage : outputStorages) {
+//            if (storage.getPressure() <= bar) {
+//                return true;
+//            }
+//        }
+        return true;
     }
 
     @Override

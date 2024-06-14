@@ -123,7 +123,7 @@ public class PneumaticAirPortBlockEntity extends AbstractTickingBlockEntity impl
 
     @Override
     public void setChanged() {
-        if (level.isClientSide()){
+        if (level == null || level.isClientSide()){
             return;
         }
         super.setChanged();
@@ -155,6 +155,7 @@ public class PneumaticAirPortBlockEntity extends AbstractTickingBlockEntity impl
 
 
     public void onNeighborBlockUpdate(BlockPos fromPos) {
+        this.setChanged();
         super.onNeighborBlockUpdate(fromPos);
         storage.onNeighborBlockUpdate();
     }

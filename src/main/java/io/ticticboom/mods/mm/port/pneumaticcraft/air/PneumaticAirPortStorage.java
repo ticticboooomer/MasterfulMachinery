@@ -27,15 +27,15 @@ public class PneumaticAirPortStorage implements IPortStorage {
     private final INotifyChangeFunction changed;
 
     @Getter
-    private MachineAirHandler airhandler;
-    private final LazyOptional<MachineAirHandler> airhandlerLO;
+    private PneumaticAirPortHandler airhandler;
+    private final LazyOptional<PneumaticAirPortHandler> airhandlerLO;
     public final Map<IAirHandlerMachine, List<Direction>> airHandlerMap = new IdentityHashMap();
     private final UUID uid = UUID.randomUUID();
 
     public PneumaticAirPortStorage(PneumaticAirPortStorageModel model, INotifyChangeFunction changed) {
         this.model = model;
         this.changed = changed;
-        airhandler = new MachineAirHandler(model.tier(), model.volume());
+        airhandler = new PneumaticAirPortHandler(model.tier(), model.volume(), changed);
         airhandlerLO = LazyOptional.of(() -> airhandler);
         this.onNeighborBlockUpdate();
     }
@@ -120,7 +120,6 @@ public class PneumaticAirPortStorage implements IPortStorage {
             airhandlerLO.cast().ifPresent(handler -> airHandlerMap.computeIfAbsent((IAirHandlerMachine) handler, k -> new ArrayList<>()).add(side));
         }
         airHandlerMap.forEach(IAirHandlerMachine::setConnectedFaces);
-
     }
 
 

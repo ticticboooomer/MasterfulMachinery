@@ -209,6 +209,7 @@ dependencies {
     implementation fg.deobf("curse.maven:jade-324717:${jade_id}")
 
     implementation fg.deobf("curse.maven:mekanism-268560:5125665")
+    implementation fg.deobf("curse.maven:pneumaticcraft-281849:5279325")
 
     implementation fg.deobf("dev.latvian.mods:kubejs-forge:${kubejs_version}")
     implementation fg.deobf("dev.latvian.mods:rhino-forge:${rhino_version}")
@@ -272,14 +273,6 @@ unifiedPublishing {
 
         mainPublication tasks.jar
 
-        curseforge {
-            token = System.getenv("CURSEFORGE_TOKEN")
-            id = publish_curseforge_id
-        }
 
-        modrinth {
-            token = System.getenv("MODRINTH_TOKEN")
-            id = publish_modrinth_id
-        }
     }
 }

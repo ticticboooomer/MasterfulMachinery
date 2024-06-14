@@ -11,6 +11,7 @@ import io.ticticboom.mods.mm.port.mekanism.gas.MekanismGasPortType;
 import io.ticticboom.mods.mm.port.mekanism.infuse.MekanismInfusePortType;
 import io.ticticboom.mods.mm.port.mekanism.pigment.MekanismPigmentPortType;
 import io.ticticboom.mods.mm.port.mekanism.slurry.MekanismSlurryPortType;
+import io.ticticboom.mods.mm.port.pneumaticcraft.air.PneumaticAirPortType;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.util.ParserUtils;
 import net.minecraft.resources.ResourceLocation;
@@ -35,6 +36,11 @@ public class MMPortRegistry {
         }
         if (ModList.get().isLoaded("create")) {
             register(Ref.Ports.CREATE_KINETIC, new CreateKineticPortType());
+        }
+
+        if (ModList.get().isLoaded("pneumaticcraft")) {
+            register(Ref.Ports.PNEUMATIC_AIR, new PneumaticAirPortType());
+            //register(Ref.Ports.PNEUMATIC_TAMPERATURE, );
         }
     }
 

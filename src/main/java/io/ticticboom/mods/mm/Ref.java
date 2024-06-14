@@ -28,6 +28,9 @@ public class Ref {
         public static final ResourceLocation MEK_PIGMENT = id("mekanism/pigment");
         public static final ResourceLocation MEK_INFUSE = id("mekanism/infuse");
         public static final ResourceLocation CREATE_KINETIC = id("create/kinetic");
+
+        public static final ResourceLocation PNEUMATIC_AIR = id("pneumaticcraft/air");
+        public static final ResourceLocation PNEUMATIC_TEMPERATURE = id("pneumaticcraft/temperature");
     }
 
     public static class Controller {
@@ -83,6 +86,9 @@ public class Ref {
 
         public static final ResourceLocation INPUT_KINETIC_PORT_OVERLAY = id("block/compat_ports/create_rotation_input_cutout");
         public static final ResourceLocation OUTPUT_KINETIC_PORT_OVERLAY = id("block/compat_ports/create_rotation_output_cutout");
+
+        public static final ResourceLocation INPUT_PNCR_AIR_PORT_OVERLAY = id("block/compat_ports/pncr_pressure_input_cutout");
+        public static final ResourceLocation OUTPUT_PNCR_AIR_PORT_OVERLAY = id("block/compat_ports/pncr_pressure_output_cutout");
     }
 
 }

@@ -2,6 +2,8 @@ package io.ticticboom.mods.mm.port.pneumaticcraft.air;
 
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.compat.jei.SlotGrid;
+import io.ticticboom.mods.mm.compat.jei.ingredient.MMJeiIngredients;
+import io.ticticboom.mods.mm.compat.jei.ingredient.pncr.PneumaticAirStack;
 import io.ticticboom.mods.mm.port.IPortIngredient;
 import io.ticticboom.mods.mm.recipe.RecipeModel;
 import io.ticticboom.mods.mm.recipe.RecipeStateModel;
@@ -59,7 +61,7 @@ public class PneumaticAirPortIngredient implements IPortIngredient {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeModel model, IFocusGroup focus, IJeiHelpers helpers, SlotGrid grid, IRecipeSlotBuilder recipeSlot) {
-
+        recipeSlot.addIngredient(MMJeiIngredients.PNEUMATIC_AIR, new PneumaticAirStack(air, bar));
     }
 
     @Override

@@ -67,8 +67,6 @@ public class Ref {
 
         public static final ResourceLocation INPUT_ENERGY_PORT_OVERLAY = id("block/base_ports/energy_input_cutout");
         public static final ResourceLocation OUTPUT_ENERGY_PORT_OVERLAY = id("block/base_ports/energy_output_cutout");
-        public static final ResourceLocation INPUT_PNE_AIR_PORT_OVERLAY = id("block/base_ports/pneumatic_air_input_cutout");
-        public static final ResourceLocation OUTPUT_PNE_AIR_PORT_OVERLAY = id("block/base_ports/pneumatic_air_output_cutout");
 
         public static final ResourceLocation CIRCUIT_OVERLAY = id("block/circuit_cutout");
         public static final ResourceLocation GEARBOX_OVERLAY = id("block/gearbox_cutout");
@@ -88,6 +86,9 @@ public class Ref {
 
         public static final ResourceLocation INPUT_KINETIC_PORT_OVERLAY = id("block/compat_ports/create_rotation_input_cutout");
         public static final ResourceLocation OUTPUT_KINETIC_PORT_OVERLAY = id("block/compat_ports/create_rotation_output_cutout");
+
+        public static final ResourceLocation INPUT_PNCR_AIR_PORT_OVERLAY = id("block/compat_ports/pncr_pressure_input_cutout");
+        public static final ResourceLocation OUTPUT_PNCR_AIR_PORT_OVERLAY = id("block/compat_ports/pncr_pressure_output_cutout");
     }
 
 }

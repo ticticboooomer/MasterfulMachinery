@@ -87,19 +87,19 @@ public class PneumaticAirPortBlockEntity extends AbstractTickingBlockEntity impl
 
     @Override
     public Component getDisplayName() {
-        return Component.literal("Pne Air Port");
+        return Component.literal("Pncr Air Port");
     }
 
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int windowId, Inventory inv, Player player) {
-        return null;
+        return new PneumaticAirPortMenu(model, groupHolder, isInput, windowId, inv, this);
     }
 
 
     @Override
     public boolean hasMenu() {
-        return false;
+        return true;
     }
     @Override
     public IItemHandler getPrimaryInventory() {

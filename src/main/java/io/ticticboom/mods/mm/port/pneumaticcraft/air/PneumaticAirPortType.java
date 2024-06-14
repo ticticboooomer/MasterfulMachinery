@@ -42,12 +42,12 @@ public class PneumaticAirPortType extends PortType {
 
     @Override
     public RegistryObject<MenuType<?>> registerMenu(PortModel model, RegistryGroupHolder groupHolder) {
-        return null;
+        return MMRegisters.MENUS.register(model.id(), () -> IForgeMenuType.create((i, o, u) -> new PneumaticAirPortMenu(model, groupHolder, model.input(), i, o, u)));
     }
 
     @Override
     public void registerScreen(RegistryGroupHolder groupHolder) {
-
+        MenuScreens.register((MenuType<PneumaticAirPortMenu>)groupHolder.getMenu().get(), PneumaticAirPortScreen::new);
     }
 
 

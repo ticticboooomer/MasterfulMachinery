@@ -44,7 +44,7 @@ private final boolean isInput;
     }
     @Override
     public void generateModel(MMBlockstateProvider provider) {
-        PortUtils.commonGenerateModel(provider, groupHolder, isInput, Ref.Textures.INPUT_PNE_AIR_PORT_OVERLAY, Ref.Textures.OUTPUT_PNE_AIR_PORT_OVERLAY);
+        PortUtils.commonGenerateModel(provider, groupHolder, isInput, Ref.Textures.INPUT_PNCR_AIR_PORT_OVERLAY, Ref.Textures.OUTPUT_PNCR_AIR_PORT_OVERLAY);
     }
 
     @Nullable

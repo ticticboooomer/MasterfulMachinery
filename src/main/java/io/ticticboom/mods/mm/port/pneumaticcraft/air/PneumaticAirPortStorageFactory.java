@@ -20,7 +20,7 @@ public class PneumaticAirPortStorageFactory implements IPortStorageFactory {
     @Override
     public JsonObject serialize() {
         var json = new JsonObject();
-        json.addProperty("value", model.volume());
+        json.addProperty("valume", model.volume());
         return json;
     }
 

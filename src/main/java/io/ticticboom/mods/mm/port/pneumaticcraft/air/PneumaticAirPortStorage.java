@@ -88,6 +88,14 @@ public class PneumaticAirPortStorage implements IPortStorage {
         return airhandler.getPressure();
     }
 
+    public int getAir(){
+        return airhandler.getAir();
+    }
+
+    public int getVolume(){
+        return airhandler.getVolume();
+    }
+
     public void addAir(int air){
         airhandler.addAir(air);
     }

@@ -156,7 +156,7 @@ public class PneumaticAirPortBlockEntity extends AbstractTickingBlockEntity impl
 
     public void onNeighborBlockUpdate(BlockPos fromPos) {
         super.onNeighborBlockUpdate(fromPos);
-        storage.onNeighborBlockUpdate(fromPos);
+        storage.onNeighborBlockUpdate();
     }
 
     public void tickCommonPre() {

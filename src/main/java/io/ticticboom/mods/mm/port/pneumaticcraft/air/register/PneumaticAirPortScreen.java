@@ -40,21 +40,17 @@ public class PneumaticAirPortScreen  extends AbstractContainerScreen<PneumaticAi
         renderBackground(gfx);
         super.render(gfx, mouseX, mouseY, partialTick);
         renderTooltip(gfx, mouseX, mouseY);
-        gfx.blit(Ref.Textures.SLOT_PARTS, this.leftPos + 7, this.topPos + 50, 89, 78, 162, 80);
         PneumaticAirPortBlockEntity be = menu.getBE();
         PneumaticAirPortStorage storage = (PneumaticAirPortStorage) be.getStorage();
         PneumaticAirPortStorageModel model = be.getStorageModel();
         float air = storage.getAir();
         float pressure = storage.getPressure();
-        float volume = model.volume();
+        float volume = storage.getVolume();
         var filledValue = (double)pressure / (double)storage.getAirhandler().getDangerPressure();
         var filledHeight = (int)(filledValue * 78);
         var start = 129 - filledHeight;
-        gfx.blit(Ref.Textures.SLOT_PARTS, this.leftPos + 8, this.topPos + start, 90, 0, 160, filledHeight);
-        if (WidgetUtils.isPointerWithinSized(mouseX, mouseY, this.leftPos + 7, this.topPos + 50, 162, 80)) {
-            var tooltip = new ArrayList<Component>();
-            tooltip.add(Component.literal(String.format("Stored Energy: %sBar, %s, %s", volume, air, pressure)));
-            gfx.renderComponentTooltip(this.font, tooltip, mouseX, mouseY);
-        }
+        gfx.drawWordWrap(this.font, FormattedText.of("Air: " + air + " mB"), this.leftPos + 8, this.topPos + 30, 150,0x404040);
+        gfx.drawWordWrap(this.font, FormattedText.of("pressure: " + pressure + " Bar"), this.leftPos + 8, this.topPos + 40, 150, 0x404040);
+        gfx.drawWordWrap(this.font, FormattedText.of("volume: " + volume + " mB"), this.leftPos + 8, this.topPos + 50, 150,0x404040);
     }
 }

@@ -1,0 +1,23 @@
+{
+  "ticks": 60,
+  "structureId": "mmtest:air_structure",
+  "inputs": [
+    {
+      "type": "mm:input/consume",
+      "ingredient": {
+        "type": "mm:pneumaticcraft/air",
+        "pressure": 0.7,
+        "air": 100
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "type": "mm:output/simple",
+      "ingredient": {
+        "type": "mm:pneumaticcraft/air",
+        "air": 100
+      }
+    }
+  ]
+}

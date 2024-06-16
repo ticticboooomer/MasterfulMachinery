@@ -34,6 +34,9 @@ public class TagStructurePiece extends StructurePiece {
     @Override
     public void validateSetup(StructurePieceSetupMetadata meta) {
         tagBlocks = ForgeRegistries.BLOCKS.tags().getTag(tagKey).stream().toList();
+        if (tagBlocks.isEmpty()) {
+            throw new RuntimeException(String.format("Tag: %s does not contain any blocks or doesnt exist!", tagKey));
+        }
     }
 
     @Override

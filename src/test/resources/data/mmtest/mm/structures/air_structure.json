@@ -1,10 +1,10 @@
 {
-  "name": "Spinny Bish",
+  "name": "Airy Tings",
   "controllerIds": "mm:controller_a",
   "layout": [
     [
       "   ",
-      "LAL",
+      " A ",
       "   "
     ],
     [
@@ -18,13 +18,12 @@
       "block": "minecraft:glass"
     },
     "P": {
-      "block": "mm:spinny_port_input"
+      "portType": "mm:pneumaticcraft/air",
+      "input": true
     },
     "D": {
-      "block": "mm:spinny_port_output"
-    },
-    "L": {
-      "tag": "forge:sosigs"
+      "portType": "mm:pneumaticcraft/air",
+      "input": false
     }
   }
 }

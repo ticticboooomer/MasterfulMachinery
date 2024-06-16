@@ -24,7 +24,7 @@ public class StructureLayoutBuilderJS {
     }
 
     public StructureLayoutBuilderJS layer(List<String> layer) {
-        grid.add(layer);
+        grid.add(0, layer);
         return this;
     }
 

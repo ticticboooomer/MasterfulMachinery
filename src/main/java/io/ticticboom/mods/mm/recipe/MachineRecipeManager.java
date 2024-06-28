@@ -3,6 +3,7 @@ package io.ticticboom.mods.mm.recipe;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.Ref;
+import io.ticticboom.mods.mm.compat.interop.MMInteropManager;
 import io.ticticboom.mods.mm.recipe.input.IRecipeIngredientEntry;
 import io.ticticboom.mods.mm.recipe.input.IRecipeIngredientEntryParser;
 import io.ticticboom.mods.mm.recipe.input.consume.ConsumeRecipeIngredientEntryParser;
@@ -30,7 +31,7 @@ public class MachineRecipeManager extends SimpleJsonResourceReloadListener {
     public static final Map<ResourceLocation, IRecipeIngredientEntryParser> ENTRY_INGREDIENT_PARSERS = new HashMap<>();
     public static final Map<ResourceLocation, IRecipeOutputEntryParser> ENTRY_OUTPUT_PARSERS = new HashMap<>();
 
-    private void init(){
+    private void init() {
         ENTRY_OUTPUT_PARSERS.clear();
         ENTRY_INGREDIENT_PARSERS.clear();
         ENTRY_INGREDIENT_PARSERS.put(Ref.RecipeEntries.CONSUME_INPUT, new ConsumeRecipeIngredientEntryParser());
@@ -55,9 +56,25 @@ public class MachineRecipeManager extends SimpleJsonResourceReloadListener {
     protected void apply(Map<ResourceLocation, JsonElement> jsons, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
         profilerFiller.push("MM Machine Recipe Processes");
         RECIPES.clear();
-        for (Map.Entry<ResourceLocation, JsonElement> entry : jsons.entrySet()) {
-            ResourceLocation id = entry.getKey();
-            RECIPES.put(id, RecipeModel.parse(entry.getValue().getAsJsonObject(), id));
+        Ref.LCTX.reset("MM Machine Recipe Processes");
+        try {
+            for (Map.Entry<ResourceLocation, JsonElement> entry : jsons.entrySet()) {
+                Ref.LCTX.push("Loading Recipe: " + entry.getKey());
+                ResourceLocation id = entry.getKey();
+                RECIPES.put(id, RecipeModel.parse(entry.getValue().getAsJsonObject(), id));
+                Ref.LCTX.pop();
+            }
+            if (MMInteropManager.KUBEJS.isPresent()) {
+                Ref.LCTX.push("Loading KubeJS Recipes ");
+                for (RecipeModel model : MMInteropManager.KUBEJS.get().postCreateRecipes()) {
+                    Ref.LCTX.push("Loading Recipe: " + model.id());
+                    RECIPES.put(model.id(), model);
+                    Ref.LCTX.pop();
+                }
+                Ref.LCTX.pop();
+            }
+        } catch (Exception e) {
+            Ref.LCTX.doThrow(e);
         }
         profilerFiller.pop();
     }

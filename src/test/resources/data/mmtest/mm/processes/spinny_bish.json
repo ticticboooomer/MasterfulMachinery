@@ -1,0 +1,22 @@
+{
+  "ticks": 20,
+  "structureId": "mmtest:create/spinny",
+  "inputs": [
+    {
+      "type": "mm:input/consume",
+      "ingredient": {
+        "type": "mm:create/kinetic",
+        "speed": 16
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "type": "mm:output/simple",
+      "ingredient": {
+        "type": "mm:create/kinetic",
+        "speed": 16
+      }
+    }
+  ]
+}

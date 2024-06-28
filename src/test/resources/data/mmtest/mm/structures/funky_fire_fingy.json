@@ -6,7 +6,7 @@
       "A"
     ],
     [
-      "C"
+      "CB"
     ]
   ],
   "key": {
@@ -22,6 +22,9 @@
           "value": "false"
         }
       ]
+    },
+    "B": {
+      "block": "mm:energy_port_output"
     }
   }
 }

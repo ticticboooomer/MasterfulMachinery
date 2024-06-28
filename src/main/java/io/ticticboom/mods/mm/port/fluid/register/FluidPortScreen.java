@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import io.ticticboom.mods.mm.client.FluidRenderer;
 import io.ticticboom.mods.mm.port.common.SlottedContainerScreen;
 import io.ticticboom.mods.mm.util.WidgetUtils;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;

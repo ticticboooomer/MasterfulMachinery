@@ -1,6 +1,7 @@
 package io.ticticboom.mods.mm.setup.loader;
 
 import com.google.gson.JsonObject;
+import io.ticticboom.mods.mm.compat.interop.MMInteropManager;
 import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.MMPortRegistry;
 import io.ticticboom.mods.mm.port.PortType;
@@ -37,6 +38,12 @@ public class PortLoader extends AbstractConfigLoader<PortModel> {
         for (PortModel portModel : portModels) {
             PortType portType = MMPortRegistry.get(portModel.type());
             portType.register(portModel);
+        }
+        if (MMInteropManager.KUBEJS.isPresent()) {
+            for (PortModel portModel : MMInteropManager.KUBEJS.get().postRegisterPorts()) {
+                PortType portType = MMPortRegistry.get(portModel.type());
+                portType.register(portModel);
+            }
         }
     }
 }

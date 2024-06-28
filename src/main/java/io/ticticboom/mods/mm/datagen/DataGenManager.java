@@ -10,6 +10,12 @@ import io.ticticboom.mods.mm.datagen.provider.MMLootTableProvider;
 import net.minecraft.DetectedVersion;
 import net.minecraft.WorldVersion;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.server.packs.repository.PackRepository;
 import net.minecraftforge.api.distmarker.Dist;
@@ -18,12 +24,15 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryManager;
 import net.minecraftforge.resource.ResourcePackLoader;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class DataGenManager {
 

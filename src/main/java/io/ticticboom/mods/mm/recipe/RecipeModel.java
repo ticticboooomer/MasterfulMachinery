@@ -62,6 +62,11 @@ public record RecipeModel(
         model.setCanFinish(false);
     }
 
+    public void ditchRecipe(Level level, RecipeStateModel model, RecipeStorages storages) {
+        inputs.ditch(level, storages, model);
+        outputs.ditch(level, storages, model);
+    }
+
     public JsonObject debugRun(Level level, RecipeStateModel model, RecipeStorages storages) {
         var json = new JsonObject();
         json.addProperty("id", id.toString());

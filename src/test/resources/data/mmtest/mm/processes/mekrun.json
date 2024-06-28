@@ -1,0 +1,72 @@
+{
+  "ticks": 60,
+  "structureId": "mmtest:mek/allmek",
+  "inputs": [
+    {
+      "type": "mm:input/consume",
+      "ingredient": {
+        "type": "mm:mekanism/gas",
+        "gas": "mekanism:hydrogen",
+        "amount": 10
+      }
+    },
+    {
+      "type": "mm:input/consume",
+      "ingredient": {
+        "type": "mm:mekanism/slurry",
+        "slurry": "mekanism:clean_tin",
+        "amount": 10
+      }
+    },
+    {
+      "type": "mm:input/consume",
+      "ingredient": {
+        "type": "mm:mekanism/pigment",
+        "pigment": "mekanism:blue",
+        "amount": 20
+      }
+    },
+    {
+      "type": "mm:input/consume",
+      "ingredient": {
+        "type": "mm:mekanism/infuse",
+        "infuse": "mekanism:bio",
+        "amount": 20
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "type": "mm:output/simple",
+      "ingredient": {
+        "type": "mm:mekanism/gas",
+        "gas": "mekanism:oxygen",
+        "amount": 10
+      }
+    },
+    {
+      "type": "mm:output/simple",
+      "ingredient": {
+        "type": "mm:mekanism/slurry",
+        "slurry": "mekanism:clean_iron",
+        "amount": 10
+      }
+    },
+    {
+      "type": "mm:output/simple",
+      "ingredient": {
+        "type": "mm:mekanism/pigment",
+        "pigment": "mekanism:brown",
+        "amount": 5
+      }
+    },
+    {
+      "type": "mm:output/simple",
+      "ingredient": {
+        "type": "mm:mekanism/infuse",
+        "infuse": "mekanism:refined_obsidian",
+        "amount": 20
+      }
+    }
+  ]
+}

@@ -118,7 +118,7 @@ public class MachineControllerBlockEntity extends BlockEntity implements IContro
                     return;
                 }
             }
-            invalidateRecipe();
+            invalidateRecipe(false);
             return;
         }
         performRecipeTick();
@@ -128,17 +128,21 @@ public class MachineControllerBlockEntity extends BlockEntity implements IContro
         currentRecipe.runTick(level, recipeState, portStorages);
         if (recipeState.isCanFinish()) {
             currentRecipe.process(level, recipeState, portStorages);
-            invalidateRecipe();
+            invalidateRecipe(true);
         }
     }
 
     public void invalidateProgress() {
         setChanged();
         structure = null;
-        invalidateRecipe();
+        invalidateRecipe(false);
     }
 
-    public void invalidateRecipe() {
+    public void invalidateRecipe(boolean typical) {
+        if (currentRecipe != null && !typical && portStorages != null) {
+            currentRecipe.ditchRecipe(this.level, recipeState, portStorages);
+        }
+        portStorages = null;
         recipeState = null;
         currentRecipe = null;
     }

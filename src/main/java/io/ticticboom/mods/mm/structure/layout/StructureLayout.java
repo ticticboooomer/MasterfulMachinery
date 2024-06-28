@@ -85,6 +85,12 @@ public class StructureLayout {
         return json;
     }
 
+    public void validate(StructureModel model) {
+        for (StructureLayoutPiece value : pieces.values()) {
+            value.validate(model);
+        }
+    }
+
     private boolean innerFormed(Level level, BlockPos worldControllerPos, StructureModel model, List<PositionedLayoutPiece> positionedPieces, Rotation rot) {
         for (PositionedLayoutPiece piece : positionedPieces) {
             if (!piece.formed(level, worldControllerPos, model, rot)) {
@@ -124,6 +130,16 @@ public class StructureLayout {
         var raw = getCharGrid(json);
         var pieces = getPieces(json, structureId);
         return new StructureLayout(raw, pieces);
+    }
+
+    public JsonObject serialize(JsonObject json) {
+        json.add("layout", charGrid.serialize());
+        var key = new JsonObject();
+        for (Map.Entry<StructureKeyChar, StructureLayoutPiece> entry : pieces.entrySet()) {
+            key.add("" + entry.getKey().character(), entry.getValue().getJson());
+        }
+        json.add("key", key);
+        return json;
     }
 
     public void setup(ResourceLocation structureId) {

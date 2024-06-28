@@ -1,0 +1,9 @@
+{
+  "id": "my_slurry_port",
+  "controllerIds": "mm:controller_a",
+  "name": "My Slurry Port",
+  "type": "mm:mekanism/slurry",
+  "config": {
+    "capacity": 10000000
+  }
+}

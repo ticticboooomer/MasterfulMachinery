@@ -42,6 +42,12 @@ public record RecipeInputs(
         }
     }
 
+    public void ditch(Level level, RecipeStorages storages, RecipeStateModel model) {
+        for (IRecipeIngredientEntry input : inputs) {
+            input.ditchRecipe(level, storages, model);
+        }
+    }
+
     public JsonArray debugRun(Level level, RecipeStorages storages, RecipeStateModel model) {
         var jsonArray = new JsonArray();
         for (IRecipeIngredientEntry input : inputs) {

@@ -76,13 +76,4 @@ public class FluidPortBlock extends Block implements IPortBlock, EntityBlock {
         }
         return null;
     }
-
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        if (type == groupHolder.getBe().get()) {
-            return (l, pos, s, be) -> ((FluidPortBlockEntity) be).tick();
-        }
-        return null;
-    }
 }

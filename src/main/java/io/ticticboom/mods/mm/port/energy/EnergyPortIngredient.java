@@ -8,6 +8,7 @@ import io.ticticboom.mods.mm.compat.jei.ingredient.MMJeiIngredients;
 import io.ticticboom.mods.mm.compat.jei.ingredient.energy.EnergyStack;
 import io.ticticboom.mods.mm.port.IPortIngredient;
 import io.ticticboom.mods.mm.recipe.RecipeModel;
+import io.ticticboom.mods.mm.recipe.RecipeStateModel;
 import io.ticticboom.mods.mm.recipe.RecipeStorages;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
@@ -25,7 +26,7 @@ public class EnergyPortIngredient implements IPortIngredient {
     }
 
     @Override
-    public boolean canProcess(Level level, RecipeStorages storages) {
+    public boolean canProcess(Level level, RecipeStorages storages, RecipeStateModel state) {
         var inputStorages = storages.getInputStorages(EnergyPortStorage.class);
         int remaining = amount;
         for (EnergyPortStorage storage : inputStorages) {
@@ -36,7 +37,7 @@ public class EnergyPortIngredient implements IPortIngredient {
     }
 
     @Override
-    public void process(Level level, RecipeStorages storages) {
+    public void process(Level level, RecipeStorages storages, RecipeStateModel state) {
         var inputStorages = storages.getInputStorages(EnergyPortStorage.class);
         int remaining = amount;
         for (EnergyPortStorage storage : inputStorages) {
@@ -46,7 +47,7 @@ public class EnergyPortIngredient implements IPortIngredient {
     }
 
     @Override
-    public boolean canOutput(Level level, RecipeStorages storages) {
+    public boolean canOutput(Level level, RecipeStorages storages, RecipeStateModel state) {
         var outputStorages = storages.getOutputStorages(EnergyPortStorage.class);
         int remaining = amount;
         for (EnergyPortStorage storage : outputStorages) {
@@ -57,7 +58,7 @@ public class EnergyPortIngredient implements IPortIngredient {
     }
 
     @Override
-    public void output(Level level, RecipeStorages storages) {
+    public void output(Level level, RecipeStorages storages, RecipeStateModel state) {
         var outputStorages = storages.getOutputStorages(EnergyPortStorage.class);
         int remaining = amount;
         for (EnergyPortStorage storage : outputStorages) {

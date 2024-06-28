@@ -25,27 +25,27 @@ public class StructureLayoutPiece {
     private GuiStructureLayoutPiece guiPiece;
     @Getter
     private final String valueId;
+    @Getter
+    private final JsonObject json;
 
-    public StructureLayoutPiece(final StructurePiece piece, List<StructurePieceModifier> modifiers, GuiStructureLayoutPiece guiPiece, String valueId) {
+    public StructureLayoutPiece(final StructurePiece piece, List<StructurePieceModifier> modifiers, GuiStructureLayoutPiece guiPiece, String valueId, JsonObject json) {
         this.piece = piece;
         this.modifiers = modifiers;
         this.guiPiece = guiPiece;
         this.valueId = valueId;
+        this.json = json;
+    }
+
+    public void validate(StructureModel model) {
+        StructurePieceSetupMetadata meta = new StructurePieceSetupMetadata(model.id());
+        piece.validateSetup(meta);
+        List<Block> blocks = piece.createBlocksSupplier().get();
+        for (StructurePieceModifier modifier : modifiers) {
+            modifier.validateSetup(meta, blocks);
+        }
     }
 
     public boolean formed(Level level, BlockPos pos, StructureModel model, Rotation rot) {
-        if (!piece.isSetup()) {
-            StructurePieceSetupMetadata meta = new StructurePieceSetupMetadata(model.id());
-            piece.validateSetup(meta);
-            piece.setSetup(true);
-            List<Block> requiredBlocks = piece.createBlocksSupplier().get();
-            for (StructurePieceModifier modifier : modifiers) {
-                if (!modifier.isSetup()) {
-                    modifier.validateSetup(meta, requiredBlocks);
-                    modifier.setSetup(true);
-                }
-            }
-        }
         var formed = piece.formed(level, pos, model);
         if (!formed) {
             return false;
@@ -63,7 +63,7 @@ public class StructureLayoutPiece {
         var piece = MMStructurePieceRegistry.findPieceType(json);
         var modifiers = MMStructurePieceRegistry.findModifierTypes(json);
         var guiPiece = new GuiStructureLayoutPiece(piece.createBlocksSupplier(), piece.createDisplayComponent(), modifiers);
-        return new StructureLayoutPiece(piece, modifiers, guiPiece, keyChar);
+        return new StructureLayoutPiece(piece, modifiers, guiPiece, keyChar, json);
     }
 
     public void setup(ResourceLocation structureId) {

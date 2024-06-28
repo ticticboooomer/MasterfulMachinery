@@ -1,6 +1,7 @@
 package io.ticticboom.mods.mm.setup.loader;
 
 import com.google.gson.JsonObject;
+import io.ticticboom.mods.mm.compat.interop.MMInteropManager;
 import io.ticticboom.mods.mm.controller.ControllerType;
 import io.ticticboom.mods.mm.controller.MMControllerRegistry;
 import io.ticticboom.mods.mm.model.ControllerModel;
@@ -17,6 +18,14 @@ public class ControllerLoader extends AbstractConfigLoader<ControllerModel> {
         for (ControllerModel model : models) {
             ControllerType controllerType = MMControllerRegistry.get(model.type());
             controllerType.register(model);
+        }
+
+        if (MMInteropManager.KUBEJS.isPresent()) {
+            var controllers = MMInteropManager.KUBEJS.get().postRegisterControllers();
+            for (ControllerModel model : controllers) {
+                ControllerType controllerType = MMControllerRegistry.get(model.type());
+                controllerType.register(model);
+            }
         }
     }
 

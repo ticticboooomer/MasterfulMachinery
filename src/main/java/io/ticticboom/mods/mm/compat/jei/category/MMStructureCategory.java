@@ -1,10 +1,6 @@
 package io.ticticboom.mods.mm.compat.jei.category;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
-import com.mojang.math.Vector4f;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.client.structure.GuiCountedItemStack;
 import io.ticticboom.mods.mm.client.structure.GuiStructureRenderer;
@@ -14,7 +10,6 @@ import io.ticticboom.mods.mm.controller.MMControllerRegistry;
 import io.ticticboom.mods.mm.setup.MMRegisters;
 import io.ticticboom.mods.mm.structure.StructureModel;
 import io.ticticboom.mods.mm.util.GLScissor;
-import io.ticticboom.mods.mm.util.WidgetUtils;
 import mezz.jei.api.gui.builder.IIngredientAcceptor;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;

@@ -17,10 +17,10 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 
 import java.util.UUID;
+import java.util.function.Predicate;
 
 public class ItemPortStorage implements IPortStorage {
 
@@ -109,18 +109,19 @@ public class ItemPortStorage implements IPortStorage {
         IPortStorage.super.setupContainer(container, inv, portModel);
     }
 
-    public int canExtract(Item item, int count) {
+    public int canExtract(Predicate<ItemStack> item, int count) {
         return handlerExtract(item, count, true);
     }
 
-    public int extract(Item item, int count) {
+    public int extract(Predicate<ItemStack> item, int count) {
         return handlerExtract(item, count, false);
     }
 
-    private int handlerExtract(Item item, int count, boolean simulate) {
+    private int handlerExtract(Predicate<ItemStack> item, int count, boolean simulate) {
         int remaining = count;
         for (int slot = 0; slot < handler.getSlots(); slot++) {
-            if (!handler.getStackInSlot(slot).is(item)) {
+            ItemStack stack = handler.getStackInSlot(slot);
+            if (!item.test(stack)) {
                 continue;
             }
             var extracted = handler.extractItem(slot, remaining, simulate);

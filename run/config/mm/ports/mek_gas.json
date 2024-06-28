@@ -1,0 +1,9 @@
+{
+  "id": "my_gas_port",
+  "controllerIds": "mm:controller_a",
+  "name": "My Gas Port",
+  "type": "mm:mekanism/gas",
+  "config": {
+    "capacity": 10000000
+  }
+}

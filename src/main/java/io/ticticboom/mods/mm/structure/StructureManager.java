@@ -2,12 +2,11 @@ package io.ticticboom.mods.mm.structure;
 
 import com.google.gson.JsonElement;
 import io.ticticboom.mods.mm.Ref;
+import io.ticticboom.mods.mm.compat.interop.MMInteropManager;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.HashMap;
@@ -29,14 +28,37 @@ public class StructureManager extends SimpleJsonResourceReloadListener {
                 .toList();
     }
 
+    public static void validateAllPieces() {
+        for (StructureModel value : STRUCTURES.values()) {
+            value.layout().validate(value);
+        }
+    }
+
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> jsons, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
         profilerFiller.push("MM Structures");
         STRUCTURES.clear();
-        for (Map.Entry<ResourceLocation, JsonElement> entry : jsons.entrySet()) {
-            var model = StructureModel.parse(entry.getValue().getAsJsonObject(), entry.getKey());
-            STRUCTURES.put(entry.getKey(), model);
+        try {
+            Ref.LCTX.reset("Structure Loading");
+            for (Map.Entry<ResourceLocation, JsonElement> entry : jsons.entrySet()) {
+                Ref.LCTX.push(String.format("Loading Structure: %s", entry.getKey().toString()));
+                var model = StructureModel.parse(entry.getValue().getAsJsonObject(), entry.getKey());
+                STRUCTURES.put(entry.getKey(), model);
+                Ref.LCTX.pop();
+            }
+            if (MMInteropManager.KUBEJS.isPresent()) {
+                Ref.LCTX.push("Loading KubeJS Structures");
+                for (StructureModel structureModel : MMInteropManager.KUBEJS.get().postCreateStructures()) {
+                    Ref.LCTX.push(String.format("Loading KubeJS Structure: %s", structureModel.id()));
+                    STRUCTURES.put(structureModel.id(), structureModel);
+                    Ref.LCTX.pop();
+                }
+                Ref.LCTX.pop();
+            }
+        } catch (Exception e) {
+            Ref.LCTX.doThrow(e);
         }
         profilerFiller.pop();
     }
+
 }

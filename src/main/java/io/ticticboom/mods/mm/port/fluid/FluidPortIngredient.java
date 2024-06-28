@@ -8,11 +8,13 @@ import io.ticticboom.mods.mm.compat.jei.SlotGrid;
 import io.ticticboom.mods.mm.compat.jei.ingredient.MMJeiIngredients;
 import io.ticticboom.mods.mm.port.IPortIngredient;
 import io.ticticboom.mods.mm.recipe.RecipeModel;
+import io.ticticboom.mods.mm.recipe.RecipeStateModel;
 import io.ticticboom.mods.mm.recipe.RecipeStorages;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.recipe.IFocusGroup;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
@@ -36,7 +38,7 @@ public class FluidPortIngredient implements IPortIngredient {
     }
 
     @Override
-    public boolean canProcess(Level level, RecipeStorages storages) {
+    public boolean canProcess(Level level, RecipeStorages storages, RecipeStateModel state) {
         var fluidStorages = storages.getInputStorages(FluidPortStorage.class);
         int remaining = amount;
         for (FluidPortStorage storage : fluidStorages) {
@@ -47,7 +49,7 @@ public class FluidPortIngredient implements IPortIngredient {
     }
 
     @Override
-    public void process(Level level, RecipeStorages storages) {
+    public void process(Level level, RecipeStorages storages, RecipeStateModel state) {
         var fluidStorages = storages.getInputStorages(FluidPortStorage.class);
         int remaining = amount;
         for (FluidPortStorage storage : fluidStorages) {
@@ -57,7 +59,7 @@ public class FluidPortIngredient implements IPortIngredient {
     }
 
     @Override
-    public boolean canOutput(Level level, RecipeStorages storages) {
+    public boolean canOutput(Level level, RecipeStorages storages, RecipeStateModel state) {
         var fluidStorages = storages.getOutputStorages(FluidPortStorage.class);
         int remaining = amount;
         for (FluidPortStorage storage : fluidStorages) {
@@ -68,7 +70,7 @@ public class FluidPortIngredient implements IPortIngredient {
     }
 
     @Override
-    public void output(Level level, RecipeStorages storages) {
+    public void output(Level level, RecipeStorages storages, RecipeStateModel state) {
         var fluidStorages = storages.getOutputStorages(FluidPortStorage.class);
         int remaining = amount;
         for (FluidPortStorage storage : fluidStorages) {
@@ -80,6 +82,9 @@ public class FluidPortIngredient implements IPortIngredient {
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeModel model, IFocusGroup focus, IJeiHelpers helpers, SlotGrid grid, IRecipeSlotBuilder recipeSlot) {
         recipeSlot.addIngredient(MMJeiIngredients.FLUID, new FluidStack(fluid, amount));
+        recipeSlot.addTooltipCallback((a, b) -> {
+            b.add(1, Component.literal(amount + " mB"));
+        });
     }
 
     @Override

@@ -1,0 +1,11 @@
+{
+    "id": "pne_air_port",
+    "controllerIds": "mm:pne",
+    "name": "My Pne Air Port",
+    "type": "mm:pneumaticcraft/air",
+    "config": {
+      "danger": 11.0,
+      "critical": 12.0,
+      "volume": 20000
+    }
+  }

@@ -1,0 +1,38 @@
+{
+  "name": "Mekanism Mega Machine",
+  "controllerIds": "mm:controller_a",
+  "layout": [
+    [
+      "D d",
+      "E e",
+      "F f",
+      "GCg"
+    ]
+  ],
+  "key": {
+    "D": {
+      "block": "mm:my_gas_port_input"
+    },
+    "E": {
+      "block": "mm:my_slurry_port_input"
+    },
+    "F": {
+      "block": "mm:my_pigment_port_input"
+    },
+    "G": {
+      "block": "mm:my_infuse_port_input"
+    },
+    "d": {
+      "block": "mm:my_gas_port_output"
+    },
+    "e": {
+      "block": "mm:my_slurry_port_output"
+    },
+    "f": {
+      "block": "mm:my_pigment_port_output"
+    },
+    "g": {
+      "block": "mm:my_infuse_port_output"
+    }
+  }
+}

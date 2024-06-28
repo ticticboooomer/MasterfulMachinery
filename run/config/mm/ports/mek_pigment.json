@@ -1,0 +1,9 @@
+{
+  "id": "my_pigment_port",
+  "controllerIds": "mm:controller_a",
+  "name": "My Pigment Port",
+  "type": "mm:mekanism/pigment",
+  "config": {
+    "capacity": 10000000
+  }
+}

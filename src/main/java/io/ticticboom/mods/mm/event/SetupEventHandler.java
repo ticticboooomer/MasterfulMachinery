@@ -18,10 +18,13 @@ public class SetupEventHandler {
 
     @SubscribeEvent
     public static void onConstruction(FMLConstructModEvent event) {
-        PackEventHandler.ensureConfigPath();
-        ControllerLoader.loadAll();
-        PortLoader.loadAll();
-        ExtraBlockLoader.loadAll();
+        event.enqueueWork(() -> {
+
+            PackEventHandler.ensureConfigPath();
+            ControllerLoader.loadAll();
+            PortLoader.loadAll();
+            ExtraBlockLoader.loadAll();
+        });
     }
 
     @SubscribeEvent

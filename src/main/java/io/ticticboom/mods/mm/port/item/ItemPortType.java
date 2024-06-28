@@ -1,8 +1,11 @@
 package io.ticticboom.mods.mm.port.item;
 
+import io.ticticboom.mods.mm.compat.kjs.builder.PortConfigBuilderJS;
 import io.ticticboom.mods.mm.model.PortModel;
 import io.ticticboom.mods.mm.port.IPortParser;
+import io.ticticboom.mods.mm.port.IPortStorageFactory;
 import io.ticticboom.mods.mm.port.PortType;
+import io.ticticboom.mods.mm.port.item.compat.ItemPortConfigBuilderJS;
 import io.ticticboom.mods.mm.port.item.register.*;
 import io.ticticboom.mods.mm.setup.MMRegisters;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
@@ -13,6 +16,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.function.Consumer;
 
 public class ItemPortType extends PortType {
     @Override
@@ -50,4 +55,10 @@ public class ItemPortType extends PortType {
         MenuScreens.register((MenuType<ItemPortMenu>) groupHolder.getMenu().get(), ItemPortScreen::new);
     }
 
+    @Override
+    public IPortStorageFactory createStorageFactory(Consumer<PortConfigBuilderJS> consumer) {
+        var builder = new ItemPortConfigBuilderJS();
+        consumer.accept(builder);
+        return new ItemPortStorageFactory(((ItemPortStorageModel) builder.build()));
+    }
 }

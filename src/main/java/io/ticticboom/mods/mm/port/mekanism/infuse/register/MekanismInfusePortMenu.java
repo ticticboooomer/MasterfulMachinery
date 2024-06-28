@@ -17,6 +17,6 @@ public class MekanismInfusePortMenu extends MekanismChemicalPortMenu<InfuseType,
     }
 
     public MekanismInfusePortMenu(PortModel model, RegistryGroupHolder groupHolder, int i, Inventory o, FriendlyByteBuf u) {
-        this(model, groupHolder, i, o, (MekanismInfusePortBlockEntity) o.player.level().getBlockEntity(u.readBlockPos()));
+        this(model, groupHolder, i, o, (MekanismInfusePortBlockEntity) o.player.level.getBlockEntity(u.readBlockPos()));
     }
 }

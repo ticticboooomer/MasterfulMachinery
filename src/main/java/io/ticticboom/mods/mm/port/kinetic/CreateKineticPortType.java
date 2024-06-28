@@ -1,6 +1,5 @@
 package io.ticticboom.mods.mm.port.kinetic;
 
-import com.simibubi.create.content.kinetics.BlockStressValues;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.compat.kjs.builder.PortConfigBuilderJS;
 import io.ticticboom.mods.mm.model.PortModel;
@@ -23,10 +22,6 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.function.Consumer;
 
 public class CreateKineticPortType extends PortType {
-
-    public CreateKineticPortType() {
-        BlockStressValues.registerProvider(Ref.ID, new MMKineticStressProvider());
-    }
 
     @Override
     public IPortParser getParser() {

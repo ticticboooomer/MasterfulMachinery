@@ -16,6 +16,6 @@ public class MekanismSlurryPortMenu extends MekanismChemicalPortMenu<Slurry, Slu
     }
 
     public MekanismSlurryPortMenu(PortModel model, RegistryGroupHolder groupHolder, int windowId, Inventory inv, FriendlyByteBuf buf) {
-        this(model, groupHolder, windowId, inv, (MekanismSlurryPortBlockEntity) inv.player.level().getBlockEntity(buf.readBlockPos()));
+        this(model, groupHolder, windowId, inv, (MekanismSlurryPortBlockEntity) inv.player.level.getBlockEntity(buf.readBlockPos()));
     }
 }

@@ -23,6 +23,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.network.chat.Component;
 
@@ -94,13 +95,6 @@ public class MMRecipeCategory implements IRecipeCategory<RecipeModel> {
     public void draw(RecipeModel recipe, IRecipeSlotsView recipeSlotsView, PoseStack gfx, double mouseX, double mouseY) {
         bgProgressBar.draw(gfx, 70, 12);
         fgProgressBar.draw(gfx, 70, 12);
-
-        if (structureModel == null) {
-            gfx.blit(Ref.Textures.SLOT_PARTS, 75, 28, 19, 26, 7, 9);
-            if (WidgetUtils.isPointerWithinSized((int) mouseX, (int) mouseY, 75, 28, 7, 9)) {
-                gfx.renderTooltip(Minecraft.getInstance().font, Component.literal("Structure: " + recipe.structureId().toString()), (int) mouseX, (int) mouseY);
-            }
-        }
 
         for (SlotGridEntry inputSlot : recipe.inputSlots()) {
             if (inputSlot.used()) {

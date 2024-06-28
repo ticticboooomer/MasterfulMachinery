@@ -13,7 +13,7 @@ public class FluidPortEvents {
     @SubscribeEvent
     public static void onForeground(ContainerScreenEvent.Render.Foreground event) {
         if (event.getContainerScreen() instanceof FluidPortScreen fps) {
-            fps.renderFluids(event.getGuiGraphics(), event.getMouseX(), event.getMouseY());
+            fps.renderFluids(event.getPoseStack(), event.getMouseX(), event.getMouseY());
         }
     }
 }

@@ -31,12 +31,6 @@ public class PneumaticAirPortHandler extends MachineAirHandler {
     }
 
     @Override
-    public void enableSafetyVenting(FloatPredicate pressureCheck, Direction dir) {
-        changed.call();
-        super.enableSafetyVenting(pressureCheck, dir);
-    }
-
-    @Override
     public void disableSafetyVenting() {
         changed.call();
         super.disableSafetyVenting();

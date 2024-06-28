@@ -26,7 +26,7 @@ public class PneumaticAirPortMenu  extends MMContainerMenu implements IPortMenu 
     }
 
     public PneumaticAirPortMenu(PortModel model, RegistryGroupHolder groupHolder, boolean isInput, int windowId, Inventory inv, FriendlyByteBuf buf) {
-        this(model, groupHolder, isInput, windowId, inv, (PneumaticAirPortBlockEntity) inv.player.level().getBlockEntity(buf.readBlockPos()));
+        this(model, groupHolder, isInput, windowId, inv, (PneumaticAirPortBlockEntity) inv.player.level.getBlockEntity(buf.readBlockPos()));
     }
 
     @Override

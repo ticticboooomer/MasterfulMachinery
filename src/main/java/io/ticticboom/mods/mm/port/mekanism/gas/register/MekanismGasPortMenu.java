@@ -15,6 +15,6 @@ public class MekanismGasPortMenu extends MekanismChemicalPortMenu<Gas, GasStack>
     }
 
     public MekanismGasPortMenu(PortModel model, RegistryGroupHolder groupHolder, int windowId, Inventory inv, FriendlyByteBuf buf) {
-        this(model, groupHolder, windowId, inv, ((MekanismGasPortBlockEntity) inv.player.level().getBlockEntity(buf.readBlockPos())));
+        this(model, groupHolder, windowId, inv, ((MekanismGasPortBlockEntity) inv.player.level.getBlockEntity(buf.readBlockPos())));
     }
 }

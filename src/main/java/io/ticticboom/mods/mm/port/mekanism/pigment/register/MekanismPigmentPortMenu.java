@@ -15,6 +15,6 @@ public class MekanismPigmentPortMenu extends MekanismChemicalPortMenu<Pigment, P
     }
 
     public MekanismPigmentPortMenu(PortModel model, RegistryGroupHolder groupHolder, int i, Inventory o, FriendlyByteBuf u) {
-        this(model, groupHolder, i, o, (MekanismPigmentPortBlockEntity) o.player.level().getBlockEntity(u.readBlockPos()));
+        this(model, groupHolder, i, o, (MekanismPigmentPortBlockEntity) o.player.level.getBlockEntity(u.readBlockPos()));
     }
 }

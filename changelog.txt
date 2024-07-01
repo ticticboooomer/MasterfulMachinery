@@ -1,3 +1,6 @@
 ## Change Log [VERSION_NAME]
 
-- added PneumaticCraft Air port type
+- Fixed create kinetic port invalid continuation issues.
+- Added recipe condition system
+- Added weather recipe condition
+- Added dimension recipe condition

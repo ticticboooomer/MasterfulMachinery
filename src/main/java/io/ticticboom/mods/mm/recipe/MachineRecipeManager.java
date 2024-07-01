@@ -7,6 +7,7 @@ import io.ticticboom.mods.mm.compat.interop.MMInteropManager;
 import io.ticticboom.mods.mm.recipe.condition.IRecipeCondition;
 import io.ticticboom.mods.mm.recipe.condition.IRecipeConditionParser;
 import io.ticticboom.mods.mm.recipe.condition.dimension.DimensionRecipeConditionParser;
+import io.ticticboom.mods.mm.recipe.condition.weather.WeatherRecipeConditionParser;
 import io.ticticboom.mods.mm.recipe.input.IRecipeIngredientEntry;
 import io.ticticboom.mods.mm.recipe.input.IRecipeIngredientEntryParser;
 import io.ticticboom.mods.mm.recipe.input.consume.ConsumeRecipeIngredientEntryParser;
@@ -42,6 +43,7 @@ public class MachineRecipeManager extends SimpleJsonResourceReloadListener {
         ENTRY_INGREDIENT_PARSERS.put(Ref.RecipeEntries.CONSUME_INPUT, new ConsumeRecipeIngredientEntryParser());
         ENTRY_OUTPUT_PARSERS.put(Ref.RecipeEntries.SIMPLE_OUTPUT, new SimpleRecipeOutputEntryParser());
         CONDITION_PARSERS.put(Ref.RecipeConditions.DIMENSION, new DimensionRecipeConditionParser());
+        CONDITION_PARSERS.put(Ref.RecipeConditions.WEATHER, new WeatherRecipeConditionParser());
     }
 
     public static IRecipeIngredientEntry parseIngredientEntry(JsonObject json) {

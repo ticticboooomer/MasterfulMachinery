@@ -44,6 +44,7 @@ public class Ref {
 
     public static class RecipeConditions {
         public static final ResourceLocation DIMENSION = id("dimension");
+        public static final ResourceLocation WEATHER = id("weather");
     }
 
     public static class ExtraBlocks {

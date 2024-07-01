@@ -18,5 +18,11 @@
         "speed": 32
       }
     }
+  ],
+  "conditions": [
+    {
+      "type": "mm:weather",
+      "weather": "thunder"
+    }
   ]
 }

@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
+import java.util.Locale;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -41,6 +42,6 @@ public class ParserUtils {
 
     public static <T extends Enum<T>> T parseEnum(JsonObject json, String key, Class<T> cls) {
         var name = json.get(key).getAsString();
-        return T.valueOf(cls, name);
+        return T.valueOf(cls, name.toUpperCase());
     }
 }

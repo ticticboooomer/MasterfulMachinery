@@ -8,14 +8,6 @@
         "type": "mm:create/kinetic",
         "speed": 16
       }
-    },
-    {
-      "type": "mm:input/consume",
-      "ingredient": {
-        "type": "mm:item",
-        "item": "minecraft:oak_log",
-        "count": 2
-      }
     }
   ],
   "outputs": [

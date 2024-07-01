@@ -85,7 +85,7 @@ public class MachineControllerBlock extends HorizontalDirectionalBlock implement
     public void onRemove(BlockState p_60515_, Level level, BlockPos pos, BlockState p_60518_, boolean p_60519_) {
         var be = level.getBlockEntity(pos);
         if (be instanceof MachineControllerBlockEntity mbe) {
-            mbe.invalidateRecipe(false);
+            mbe.invalidateProgress();
         }
     }
 }

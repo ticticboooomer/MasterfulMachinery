@@ -17,6 +17,7 @@ public record RecipeModel(
         RecipeOutputs outputs,
         List<SlotGridEntry> inputSlots,
         List<SlotGridEntry> outputSlots,
+        RecipeConditions conditions,
         JsonObject config
 ) {
     public static RecipeModel parse(JsonObject json, ResourceLocation id) {
@@ -24,7 +25,11 @@ public record RecipeModel(
         var ticks = json.get("ticks").getAsInt();
         var inputs = RecipeInputs.parse(json.getAsJsonArray("inputs"));
         var outputs = RecipeOutputs.parse(json.getAsJsonArray("outputs"));
-        return new RecipeModel(id, structrueId, ticks, inputs, outputs, new ArrayList<>(), new ArrayList<>(), json);
+
+        var conditions = ParserUtils.parseOrDefault(json, "conditions",
+                () -> new RecipeConditions(List.of()),
+                (j) -> RecipeConditions.parse(j.getAsJsonArray("conditions")));
+        return new RecipeModel(id, structrueId, ticks, inputs, outputs, new ArrayList<>(), new ArrayList<>(), conditions, json);
     }
 
     public String debugPath() {
@@ -32,6 +37,12 @@ public record RecipeModel(
     }
 
     public boolean canProcess(Level level, RecipeStateModel model, RecipeStorages storages) {
+        var canRun = conditions.canRun(level, model);
+        if (!canRun) {
+            model.setTickProgress(0);
+            model.setCanProcess(false);
+            return false;
+        }
         var canInput = inputs.canProcess(level, storages, model);
         var canOutput = outputs.canProcess(level, storages, model);
 

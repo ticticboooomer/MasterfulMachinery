@@ -42,6 +42,10 @@ public class Ref {
         public static final ResourceLocation SIMPLE_OUTPUT = id("output/simple");
     }
 
+    public static class RecipeConditions {
+        public static final ResourceLocation DIMENSION = id("dimension");
+    }
+
     public static class ExtraBlocks {
         public static final ResourceLocation CIRCUIT = id("circuit");
         public static final ResourceLocation GEARBOX = id("gearbox");

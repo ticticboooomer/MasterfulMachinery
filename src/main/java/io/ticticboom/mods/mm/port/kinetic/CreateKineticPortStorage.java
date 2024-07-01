@@ -19,6 +19,9 @@ public class CreateKineticPortStorage implements IPortStorage {
     private final UUID uid = UUID.randomUUID();
 
     @Getter
+    private boolean shouldStop = false;
+
+    @Getter
     private float speed = 0;
 
     public CreateKineticPortStorage(CreateKineticPortStorageModel model, INotifyChangeFunction changed) {
@@ -70,6 +73,10 @@ public class CreateKineticPortStorage implements IPortStorage {
             this.changed.call();
         }
         this.speed = speed;
+    }
+
+    public void stopNext() {
+        shouldStop = true;
     }
 
     public float getStress() {

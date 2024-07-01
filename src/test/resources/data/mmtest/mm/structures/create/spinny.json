@@ -8,7 +8,7 @@
       "   "
     ],
     [
-      "   ",
+      " R ",
       "PCD",
       "   "
     ]
@@ -24,7 +24,10 @@
       "block": "mm:spinny_port_output"
     },
     "L": {
-      "tag": "forge:sosigs"
+      "tag": "minecraft:logs"
+    },
+    "R": {
+      "block": "mm:coke_oven_item_input"
     }
   }
 }

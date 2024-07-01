@@ -95,6 +95,9 @@ public class CreateKineticGenPortBlockEntity extends GeneratingKineticBlockEntit
     @Override
     public void tick() {
         super.tick();
+        if (storage.isShouldStop()) {
+            storage.updateSpeed(0);
+        }
     }
 
     @Override

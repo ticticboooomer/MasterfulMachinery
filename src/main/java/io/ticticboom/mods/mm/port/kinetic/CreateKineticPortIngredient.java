@@ -49,6 +49,7 @@ public class CreateKineticPortIngredient implements IPortIngredient {
         var outputs = storages.getOutputStorages(CreateKineticPortStorage.class);
         for (CreateKineticPortStorage output : outputs) {
             output.updateSpeed(speed);
+            output.stopNext();
         }
     }
 

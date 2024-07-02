@@ -38,7 +38,8 @@ public class DataGenManager {
 
         generator.addProvider(true, new MMLootTableProvider(generator));
         generator.addProvider(true, new MMLangProvider(generator, "en_us"));
-        generator.addProvider(true, new MMBlockTagsProvider(generator));
+        generator.addProvider(true, new MMBlockTagsProvider(generator, efh));
+
         if (FMLEnvironment.dist != Dist.DEDICATED_SERVER) {
             generator.addProvider(true, new MMBlockstateProvider(generator, efh));
             generator.addProvider(true, new MMItemModelProvider(generator, efh));

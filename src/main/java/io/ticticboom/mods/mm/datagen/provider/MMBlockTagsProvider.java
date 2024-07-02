@@ -10,13 +10,14 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
 
 public class MMBlockTagsProvider extends TagsProvider<Block> {
 
-    public MMBlockTagsProvider(DataGenerator generator) {
-        super(generator, Registry.BLOCK, Ref.ID, null);
+    public MMBlockTagsProvider(DataGenerator generator, ExistingFileHelper efh) {
+        super(generator, Registry.BLOCK, Ref.ID, efh);
     }
 
     @Override

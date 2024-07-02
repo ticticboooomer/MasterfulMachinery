@@ -8,6 +8,8 @@ import io.ticticboom.mods.mm.compat.jei.ingredient.MMJeiIngredients;
 import io.ticticboom.mods.mm.compat.jei.ingredient.energy.EnergyIngredientHelper;
 import io.ticticboom.mods.mm.compat.jei.ingredient.energy.EnergyIngredientRenderer;
 import io.ticticboom.mods.mm.compat.jei.ingredient.energy.EnergyStack;
+import io.ticticboom.mods.mm.compat.jei.ingredient.mana.BotaniaManaIngredientHelper;
+import io.ticticboom.mods.mm.compat.jei.ingredient.mana.BotaniaManaIngredientRenderer;
 import io.ticticboom.mods.mm.compat.jei.ingredient.pncr.PneumaticAirIngredientHelper;
 import io.ticticboom.mods.mm.compat.jei.ingredient.pncr.PneumaticAirIngredientRender;
 import io.ticticboom.mods.mm.config.MMConfig;
@@ -73,5 +75,6 @@ public class MMJeiPlugin implements IModPlugin {
     public void registerIngredients(IModIngredientRegistration registration) {
         registration.register(MMJeiIngredients.ENERGY, ImmutableList.of(), new EnergyIngredientHelper(), new EnergyIngredientRenderer());
         registration.register(MMJeiIngredients.PNEUMATIC_AIR, ImmutableList.of(), new PneumaticAirIngredientHelper(), new PneumaticAirIngredientRender());
+        registration.register(MMJeiIngredients.BOTANIA_MANA, ImmutableList.of(), new BotaniaManaIngredientHelper(), new BotaniaManaIngredientRenderer());
     }
 }

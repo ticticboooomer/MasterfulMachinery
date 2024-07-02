@@ -13,6 +13,11 @@ public class MekanismChemicalConfigBuilderJS extends PortConfigBuilderJS {
         return this;
     }
 
+    public MekanismChemicalConfigBuilderJS capacity(long amount) {
+        this.amount = amount;
+        return this;
+    }
+
     @Override
     public IPortStorageModel build() {
         return new MekanismChemicalPortStorageModel(amount);

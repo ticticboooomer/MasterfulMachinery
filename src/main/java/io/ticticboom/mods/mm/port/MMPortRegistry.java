@@ -3,6 +3,7 @@ package io.ticticboom.mods.mm.port;
 import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.model.PortModel;
+import io.ticticboom.mods.mm.port.botania.mana.BotaniaManaPortType;
 import io.ticticboom.mods.mm.port.energy.EnergyPortType;
 import io.ticticboom.mods.mm.port.fluid.FluidPortType;
 import io.ticticboom.mods.mm.port.item.ItemPortType;
@@ -40,8 +41,11 @@ public class MMPortRegistry {
 
         if (ModList.get().isLoaded("pneumaticcraft")) {
             register(Ref.Ports.PNEUMATIC_AIR, new PneumaticAirPortType());
-            //register(Ref.Ports.PNEUMATIC_TAMPERATURE, );
         }
+
+//        if (ModList.get().isLoaded("botania")) {
+//            register(Ref.Ports.BOTANIA_MANA, new BotaniaManaPortType());
+//        }
     }
 
     public static PortType get(ResourceLocation id) {

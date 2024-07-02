@@ -221,6 +221,12 @@ dependencies {
     implementation fg.deobf("com.simibubi.create:create-${create_minecraft_version}:${create_version}:slim") { transitive = false }
     implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
     implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
+
+    implementation fg.deobf("vazkii.botania:Botania:${botania_version}")
+
+    runtimeOnly fg.deobf("curse.maven:patchouli-306770:4892162")
+    runtimeOnly fg.deobf("curse.maven:curios-309927:5367944")
+
 }
 
 // Example for how to get properties into the manifest for reading at runtime.

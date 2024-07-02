@@ -1,0 +1,29 @@
+{
+  "name": "Mana Ana",
+  "controllerIds": "mm:controller_a",
+  "layout": [
+    [
+      "   ",
+      " A ",
+      "   "
+    ],
+    [
+      "   ",
+      "PCD",
+      "   "
+    ]
+  ],
+  "key": {
+    "A": {
+      "block": "minecraft:glass"
+    },
+    "P": {
+      "portType": "mm:botania/mana",
+      "input": true
+    },
+    "D": {
+      "portType": "mm:botania/mana",
+      "input": false
+    }
+  }
+}

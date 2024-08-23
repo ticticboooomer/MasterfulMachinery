@@ -20,7 +20,7 @@ public class MMRepositorySource implements RepositorySource {
 
     @Override
     public void loadPacks(Consumer<Pack> consumer) {
-        var pack = Pack.create(type.getNameId(), type.nameComponent(), true, createPackSupplier(CONFIG_DIR), createPackInfo(), type.type, Pack.Position.TOP, false, PackSource.DEFAULT);
+        var pack = Pack.create(type.getNameId(), type.nameComponent(), true, createPackSupplier(CONFIG_DIR), createPackInfo(), type.type, Pack.Position.BOTTOM, false, PackSource.DEFAULT);
         consumer.accept(pack);
     }
 

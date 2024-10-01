@@ -46,7 +46,7 @@ public class EnergyPortScreen extends AbstractContainerScreen<EnergyPortMenu> {
         EnergyPortStorage storage = (EnergyPortStorage) be.getStorage();
         EnergyPortStorageModel storageModel = be.getStorageModel();
         var filledValue = (double)storage.getStoredEnergy() / (double)storageModel.capacity();
-        var filledHeight = (int)(filledValue * 78);
+        var filledHeight = (int)(Math.min(filledValue, 1) * 78);
         var start = 129 - filledHeight;
         gfx.blit(Ref.Textures.SLOT_PARTS, this.leftPos + 8, this.topPos + start, 90, 0, 160, filledHeight);
         if (WidgetUtils.isPointerWithinSized(mouseX, mouseY, this.leftPos + 7, this.topPos + 50, 162, 80)) {

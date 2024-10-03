@@ -36,7 +36,7 @@ public class MachineRecipeManager extends SimpleJsonResourceReloadListener {
     public static final Map<ResourceLocation, IRecipeOutputEntryParser> ENTRY_OUTPUT_PARSERS = new HashMap<>();
     public static final Map<ResourceLocation, IRecipeConditionParser> CONDITION_PARSERS = new HashMap<>();
 
-    private void init() {
+    public static void init() {
         CONDITION_PARSERS.clear();
         ENTRY_OUTPUT_PARSERS.clear();
         ENTRY_INGREDIENT_PARSERS.clear();
@@ -68,6 +68,11 @@ public class MachineRecipeManager extends SimpleJsonResourceReloadListener {
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> jsons, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
         profilerFiller.push("MM Machine Recipe Processes");
+        recieveRecipes(jsons);
+        profilerFiller.pop();
+    }
+
+    public static void recieveRecipes(Map<ResourceLocation, JsonElement> jsons) {
         RECIPES.clear();
         Ref.LCTX.reset("MM Machine Recipe Processes");
         try {
@@ -89,6 +94,5 @@ public class MachineRecipeManager extends SimpleJsonResourceReloadListener {
         } catch (Exception e) {
             Ref.LCTX.doThrow(e);
         }
-        profilerFiller.pop();
     }
 }

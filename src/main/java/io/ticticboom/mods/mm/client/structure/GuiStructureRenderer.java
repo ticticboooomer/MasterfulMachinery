@@ -1,5 +1,6 @@
 package io.ticticboom.mods.mm.client.structure;
 
+import io.ticticboom.mods.mm.structure.StructureManager;
 import io.ticticboom.mods.mm.structure.StructureModel;
 import net.minecraft.client.gui.GuiGraphics;
 
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GuiStructureRenderer {
+    public static boolean shouldEnsureValidated = false;
     private final StructureModel model;
     private List<PositionedCyclingBlockRenderer> parts;
     private final GuiStructureLayout guiLayout;
@@ -36,6 +38,10 @@ public class GuiStructureRenderer {
     }
 
     public void render(GuiGraphics gfx, int mouseX, int mouseY) {
+        if (shouldEnsureValidated) {
+            StructureManager.validateAllPieces();
+            shouldEnsureValidated = false;
+        }
         mouseTransform.run(mouseX, mouseY);
         for (PositionedCyclingBlockRenderer part : parts) {
             part.part.tick();

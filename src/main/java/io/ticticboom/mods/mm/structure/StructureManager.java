@@ -1,6 +1,7 @@
 package io.ticticboom.mods.mm.structure;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.compat.interop.MMInteropManager;
 import net.minecraft.resources.ResourceLocation;
@@ -37,6 +38,11 @@ public class StructureManager extends SimpleJsonResourceReloadListener {
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> jsons, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
         profilerFiller.push("MM Structures");
+        receiveStructures(jsons);
+        profilerFiller.pop();
+    }
+
+    public static void receiveStructures(Map<ResourceLocation, JsonElement> jsons) {
         STRUCTURES.clear();
         try {
             Ref.LCTX.reset("Structure Loading");
@@ -58,7 +64,6 @@ public class StructureManager extends SimpleJsonResourceReloadListener {
         } catch (Exception e) {
             Ref.LCTX.doThrow(e);
         }
-        profilerFiller.pop();
     }
 
 }

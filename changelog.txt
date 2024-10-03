@@ -1,6 +1,3 @@
 ## Change Log [VERSION_NAME]
 
-- Fixed create kinetic port invalid continuation issues.
-- Added recipe condition system
-- Added weather recipe condition
-- Added dimension recipe condition
+- Forced MM Generated resource packs to load at least priority

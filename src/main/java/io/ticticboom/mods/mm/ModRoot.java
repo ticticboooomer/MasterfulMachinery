@@ -18,7 +18,7 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 public class ModRoot {
 
     public ModRoot() {
-        MMConfigSetup.setup();
+//        MMConfigSetup.setup();
         MMPortRegistry.init();
         MMControllerRegistry.init();
         MMExtraBlockRegistry.init();

@@ -14,6 +14,8 @@ import java.util.concurrent.CompletableFuture;
 public class ServerMixin {
     @Inject(method = "reloadResources(Ljava/util/Collection;)Ljava/util/concurrent/CompletableFuture;", at = @At("RETURN"))
     private void reloadResources(Collection<String> coll, CallbackInfoReturnable<CompletableFuture<Void>> cir) {
-        StructureManager.validateAllPieces();
+        cir.getReturnValue().thenAcceptAsync(x -> {
+            StructureManager.validateAllPieces();
+        });
     }
 }

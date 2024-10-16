@@ -2,6 +2,7 @@ package io.ticticboom.mods.mm.structure.layout;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.client.structure.GuiStructureLayoutPiece;
 import io.ticticboom.mods.mm.piece.MMStructurePieceRegistry;
 import io.ticticboom.mods.mm.piece.StructurePieceSetupMetadata;
@@ -40,6 +41,9 @@ public class StructureLayoutPiece {
         StructurePieceSetupMetadata meta = new StructurePieceSetupMetadata(model.id());
         piece.validateSetup(meta);
         List<Block> blocks = piece.createBlocksSupplier().get();
+        if (blocks.isEmpty()){
+            Ref.LOG.error("MM ERROR: Render setup failed to validate for: " + this.valueId);
+        }
         for (StructurePieceModifier modifier : modifiers) {
             modifier.validateSetup(meta, blocks);
         }

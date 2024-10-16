@@ -19,6 +19,12 @@ public class Ref {
     public static final ResourceLocation SCANNER_CAP = id("scanner_selection");
     public static String NBT_STORAGE_KEY = "MMStorage";
 
+    public static final class Registry {
+        public static final ResourceLocation STRUCTURES = id("structures");
+        public static final ResourceLocation PORCESSES = id("processes");
+    }
+
+
     public static class Ports {
         public static final ResourceLocation ITEM = id("item");
         public static final ResourceLocation FLUID = id("fluid");

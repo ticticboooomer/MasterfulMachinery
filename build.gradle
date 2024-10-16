@@ -4,6 +4,7 @@ plugins {
     id 'maven-publish'
     id "me.shedaniel.unified-publishing" version "0.1.+"
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'org.spongepowered.mixin' version '0.7.+'
 }
 
 version = mod_version
@@ -197,7 +198,9 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.20.1-47.2.32'
+    minecraft 'net.minecraftforge:forge:1.20.1-47.3.7'
+
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
@@ -226,7 +229,6 @@ dependencies {
 
     runtimeOnly fg.deobf("curse.maven:patchouli-306770:4892162")
     runtimeOnly fg.deobf("curse.maven:curios-309927:5367944")
-
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
@@ -298,4 +300,12 @@ unifiedPublishing {
         }
 
     }
+}
+
+mixin {
+    add sourceSets.main, "mm.refmap.json"
+
+    config "mixins.mm.json"
+    debug.verbose = true
+    debug.export = true
 }

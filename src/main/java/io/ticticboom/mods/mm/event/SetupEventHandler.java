@@ -4,6 +4,7 @@ import io.ticticboom.mods.mm.controller.MMControllerRegistry;
 import io.ticticboom.mods.mm.datagen.PackEventHandler;
 import io.ticticboom.mods.mm.port.MMPortRegistry;
 import io.ticticboom.mods.mm.port.botania.mana.register.BotaniaManaPortBlockEntity;
+import io.ticticboom.mods.mm.recipe.MachineRecipeManager;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.setup.loader.ControllerLoader;
 import io.ticticboom.mods.mm.setup.loader.ExtraBlockLoader;
@@ -44,6 +45,7 @@ public class SetupEventHandler {
                 ResourceLocation type = port.getRegistryId();
                 MMPortRegistry.get(type).registerScreen(port);
             }
+            MachineRecipeManager.init();
         });
     }
 }

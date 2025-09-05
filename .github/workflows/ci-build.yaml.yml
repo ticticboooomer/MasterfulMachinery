@@ -1,7 +1,7 @@
 name: ci-build.yaml
 on:
   push:
-    branches: [ "v3/1.20.1" ]
+    branches: [ "v3/1.20.1", "v3/1.20.1-gh-actions" ]
   pull_request:
     branches: [ "v3/1.20.1" ]
 

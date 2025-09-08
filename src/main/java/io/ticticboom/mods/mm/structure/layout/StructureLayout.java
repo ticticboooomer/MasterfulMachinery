@@ -114,7 +114,12 @@ public class StructureLayout {
         var outputStorages = new ArrayList<IPortStorage>();
         for (PositionedLayoutPiece positionedPiece : positionedPieces) {
             BlockPos absolutePos = positionedPiece.findAbsolutePos(worldControllerPos);
-            var be = level.getBlockEntity(absolutePos);
+            //this works faster
+            var be = level.getExistingBlockEntity(absolutePos);
+            if(be == null) {
+                //just in case of chunk unload
+                be = level.getBlockEntity(absolutePos);
+            }
             if (be instanceof IPortBlockEntity pbe) {
                 if (pbe.isInput()) {
                     inputStorages.add(pbe.getStorage());

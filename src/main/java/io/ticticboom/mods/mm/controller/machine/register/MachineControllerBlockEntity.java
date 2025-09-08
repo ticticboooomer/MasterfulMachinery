@@ -176,9 +176,10 @@ public class MachineControllerBlockEntity extends BlockEntity implements IContro
 
     private void updateStructureValidationResults(boolean newIsFormed, StructureModel newStructure) {
         boolean structureChanged = false;
-
+        portStorages = null;
         if (structure != newStructure) {
             structure = newStructure;
+            portStorages = structure.getStorages(level, getBlockPos());
             structureChanged = true;
         }
 
@@ -259,7 +260,6 @@ public class MachineControllerBlockEntity extends BlockEntity implements IContro
         if (currentRecipe != null && !typical && portStorages != null) {
             currentRecipe.ditchRecipe(this.level, recipeState, portStorages);
         }
-        portStorages = null;
         recipeState = null;
         currentRecipe = null;
     }

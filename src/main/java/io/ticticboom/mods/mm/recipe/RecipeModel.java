@@ -43,10 +43,8 @@ public record RecipeModel(
             model.setCanProcess(false);
             return false;
         }
-        var canInput = inputs.canProcess(level, storages, model);
-        var canOutput = outputs.canProcess(level, storages, model);
-
-        boolean canProcessResult = canInput && canOutput;
+        //inputs first, if no inputs then quit early
+        boolean canProcessResult = inputs.canProcess(level, storages, model) && outputs.canProcess(level, storages, model);
         if (!canProcessResult) {
             model.setTickProgress(0);
         }

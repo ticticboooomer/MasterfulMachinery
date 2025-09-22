@@ -1,9 +1,10 @@
 ## Change Log [VERSION_NAME]
 
 Merged PRs:
-- ticticboooomer/MasterfulMachinery/pull/100
+- ticticboooomer/MasterfulMachinery/pull/103
 
-Resolved Issues: []
+Resolved Issues:
+- https://github.com/ticticboooomer/MasterfulMachinery/issues/102
 
 Summary:
-- only add jei tooltip at -2 position if more than 2 lines of tooltip exist (avoid out of bounds crashes)
+- perform validate & setup on all structures after syncing over network on player join.

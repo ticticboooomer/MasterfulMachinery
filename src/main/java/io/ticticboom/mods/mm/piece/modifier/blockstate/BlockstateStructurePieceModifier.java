@@ -1,7 +1,6 @@
 package io.ticticboom.mods.mm.piece.modifier.blockstate;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import io.ticticboom.mods.mm.Ref;
@@ -9,19 +8,16 @@ import io.ticticboom.mods.mm.piece.StructurePieceSetupMetadata;
 import io.ticticboom.mods.mm.piece.modifier.StructurePieceModifier;
 import io.ticticboom.mods.mm.structure.StructureModel;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class BlockstateStructurePieceModifier extends StructurePieceModifier {
 
@@ -54,13 +50,16 @@ public class BlockstateStructurePieceModifier extends StructurePieceModifier {
     @Override
     public boolean formed(Level level, BlockPos pos, StructureModel model, Rotation rotation) {
         BlockState blockState = level.getBlockState(pos);
-        int matched = 0;
-        for (Map.Entry<Property<?>, Comparable<?>> entry : blockState.getValues().entrySet()) {
-            if (doesPropValueMatch(entry, rotation)) {
-                matched++;
-            }
+        var matched = new AtomicInteger();
+        for (Property.Value<?> value : propValues.values()) {
+            var prop = blockState.getOptionalValue(value.property());
+            prop.ifPresent(v -> {
+                if (v.equals(value.value())) {
+                    matched.getAndIncrement();
+                }
+            });
         }
-        return matched >= properties.size();
+        return matched.get() >= properties.size();
     }
 
     @Override
@@ -95,39 +94,6 @@ public class BlockstateStructurePieceModifier extends StructurePieceModifier {
             json.addProperty("failedToSerializeBlockState", true);
         }
         return json;
-    }
-
-    private boolean doesPropValueMatch(Map.Entry<Property<?>, Comparable<?>> entry, Rotation rot) {
-        for (StructureBlockstateProperty property : properties) {
-            var nameMatch = entry.getKey().getName().equals(property.key());
-            if (!nameMatch) {
-                continue;
-            }
-            // make cleaner ffs
-            var propVal = propValues.get(property.key());
-            if (entry.getKey() instanceof DirectionProperty dp) {
-                Optional<Direction> value = dp.getValue(property.value().getAsString());
-                if (value.isPresent()) {
-                    var rotDir = rot.rotate(value.get());
-                    propVal = dp.value(rotDir);
-                }
-            }
-            if (entry.getKey().getName().toLowerCase(Locale.ROOT).equals("axis")) {
-                String axis = property.value().getAsString();
-                if (rot == Rotation.CLOCKWISE_90 || rot == Rotation.COUNTERCLOCKWISE_90) {
-                    if (axis.equals("z")) {
-                        propVal = ((EnumProperty<Direction.Axis>) entry.getKey()).value(Direction.Axis.X);
-                    } else if (axis.equals("x")) {
-                        propVal = ((EnumProperty<Direction.Axis>) entry.getKey()).value(Direction.Axis.Z);
-                    }
-                }
-            }
-            boolean valMatch = propVal.value().equals(entry.getValue());
-            if (valMatch) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private BlockState modifyBlockstate(BlockState state) {

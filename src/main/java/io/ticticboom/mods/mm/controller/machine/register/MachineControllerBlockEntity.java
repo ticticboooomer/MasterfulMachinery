@@ -78,10 +78,12 @@ public class MachineControllerBlockEntity extends BlockEntity implements IContro
     }
 
     private void runMachineTick() {
-        if(COMMON.asyncStructureValidation.get()) {
-            validateStructureAsync(getLevel());
-        } else {
-            validateStructure(getLevel());
+        if(!isFormed || level.getGameTime() % COMMON.structureValidationRate.get() == 0){
+            if (COMMON.asyncStructureValidation.get()) {
+                validateStructureAsync(getLevel());
+            } else {
+                validateStructure(getLevel());
+            }
         }
         if (isFormed) {
             runRecipe();
@@ -216,11 +218,7 @@ public class MachineControllerBlockEntity extends BlockEntity implements IContro
         }
 
         if (!canContinueRecipe()) {
-            for (RecipeModel recipe : MachineRecipeManager.RECIPES.values()) {
-                if (!recipe.structureId().equals(structure.id())) {
-                    continue;
-                }
-
+            for (RecipeModel recipe : MachineRecipeManager.getRecipesByStrucutreId(structure.id())) {
                 if (recipe.canProcess(level, recipeState, portStorages)) {
                     setChanged();
                     currentRecipe = recipe;

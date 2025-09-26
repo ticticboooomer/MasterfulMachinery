@@ -20,6 +20,7 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,7 @@ public class MachineRecipeManager extends SimpleJsonResourceReloadListener {
     }
 
     public static final Map<ResourceLocation, RecipeModel> RECIPES = new HashMap<>();
+    public static final Map<String, Map<ResourceLocation, RecipeModel>> RECIPES_BY_STRUCTURE = new HashMap<>();
     public static final Map<ResourceLocation, IRecipeIngredientEntryParser> ENTRY_INGREDIENT_PARSERS = new HashMap<>();
     public static final Map<ResourceLocation, IRecipeOutputEntryParser> ENTRY_OUTPUT_PARSERS = new HashMap<>();
     public static final Map<ResourceLocation, IRecipeConditionParser> CONDITION_PARSERS = new HashMap<>();
@@ -65,6 +67,13 @@ public class MachineRecipeManager extends SimpleJsonResourceReloadListener {
         return RECIPES.values().stream().filter(x -> structureIds.contains(x.structureId())).toList();
     }
 
+    public static Collection<RecipeModel> getRecipesByStrucutreId(ResourceLocation id) {
+        if(RECIPES_BY_STRUCTURE.containsKey(id.toString())) {
+            return RECIPES_BY_STRUCTURE.get(id.toString()).values();
+        }
+        return List.of();
+    }
+
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> jsons, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
         profilerFiller.push("MM Machine Recipe Processes");
@@ -93,6 +102,14 @@ public class MachineRecipeManager extends SimpleJsonResourceReloadListener {
             }
         } catch (Exception e) {
             Ref.LCTX.doThrow(e);
+        }
+        cacheRecipesByStructure();
+    }
+
+    private static void cacheRecipesByStructure() {
+        RECIPES_BY_STRUCTURE.clear();
+        for (RecipeModel model : RECIPES.values()) {
+            RECIPES_BY_STRUCTURE.computeIfAbsent(model.structureId().toString(), x -> new HashMap<>()).put(model.id(), model);
         }
     }
 }

@@ -26,6 +26,7 @@ public class BotaniaManaPortIngredient implements IPortIngredient {
 
     @Override
     public boolean canProcess(Level level, RecipeStorages storages, RecipeStateModel state) {
+        if(storages == null) return false;
         var inputs = storages.getInputStorages(BotaniaManaPortStorage.class);
         var remains = mana;
         for (BotaniaManaPortStorage input : inputs) {

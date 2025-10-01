@@ -27,6 +27,7 @@ public class EnergyPortIngredient implements IPortIngredient {
 
     @Override
     public boolean canProcess(Level level, RecipeStorages storages, RecipeStateModel state) {
+        if(storages == null) return false;
         var inputStorages = storages.getInputStorages(EnergyPortStorage.class);
         int remaining = amount;
         for (EnergyPortStorage storage : inputStorages) {

@@ -67,7 +67,7 @@ public class EnergyPortBlock extends Block implements IPortBlock, EntityBlock {
     @Override
     public void onNeighborChange(BlockState state, LevelReader level, BlockPos pos, BlockPos neighbor) {
         super.onNeighborChange(state, level, pos, neighbor);
-
+        if(level.isClientSide()) return;
         var thisBe = WorldUtil.getBlockEntity(pos, (ServerLevel) level);
         if (thisBe instanceof EnergyPortBlockEntity pbe) {
             pbe.neighborsChanged();

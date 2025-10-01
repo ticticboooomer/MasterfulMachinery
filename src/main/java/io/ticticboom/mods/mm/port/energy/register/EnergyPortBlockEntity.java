@@ -126,6 +126,8 @@ public class  EnergyPortBlockEntity extends AbstractPortBlockEntity {
     }
 
     public void tick() {
+        if(lastTick == level.getGameTime()) return;
+        lastTick = level.getGameTime();
         autoPushAddon.ifPresent(EnergyPortAutoPushFeature::tick);
     }
 

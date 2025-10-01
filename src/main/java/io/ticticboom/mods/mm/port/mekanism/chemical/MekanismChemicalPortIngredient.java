@@ -40,6 +40,7 @@ public abstract class MekanismChemicalPortIngredient<CHEMICAL extends Chemical<C
 
     @Override
     public boolean canProcess(Level level, RecipeStorages storages, RecipeStateModel state) {
+        if(storages == null) return false;
         var inputStorages = storages.getInputStorages(getStorageClass());
         long remaining = amount;
         for (MekanismChemicalPortStorage<CHEMICAL, STACK> storage : inputStorages) {

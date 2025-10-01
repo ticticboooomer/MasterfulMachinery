@@ -66,9 +66,10 @@ public class MachineControllerBlockEntity extends BlockEntity implements IContro
     private RecipeStorages portStorages = null;
     private boolean isFormed = false;
     private CompletableFuture<Void> structureValidationFuture = null;
+    private long lastTick = 0;
 
     public void tick() {
-        if (level.isClientSide()) {
+        if (level.isClientSide() || isRemoved()) {
             return;
         }
         runMachineTick();
@@ -78,13 +79,15 @@ public class MachineControllerBlockEntity extends BlockEntity implements IContro
     }
 
     private void runMachineTick() {
-        if(!isFormed || level.getGameTime() % COMMON.structureValidationRate.get() == 0){
+        //lastTick != level.getGameTime() if controller boosted by torcherino, we not making validation more than once per tick
+        if((!isFormed || level.getGameTime() % COMMON.structureValidationRate.get() == 0) && lastTick != level.getGameTime()) {
             if (COMMON.asyncStructureValidation.get()) {
                 validateStructureAsync(getLevel());
             } else {
                 validateStructure(getLevel());
             }
         }
+        lastTick = level.getGameTime();
         if (isFormed) {
             runRecipe();
         }
@@ -165,7 +168,9 @@ public class MachineControllerBlockEntity extends BlockEntity implements IContro
             // Check if current structure is still formed
             newIsFormed = currentStructure.formed(level, pos);
         }
-
+        if(!newIsFormed){
+            newStructure = null;
+        }
         // Update the main thread with results
         final boolean finalIsFormed = newIsFormed;
         final StructureModel finalStructure = newStructure;
@@ -191,7 +196,7 @@ public class MachineControllerBlockEntity extends BlockEntity implements IContro
 
         if (structureChanged) {
             setChanged();
-            
+            level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
             if (structure == null) {
                 invalidateProgress();
             } else if (newIsFormed && structureChanged) {
@@ -205,7 +210,8 @@ public class MachineControllerBlockEntity extends BlockEntity implements IContro
         if (currentRecipe == null) {
             return false;
         }
-        return currentRecipe.canProcess(level, recipeState, portStorages);
+        // Recipe can continue if it has inputs (already consumed) and is not finished yet
+        return !recipeState.isCanFinish();
     }
 
     private void runRecipe() {
@@ -217,11 +223,26 @@ public class MachineControllerBlockEntity extends BlockEntity implements IContro
             recipeState = new RecipeStateModel();
         }
 
+        // If recipe is finished and waiting for output space
+        if (recipeIsStuck()) {
+            // Try to output again
+            if (currentRecipe.outputs().canProcess(level, portStorages, recipeState)) {
+                currentRecipe.outputs().process(level, portStorages, recipeState);
+                invalidateRecipe(true);
+            }
+            // Otherwise, stay stuck and wait
+            return;
+        }
+
+        // If no current recipe or current recipe can't continue, find a new one
         if (!canContinueRecipe()) {
             for (RecipeModel recipe : MachineRecipeManager.getRecipesByStrucutreId(structure.id())) {
-                if (recipe.canProcess(level, recipeState, portStorages)) {
+                if (recipe.inputs().canProcess(level, portStorages, recipeState)) {
                     setChanged();
                     currentRecipe = recipe;
+                    // Consume inputs immediately when starting the recipe
+                    currentRecipe.inputs().process(level, portStorages, recipeState);
+                    recipeState.setCanProcess(true);
                     performRecipeTick();
                     return;
                 }
@@ -229,14 +250,34 @@ public class MachineControllerBlockEntity extends BlockEntity implements IContro
             invalidateRecipe(false);
             return;
         }
+        
+        // Continue processing current recipe
         performRecipeTick();
     }
 
+    private boolean recipeIsStuck() {
+        if (currentRecipe == null) {
+            return false;
+        }
+        // Recipe is stuck if it's finished but can't output
+        return recipeState.isCanFinish() && !currentRecipe.outputs().canProcess(level, portStorages, recipeState);
+    }
+
     private void performRecipeTick() {
-        currentRecipe.runTick(level, recipeState, portStorages);
-        if (recipeState.isCanFinish()) {
-            currentRecipe.process(level, recipeState, portStorages);
-            invalidateRecipe(true);
+        // Only tick the recipe (don't consume inputs again, they were consumed at start)
+        currentRecipe.outputs().processTick(level, portStorages, recipeState);
+        
+        recipeState.proceedTick();
+        recipeState.setTickPercentage(((double) recipeState.getTickProgress() / currentRecipe.ticks()) * 100);
+        
+        if (recipeState.getTickProgress() >= currentRecipe.ticks()) {
+            recipeState.setCanFinish(true);
+            // Check if we can output immediately
+            if (currentRecipe.outputs().canProcess(level, portStorages, recipeState)) {
+                currentRecipe.outputs().process(level, portStorages, recipeState);
+                invalidateRecipe(true);
+            }
+            // Otherwise, recipe stays finished and will be stuck until output space is available
         }
     }
 
@@ -302,13 +343,13 @@ public class MachineControllerBlockEntity extends BlockEntity implements IContro
             recipeState = null;
         }
         if (tag.contains("structureId")) {
-            ResourceLocation structureId = new ResourceLocation(tag.get("structureId").getAsString());
+            ResourceLocation structureId = ResourceLocation.tryParse(tag.get("structureId").getAsString());
             structure = StructureManager.STRUCTURES.get(structureId);
         } else {
             structure = null;
         }
         if (tag.contains("recipeId")) {
-            ResourceLocation recipeId = new ResourceLocation(tag.get("recipeId").getAsString());
+            ResourceLocation recipeId = ResourceLocation.tryParse(tag.get("recipeId").getAsString());
             currentRecipe = MachineRecipeManager.RECIPES.get(recipeId);
         } else {
             currentRecipe = null;

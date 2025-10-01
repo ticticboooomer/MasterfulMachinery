@@ -76,6 +76,8 @@ public class ItemPortBlockEntity extends AbstractPortBlockEntity {
     }
 
     public void tick() {
+        if(lastTick == level.getGameTime()) return;
+        lastTick = level.getGameTime();
         autoPushAddon.ifPresent(ItemPortAutoPushAddon::tick);
     }
 

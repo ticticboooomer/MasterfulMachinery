@@ -20,6 +20,7 @@ public class CreateKineticPortBlockEntity extends KineticBlockEntity implements 
     private final PortModel model;
     private final RegistryGroupHolder groupHolder;
     private final CreateKineticPortStorage storage;
+    private long lastTick = 0;
 
     public CreateKineticPortBlockEntity(PortModel model, RegistryGroupHolder groupHolder, BlockPos pos, BlockState state) {
         super(groupHolder.getBe().get(), pos, state);
@@ -61,6 +62,8 @@ public class CreateKineticPortBlockEntity extends KineticBlockEntity implements 
 
     @Override
     public void tick() {
+        if(lastTick == level.getGameTime()) return;
+        lastTick = level.getGameTime();
         super.tick();
         storage.updateSpeed(speed);
     }

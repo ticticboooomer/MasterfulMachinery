@@ -32,14 +32,20 @@ public class EnergyPortHandler extends EnergyStorage {
 
     @Override
     public int receiveEnergy(int maxReceive, boolean simulate) {
-        changed.call();
-        return super.receiveEnergy(maxReceive, simulate);
+        int result = super.receiveEnergy(maxReceive, simulate);
+        if (result > 0 && !simulate) {
+            changed.call();
+        }
+        return result;
     }
 
     @Override
     public int extractEnergy(int maxExtract, boolean simulate) {
-        changed.call();
-        return super.extractEnergy(maxExtract, simulate);
+        int result = super.extractEnergy(maxExtract, simulate);
+        if (result > 0 && !simulate) {
+            changed.call();
+        }
+        return result;
     }
 
 }

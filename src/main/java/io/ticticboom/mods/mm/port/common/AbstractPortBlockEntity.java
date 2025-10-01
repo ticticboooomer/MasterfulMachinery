@@ -16,6 +16,7 @@ import org.jetbrains.annotations.Nullable;
 
 public abstract class AbstractPortBlockEntity extends BlockEntity implements IPortBlockEntity, IPortPart {
 
+    protected long lastTick = 0;
     public AbstractPortBlockEntity(BlockEntityType<?> p_155228_, BlockPos p_155229_, BlockState p_155230_) {
         super(p_155228_, p_155229_, p_155230_);
     }

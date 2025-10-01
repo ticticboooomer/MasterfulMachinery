@@ -39,6 +39,7 @@ public class FluidPortIngredient implements IPortIngredient {
 
     @Override
     public boolean canProcess(Level level, RecipeStorages storages, RecipeStateModel state) {
+        if(storages == null) return false;
         var fluidStorages = storages.getInputStorages(FluidPortStorage.class);
         int remaining = amount;
         for (FluidPortStorage storage : fluidStorages) {

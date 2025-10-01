@@ -53,6 +53,7 @@ public class BotaniaManaPortBlockEntity extends BlockEntity implements ManaPool,
     private final WandHud wandHud = new WandHud(this);
     private final LazyOptional<WandHUD> wandHudCap = LazyOptional.of(() -> wandHud);
     private final LazyOptional<ManaReceiver> manaReceiverCap = LazyOptional.of(() -> this);
+    private long lastTick = 0;
 
     public BotaniaManaPortBlockEntity(PortModel model, RegistryGroupHolder groupHolder, BlockPos pos, BlockState state) {
         super(groupHolder.getBe().get(), pos, state);
@@ -73,7 +74,9 @@ public class BotaniaManaPortBlockEntity extends BlockEntity implements ManaPool,
     }
 
     public void tick() {
-         boolean inNetwork = ManaNetworkHandler.instance.isPoolIn(level, this);
+        if(lastTick == level.getGameTime()) return;
+        lastTick = level.getGameTime();
+        boolean inNetwork = ManaNetworkHandler.instance.isPoolIn(level, this);
         if (!inNetwork && !this.isRemoved()) {
             BotaniaAPI.instance().getManaNetworkInstance().fireManaNetworkEvent(this, ManaBlockType.POOL, ManaNetworkAction.ADD);
         }

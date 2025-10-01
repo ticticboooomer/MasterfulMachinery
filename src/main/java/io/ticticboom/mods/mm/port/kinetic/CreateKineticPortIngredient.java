@@ -25,6 +25,7 @@ public class CreateKineticPortIngredient implements IPortIngredient {
 
     @Override
     public boolean canProcess(Level level, RecipeStorages storages, RecipeStateModel state) {
+        if(storages == null) return false;
         var inputs = storages.getInputStorages(CreateKineticPortStorage.class);
         for (CreateKineticPortStorage input : inputs) {
             if (Math.abs(input.getSpeed()) >= Math.abs(speed)) {

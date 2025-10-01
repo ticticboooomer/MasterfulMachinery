@@ -98,6 +98,8 @@ public class FluidPortBlockEntity extends AbstractPortBlockEntity {
     }
 
     public void tick() {
+        if(lastTick == level.getGameTime()) return;
+        lastTick = level.getGameTime();
         autoPushAddon.ifPresent(FluidPortAutoPushFeature::tick);
     }
 

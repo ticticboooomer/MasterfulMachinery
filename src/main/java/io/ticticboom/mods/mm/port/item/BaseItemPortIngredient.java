@@ -24,6 +24,7 @@ public abstract class BaseItemPortIngredient implements IPortIngredient {
 
     @Override
     public boolean canProcess(Level level, RecipeStorages storages, RecipeStateModel state) {
+        if(storages == null) return false;
         List<ItemPortStorage> itemStorages = storages.getInputStorages(ItemPortStorage.class);
         int remaining = count;
         for (ItemPortStorage storage : itemStorages) {

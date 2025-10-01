@@ -8,7 +8,9 @@ import io.ticticboom.mods.mm.port.item.ItemPortStorage;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.util.BlockUtils;
 import io.ticticboom.mods.mm.util.PortUtils;
+import io.ticticboom.mods.mm.util.WorldUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -60,7 +62,7 @@ public class ItemPortBlock extends Block implements IPortBlock, EntityBlock {
 
     @Override
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean p_60519_) {
-        var be = level.getBlockEntity(pos);
+        var be = WorldUtil.getBlockEntity(pos, (ServerLevel) level);
         if (be instanceof ItemPortBlockEntity pbe) {
             var storage = (ItemPortStorage) pbe.getStorage();
             var handler = storage.getHandler();
@@ -83,7 +85,7 @@ public class ItemPortBlock extends Block implements IPortBlock, EntityBlock {
     public void onNeighborChange(BlockState state, LevelReader level, BlockPos pos, BlockPos neighbor) {
         super.onNeighborChange(state, level, pos, neighbor);
 
-        var thisBe = level.getBlockEntity(pos);
+        var thisBe = WorldUtil.getBlockEntity(pos, (ServerLevel) level);
         if (thisBe instanceof ItemPortBlockEntity pbe) {
             pbe.neighborsChanged();
         }

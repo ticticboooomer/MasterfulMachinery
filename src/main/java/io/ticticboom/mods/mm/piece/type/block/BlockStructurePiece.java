@@ -5,10 +5,12 @@ import io.ticticboom.mods.mm.piece.StructurePieceSetupMetadata;
 import io.ticticboom.mods.mm.piece.type.StructurePiece;
 import io.ticticboom.mods.mm.util.StructurePieceUtils;
 import io.ticticboom.mods.mm.structure.StructureModel;
+import io.ticticboom.mods.mm.util.WorldUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -40,7 +42,7 @@ public class BlockStructurePiece extends StructurePiece {
         if(block == null) {
             block = ForgeRegistries.BLOCKS.getValue(blockId);
         }
-        return level.getBlockState(pos).is(block);
+        return WorldUtil.getBlockState(pos, (ServerLevel) level).is(block);
     }
 
     @Override

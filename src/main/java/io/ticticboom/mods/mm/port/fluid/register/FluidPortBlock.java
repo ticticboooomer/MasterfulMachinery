@@ -11,7 +11,9 @@ import io.ticticboom.mods.mm.port.item.register.ItemPortBlockEntity;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.util.BlockUtils;
 import io.ticticboom.mods.mm.util.PortUtils;
+import io.ticticboom.mods.mm.util.WorldUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -72,7 +74,7 @@ public class FluidPortBlock extends Block implements IPortBlock, EntityBlock {
     }
 
     private IFluidHandler getHandler(Level level, BlockPos pos) {
-        BlockEntity blockEntity = level.getBlockEntity(pos);
+        BlockEntity blockEntity = WorldUtil.getBlockEntity(pos, (ServerLevel) level);
         if (blockEntity instanceof FluidPortBlockEntity pbe) {
             return ((FluidPortStorage) pbe.getStorage()).getWrappedHandler();
         }
@@ -92,7 +94,7 @@ public class FluidPortBlock extends Block implements IPortBlock, EntityBlock {
     public void onNeighborChange(BlockState state, LevelReader level, BlockPos pos, BlockPos neighbor) {
         super.onNeighborChange(state, level, pos, neighbor);
 
-        var thisBe = level.getBlockEntity(pos);
+        var thisBe = WorldUtil.getBlockEntity(pos, (ServerLevel) level);
         if (thisBe instanceof FluidPortBlockEntity pbe) {
             pbe.neighborsChanged();
         }

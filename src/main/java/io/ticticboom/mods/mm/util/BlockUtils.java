@@ -1,6 +1,7 @@
 package io.ticticboom.mods.mm.util;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
@@ -31,7 +32,7 @@ public class BlockUtils {
             preScreenCheck = () -> true;
         }
         if (!level.isClientSide() && hand == InteractionHand.MAIN_HAND) {
-            var be = level.getBlockEntity(pos);
+            var be = WorldUtil.getBlockEntity(pos, (ServerLevel) level);
             if (clz.isAssignableFrom(be.getClass())) {
                 if (preScreenCheck.get()) {
                     NetworkHooks.openScreen((ServerPlayer) player, (T) be, pos);

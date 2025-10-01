@@ -7,7 +7,9 @@ import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.piece.StructurePieceSetupMetadata;
 import io.ticticboom.mods.mm.piece.modifier.StructurePieceModifier;
 import io.ticticboom.mods.mm.structure.StructureModel;
+import io.ticticboom.mods.mm.util.WorldUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Rotation;
@@ -49,7 +51,7 @@ public class BlockstateStructurePieceModifier extends StructurePieceModifier {
 
     @Override
     public boolean formed(Level level, BlockPos pos, StructureModel model, Rotation rotation) {
-        BlockState blockState = level.getBlockState(pos);
+        BlockState blockState = WorldUtil.getBlockState(pos, (ServerLevel) level);
         var matched = new AtomicInteger();
         for (Property.Value<?> value : propValues.values()) {
             var prop = blockState.getOptionalValue(value.property());

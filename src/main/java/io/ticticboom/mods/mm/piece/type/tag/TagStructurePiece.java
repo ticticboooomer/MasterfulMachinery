@@ -5,10 +5,12 @@ import com.google.gson.JsonObject;
 import io.ticticboom.mods.mm.piece.StructurePieceSetupMetadata;
 import io.ticticboom.mods.mm.piece.type.StructurePiece;
 import io.ticticboom.mods.mm.structure.StructureModel;
+import io.ticticboom.mods.mm.util.WorldUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.Level;
@@ -41,7 +43,7 @@ public class TagStructurePiece extends StructurePiece {
 
     @Override
     public boolean formed(Level level, BlockPos pos, StructureModel model) {
-        var state = level.getBlockState(pos);
+        var state = WorldUtil.getBlockState(pos, (ServerLevel) level);
         return state.is(tagKey);
     }
 

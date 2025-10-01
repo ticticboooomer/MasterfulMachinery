@@ -38,9 +38,9 @@ import static io.ticticboom.mods.mm.config.MMConfigSetup.COMMON;
 public class MachineControllerBlockEntity extends BlockEntity implements IControllerBlockEntity, IControllerPart {
     private static final Executor STRUCTURE_VALIDATION_EXECUTOR = Executors.newFixedThreadPool(
         Math.max(2, Runtime.getRuntime().availableProcessors() / 2), r -> {
-        Thread thread = new Thread(r, "MM-StructureValidation");
+        Thread thread = new Thread(r, "MM-Structures");
         thread.setDaemon(true);
-        thread.setPriority(Thread.NORM_PRIORITY - 1); // Lower priority than main thread
+        thread.setPriority(Thread.MAX_PRIORITY - 1);
         return thread;
     });
     

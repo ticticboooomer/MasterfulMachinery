@@ -6,10 +6,12 @@ import io.ticticboom.mods.mm.port.IPortBlockEntity;
 import io.ticticboom.mods.mm.port.IPortStorage;
 import io.ticticboom.mods.mm.recipe.RecipeStorages;
 import io.ticticboom.mods.mm.structure.StructureModel;
+import io.ticticboom.mods.mm.util.WorldUtil;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Rotation;
 
@@ -118,7 +120,7 @@ public class StructureLayout {
             var be = level.getExistingBlockEntity(absolutePos);
             if(be == null) {
                 //just in case of chunk unload
-                be = level.getBlockEntity(absolutePos);
+                be = WorldUtil.getBlockEntity(absolutePos, (ServerLevel) level);
             }
             if (be instanceof IPortBlockEntity pbe) {
                 if (pbe.isInput()) {

@@ -10,10 +10,12 @@ import io.ticticboom.mods.mm.port.IPortBlockEntity;
 import io.ticticboom.mods.mm.port.MMPortRegistry;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.structure.StructureModel;
+import io.ticticboom.mods.mm.util.WorldUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -53,7 +55,7 @@ public class PortTypeStructurePiece extends StructurePiece {
 
     @Override
     public boolean formed(Level level, BlockPos pos, StructureModel model) {
-        var be = level.getBlockEntity(pos);
+        var be = WorldUtil.getBlockEntity(pos, (ServerLevel) level);
         if (be instanceof IPortBlockEntity pbe) {
             if (!pbe.getModel().type().equals(portTypeId)) {
                 return false;
@@ -86,7 +88,7 @@ public class PortTypeStructurePiece extends StructurePiece {
 
     @Override
     public JsonObject debugFound(Level level, BlockPos pos, StructureModel model, JsonObject json) {
-        var foundBlock = level.getBlockState(pos).getBlock();
+        var foundBlock = WorldUtil.getBlockState(pos, (ServerLevel) level).getBlock();
         var foundBlockId = ForgeRegistries.BLOCKS.getKey(foundBlock);
         json.addProperty("block", foundBlockId.toString());
         if (foundBlock instanceof IPortBlock pb) {

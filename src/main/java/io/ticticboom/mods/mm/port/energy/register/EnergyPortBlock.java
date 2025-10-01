@@ -8,8 +8,10 @@ import io.ticticboom.mods.mm.port.item.register.ItemPortBlockEntity;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.util.BlockUtils;
 import io.ticticboom.mods.mm.util.PortUtils;
+import io.ticticboom.mods.mm.util.WorldUtil;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -66,7 +68,7 @@ public class EnergyPortBlock extends Block implements IPortBlock, EntityBlock {
     public void onNeighborChange(BlockState state, LevelReader level, BlockPos pos, BlockPos neighbor) {
         super.onNeighborChange(state, level, pos, neighbor);
 
-        var thisBe = level.getBlockEntity(pos);
+        var thisBe = WorldUtil.getBlockEntity(pos, (ServerLevel) level);
         if (thisBe instanceof EnergyPortBlockEntity pbe) {
             pbe.neighborsChanged();
         }

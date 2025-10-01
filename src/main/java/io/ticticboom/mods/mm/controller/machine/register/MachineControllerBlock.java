@@ -8,8 +8,10 @@ import io.ticticboom.mods.mm.model.ControllerModel;
 import io.ticticboom.mods.mm.port.kinetic.register.CreateKineticGenPortBlockEntity;
 import io.ticticboom.mods.mm.setup.RegistryGroupHolder;
 import io.ticticboom.mods.mm.util.BlockUtils;
+import io.ticticboom.mods.mm.util.WorldUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -83,7 +85,7 @@ public class MachineControllerBlock extends HorizontalDirectionalBlock implement
 
     @Override
     public void onRemove(BlockState p_60515_, Level level, BlockPos pos, BlockState p_60518_, boolean p_60519_) {
-        var be = level.getBlockEntity(pos);
+        var be = WorldUtil.getBlockEntity(pos, (ServerLevel) level);
         if (be instanceof MachineControllerBlockEntity mbe) {
             mbe.invalidateProgress();
         }

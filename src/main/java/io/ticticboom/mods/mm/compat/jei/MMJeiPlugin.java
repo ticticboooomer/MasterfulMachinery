@@ -5,6 +5,8 @@ import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.compat.jei.category.MMRecipeCategory;
 import io.ticticboom.mods.mm.compat.jei.category.MMStructureCategory;
 import io.ticticboom.mods.mm.compat.jei.ingredient.MMJeiIngredients;
+import io.ticticboom.mods.mm.compat.jei.ingredient.create.CreateRotationIngredientHelper;
+import io.ticticboom.mods.mm.compat.jei.ingredient.create.CreateRotationIngredientRenderer;
 import io.ticticboom.mods.mm.compat.jei.ingredient.energy.EnergyIngredientHelper;
 import io.ticticboom.mods.mm.compat.jei.ingredient.energy.EnergyIngredientRenderer;
 import io.ticticboom.mods.mm.compat.jei.ingredient.mana.BotaniaManaIngredientHelper;
@@ -73,6 +75,7 @@ public class MMJeiPlugin implements IModPlugin {
         registration.register(MMJeiIngredients.ENERGY, ImmutableList.of(), new EnergyIngredientHelper(), new EnergyIngredientRenderer());
         registration.register(MMJeiIngredients.PNEUMATIC_AIR, ImmutableList.of(), new PneumaticAirIngredientHelper(), new PneumaticAirIngredientRender());
         registration.register(MMJeiIngredients.BOTANIA_MANA, ImmutableList.of(), new BotaniaManaIngredientHelper(), new BotaniaManaIngredientRenderer());
+        registration.register(MMJeiIngredients.CREATE_ROTATION, ImmutableList.of(), new CreateRotationIngredientHelper(), new CreateRotationIngredientRenderer());
     }
 
     @Override

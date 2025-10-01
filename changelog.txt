@@ -1,10 +1,10 @@
 ## Change Log [VERSION_NAME]
 
 Merged PRs:
-- ticticboooomer/MasterfulMachinery/pull/103
+- ticticboooomer/MasterfulMachinery/pull/104
 
 Resolved Issues:
-- https://github.com/ticticboooomer/MasterfulMachinery/issues/102
+[]
 
 Summary:
-- perform validate & setup on all structures after syncing over network on player join.
+- Implement create rotation JEI ingredient type with renderer to fix create-rotation recipe ingredients not showing as anything in JEI

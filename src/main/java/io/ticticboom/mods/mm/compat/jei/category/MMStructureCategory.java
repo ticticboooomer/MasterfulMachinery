@@ -44,6 +44,11 @@ public class MMStructureCategory implements IRecipeCategory<StructureModel> {
     }
 
     @Override
+    public ResourceLocation getRegistryName(StructureModel recipe) {
+        return recipe.id();
+    }
+
+    @Override
     public Component getTitle() {
         return Component.literal("MM Structure");
     }

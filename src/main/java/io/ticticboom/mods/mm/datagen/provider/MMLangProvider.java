@@ -30,5 +30,6 @@ public class MMLangProvider extends LanguageProvider {
         }
 
         this.add(MMRegisters.BLUEPRINT.get(), "Blueprint");
+        this.add(MMRegisters.STRUCTURE_PROJECTOR.get(), "Structure Projector");
     }
 }

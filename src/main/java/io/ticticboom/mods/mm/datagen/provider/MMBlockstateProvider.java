@@ -40,6 +40,7 @@ public class MMBlockstateProvider extends BlockStateProvider {
                 eb.generateModel(this);
             }
         }
+        directionalState(MMRegisters.STRUCTURE_PROJECTOR.get(), new ModelFile.UncheckedModelFile(Ref.id("block/structure_projector")));
     }
 
     public BlockModelBuilder dynamicBlockNorthOverlay(ResourceLocation loc, ResourceLocation baseTexture, ResourceLocation overlayTexture) {

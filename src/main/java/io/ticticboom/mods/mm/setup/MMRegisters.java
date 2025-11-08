@@ -4,6 +4,7 @@ import io.ticticboom.mods.mm.Ref;
 import io.ticticboom.mods.mm.debug.tool.DebugToolItem;
 import io.ticticboom.mods.mm.item.BlueprintItem;
 import io.ticticboom.mods.mm.structure.StructureManager;
+import io.ticticboom.mods.mm.structure.projector.StructureProjectorBlock;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.inventory.MenuType;
@@ -22,6 +23,8 @@ public class MMRegisters {
 
     public static final RegistryObject<BlueprintItem> BLUEPRINT = ITEMS.register("blueprint", BlueprintItem::new);
     public static final RegistryObject<Item> DEBUG_TOOL = ITEMS.register("debug_tool", DebugToolItem::new);
+    public static final RegistryObject<Block> STRUCTURE_PROJECTOR = BLOCKS.register("structure_projector", StructureProjectorBlock::new);
+    public static final RegistryObject<Item> STRUCTURE_PROJECTOR_ITEM = ITEMS.register("structure_projector_item", () -> new BlockItem(STRUCTURE_PROJECTOR.get(), new Item.Properties()));
 
     public static final RegistryObject<CreativeModeTab> MM_TAB = TABS.register("mm", () -> CreativeModeTab.builder().title(Component.translatable("tab.mm.main"))
             .icon(() -> BLUEPRINT.get().getDefaultInstance())

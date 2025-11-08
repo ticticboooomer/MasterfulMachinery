@@ -1,11 +1,8 @@
 ## Change Log [VERSION_NAME]
 
-Merged PRs:
-- ticticboooomer/MasterfulMachinery/pull/106
+Merged PRs: []
 
-Resolved Issues:
--
+Resolved Issues: []
 
 Summary:
-- Add preview_features to common config
-- Add blueprint screen WIP (preview_feature behind config default: false)
+- Only open preview blueprint screen when right-clicking blueprint item.

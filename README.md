@@ -1,9 +1,15 @@
-<p align="center"><img src="./.idea/panel.png" alt="Masterful Machinery Logo"/></p>
+
 
 ## Discontinued
 This project is discontinued by me. The licence remains MIT so feel free to use this codebase as defined within the [LICENCE](/LICENCE).
 
 I (Tic Tic Boom) will not be continuing to contribute to the project.
+
+## Thank you
+
+Thank you to everyobdy to contributed, played & enjoyed this mod. Reaching ~1.8 million downloads before removal in 2025.
+
+<p align="center"><img src="./.idea/panel.png" alt="Masterful Machinery Logo"/></p>
 
 ### What is Masterful Machinery?
 
